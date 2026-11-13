@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cài Đặt Hệ Thống & Cấu Hình Salon | The Gentleman Barber Club</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+    rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            barber: {
+              gold: '#e5a93c',
+              'gold-light': '#f3c267',
+              'gold-dark': '#b87c19',
+              dark: '#0b0f17',
+              surface: '#121824',
+              card: '#182030',
+              border: '#243046'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Font Awesome 6 Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-primary: #0b0f17;
+      --bg-secondary: #121824;
+      --bg-card: #182030;
+      --border-color: #243046;
+      --accent-gold: #e5a93c;
+      --accent-gold-glow: rgba(229, 169, 60, 0.25);
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-primary);
+      color: #f8fafc;
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .vintage-font {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .barber-pole-badge {
+      background: repeating-linear-gradient(-45deg,
+          #dc2626,
+          #dc2626 8px,
+          #ffffff 8px,
+          #ffffff 16px,
+          #2563eb 16px,
+          #2563eb 24px,
+          #ffffff 24px,
+          #ffffff 32px);
+      background-size: 200% 200%;
+      animation: barberPoleAnim 4s linear infinite;
+    }
+
+    @keyframes barberPoleAnim {
+      0% {
+        background-position: 0 0;
+      }
+
+      100% {
+        background-position: 45px 0;
+      }
+    }
+
+    .barber-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .barber-card:hover {
+      border-color: rgba(229, 169, 60, 0.45);
+      box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.5);
+    }
+
+    .barber-card-glow {
+      background: linear-gradient(145deg, #192233 0%, #131a28 100%);
+      border: 1px solid rgba(229, 169, 60, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .barber-card-glow::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+    }
+
+    .modal-backdrop {
+      background-color: rgba(7, 10, 16, 0.85);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-item-active {
+      background: linear-gradient(90deg, rgba(229, 169, 60, 0.22) 0%, rgba(229, 169, 60, 0.05) 100%);
+      border-left: 3px solid #e5a93c;
+      color: #fff;
+    }
+
+    .settings-tab-active {
+      background: rgba(229, 169, 60, 0.15);
+      color: #e5a93c;
+      border-color: #e5a93c;
+      font-weight: 700;
+    }
+  </style>
+</head>
+
+<body class="flex bg-barber-dark text-slate-100 antialiased selection:bg-amber-500 selection:text-slate-950">
+
+  <!-- ==================== SIDEBAR ==================== -->
+  <aside id="mainSidebar"
+    class="fixed inset-y-0 left-0 z-50 w-64 bg-barber-surface border-r border-barber-border flex flex-col justify-between transition-transform duration-300 md:static md:translate-x-0 -translate-x-full">
+    <div>
+      <!-- Brand Logo / Barber Pole Header -->
+      <div class="h-20 flex items-center px-6 border-b border-barber-border gap-3.5 relative overflow-hidden">
+        <div class="w-1.5 h-12 rounded-full barber-pole-badge"></div>
+        <div>
+          <h1 class="text-lg font-black tracking-wider text-amber-400 vintage-font leading-tight">ROYAL BARBER</h1>
+          <p class="text-[10px] tracking-widest text-slate-400 font-semibold uppercase">Salon & Grooming POS</p>
+        </div>
+      </div>
+
+      <!-- Branch Selection Badge -->
+      <div class="px-5 py-3">
+        <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <i class="fas fa-store text-amber-400 text-xs"></i>
+            <div>
+              <p class="text-[11px] font-bold text-white">Chi nhánh 01 (Flagship)</p>
+              <p class="text-[10px] text-slate-400">88 Phố Cổ, Hoàn Kiếm, HN</p>
+            </div>
+          </div>
+          <span class="w-2 h-2 rounded-full bg-emerald-400" title="Trực tuyến"></span>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="px-3 py-2 space-y-1 text-sm font-medium">
+        <!-- Tổng quan -->
+        <a href="index.html#overview"
+          class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <div class="flex items-center gap-3">
+            <i class="fas fa-chart-pie text-base"></i>
+            <span>Tổng quan Salon</span>
+          </div>
+        </a>
+
+        <!-- Lịch đặt hẹn -->
+        <a href="appointments.html"
+          class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <div class="flex items-center gap-3">
+            <i class="far fa-calendar-check text-base"></i>
+            <span>Lịch đặt hẹn</span>
+          </div>
+          <span class="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">48</span>
+        </a>
+
+        <!-- Sơ đồ ghế cắt -->
+        <a href="stations.html"
+          class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <div class="flex items-center gap-3">
+            <i class="fas fa-chair text-base"></i>
+            <span>Sơ đồ ghế cắt</span>
+          </div>
+          <span class="text-[11px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-semibold">6/8
+            bận</span>
+        </a>
+
+        <!-- Đội ngũ Barber -->
+        <a href="barbers.html"
+          class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <div class="flex items-center gap-3">
+            <i class="fas fa-scissors text-base"></i>
+            <span>Đội ngũ Barber</span>
+          </div>
+          <span class="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">8</span>
+        </a>
+
+        <!-- Bảng giá & Dịch vụ -->
+        <a href="services.html"
+          class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <div class="flex items-center gap-3">
+            <i class="fas fa-list-check text-base"></i>
+            <span>Bảng giá & Dịch vụ</span>
+          </div>
+          <span class="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">18</span>
+        </a>
+
+        <!-- Quản lý Người dùng & Khách VIP -->
+        <a href="users.html"
+          class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <div class="flex items-center gap-3">
+            <i class="fas fa-users-gear text-base"></i>
+            <span>Quản lý Người dùng</span>
+          </div>
+          <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400 font-bold">CRM</span>
+        </a>
+
+        <!-- Kho sáp & Mỹ phẩm -->
+        <a href="inventory.html"
+          class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <div class="flex items-center gap-3">
+            <i class="fas fa-box-open text-base"></i>
+            <span>Kho sáp & Mỹ phẩm</span>
+          </div>
+          <span
+            class="text-xs px-1.5 py-0.5 rounded-full bg-red-500/20 text-red-400 border border-red-500/30 font-bold">!
+            3</span>
+        </a>
+
+        <!-- Báo cáo doanh thu -->
+        <a href="reports.html"
+          class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <i class="fas fa-file-invoice-dollar text-base"></i>
+          <span>Báo cáo doanh thu</span>
+        </a>
+
+        <!-- ACTIVE: CÀI ĐẶT HỆ THỐNG -->
+        <a href="settings.html" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl nav-item-active text-white">
+          <i class="fas fa-cog text-base"></i>
+          <span>Cài đặt hệ thống</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- User Profile Footer -->
+    <div class="p-4 border-t border-barber-border">
+      <div class="flex items-center justify-between p-2 rounded-xl bg-slate-900/60 border border-slate-800">
+        <div class="flex items-center gap-3">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"
+              alt="Master Hoàng" class="w-10 h-10 rounded-full object-cover border border-amber-500/40">
+            <span
+              class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-slate-900"></span>
+          </div>
+          <div>
+            <h4 class="text-xs font-bold text-white leading-tight">Master Hoàng</h4>
+            <p class="text-[10px] text-amber-400/90 font-medium">Quản lý Cửa Hàng</p>
+          </div>
+        </div>
+        <button title="Đăng xuất" class="text-slate-400 hover:text-red-400 text-sm p-1.5 transition">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ==================== MAIN CONTENT WRAPPER ==================== -->
+  <div class="flex-1 flex flex-col h-screen overflow-hidden">
+
+    <!-- TOP HEADER -->
+    <header
+      class="h-20 bg-barber-surface border-b border-barber-border px-6 flex items-center justify-between shrink-0">
+      <div class="flex items-center gap-4">
+        <button id="sidebarToggle" class="md:hidden text-slate-400 hover:text-white p-2 text-lg">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <div>
+          <div class="flex items-center gap-2.5">
+            <h2 class="text-lg md:text-xl font-extrabold text-white">Cài Đặt Chung & Cấu Hình Salon</h2>
+            <span
+              class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+              <i class="fas fa-sliders mr-1 text-[10px]"></i> Hệ Thống POS Quản Trị
+            </span>
+          </div>
+          <div class="flex items-center gap-3 text-xs text-slate-400 mt-0.5">
+            <span id="liveDate" class="font-medium text-slate-300">--</span>
+            <span class="text-slate-600">&bull;</span>
+            <span id="liveClock"
+              class="font-mono text-amber-400 font-bold text-xs bg-slate-900 px-2 py-0.5 rounded border border-slate-800">--:--:--</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="flex items-center gap-3">
+        <button onclick="restoreDefaults()"
+          class="hidden sm:inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs border border-slate-700 transition">
+          <i class="fas fa-rotate-left"></i>
+          <span>Khôi Phục Mặc Định</span>
+        </button>
+        <button onclick="saveAllSettings()"
+          class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs shadow-lg shadow-amber-500/20 transition transform active:scale-95">
+          <i class="fas fa-save"></i>
+          <span>Lưu Cấu Hình</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- MAIN SCROLLABLE CONTENT -->
+    <main class="flex-1 overflow-y-auto p-6 space-y-6">
+
+      <!-- ==================== 1. SETTINGS NAVIGATION TABS ==================== -->
+      <section class="barber-card p-2 flex items-center gap-2 overflow-x-auto text-xs">
+        <button onclick="switchTab('brand', this)"
+          class="settings-nav-btn settings-tab-active px-4 py-2 rounded-xl border border-transparent whitespace-nowrap transition flex items-center gap-2">
+          <i class="fas fa-store"></i>
+          <span>1. Thương Hiệu & Salon</span>
+        </button>
+        <button onclick="switchTab('booking', this)"
+          class="settings-nav-btn text-slate-400 hover:text-white px-4 py-2 rounded-xl border border-transparent hover:bg-slate-800/60 whitespace-nowrap transition flex items-center gap-2">
+          <i class="far fa-calendar-check"></i>
+          <span>2. Lịch Hẹn & Ghế Cắt</span>
+        </button>
+        <button onclick="switchTab('payment', this)"
+          class="settings-nav-btn text-slate-400 hover:text-white px-4 py-2 rounded-xl border border-transparent hover:bg-slate-800/60 whitespace-nowrap transition flex items-center gap-2">
+          <i class="fas fa-qrcode"></i>
+          <span>3. Thanh Toán & VietQR</span>
+        </button>
+        <button onclick="switchTab('printer', this)"
+          class="settings-nav-btn text-slate-400 hover:text-white px-4 py-2 rounded-xl border border-transparent hover:bg-slate-800/60 whitespace-nowrap transition flex items-center gap-2">
+          <i class="fas fa-print"></i>
+          <span>4. Máy In Hóa Đơn K80</span>
+        </button>
+        <button onclick="switchTab('security', this)"
+          class="settings-nav-btn text-slate-400 hover:text-white px-4 py-2 rounded-xl border border-transparent hover:bg-slate-800/60 whitespace-nowrap transition flex items-center gap-2">
+          <i class="fas fa-shield-halved"></i>
+          <span>5. Sao Lưu & Bảo Mật</span>
+        </button>
+      </section>
+
+      <!-- ==================== TAB 1: THƯƠNG HIỆU & SALON PROFILE ==================== -->
+      <section id="tabBrand" class="settings-tab-pane space-y-6">
+        <div class="barber-card p-6">
+          <div class="flex items-center justify-between pb-4 mb-4 border-b border-barber-border">
+            <div>
+              <h3 class="text-base font-extrabold text-white flex items-center gap-2">
+                <i class="fas fa-store text-amber-400"></i>
+                Hồ Sơ Thương Hiệu & Thông Tin Chi Nhánh
+              </h3>
+              <p class="text-xs text-slate-400">Thông tin xuất hiện trên tiêu đề hóa đơn in nhiệt và tin nhắn gửi tới
+                khách hàng</p>
+            </div>
+            <span class="text-xs text-amber-400 font-mono font-bold">Flagship Store</span>
+          </div>
+
+          <form id="brandForm" class="space-y-4 text-xs">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-slate-300 font-semibold mb-1">Tên Salon / Quán Barber *</label>
+                <input type="text" id="setSalonName" value="The Gentleman Barber Club"
+                  class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-bold focus:outline-none focus:border-amber-500">
+              </div>
+              <div>
+                <label class="block text-slate-300 font-semibold mb-1">Slogan thương hiệu</label>
+                <input type="text" id="setSlogan" value="Nghệ thuật tóc quý ông & Thư giãn thượng lưu"
+                  class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-300 focus:outline-none focus:border-amber-500">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-slate-300 font-semibold mb-1">Địa chỉ chi nhánh *</label>
+              <input type="text" id="setAddress" value="Số 88 Phố Cổ, P. Hàng Bạc, Q. Hoàn Kiếm, Hà Nội"
+                class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-slate-300 font-semibold mb-1">Hotline đặt lịch *</label>
+                <input type="text" id="setHotline" value="1900 8888 &bull; 0908 888 999"
+                  class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono focus:outline-none focus:border-amber-500">
+              </div>
+              <div>
+                <label class="block text-slate-300 font-semibold mb-1">Email liên hệ salon</label>
+                <input type="email" id="setEmail" value="contact@gentlemanbarber.vn"
+                  class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+              </div>
+              <div>
+                <label class="block text-slate-300 font-semibold mb-1">Mã số thuế doanh nghiệp</label>
+                <input type="text" id="setTaxCode" value="0109886868"
+                  class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono focus:outline-none focus:border-amber-500">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-slate-300 font-semibold mb-1">Giờ mở cửa đón khách</label>
+                <input type="time" id="setOpenTime" value="08:30"
+                  class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono focus:outline-none focus:border-amber-500">
+              </div>
+              <div>
+                <label class="block text-slate-300 font-semibold mb-1">Giờ đóng cửa salon</label>
+                <input type="time" id="setCloseTime" value="21:00"
+                  class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono focus:outline-none focus:border-amber-500">
+              </div>
+              <div>
+                <label class="block text-slate-300 font-semibold mb-1">Ngày làm việc</label>
+                <input type="text" id="setWorkDays" value="Tất cả các ngày trong tuần (T2 - CN)"
+                  class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
+                <label class="block text-slate-300 font-semibold mb-1"><i class="fas fa-wifi text-amber-400 mr-1"></i>
+                  Tên mạng Wifi khách</label>
+                <input type="text" id="setWifiName" value="GentlemanBarber_Guest"
+                  class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-white font-mono">
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
+                <label class="block text-slate-300 font-semibold mb-1"><i class="fas fa-key text-amber-400 mr-1"></i>
+                  Mật khẩu Wifi</label>
+                <input type="text" id="setWifiPass" value="gentleman6868"
+                  class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-amber-400 font-mono font-bold">
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ==================== TAB 2: QUY ĐỊNH ĐẶT LỊCH & GHẾ CẮT ==================== -->
+      <section id="tabBooking" class="settings-tab-pane hidden space-y-6">
+        <div class="barber-card p-6">
+          <div class="flex items-center justify-between pb-4 mb-4 border-b border-barber-border">
+            <div>
+              <h3 class="text-base font-extrabold text-white flex items-center gap-2">
+                <i class="far fa-calendar-check text-amber-400"></i>
+                Quy Định Khung Giờ Đặt Lịch & Điều Phối Ghế Cắt
+              </h3>
+              <p class="text-xs text-slate-400">Thiết lập thời gian ca phục vụ, nhắc lịch SMS và chu kỳ khử trùng UV</p>
+            </div>
+          </div>
+
+          <div class="space-y-4 text-xs">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-slate-300 font-semibold mb-1">Thời lượng chuẩn mỗi ca hẹn</label>
+                <select id="setSlotDuration"
+                  class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white">
+                  <option value="30">30 Phút / ca</option>
+                  <option value="45" selected>45 Phút / ca (Chuẩn Salon)</option>
+                  <option value="60">60 Phút / ca</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-slate-300 font-semibold mb-1">Thời gian cho phép hủy lịch trước</label>
+                <select id="setCancelBuffer"
+                  class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white">
+                  <option value="1">Trước 1 tiếng</option>
+                  <option value="2" selected>Trước 2 tiếng</option>
+                  <option value="4">Trước 4 tiếng</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-slate-300 font-semibold mb-1">Chu kỳ khử trùng UV ghế</label>
+                <select id="setUvDuration"
+                  class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white">
+                  <option value="3">3 Phút</option>
+                  <option value="5" selected>5 Phút (Khuyến nghị y tế)</option>
+                  <option value="10">10 Phút</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="divide-y divide-slate-800 pt-2">
+              <div class="py-3 flex items-center justify-between">
+                <div>
+                  <div class="font-bold text-white">Tự động bật chu kỳ tiệt trùng UV khi khách rời ghế</div>
+                  <div class="text-slate-400 text-[11px]">Đèn cực tím UVC tự động kích hoạt đếm ngược 5 phút bảo vệ
+                    khách tiếp theo.</div>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" id="toggleAutoUv" checked class="sr-only peer">
+                  <div
+                    class="w-11 h-6 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500">
+                  </div>
+                </label>
+              </div>
+
+              <div class="py-3 flex items-center justify-between">
+                <div>
+                  <div class="font-bold text-white">Nhắc lịch tự động qua Zalo ZNS / SMS trước 60 phút</div>
+                  <div class="text-slate-400 text-[11px]">Gửi thông báo mã lịch hẹn, tên thợ phục vụ và link chỉ đường
+                    Google Maps.</div>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" id="toggleSmsReminder" checked class="sr-only peer">
+                  <div
+                    class="w-11 h-6 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500">
+                  </div>
+                </label>
+              </div>
+
+              <div class="py-3 flex items-center justify-between">
+                <div>
+                  <div class="font-bold text-white">Ưu tiên xếp phòng VIP cho khách hạng Diamond</div>
+                  <div class="text-slate-400 text-[11px]">Khách thẻ Diamond tự động được chỉ định vào Ghế 01 Master và
+                    phục vụ nước uống cao cấp.</div>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" id="toggleVipPriority" checked class="sr-only peer">
+                  <div
+                    class="w-11 h-6 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500">
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== TAB 3: THANH TOÁN & VIETQR ==================== -->
+      <section id="tabPayment" class="settings-tab-pane hidden space-y-6">
+        <div class="barber-card p-6">
+          <div class="flex items-center justify-between pb-4 mb-4 border-b border-barber-border">
+            <div>
+              <h3 class="text-base font-extrabold text-white flex items-center gap-2">
+                <i class="fas fa-qrcode text-amber-400"></i>
+                Cấu Hình Tài Khoản Ngân Hàng & Mã Động VietQR
+              </h3>
+              <p class="text-xs text-slate-400">Mã QR động sẽ tự động điền đúng số tiền và mã hóa đơn trên màn hình
+                thanh toán</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
+            <div class="md:col-span-2 space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-slate-300 font-semibold mb-1">Ngân hàng thụ hưởng *</label>
+                  <select id="setBankName"
+                    class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white">
+                    <option value="Vietcombank" selected>Vietcombank (VCB)</option>
+                    <option value="Techcombank">Techcombank (TCB)</option>
+                    <option value="MBBank">MB Bank (Quân Đội)</option>
+                    <option value="ACB">ACB (Á Châu)</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-slate-300 font-semibold mb-1">Số tài khoản nhận tiền *</label>
+                  <input type="text" id="setBankAccount" value="8888 6868 9999"
+                    class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-amber-400 font-mono font-bold">
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-slate-300 font-semibold mb-1">Tên chủ tài khoản (In hoa không dấu) *</label>
+                <input type="text" id="setAccountHolder" value="CONG TY TNHH THE GENTLEMAN BARBER"
+                  class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono uppercase font-bold">
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-slate-300 font-semibold mb-1">Cú pháp nội dung chuyển khoản</label>
+                  <input type="text" id="setTransferPrefix" value="TGB [MA_HOA_DON]"
+                    class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-300 font-mono">
+                </div>
+                <div>
+                  <label class="block text-slate-300 font-semibold mb-1">Cấu hình thuế VAT (%)</label>
+                  <select id="setVatRate"
+                    class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white">
+                    <option value="0">Không tính thuế VAT (0%)</option>
+                    <option value="8" selected>Thuế GTGT ưu đãi (8%)</option>
+                    <option value="10">Thuế GTGT tiêu chuẩn (10%)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- VietQR Preview Card -->
+            <div
+              class="barber-card p-4 bg-slate-900/90 border border-slate-700 text-center flex flex-col justify-between items-center">
+              <span class="text-[11px] font-bold text-amber-400 uppercase tracking-wider mb-2">Mẫu VietQR Hiển Thị Tại
+                Quầy</span>
+              <div class="w-36 h-36 bg-white p-2 rounded-xl flex items-center justify-center shadow-md">
+                <img
+                  src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=2|99|0908888999|THE%20GENTLEMAN%20BARBER|contact@barber.vn|0|0|180000"
+                  alt="VietQR Demo" class="w-full h-full object-contain">
+              </div>
+              <p class="text-[10px] text-slate-400 mt-2">Mã tự động sinh kèm số tiền cho từng lượt thanh toán</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== TAB 4: MÁY IN HÓA ĐƠN K80 ==================== -->
+      <section id="tabPrinter" class="settings-tab-pane hidden space-y-6">
+        <div class="barber-card p-6">
+          <div class="flex items-center justify-between pb-4 mb-4 border-b border-barber-border">
+            <div>
+              <h3 class="text-base font-extrabold text-white flex items-center gap-2">
+                <i class="fas fa-print text-amber-400"></i>
+                Cấu Hình Máy In Nhiệt & Mẫu Hóa Đơn Khổ K80
+              </h3>
+              <p class="text-xs text-slate-400">Tùy biến nội dung in trên giấy in nhiệt khổ 80mm hoặc máy in A5</p>
+            </div>
+            <button onclick="testPrint()"
+              class="px-3.5 py-1.5 rounded-lg bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs font-bold hover:bg-amber-500/30 transition">
+              <i class="fas fa-vial mr-1"></i> In Thử Mẫu Test
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
+            <div class="md:col-span-2 space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-slate-300 font-semibold mb-1">Khổ giấy in hóa đơn</label>
+                  <select id="setPrinterPaper"
+                    class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white">
+                    <option value="k80" selected>Giấy in nhiệt K80 (Khổ chuẩn 80mm)</option>
+                    <option value="k58">Giấy in nhiệt K58 (Khổ nhỏ 58mm)</option>
+                    <option value="a5">Khổ giấy A5 (In laser)</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-slate-300 font-semibold mb-1">Cổng kết nối máy in</label>
+                  <select id="setPrinterPort"
+                    class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white">
+                    <option value="usb" selected>Cổng USB (Trực tiếp)</option>
+                    <option value="lan">Mạng LAN / WiFi (IP Máy in: 192.168.1.200)</option>
+                    <option value="bluetooth">Bluetooth không dây</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-slate-300 font-semibold mb-1">Lời chào trên đầu hóa đơn (Header Note)</label>
+                <input type="text" id="setInvoiceHeader" value="*** CHÀO MỪNG QUÝ ÔNG ĐẾN VỚI ROYAL BARBER ***"
+                  class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-200">
+              </div>
+
+              <div>
+                <label class="block text-slate-300 font-semibold mb-1">Lời cảm ơn ở chân hóa đơn (Footer Note)</label>
+                <textarea id="setInvoiceFooter" rows="2"
+                  class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-200">Cảm ơn quý khách đã tin tưởng trải nghiệm dịch vụ! Rất hân hạnh được phục vụ quý ông lần tiếp theo.</textarea>
+              </div>
+
+              <div class="pt-2">
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="checkbox" id="toggleAutoPrintOnFinish" checked
+                    class="w-4 h-4 rounded text-amber-500 focus:ring-amber-400 bg-slate-900 border-slate-700">
+                  <span class="text-slate-300 font-medium">Tự động bật lệnh in khi thợ nhấn "Hoàn Tất Ca Cắt"</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Receipt Layout Simulator -->
+            <div class="p-4 rounded-xl bg-white text-slate-900 font-mono text-[11px] shadow-lg leading-relaxed">
+              <div class="text-center font-bold text-xs pb-1 border-b border-dashed border-slate-400">
+                THE GENTLEMAN BARBER<br>
+                <span class="text-[9px] font-normal">88 Phố Cổ, Hoàn Kiếm, HN</span>
+              </div>
+              <div class="py-2 border-b border-dashed border-slate-400 text-[10px]">
+                HĐ: INV-8801 &bull; 11/11/2026<br>
+                Khách: Trần Tuấn Anh (VIP)<br>
+                Thợ: Master Hoàng
+              </div>
+              <div class="py-2 border-b border-dashed border-slate-400 text-[10px]">
+                <div class="flex justify-between">
+                  <span>Combo Đế Vương:</span>
+                  <span>280.000</span>
+                </div>
+                <div class="flex justify-between">
+                  <span>Sáp Reuzel Pink:</span>
+                  <span>380.000</span>
+                </div>
+              </div>
+              <div class="pt-2 flex justify-between font-bold text-xs">
+                <span>TỔNG CỘNG:</span>
+                <span>660.000 ₫</span>
+              </div>
+              <div class="text-center text-[9px] pt-3 text-slate-600">
+                Wifi: GentlemanBarber_Guest<br>
+                Pass: gentleman6868
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== TAB 5: SAO LƯU & BẢO MẬT ==================== -->
+      <section id="tabSecurity" class="settings-tab-pane hidden space-y-6">
+        <div class="barber-card p-6">
+          <div class="flex items-center justify-between pb-4 mb-4 border-b border-barber-border">
+            <div>
+              <h3 class="text-base font-extrabold text-white flex items-center gap-2">
+                <i class="fas fa-shield-halved text-amber-400"></i>
+                Sao Lưu Dữ Liệu & Thiết Lập Bảo Mật
+              </h3>
+              <p class="text-xs text-slate-400">Xuất file dự phòng toàn bộ dữ liệu khách hàng, hóa đơn và cấu hình hệ
+                thống</p>
+            </div>
+            <span class="text-xs text-emerald-400 font-mono font-bold"><i class="fas fa-circle-check mr-1"></i> An
+              toàn</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+            <!-- Data Backup -->
+            <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-3">
+              <div class="flex items-center gap-2 font-bold text-white text-sm">
+                <i class="fas fa-database text-amber-400"></i>
+                Sao Lưu Dữ Liệu Hệ Thống
+              </div>
+              <p class="text-slate-400">Tải về toàn bộ cơ sở dữ liệu gồm 8 thợ, 18 dịch vụ, 24 mặt hàng kho và danh sách
+                khách VIP dưới dạng file JSON.</p>
+              <button onclick="downloadBackup()"
+                class="w-full py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition flex items-center justify-center gap-2 shadow-md shadow-amber-500/20">
+                <i class="fas fa-download"></i> Tải Về File Sao Lưu (.JSON)
+              </button>
+            </div>
+
+            <!-- Password Change -->
+            <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-3">
+              <div class="flex items-center gap-2 font-bold text-white text-sm">
+                <i class="fas fa-lock text-purple-400"></i>
+                Đổi Mật Khẩu Quản Lý (Master)
+              </div>
+              <div>
+                <label class="block text-slate-400 mb-1">Mật khẩu mới</label>
+                <input type="password" id="newPassword" placeholder="Nhập mật khẩu mới..."
+                  class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-white">
+              </div>
+              <button onclick="updatePassword()"
+                class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold transition">
+                Cập Nhật Mật Khẩu
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ==================== TOAST NOTIFICATIONS ==================== -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 space-y-2 max-w-sm pointer-events-auto"></div>
+
+  <!-- ==================== LOGIC JAVASCRIPT ==================== -->
+  <script>
+    // --- 1. CLOCK ---
+    function initClock() {
+      const clockEl = document.getElementById('liveClock');
+      const dateEl = document.getElementById('liveDate');
+      const update = () => {
+        const now = new Date();
+        const days = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
+        if (clockEl) clockEl.textContent = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+        if (dateEl) dateEl.textContent = `${days[now.getDay()]}, ${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()}`;
+      };
+      update();
+      setInterval(update, 1000);
+    }
+
+    // --- 2. TAB SWITCHER ---
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.settings-nav-btn').forEach(b => {
+        b.classList.remove('settings-tab-active');
+        b.classList.add('text-slate-400');
+      });
+      btn.classList.add('settings-tab-active');
+      btn.classList.remove('text-slate-400');
+
+      document.querySelectorAll('.settings-tab-pane').forEach(pane => {
+        pane.classList.add('hidden');
+      });
+
+      if (tabId === 'brand') document.getElementById('tabBrand').classList.remove('hidden');
+      else if (tabId === 'booking') document.getElementById('tabBooking').classList.remove('hidden');
+      else if (tabId === 'payment') document.getElementById('tabPayment').classList.remove('hidden');
+      else if (tabId === 'printer') document.getElementById('tabPrinter').classList.remove('hidden');
+      else if (tabId === 'security') document.getElementById('tabSecurity').classList.remove('hidden');
+    }
+
+    // --- 3. SETTINGS SAVE & RESTORE ---
+    function saveAllSettings() {
+      const salonName = document.getElementById('setSalonName').value;
+      const hotline = document.getElementById('setHotline').value;
+      const bankAccount = document.getElementById('setBankAccount').value;
+
+      showToast(`Đã lưu thành công cấu hình hệ thống cho "${salonName}"!`, 'success');
+    }
+
+    function restoreDefaults() {
+      if (confirm('Bạn có chắc muốn khôi phục toàn bộ cài đặt về trạng thái xuất xưởng ban đầu?')) {
+        showToast('Đã khôi phục cài đặt mặc định thành công!', 'info');
+      }
+    }
+
+    function testPrint() {
+      showToast('Đã gửi lệnh in thử nghiệm thành công tới máy in nhiệt K80!', 'success');
+    }
+
+    function downloadBackup() {
+      const backupData = {
+        app: "The Gentleman Barber POS",
+        version: "2.5.0",
+        exportDate: new Date().toISOString(),
+        branch: "Flagship Chi Nhánh 01 (88 Phố Cổ)",
+        status: "OK",
+        totalTables: 8,
+        totalBarbers: 8,
+        totalServices: 18,
+        totalProducts: 24
+      };
+
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backupData, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `GentlemanBarber_FullBackup_${new Date().toISOString().slice(0, 10)}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+
+      showToast('Đã tải xuống file sao lưu hệ thống toàn diện thành công!', 'success');
+    }
+
+    function updatePassword() {
+      const pass = document.getElementById('newPassword').value;
+      if (!pass || pass.length < 6) {
+        showToast('Mật khẩu mới phải có ít nhất 6 ký tự!', 'danger');
+        return;
+      }
+      document.getElementById('newPassword').value = '';
+      showToast('Đã cập nhật mật khẩu quản trị Master thành công!', 'success');
+    }
+
+    // --- 4. TOAST NOTIFICATIONS ---
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toastContainer');
+      if (!container) return;
+
+      const toast = document.createElement('div');
+      const icon = type === 'success' ? 'fa-check-circle text-emerald-400' : (type === 'danger' ? 'fa-exclamation-circle text-red-400' : 'fa-info-circle text-amber-400');
+
+      toast.className = `flex items-center gap-3 px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 shadow-2xl text-slate-200 text-xs transform transition-all duration-300 translate-y-3 opacity-0`;
+      toast.innerHTML = `
+        <i class="fas ${icon} text-base"></i>
+        <div class="flex-1 font-medium">${message}</div>
+        <button onclick="this.parentElement.remove()" class="text-slate-400 hover:text-white ml-2"><i class="fas fa-times"></i></button>
+      `;
+
+      container.appendChild(toast);
+      setTimeout(() => toast.classList.remove('translate-y-3', 'opacity-0'), 10);
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-3');
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+
+    // --- 5. INITIALIZATION ---
+    document.addEventListener('DOMContentLoaded', () => {
+      initClock();
+
+      // Sync sidebar badges with shared localStorage
+      const syncSidebarBadges = () => {
+        try {
+          const b = JSON.parse(localStorage.getItem('gb_sync_barbers_v1') || 'null');
+          if (Array.isArray(b)) document.querySelectorAll('aside a[href="barbers.html"] span.ml-auto').forEach(el => { el.textContent = b.length; });
+          const a = JSON.parse(localStorage.getItem('gb_sync_appointments_v1') || 'null');
+          if (Array.isArray(a)) document.querySelectorAll('aside a[href="appointments.html"] span.ml-auto').forEach(el => { el.textContent = a.length; });
+        } catch (e) {}
+      };
+      syncSidebarBadges();
+      window.addEventListener('storage', syncSidebarBadges);
+
+      // Mobile sidebar toggle
+      const sidebarToggle = document.getElementById('sidebarToggle');
+      const sidebar = document.getElementById('mainSidebar');
+      if (sidebarToggle && sidebar) {
+        sidebarToggle.addEventListener('click', () => {
+          sidebar.classList.toggle('-translate-x-full');
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>

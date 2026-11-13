@@ -1,0 +1,523 @@
+/* ==========================================================================
+   THE GENTLEMAN BARBER - ADMIN DASHBOARD STYLESHEET
+   Phụ trách: Trần Văn Thắng
+   Aesthetic: Premium Vintage & Modern Dark Barbershop
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&display=swap');
+
+:root {
+  --bg-primary: #0b0f17;
+  --bg-secondary: #121824;
+  --bg-card: #182030;
+  --bg-card-hover: #1e283c;
+  --border-color: #243046;
+  --border-subtle: #1c2637;
+
+  --accent-gold: #e5a93c;
+  --accent-gold-light: #f3c267;
+  --accent-gold-dark: #b87c19;
+  --accent-gold-glow: rgba(229, 169, 60, 0.25);
+
+  --barber-red: #e11d48;
+  --barber-blue: #2563eb;
+  --barber-white: #f8fafc;
+
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #0ea5e9;
+}
+
+.admin-root {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+.admin-root ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.admin-root ::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+.admin-root ::-webkit-scrollbar-thumb {
+  background: #2a374f;
+  border-radius: 9999px;
+}
+
+.admin-root ::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-gold);
+}
+
+/* Barber Pole Animated Pillar Effect */
+.barber-pole-badge {
+  background: repeating-linear-gradient(-45deg,
+      #dc2626,
+      #dc2626 8px,
+      #ffffff 8px,
+      #ffffff 16px,
+      #2563eb 16px,
+      #2563eb 24px,
+      #ffffff 24px,
+      #ffffff 32px);
+  background-size: 200% 200%;
+  animation: barberPoleAnim 4s linear infinite;
+}
+
+@keyframes barberPoleAnim {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 45px 0;
+  }
+}
+
+/* Neon & Gold Glow Accents */
+.gold-glow {
+  box-shadow: 0 0 20px var(--accent-gold-glow);
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #fcd34d 0%, #e5a93c 50%, #b45309 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.vintage-font {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Card Styling */
+.barber-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.barber-card:hover {
+  border-color: rgba(229, 169, 60, 0.45);
+  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.5);
+}
+
+.barber-card-glow {
+  background: linear-gradient(145deg, #192233 0%, #131a28 100%);
+  border: 1px solid rgba(229, 169, 60, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.barber-card-glow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+}
+
+/* Chair Status Badges */
+.chair-active {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05));
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.chair-busy {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.05));
+  border: 1px solid rgba(245, 158, 11, 0.45);
+}
+
+.chair-empty {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(37, 99, 235, 0.04));
+  border: 1px solid rgba(37, 99, 235, 0.35);
+}
+
+.chair-cleaning {
+  background: linear-gradient(135deg, rgba(100, 116, 139, 0.15), rgba(100, 116, 139, 0.05));
+  border: 1px solid rgba(100, 116, 139, 0.35);
+}
+
+/* Station Cards */
+.chair-card-busy {
+  background: linear-gradient(145deg, #1f1a14 0%, #171d2b 100%);
+  border: 1.5px solid rgba(245, 158, 11, 0.45);
+  box-shadow: 0 4px 20px -4px rgba(245, 158, 11, 0.15);
+}
+
+.chair-card-ready {
+  background: linear-gradient(145deg, #11231d 0%, #141c2a 100%);
+  border: 1.5px solid rgba(16, 185, 129, 0.45);
+  box-shadow: 0 4px 20px -4px rgba(16, 185, 129, 0.12);
+}
+
+.chair-card-cleaning {
+  background: linear-gradient(145deg, #25162a 0%, #161b29 100%);
+  border: 1.5px solid rgba(168, 85, 247, 0.45);
+  box-shadow: 0 4px 20px -4px rgba(168, 85, 247, 0.15);
+}
+
+.chair-card-reserved {
+  background: linear-gradient(145deg, #122133 0%, #131a27 100%);
+  border: 1.5px solid rgba(56, 189, 248, 0.45);
+  box-shadow: 0 4px 20px -4px rgba(56, 189, 248, 0.12);
+}
+
+/* Floor Plan Architectural Styling */
+.floor-grid-pattern {
+  background-color: #0d121c;
+  background-image: radial-gradient(rgba(229, 169, 60, 0.12) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+.floor-zone {
+  border: 2px dashed rgba(229, 169, 60, 0.2);
+  border-radius: 18px;
+  position: relative;
+}
+
+.floor-zone-title {
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  padding: 2px 10px;
+  background: #121824;
+  border: 1px solid rgba(229, 169, 60, 0.3);
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #e5a93c;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* Pulse animation for live indicators */
+.pulse-emerald {
+  animation: pulseGreen 2s infinite;
+}
+
+@keyframes pulseGreen {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+.pulse-amber {
+  animation: pulseYellow 2s infinite;
+}
+
+@keyframes pulseYellow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(245, 158, 11, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+  }
+}
+
+.pulse-rose, .pulse-red {
+  animation: pulseRose 2s infinite;
+}
+
+@keyframes pulseRose {
+  0% {
+    box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(244, 63, 94, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(244, 63, 94, 0);
+  }
+}
+
+.pulse-purple {
+  animation: pulsePurple 2s infinite;
+}
+
+@keyframes pulsePurple {
+  0% {
+    box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(168, 85, 247, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(168, 85, 247, 0);
+  }
+}
+
+/* Modal Backdrop */
+.modal-backdrop {
+  background: rgba(8, 11, 18, 0.82);
+  backdrop-filter: blur(8px);
+}
+
+/* Custom Table Row Transition */
+.table-row-hover {
+  transition: background-color 0.15s ease;
+}
+
+.table-row-hover:hover {
+  background-color: rgba(30, 41, 59, 0.7);
+}
+
+/* Active Nav Item */
+.nav-item-active {
+  background: linear-gradient(90deg, rgba(229, 169, 60, 0.18) 0%, rgba(229, 169, 60, 0.04) 100%);
+  border-left: 3px solid var(--accent-gold);
+  color: #fff !important;
+}
+
+.nav-item-active i {
+  color: var(--accent-gold) !important;
+}
+
+/* Status Badges */
+.badge-serving {
+  background-color: rgba(245, 158, 11, 0.18);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.badge-waiting {
+  background-color: rgba(14, 165, 233, 0.18);
+  color: #38bdf8;
+  border: 1px solid rgba(14, 165, 233, 0.4);
+}
+
+.badge-done {
+  background-color: rgba(16, 185, 129, 0.18);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.badge-cancelled {
+  background-color: rgba(239, 68, 68, 0.18);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+/* Barber Specific Status Badges */
+.badge-barber-available {
+  background-color: rgba(16, 185, 129, 0.16);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+.badge-barber-busy {
+  background-color: rgba(245, 158, 11, 0.16);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+}
+
+.badge-barber-break {
+  background-color: rgba(244, 63, 94, 0.16);
+  color: #fb7185;
+  border: 1px solid rgba(244, 63, 94, 0.35);
+}
+
+.badge-barber-off {
+  background-color: rgba(100, 116, 139, 0.16);
+  color: #94a3b8;
+  border: 1px solid rgba(100, 116, 139, 0.35);
+}
+
+/* Barber Level Badges */
+.level-badge-master {
+  background: linear-gradient(135deg, rgba(229, 169, 60, 0.25) 0%, rgba(184, 124, 25, 0.15) 100%);
+  color: #fcd34d;
+  border: 1px solid rgba(229, 169, 60, 0.5);
+  box-shadow: 0 0 10px rgba(229, 169, 60, 0.2);
+}
+
+.level-badge-senior {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.2) 0%, rgba(37, 99, 235, 0.12) 100%);
+  color: #7dd3fc;
+  border: 1px solid rgba(56, 189, 248, 0.45);
+}
+
+.level-badge-junior {
+  background: linear-gradient(135deg, rgba(217, 119, 6, 0.18) 0%, rgba(180, 83, 9, 0.1) 100%);
+  color: #f59e0b;
+  border: 1px solid rgba(217, 119, 6, 0.4);
+}
+
+.level-badge-spa {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.2) 0%, rgba(139, 92, 246, 0.12) 100%);
+  color: #c084fc;
+  border: 1px solid rgba(168, 85, 247, 0.45);
+}
+
+/* Appointment slot styling */
+.slot-serving {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.22), rgba(217, 119, 6, 0.15));
+  border: 1px solid rgba(245, 158, 11, 0.5);
+  color: #fef3c7;
+}
+
+.slot-waiting {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.2), rgba(2, 132, 199, 0.12));
+  border: 1px solid rgba(14, 165, 233, 0.45);
+  color: #e0f2fe;
+}
+
+.slot-done {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(5, 150, 105, 0.08));
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #d1fae5;
+}
+
+.slot-cancelled {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px dashed rgba(239, 68, 68, 0.35);
+  color: #fca5a5;
+}
+
+.slot-empty {
+  background: rgba(30, 41, 59, 0.35);
+  border: 1px dashed rgba(51, 65, 85, 0.6);
+  transition: all 0.2s;
+}
+
+.slot-empty:hover {
+  background: rgba(229, 169, 60, 0.12);
+  border-color: rgba(229, 169, 60, 0.45);
+}
+
+/* Service Category Badges */
+.cat-badge-combo {
+  background: rgba(229, 169, 60, 0.15);
+  color: #fcd34d;
+  border: 1px solid rgba(229, 169, 60, 0.4);
+}
+
+.cat-badge-perm {
+  background: rgba(56, 189, 248, 0.15);
+  color: #7dd3fc;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+}
+
+.cat-badge-color {
+  background: rgba(236, 72, 153, 0.15);
+  color: #f472b6;
+  border: 1px solid rgba(236, 72, 153, 0.4);
+}
+
+.cat-badge-shave {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.cat-badge-spa {
+  background: rgba(168, 85, 247, 0.15);
+  color: #c084fc;
+  border: 1px solid rgba(168, 85, 247, 0.4);
+}
+
+/* VIP Tiers Badges */
+.vip-badge-diamond {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.25) 0%, rgba(147, 51, 234, 0.2) 100%);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.5);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.25);
+}
+
+.vip-badge-gold {
+  background: linear-gradient(135deg, rgba(229, 169, 60, 0.25) 0%, rgba(180, 83, 9, 0.15) 100%);
+  color: #fcd34d;
+  border: 1px solid rgba(229, 169, 60, 0.5);
+}
+
+.vip-badge-silver {
+  background: linear-gradient(135deg, rgba(203, 213, 225, 0.2) 0%, rgba(148, 163, 184, 0.1) 100%);
+  color: #e2e8f0;
+  border: 1px solid rgba(203, 213, 225, 0.4);
+}
+
+.vip-badge-member {
+  background: rgba(100, 116, 139, 0.18);
+  color: #94a3b8;
+  border: 1px solid rgba(100, 116, 139, 0.35);
+}
+
+/* Role Badges */
+.role-badge-admin {
+  background: rgba(225, 29, 72, 0.18);
+  color: #fb7185;
+  border: 1px solid rgba(225, 29, 72, 0.4);
+}
+
+.role-badge-manager {
+  background: rgba(229, 169, 60, 0.18);
+  color: #fbbf24;
+  border: 1px solid rgba(229, 169, 60, 0.4);
+}
+
+.role-badge-cashier {
+  background: rgba(16, 185, 129, 0.18);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.role-badge-barber {
+  background: rgba(14, 165, 233, 0.18);
+  color: #38bdf8;
+  border: 1px solid rgba(14, 165, 233, 0.4);
+}
+
+.settings-tab-active {
+  background: rgba(229, 169, 60, 0.15);
+  color: #e5a93c;
+  border-color: #e5a93c;
+  font-weight: 700;
+}
+
+/* Print Invoice & Menu Styling */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #printableInvoice,
+  #printableInvoice *,
+  #printableMenu,
+  #printableMenu * {
+    visibility: visible;
+  }
+
+  #printableInvoice,
+  #printableMenu {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    color: #000;
+    background: #fff;
+    padding: 24px;
+  }
+}
+

@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đội Ngũ Barber & Nghệ Nhân Tóc | The Gentleman Barber Club</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+    rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            barber: {
+              gold: '#e5a93c',
+              'gold-light': '#f3c267',
+              'gold-dark': '#b87c19',
+              dark: '#0b0f17',
+              surface: '#121824',
+              card: '#182030',
+              border: '#243046'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Font Awesome 6 Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-primary: #0b0f17;
+      --bg-secondary: #121824;
+      --bg-card: #182030;
+      --border-color: #243046;
+      --accent-gold: #e5a93c;
+      --accent-gold-glow: rgba(229, 169, 60, 0.25);
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-primary);
+      color: #f8fafc;
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .vintage-font {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .barber-pole-badge {
+      background: repeating-linear-gradient(-45deg,
+          #dc2626,
+          #dc2626 8px,
+          #ffffff 8px,
+          #ffffff 16px,
+          #2563eb 16px,
+          #2563eb 24px,
+          #ffffff 24px,
+          #ffffff 32px);
+      background-size: 200% 200%;
+      animation: barberPoleAnim 4s linear infinite;
+    }
+
+    @keyframes barberPoleAnim {
+      0% {
+        background-position: 0 0;
+      }
+
+      100% {
+        background-position: 45px 0;
+      }
+    }
+
+    .barber-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .barber-card:hover {
+      border-color: rgba(229, 169, 60, 0.45);
+      box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.5);
+    }
+
+    .barber-card-glow {
+      background: linear-gradient(145deg, #192233 0%, #131a28 100%);
+      border: 1px solid rgba(229, 169, 60, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .barber-card-glow::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+    }
+
+    /* Badges & Ranks */
+    .level-badge-master {
+      background: linear-gradient(135deg, rgba(229, 169, 60, 0.25) 0%, rgba(184, 124, 25, 0.15) 100%);
+      color: #fcd34d;
+      border: 1px solid rgba(229, 169, 60, 0.5);
+      box-shadow: 0 0 10px rgba(229, 169, 60, 0.2);
+    }
+
+    .level-badge-senior {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.2) 0%, rgba(37, 99, 235, 0.12) 100%);
+      color: #7dd3fc;
+      border: 1px solid rgba(56, 189, 248, 0.45);
+    }
+
+    .level-badge-junior {
+      background: linear-gradient(135deg, rgba(217, 119, 6, 0.18) 0%, rgba(180, 83, 9, 0.1) 100%);
+      color: #f59e0b;
+      border: 1px solid rgba(217, 119, 6, 0.4);
+    }
+
+    .level-badge-spa {
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.2) 0%, rgba(139, 92, 246, 0.12) 100%);
+      color: #c084fc;
+      border: 1px solid rgba(168, 85, 247, 0.45);
+    }
+
+    /* Pulse Status Indicator */
+    .pulse-amber {
+      box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.6);
+      animation: pulseAmber 2s infinite;
+    }
+
+    @keyframes pulseAmber {
+      0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.6);
+      }
+
+      70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 8px rgba(245, 158, 11, 0);
+      }
+
+      100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+      }
+    }
+
+    .pulse-emerald {
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6);
+      animation: pulseEmerald 2s infinite;
+    }
+
+    @keyframes pulseEmerald {
+      0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6);
+      }
+
+      70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+      }
+
+      100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+      }
+    }
+
+    .modal-backdrop {
+      background-color: rgba(7, 10, 16, 0.85);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-item-active {
+      background: linear-gradient(90deg, rgba(229, 169, 60, 0.22) 0%, rgba(229, 169, 60, 0.05) 100%);
+      border-left: 3px solid #e5a93c;
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body class="flex bg-barber-dark text-slate-100 antialiased selection:bg-amber-500 selection:text-slate-950">
+
+  <!-- ==================== SIDEBAR ==================== -->
+  <aside id="mainSidebar"
+    class="fixed inset-y-0 left-0 z-50 w-64 bg-barber-surface border-r border-barber-border flex flex-col justify-between transition-transform duration-300 md:static md:translate-x-0 -translate-x-full">
+    <div>
+      <!-- Brand Logo / Barber Pole Header -->
+      <div class="h-20 flex items-center px-6 border-b border-barber-border gap-3.5 relative overflow-hidden">
+        <div class="w-1.5 h-12 rounded-full barber-pole-badge"></div>
+        <div>
+          <h1 class="text-lg font-black tracking-wider text-amber-400 vintage-font leading-tight">ROYAL BARBER</h1>
+          <p class="text-[10px] tracking-widest text-slate-400 font-semibold uppercase">Salon & Grooming POS</p>
+        </div>
+      </div>
+
+      <!-- Branch Selection Badge -->
+      <div class="px-5 py-3">
+        <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <i class="fas fa-store text-amber-400 text-xs"></i>
+            <div>
+              <p class="text-[11px] font-bold text-white">Chi nhánh 01 (Flagship)</p>
+              <p class="text-[10px] text-slate-400">88 Phố Cổ, Hoàn Kiếm, HN</p>
+            </div>
+          </div>
+          <span class="w-2 h-2 rounded-full bg-emerald-400 pulse-emerald" title="Trực tuyến"></span>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="px-3 py-2 space-y-1 text-sm font-medium">
+        <!-- Tổng quan -->
+        <a href="index.html#overview"
+          class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <div class="flex items-center gap-3">
+            <i class="fas fa-chart-pie text-base"></i>
+            <span>Tổng quan Salon</span>
+          </div>
+        </a>
+
+        <!-- Lịch đặt hẹn -->
+        <a href="appointments.html"
+          class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <div class="flex items-center gap-3">
+            <i class="far fa-calendar-check text-base"></i>
+            <span>Lịch đặt hẹn</span>
+          </div>
+          <span class="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">48</span>
+        </a>
+
+        <!-- Sơ đồ ghế cắt -->
+        <a href="stations.html"
+          class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <div class="flex items-center gap-3">
+            <i class="fas fa-chair text-base"></i>
+            <span>Sơ đồ ghế cắt</span>
+          </div>
+          <span class="text-[11px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-semibold">6/8
+            bận</span>
+        </a>
+
+        <!-- ACTIVE: ĐỘI NGŨ BARBER -->
+        <a href="barbers.html"
+          class="flex items-center justify-between px-3.5 py-2.5 rounded-xl nav-item-active text-white">
+          <div class="flex items-center gap-3">
+            <i class="fas fa-scissors text-base"></i>
+            <span>Đội ngũ Barber</span>
+          </div>
+          <span id="navBarberCountBadge"
+            class="text-xs px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 font-bold">8</span>
+        </a>
+
+        <!-- Bảng giá & Dịch vụ -->
+        <a href="services.html"
+          class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <div class="flex items-center gap-3">
+            <i class="fas fa-list-check text-base"></i>
+            <span>Bảng giá & Dịch vụ</span>
+          </div>
+          <span class="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">18</span>
+        </a>
+
+        <!-- Quản lý Người dùng & Khách VIP -->
+        <a href="users.html"
+          class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <div class="flex items-center gap-3">
+            <i class="fas fa-users-gear text-base"></i>
+            <span>Quản lý Người dùng</span>
+          </div>
+          <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400 font-bold">CRM</span>
+        </a>
+
+        <!-- Kho sáp & Mỹ phẩm -->
+        <a href="inventory.html"
+          class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <div class="flex items-center gap-3">
+            <i class="fas fa-box-open text-base"></i>
+            <span>Kho sáp & Mỹ phẩm</span>
+          </div>
+          <span class="text-xs px-1.5 py-0.5 rounded-full bg-red-500/20 text-red-400 border border-red-500/30">!
+            3</span>
+        </a>
+
+        <!-- Báo cáo doanh thu -->
+        <a href="reports.html"
+          class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <i class="fas fa-file-invoice-dollar text-base"></i>
+          <span>Báo cáo doanh thu</span>
+        </a>
+
+        <!-- Cài đặt hệ thống -->
+        <a href="settings.html"
+          class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <i class="fas fa-cog text-base"></i>
+          <span>Cài đặt hệ thống</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- User Profile Footer -->
+    <div class="p-4 border-t border-barber-border">
+      <div class="flex items-center justify-between p-2 rounded-xl bg-slate-900/60 border border-slate-800">
+        <div class="flex items-center gap-3">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"
+              alt="Master Hoàng" class="w-10 h-10 rounded-full object-cover border border-amber-500/40">
+            <span
+              class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-slate-900"></span>
+          </div>
+          <div>
+            <h4 class="text-xs font-bold text-white leading-tight">Master Hoàng</h4>
+            <p class="text-[10px] text-amber-400/90 font-medium">Quản lý Cửa Hàng</p>
+          </div>
+        </div>
+        <button title="Đăng xuất" class="text-slate-400 hover:text-red-400 text-sm p-1.5 transition">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ==================== MAIN CONTENT WRAPPER ==================== -->
+  <div class="flex-1 flex flex-col h-screen overflow-hidden">
+
+    <!-- TOP HEADER -->
+    <header
+      class="h-20 bg-barber-surface border-b border-barber-border px-6 flex items-center justify-between shrink-0">
+      <div class="flex items-center gap-4">
+        <button id="sidebarToggle" class="md:hidden text-slate-400 hover:text-white p-2 text-lg">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <div>
+          <div class="flex items-center gap-2.5">
+            <h2 class="text-lg md:text-xl font-extrabold text-white">Quản Lý Đội Ngũ Barber & Nghệ Nhân Tóc</h2>
+            <span
+              class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5 animate-ping"></span> 6 Thợ Đang Trực Ca
+            </span>
+          </div>
+          <div class="flex items-center gap-3 text-xs text-slate-400 mt-0.5">
+            <span id="liveDate" class="font-medium text-slate-300">--</span>
+            <span class="text-slate-600">&bull;</span>
+            <span id="liveClock"
+              class="font-mono text-amber-400 font-bold text-xs bg-slate-900 px-2 py-0.5 rounded border border-slate-800">--:--:--</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="flex items-center gap-3">
+        <!-- Search Barber Input -->
+        <div class="relative hidden lg:block w-64">
+          <i class="fas fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+          <input type="text" id="barberSearchInput" placeholder="Tìm theo tên thợ, nghệ danh, kỹ năng..."
+            class="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-amber-500 transition">
+        </div>
+
+        <!-- Add Barber Button -->
+        <button onclick="openBarberModal()"
+          class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs shadow-lg shadow-amber-500/20 transition transform active:scale-95">
+          <i class="fas fa-user-plus"></i>
+          <span>+ Thêm Barber Mới</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- MAIN SCROLLABLE CONTENT -->
+    <main class="flex-1 overflow-y-auto p-6 space-y-6">
+
+      <!-- ==================== 1. KPI SUMMARY CARDS ==================== -->
+      <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- KPI 1: Tổng quy mô nhân sự -->
+        <div class="barber-card barber-card-glow p-4 flex flex-col justify-between">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-semibold text-slate-400">Đội ngũ phục vụ</span>
+            <div
+              class="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-sm">
+              <i class="fas fa-users-line"></i>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-baseline gap-2">
+              <h3 id="kpiTotalBarbers" class="text-2xl font-black text-white tracking-tight">8 Nhân sự</h3>
+              <span class="text-xs text-amber-400 font-bold">100% đạt chuẩn</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">6 Barber tay kéo &bull; 2 KTV Dưỡng sinh</p>
+          </div>
+        </div>
+
+        <!-- KPI 2: Trực ca hôm nay -->
+        <div class="barber-card p-4 flex flex-col justify-between">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-semibold text-slate-400">Trực ca hôm nay</span>
+            <div
+              class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-sm">
+              <i class="fas fa-user-check"></i>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-baseline gap-2">
+              <h3 id="kpiOnDutyCount" class="text-2xl font-black text-emerald-400 tracking-tight">6 / 8 Thợ</h3>
+              <span class="text-xs text-emerald-400 font-semibold">(75% trực ca)</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">4 Đang cắt &bull; 2 Sẵn sàng &bull; 1 Nghỉ giải lao &bull; 1 Off ca
+            </p>
+          </div>
+        </div>
+
+        <!-- KPI 3: Doanh số trung bình / thợ -->
+        <div class="barber-card p-4 flex flex-col justify-between">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-semibold text-slate-400">Năng suất TB / thợ hôm nay</span>
+            <div
+              class="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 text-sm">
+              <i class="fas fa-hand-holding-dollar"></i>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-baseline gap-2">
+              <h3 id="kpiAvgRevenue" class="text-2xl font-black text-sky-400 tracking-tight">1.280.000 ₫</h3>
+              <span class="text-xs text-emerald-400 font-bold">+12.4%</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">Trung bình 5.4 lượt cắt / thợ</p>
+          </div>
+        </div>
+
+        <!-- KPI 4: Điểm đánh giá CSAT -->
+        <div class="barber-card p-4 flex flex-col justify-between">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-semibold text-slate-400">Độ hài lòng tay nghề (CSAT)</span>
+            <div
+              class="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-sm">
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-baseline gap-2">
+              <h3 class="text-2xl font-black text-amber-400 tracking-tight">4.92 ★</h3>
+              <span class="text-xs text-slate-400 font-semibold">/ 5.0</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">Tổng cộng 845 lượt đánh giá 5 sao</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 2. TOOLBAR & VIEW CONTROLLER ==================== -->
+      <section class="barber-card p-4 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+        <!-- View Mode: Profile Cards vs Performance Commission Table -->
+        <div class="flex items-center gap-2 bg-slate-900 p-1.5 rounded-xl border border-slate-800 w-full sm:w-auto">
+          <button id="viewBtnCards" onclick="switchBarberView('cards')"
+            class="flex-1 sm:flex-none px-4 py-2 rounded-lg text-xs font-bold bg-amber-500/20 text-amber-400 border border-amber-500/40 transition flex items-center justify-center gap-2">
+            <i class="fas fa-id-card"></i>
+            <span>Thẻ Hồ Sơ Barber (Cards)</span>
+          </button>
+
+          <button id="viewBtnTable" onclick="switchBarberView('table')"
+            class="flex-1 sm:flex-none px-4 py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-white border border-transparent transition flex items-center justify-center gap-2">
+            <i class="fas fa-chart-line"></i>
+            <span>Hiệu Suất & Hoa Hồng (Table)</span>
+          </button>
+        </div>
+
+        <!-- Filters (Rank & Status) -->
+        <div class="flex items-center flex-wrap gap-2.5 w-full lg:w-auto justify-end text-xs">
+          <!-- Rank Dropdown Filter -->
+          <select id="rankFilterSelect" onchange="filterBarbers()"
+            class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-200 focus:outline-none focus:border-amber-500">
+            <option value="all">Tất cả cấp bậc</option>
+            <option value="master">Master Barber (Trưởng thợ)</option>
+            <option value="senior">Senior Barber (Thợ chính)</option>
+            <option value="junior">Junior Barber (Thợ phụ)</option>
+            <option value="spa">KTV Spa & Dưỡng Sinh</option>
+          </select>
+
+          <!-- Status Filter Buttons -->
+          <div class="flex items-center gap-1.5 overflow-x-auto">
+            <button data-status="all" onclick="setStatusFilter('all', this)"
+              class="barber-status-filter-btn px-3 py-1.5 rounded-lg font-semibold bg-amber-500/20 text-amber-400 border border-amber-500/40 transition">
+              Tất cả (8)
+            </button>
+            <button data-status="busy" onclick="setStatusFilter('busy', this)"
+              class="barber-status-filter-btn px-3 py-1.5 rounded-lg font-semibold text-slate-400 hover:text-white border border-transparent hover:bg-slate-800 transition">
+              Đang cắt (4)
+            </button>
+            <button data-status="available" onclick="setStatusFilter('available', this)"
+              class="barber-status-filter-btn px-3 py-1.5 rounded-lg font-semibold text-slate-400 hover:text-white border border-transparent hover:bg-slate-800 transition">
+              Sẵn sàng (2)
+            </button>
+            <button data-status="break" onclick="setStatusFilter('break', this)"
+              class="barber-status-filter-btn px-3 py-1.5 rounded-lg font-semibold text-slate-400 hover:text-white border border-transparent hover:bg-slate-800 transition">
+              Giải lao (1)
+            </button>
+            <button data-status="off" onclick="setStatusFilter('off', this)"
+              class="barber-status-filter-btn px-3 py-1.5 rounded-lg font-semibold text-slate-400 hover:text-white border border-transparent hover:bg-slate-800 transition">
+              Off ca (1)
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 3. VIEW 1: PROFILE CARDS GRID ==================== -->
+      <section id="barberCardsSection">
+        <div id="barberGridContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          <!-- Dynamically populated via JavaScript -->
+        </div>
+      </section>
+
+      <!-- ==================== 4. VIEW 2: PERFORMANCE & COMMISSION TABLE ==================== -->
+      <section id="barberTableSection" class="hidden barber-card overflow-hidden">
+        <div
+          class="px-5 py-4 border-b border-barber-border flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <h3 class="text-base font-extrabold text-white flex items-center gap-2">
+              <i class="fas fa-file-invoice-dollar text-amber-400"></i>
+              Báo Cáo Năng Suất, Doanh Thu & Hoa Hồng Hôm Nay
+            </h3>
+            <p class="text-xs text-slate-400">Hệ thống tính toán hoa hồng tự động theo từng cấp bậc tay nghề</p>
+          </div>
+          <button onclick="exportCommissionReport()"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 transition">
+            <i class="fas fa-file-excel"></i>
+            <span>Xuất Bảng Lương (Excel)</span>
+          </button>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr
+                class="bg-slate-900/90 text-[11px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-800">
+                <th class="py-3.5 px-4">Thợ Barber</th>
+                <th class="py-3.5 px-4">Cấp bậc & Ghế</th>
+                <th class="py-3.5 px-4">Trạng thái</th>
+                <th class="py-3.5 px-4">Lượt cắt hôm nay</th>
+                <th class="py-3.5 px-4">Doanh số dịch vụ</th>
+                <th class="py-3.5 px-4">Tỷ lệ hoa hồng</th>
+                <th class="py-3.5 px-4">Thu nhập hoa hồng</th>
+                <th class="py-3.5 px-4">CSAT</th>
+                <th class="py-3.5 px-4 text-right">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody id="barberTableBody" class="divide-y divide-slate-800/60 text-xs">
+              <!-- Dynamically populated via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ==================== MODAL 1: THÊM / SỬA BARBER ==================== -->
+  <div id="barberModal" class="hidden fixed inset-0 z-50 modal-backdrop items-center justify-center p-4">
+    <div
+      class="bg-barber-card border border-barber-border w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
+      <div class="px-6 py-4 border-b border-barber-border flex items-center justify-between bg-slate-900/80">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm">
+            <i class="fas fa-scissors"></i>
+          </div>
+          <div>
+            <h3 id="barberModalTitle" class="text-base font-bold text-white">Thêm Barber Mới</h3>
+            <p class="text-[11px] text-slate-400">Đăng ký hồ sơ nghệ nhân tóc & tỷ lệ hoa hồng</p>
+          </div>
+        </div>
+        <button onclick="closeBarberModal()" class="text-slate-400 hover:text-white p-1 text-base transition">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <form onsubmit="submitBarberForm(event)" class="p-6 space-y-4 text-xs">
+        <input type="hidden" id="barberEditId" value="">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Họ và tên thật *</label>
+            <input type="text" id="bFormFullName" required placeholder="Vd: Nguyễn Anh Tuấn"
+              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 text-xs">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Nghệ danh Barber (Stage name) *</label>
+            <input type="text" id="bFormNickname" required placeholder="Vd: Tuấn Fade"
+              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 text-xs">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Số điện thoại liên hệ *</label>
+            <input type="tel" id="bFormPhone" required placeholder="Vd: 0912 345 678"
+              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 text-xs">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Kinh nghiệm trong nghề (Năm) *</label>
+            <input type="number" id="bFormExp" required min="1" max="40" value="5"
+              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500 text-xs">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Cấp bậc chuyên môn *</label>
+            <select id="bFormRank" onchange="autoFillCommission()"
+              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500 text-xs">
+              <option value="master">Master Barber</option>
+              <option value="senior" selected>Senior Barber</option>
+              <option value="junior">Junior Barber</option>
+              <option value="spa">KTV Spa Dưỡng Sinh</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Ghế chỉ định *</label>
+            <select id="bFormChair"
+              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500 text-xs">
+              <option value="Ghế 01 (VIP)">Ghế 01 (VIP Master)</option>
+              <option value="Ghế 02">Ghế 02 (Senior)</option>
+              <option value="Ghế 03">Ghế 03 (Senior)</option>
+              <option value="Giường Gội 04">Giường Gội 04 (Spa VIP)</option>
+              <option value="Ghế 05">Ghế 05</option>
+              <option value="Ghế 06">Ghế 06</option>
+              <option value="Ghế 07">Ghế 07</option>
+              <option value="Giường Gội 08">Giường Gội 08 (Spa)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Hoa hồng (%) *</label>
+            <input type="number" id="bFormCommission" required min="10" max="70" value="38"
+              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500 text-xs">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Kỹ năng sở trường (cách nhau bởi dấu phẩy)</label>
+          <input type="text" id="bFormSkills" placeholder="Vd: Skin Fade, Uốn Texture, Cạo Râu Khăn Nóng"
+            class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 text-xs">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Trạng thái ca trực ban đầu</label>
+            <select id="bFormStatus"
+              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500 text-xs">
+              <option value="available">Sẵn sàng nhận khách</option>
+              <option value="busy">Đang phục vụ</option>
+              <option value="break">Nghỉ giải lao</option>
+              <option value="off">Off ca hôm nay</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Link ảnh đại diện (URL)</label>
+            <input type="url" id="bFormAvatar" placeholder="Để trống để dùng ảnh mặc định"
+              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 text-xs">
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-slate-800 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeBarberModal()"
+            class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold transition">Hủy
+            bỏ</button>
+          <button type="submit"
+            class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition flex items-center gap-1.5">
+            <i class="fas fa-check"></i> Lưu Thông Tin Barber
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: XEM HỒ SƠ TAY NGHỀ & PORTFOLIO ==================== -->
+  <div id="portfolioModal" class="hidden fixed inset-0 z-50 modal-backdrop items-center justify-center p-4">
+    <div
+      class="bg-barber-card border border-barber-border w-full max-w-xl rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
+      <div class="px-6 py-4 border-b border-barber-border flex items-center justify-between bg-slate-900/80">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm">
+            <i class="fas fa-address-card"></i>
+          </div>
+          <div>
+            <h3 id="portfolioModalName" class="text-base font-bold text-white">Hồ Sơ Tay Nghề Barber</h3>
+            <p id="portfolioModalRank" class="text-[11px] text-amber-400">Master Barber &bull; 12 năm kinh nghiệm</p>
+          </div>
+        </div>
+        <button onclick="closePortfolioModal()" class="text-slate-400 hover:text-white p-1 text-base transition">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div id="portfolioModalBody" class="p-6 space-y-4 text-xs">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TOAST NOTIFICATION CONTAINER ==================== -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 space-y-2 max-w-sm pointer-events-auto"></div>
+
+  <!-- ==================== LOGIC JAVASCRIPT ==================== -->
+  <script>
+    // --- 1. SAMPLE BARBER TEAM DATA ---
+    let BarbersData = [
+      {
+        id: 1,
+        fullName: "Hoàng Minh Long",
+        nickname: "Master Hoàng",
+        rank: "master",
+        rankLabel: "Master Barber (Trưởng Thợ)",
+        experience: 12,
+        phone: "0908 888 999",
+        avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80",
+        chair: "Ghế 01 (VIP)",
+        commissionRate: 45, // %
+        status: "available", // 'available' | 'busy' | 'break' | 'off'
+        todayCuts: 8,
+        todayRevenue: 2240000,
+        csat: 4.98,
+        votes: 184,
+        retentionRate: 92, // %
+        skills: ["Cổ Điển Hoàng Gia", "Dao Cạo Thẳng Feather Nhật", "Pompadour", "Dưỡng Râu Tinh Dầu"],
+        bio: "Hơn 12 năm dẫn dắt phong cách tóc quý ông tại Hà Nội. Từng tu nghiệp kỹ thuật cạo râu dao thẳng tại Ý và Nhật Bản.",
+        portfolioImages: [
+          "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=200&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=200&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=200&auto=format&fit=crop&q=80"
+        ]
+      },
+      {
+        id: 2,
+        fullName: "Nguyễn Anh Tuấn",
+        nickname: "Tuấn Fade",
+        rank: "senior",
+        rankLabel: "Senior Barber",
+        experience: 6,
+        phone: "0912 345 678",
+        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&auto=format&fit=crop&q=80",
+        chair: "Ghế 02",
+        commissionRate: 38,
+        status: "busy",
+        todayCuts: 7,
+        todayRevenue: 1960000,
+        csat: 4.92,
+        votes: 142,
+        retentionRate: 86,
+        skills: ["High Skin Fade", "Uốn Texture Undercut", "Taper Fade", "Mullet Hiện Đại"],
+        bio: "Chuyên gia kỹ thuật Fade sắc nét từng milimet. Đạt giải Quán quân Hair Show Barber Battle Vietnam 2024.",
+        portfolioImages: [
+          "https://images.unsplash.com/photo-1517832606589-7629c33971a6?w=200&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=200&auto=format&fit=crop&q=80"
+        ]
+      },
+      {
+        id: 3,
+        fullName: "Vũ Minh Đức",
+        nickname: "Eric Vũ",
+        rank: "senior",
+        rankLabel: "Senior Barber",
+        experience: 5,
+        phone: "0944 555 666",
+        avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&auto=format&fit=crop&q=80",
+        chair: "Ghế 03",
+        commissionRate: 38,
+        status: "available",
+        todayCuts: 6,
+        todayRevenue: 1620000,
+        csat: 4.89,
+        votes: 118,
+        retentionRate: 83,
+        skills: ["Uốn Con Sâu Xù", "Nhuộm Nâu Lạnh Khói", "Side Part 7/3", "Pre-styling"],
+        bio: "Bậc thầy hóa chất tạo phồng tóc uốn và phối màu nhuộm công sở nam tính không cần tẩy mạnh.",
+        portfolioImages: [
+          "https://images.unsplash.com/photo-1595152772835-219674b2a8a6?w=200&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=200&auto=format&fit=crop&q=80"
+        ]
+      },
+      {
+        id: 4,
+        fullName: "Nguyễn Phương Thảo",
+        nickname: "Thảo Spa",
+        rank: "spa",
+        rankLabel: "KTV Dưỡng Sinh & Spa",
+        experience: 7,
+        phone: "0977 123 789",
+        avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&auto=format&fit=crop&q=80",
+        chair: "Giường Gội 04",
+        commissionRate: 35,
+        status: "busy",
+        todayCuts: 9,
+        todayRevenue: 1710000,
+        csat: 4.97,
+        votes: 210,
+        retentionRate: 94,
+        skills: ["Gội Dưỡng Sinh Thảo Mộc", "Bấm Huyệt Cổ Vai Gáy", "Xông Tinh Dầu Ấm", "Chăm Sóc Da Mặt"],
+        bio: "Chứng chỉ Y học cổ truyền bấm huyệt khai thông kinh lạc. Đem lại trải nghiệm thư giãn đẳng cấp hoàng gia.",
+        portfolioImages: [
+          "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=200&auto=format&fit=crop&q=80"
+        ]
+      },
+      {
+        id: 5,
+        fullName: "Trần Tiến Dũng",
+        nickname: "Dũng Scissor",
+        rank: "junior",
+        rankLabel: "Junior Barber",
+        experience: 3,
+        phone: "0933 111 222",
+        avatar: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=300&auto=format&fit=crop&q=80",
+        chair: "Ghế 05",
+        commissionRate: 32,
+        status: "busy",
+        todayCuts: 5,
+        todayRevenue: 840000,
+        csat: 4.85,
+        votes: 85,
+        retentionRate: 79,
+        skills: ["Cắt Kéo Tỉa Layer", "Cắt Tóc Nam Tiêu Chuẩn", "Cạo Mặt Khăn Nóng"],
+        bio: "Thợ trẻ nhiệt huyết, tỉ mỉ từng đường kéo, được đào tạo bài bản từ Học viện Barber Quốc Tế.",
+        portfolioImages: [
+          "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=200&auto=format&fit=crop&q=80"
+        ]
+      },
+      {
+        id: 6,
+        fullName: "Đặng Thành Trung",
+        nickname: "Trung Barber",
+        rank: "junior",
+        rankLabel: "Junior Barber",
+        experience: 2,
+        phone: "0988 999 000",
+        avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&auto=format&fit=crop&q=80",
+        chair: "Ghế 06",
+        commissionRate: 30,
+        status: "available",
+        todayCuts: 4,
+        todayRevenue: 680000,
+        csat: 4.82,
+        votes: 62,
+        retentionRate: 75,
+        skills: ["Undercut Cổ Điển", "Cắt Tóc Trẻ Em (Gentle Boy)", "Vuốt Pomade"],
+        bio: "Giao tiếp thân thiện, nhẹ nhàng và kiên nhẫn, đặc biệt khéo tay khi cắt tóc cho khách hàng nhí.",
+        portfolioImages: []
+      },
+      {
+        id: 7,
+        fullName: "Phạm Lan Hương",
+        nickname: "Lan Hương Spa",
+        rank: "spa",
+        rankLabel: "KTV Gội Đầu & Thảo Mộc",
+        experience: 4,
+        phone: "0966 333 444",
+        avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80",
+        chair: "Giường Gội 08",
+        commissionRate: 30,
+        status: "break",
+        todayCuts: 6,
+        todayRevenue: 1140000,
+        csat: 4.91,
+        votes: 94,
+        retentionRate: 88,
+        skills: ["Gội Đầu Nước Nóng Tuần Hoàn", "Tẩy Tế Bào Chết Da Đầu", "Đắp Mặt Nạ Thảo Dược"],
+        bio: "Chu đáo, tận tâm và được nhiều khách quen yêu cầu riêng mỗi dịp cuối tuần.",
+        portfolioImages: []
+      },
+      {
+        id: 8,
+        fullName: "Lê Quang Huy",
+        nickname: "Huy Tattoo Hair",
+        rank: "senior",
+        rankLabel: "Senior Hair Tattoo Artist",
+        experience: 5,
+        phone: "0915 777 888",
+        avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&auto=format&fit=crop&q=80",
+        chair: "Ghế 07",
+        commissionRate: 40,
+        status: "off",
+        todayCuts: 0,
+        todayRevenue: 0,
+        csat: 4.94,
+        votes: 130,
+        retentionRate: 89,
+        skills: ["Khắc Họa Tiết Hair Tattoo 3D", "Kẻ Vạch Nghệ Thuật", "Burst Fade Mohawk"],
+        bio: "Nghệ nhân điêu khắc họa tiết trên tóc. Hôm nay off ca tham gia giảng dạy kỹ thuật Tattoo Hair tại TP.HCM.",
+        portfolioImages: [
+          "https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=200&auto=format&fit=crop&q=80"
+        ]
+      }
+    ];
+
+    // --- 1B. CROSS-PAGE LOCALSTORAGE SYNCHRONIZATION ---
+    const BARBER_STORAGE_KEY = 'gb_sync_barbers_v1';
+    const APPT_STORAGE_KEY = 'gb_sync_appointments_v1';
+
+    function normalizeBarberItem(b) {
+      let rank = b.rank || 'senior';
+      const lvl = (b.level || b.rankLabel || '').toLowerCase();
+      if (!b.rank) {
+        if (lvl.includes('master')) rank = 'master';
+        else if (lvl.includes('junior')) rank = 'junior';
+        else if (lvl.includes('spa') || lvl.includes('ktv') || lvl.includes('dưỡng')) rank = 'spa';
+        else rank = 'senior';
+      }
+      let rankLabel = b.rankLabel || b.level || 'Senior Barber';
+      if (rank === 'master' && !rankLabel.includes('Master')) rankLabel = 'Master Barber (Trưởng Thợ)';
+
+      const expNum = typeof b.expYears === 'number'
+        ? b.expYears
+        : (typeof b.experience === 'number' ? b.experience : (parseInt(String(b.experience || '3').match(/\d+/)?.[0] || '3', 10)));
+
+      const chairStr = b.chair || (b.defaultChair ? `${b.defaultChair} - Standard` : 'Ghế 03 - Standard');
+      const defaultChairStr = b.defaultChair || chairStr.split(' - ')[0];
+      const cutsNum = typeof b.todayCuts === 'number' ? b.todayCuts : (typeof b.cuts === 'number' ? b.cuts : 0);
+      const revNum = typeof b.todayRevenue === 'number' ? b.todayRevenue : (typeof b.revenue === 'number' ? b.revenue : 0);
+      const csatNum = typeof b.csat === 'number' ? b.csat : (typeof b.rating === 'number' ? b.rating : 5.0);
+      const votesNum = typeof b.votes === 'number' ? b.votes : (typeof b.reviewsCount === 'number' ? b.reviewsCount : 1);
+
+      return {
+        ...b,
+        id: b.id,
+        fullName: b.fullName || b.nickname || 'Thợ Barber',
+        nickname: b.nickname || b.fullName || 'Barber',
+        rank: rank,
+        rankLabel: rankLabel,
+        level: b.level || (rank === 'master' ? 'Master Barber' : (rank === 'junior' ? 'Junior Barber' : (rank === 'spa' ? 'Skinner / Spa' : 'Senior Barber'))),
+        expYears: expNum,
+        experience: `${expNum} năm KN`,
+        phone: b.phone || '0901.000.000',
+        email: b.email || `${(b.nickname || 'barber').toLowerCase().replace(/\s+/g, '')}@gentleman.vn`,
+        avatar: b.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80',
+        chair: chairStr,
+        defaultChair: defaultChairStr,
+        shift: b.shift || 'Ca sáng (08:30 - 16:30)',
+        commissionRate: typeof b.commissionRate === 'number' ? b.commissionRate : 35,
+        status: b.status || 'available',
+        currentCustomer: b.currentCustomer || '--',
+        todayCuts: cutsNum,
+        cuts: cutsNum,
+        todayRevenue: revNum,
+        revenue: revNum,
+        csat: csatNum,
+        rating: csatNum,
+        votes: votesNum,
+        reviewsCount: votesNum,
+        retentionRate: b.retentionRate || 90,
+        skills: Array.isArray(b.skills) && b.skills.length > 0 ? b.skills : ['Cắt Tóc Tiêu Chuẩn', 'Fade'],
+        bio: b.bio || `Nghệ nhân ${b.nickname || b.fullName} với ${expNum} năm kinh nghiệm chuyên sâu tại The Gentleman Barber.`,
+        portfolioImages: Array.isArray(b.portfolioImages) ? b.portfolioImages : [
+          'https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=200&auto=format&fit=crop&q=80'
+        ]
+      };
+    }
+
+    function loadSharedBarbers() {
+      try {
+        const raw = localStorage.getItem(BARBER_STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            BarbersData = parsed.map(normalizeBarberItem);
+          }
+        } else {
+          BarbersData = BarbersData.map(normalizeBarberItem);
+          localStorage.setItem(BARBER_STORAGE_KEY, JSON.stringify(BarbersData));
+        }
+
+        // Update booking badge on sidebar if appointments exist
+        const rawAppts = localStorage.getItem(APPT_STORAGE_KEY);
+        if (rawAppts) {
+          const appts = JSON.parse(rawAppts);
+          if (Array.isArray(appts)) {
+            document.querySelectorAll('aside a[href="appointments.html"] span.ml-auto').forEach(el => {
+              el.textContent = appts.length;
+            });
+          }
+        }
+      } catch (e) {
+        console.warn('Could not load shared barbers state:', e);
+      }
+    }
+
+    function saveSharedBarbers() {
+      try {
+        BarbersData = BarbersData.map(normalizeBarberItem);
+        localStorage.setItem(BARBER_STORAGE_KEY, JSON.stringify(BarbersData));
+      } catch (e) {
+        console.warn('Could not save shared barbers state:', e);
+      }
+    }
+
+    // --- 2. UTILITIES ---
+    const formatCurrency = (amount) => {
+      return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+    };
+
+    function initClock() {
+      const clockEl = document.getElementById('liveClock');
+      const dateEl = document.getElementById('liveDate');
+      const update = () => {
+        const now = new Date();
+        const days = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
+        if (clockEl) clockEl.textContent = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+        if (dateEl) dateEl.textContent = `${days[now.getDay()]}, ${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()}`;
+      };
+      update();
+      setInterval(update, 1000);
+    }
+
+    // --- 3. FILTERING & CONTROLLERS ---
+    let currentBarberView = 'cards'; // 'cards' | 'table'
+    let currentRankFilter = 'all';
+    let currentStatusFilter = 'all';
+    let barberSearchQuery = '';
+
+    function switchBarberView(mode) {
+      currentBarberView = mode;
+      const secCards = document.getElementById('barberCardsSection');
+      const secTable = document.getElementById('barberTableSection');
+      const btnCards = document.getElementById('viewBtnCards');
+      const btnTable = document.getElementById('viewBtnTable');
+
+      if (mode === 'cards') {
+        secCards.classList.remove('hidden');
+        secTable.classList.add('hidden');
+        btnCards.className = "flex-1 sm:flex-none px-4 py-2 rounded-lg text-xs font-bold bg-amber-500/20 text-amber-400 border border-amber-500/40 transition flex items-center justify-center gap-2";
+        btnTable.className = "flex-1 sm:flex-none px-4 py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-white border border-transparent transition flex items-center justify-center gap-2";
+        renderBarberCards();
+      } else {
+        secCards.classList.add('hidden');
+        secTable.classList.remove('hidden');
+        btnTable.className = "flex-1 sm:flex-none px-4 py-2 rounded-lg text-xs font-bold bg-amber-500/20 text-amber-400 border border-amber-500/40 transition flex items-center justify-center gap-2";
+        btnCards.className = "flex-1 sm:flex-none px-4 py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-white border border-transparent transition flex items-center justify-center gap-2";
+        renderBarberTable();
+      }
+    }
+
+    function setStatusFilter(status, btn) {
+      currentStatusFilter = status;
+      document.querySelectorAll('.barber-status-filter-btn').forEach(b => {
+        b.classList.remove('bg-amber-500/20', 'text-amber-400', 'border-amber-500/40');
+        b.classList.add('text-slate-400', 'border-transparent');
+      });
+      btn.classList.add('bg-amber-500/20', 'text-amber-400', 'border-amber-500/40');
+      btn.classList.remove('text-slate-400', 'border-transparent');
+
+      if (currentBarberView === 'cards') renderBarberCards();
+      else renderBarberTable();
+    }
+
+    function filterBarbers() {
+      currentRankFilter = document.getElementById('rankFilterSelect').value;
+      if (currentBarberView === 'cards') renderBarberCards();
+      else renderBarberTable();
+    }
+
+    // --- 4. RENDER VIEW 1: PROFILE CARDS ---
+    function renderBarberCards() {
+      const container = document.getElementById('barberGridContainer');
+      if (!container) return;
+
+      const filtered = getFilteredBarbers();
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full py-12 text-center text-slate-400 barber-card">
+            <i class="fas fa-user-slash text-4xl text-slate-600 mb-3 block"></i>
+            <p class="text-sm font-semibold text-slate-300">Không tìm thấy thợ Barber nào phù hợp</p>
+            <p class="text-xs text-slate-500 mt-1">Vui lòng điều chỉnh lại bộ lọc hoặc từ khóa tìm kiếm.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(b => {
+        let rankBadge = '';
+        if (b.rank === 'master') rankBadge = `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold level-badge-master uppercase tracking-wider"><i class="fas fa-crown text-[9px] mr-1"></i> Master Barber</span>`;
+        else if (b.rank === 'senior') rankBadge = `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold level-badge-senior uppercase tracking-wider">Senior Barber</span>`;
+        else if (b.rank === 'junior') rankBadge = `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold level-badge-junior uppercase tracking-wider">Junior Barber</span>`;
+        else if (b.rank === 'spa') rankBadge = `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold level-badge-spa uppercase tracking-wider"><i class="fas fa-spa text-[9px] mr-1"></i> Spa & Dưỡng Sinh</span>`;
+
+        let statusDot = '';
+        let statusLabel = '';
+        if (b.status === 'available') {
+          statusDot = `<span class="w-2 h-2 rounded-full bg-emerald-400 pulse-emerald"></span>`;
+          statusLabel = `<span class="text-emerald-400 font-semibold">Sẵn sàng</span>`;
+        } else if (b.status === 'busy') {
+          statusDot = `<span class="w-2 h-2 rounded-full bg-amber-400 pulse-amber"></span>`;
+          statusLabel = `<span class="text-amber-400 font-semibold">Đang cắt tóc</span>`;
+        } else if (b.status === 'break') {
+          statusDot = `<span class="w-2 h-2 rounded-full bg-rose-400"></span>`;
+          statusLabel = `<span class="text-rose-400 font-semibold">Giải lao</span>`;
+        } else if (b.status === 'off') {
+          statusDot = `<span class="w-2 h-2 rounded-full bg-slate-500"></span>`;
+          statusLabel = `<span class="text-slate-400">Off ca</span>`;
+        }
+
+        const skillPills = b.skills.slice(0, 3).map(s => `
+          <span class="text-[10px] px-2 py-0.5 rounded-md bg-slate-800 text-slate-300 border border-slate-700/80">${s}</span>
+        `).join('');
+
+        return `
+          <div class="barber-card p-5 flex flex-col justify-between hover:shadow-2xl transition group relative overflow-hidden">
+            <!-- Top Status Pill -->
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                ${rankBadge}
+                <div class="flex items-center gap-1.5 text-xs">
+                  ${statusDot}
+                  ${statusLabel}
+                </div>
+              </div>
+
+              <!-- Barber Avatar & Names -->
+              <div class="flex items-center gap-3.5 mb-3.5">
+                <div class="relative shrink-0">
+                  <img src="${b.avatar}" alt="${b.nickname}" class="w-14 h-14 rounded-2xl object-cover border-2 border-amber-500/40 group-hover:border-amber-400 transition shadow-md">
+                  <span class="absolute -bottom-1 -right-1 text-[9px] font-bold px-1.5 py-0.2 rounded bg-slate-900 border border-slate-700 text-amber-400">${b.chair.split(' ')[0]} ${b.chair.split(' ')[1] || ''}</span>
+                </div>
+                <div>
+                  <h3 class="text-base font-extrabold text-white group-hover:text-amber-400 transition">${b.nickname}</h3>
+                  <p class="text-xs text-slate-400">${b.fullName}</p>
+                  <p class="text-[11px] text-amber-400/90 font-medium mt-0.5"><i class="fas fa-medal text-[10px] mr-1"></i> ${b.expYears || parseInt(b.experience) || 3} năm kinh nghiệm</p>
+                </div>
+              </div>
+
+              <!-- Performance Stats Box -->
+              <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 grid grid-cols-3 gap-2 text-center mb-3">
+                <div>
+                  <span class="text-[10px] text-slate-400 block">Lượt hôm nay</span>
+                  <span class="text-xs font-bold text-white">${b.todayCuts} lượt</span>
+                </div>
+                <div class="border-x border-slate-800">
+                  <span class="text-[10px] text-slate-400 block">Doanh số</span>
+                  <span class="text-xs font-bold text-amber-400 font-mono">${formatCurrency(b.todayRevenue).split(' ')[0]}k</span>
+                </div>
+                <div>
+                  <span class="text-[10px] text-slate-400 block">Đánh giá</span>
+                  <span class="text-xs font-bold text-emerald-400 flex items-center justify-center gap-0.5">
+                    ${b.csat} <i class="fas fa-star text-[9px] text-amber-400"></i>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Skills Tags -->
+              <div class="flex flex-wrap gap-1.5 mb-2">
+                ${skillPills}
+              </div>
+            </div>
+
+            <!-- Action Buttons Footer -->
+            <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2">
+              <button onclick="openPortfolioModal(${b.id})" class="flex-1 py-1.5 px-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition flex items-center justify-center gap-1.5">
+                <i class="fas fa-eye text-amber-400"></i> Hồ Sơ
+              </button>
+              
+              <!-- Quick Status Changer Dropdown Trigger -->
+              <button onclick="toggleQuickStatus(${b.id})" title="Đổi trạng thái trực" class="p-1.5 px-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition">
+                <i class="fas fa-rotate"></i>
+              </button>
+
+              <button onclick="editBarber(${b.id})" title="Sửa thông tin" class="p-1.5 px-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-400 text-xs transition">
+                <i class="fas fa-pen-to-square"></i>
+              </button>
+
+              <button onclick="deleteBarber(${b.id})" title="Xóa nhân sự" class="p-1.5 px-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-red-400 text-xs transition">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // --- 5. RENDER VIEW 2: PERFORMANCE & COMMISSION TABLE ---
+    function renderBarberTable() {
+      const tbody = document.getElementById('barberTableBody');
+      if (!tbody) return;
+
+      const filtered = getFilteredBarbers();
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="9" class="text-center py-8 text-slate-400">
+              <i class="fas fa-inbox text-3xl mb-2 text-slate-600 block"></i>
+              Không tìm thấy nhân sự phù hợp với bộ lọc.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(b => {
+        let statusBadge = '';
+        if (b.status === 'available') statusBadge = `<span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Sẵn sàng</span>`;
+        else if (b.status === 'busy') statusBadge = `<span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-400 border border-amber-500/30">Đang cắt</span>`;
+        else if (b.status === 'break') statusBadge = `<span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-rose-500/20 text-rose-400 border border-rose-500/30">Giải lao</span>`;
+        else if (b.status === 'off') statusBadge = `<span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-slate-800 text-slate-400 border border-slate-700">Off ca</span>`;
+
+        const commissionAmount = Math.round(b.todayRevenue * (b.commissionRate / 100));
+
+        return `
+          <tr class="hover:bg-slate-800/40 border-b border-slate-800/80 transition">
+            <td class="py-3 px-4">
+              <div class="flex items-center gap-3">
+                <img src="${b.avatar}" alt="${b.nickname}" class="w-9 h-9 rounded-xl object-cover border border-amber-500/40 shrink-0">
+                <div>
+                  <div class="font-bold text-white text-xs flex items-center gap-1.5">
+                    ${b.nickname}
+                  </div>
+                  <div class="text-[11px] text-slate-400">${b.fullName} &bull; ${b.phone}</div>
+                </div>
+              </div>
+            </td>
+            <td class="py-3 px-4">
+              <div class="font-semibold text-slate-200 text-xs">${b.rankLabel}</div>
+              <div class="text-[11px] text-amber-400/90">${b.chair}</div>
+            </td>
+            <td class="py-3 px-4">${statusBadge}</td>
+            <td class="py-3 px-4 font-mono font-bold text-white text-xs">${b.todayCuts} lượt</td>
+            <td class="py-3 px-4 font-mono font-bold text-amber-400 text-xs">${formatCurrency(b.todayRevenue)}</td>
+            <td class="py-3 px-4 font-mono font-bold text-slate-300 text-xs">${b.commissionRate}%</td>
+            <td class="py-3 px-4 font-mono font-bold text-emerald-400 text-xs">${formatCurrency(commissionAmount)}</td>
+            <td class="py-3 px-4">
+              <span class="inline-flex items-center gap-1 font-bold text-amber-300 text-xs">
+                ${b.csat} <i class="fas fa-star text-[10px] text-amber-400"></i>
+              </span>
+              <span class="text-[10px] text-slate-500 block">(${b.votes} vote)</span>
+            </td>
+            <td class="py-3 px-4 text-right">
+              <div class="flex items-center justify-end gap-1.5">
+                <button onclick="openPortfolioModal(${b.id})" title="Xem hồ sơ" class="p-1.5 text-slate-400 hover:text-amber-400 text-xs transition">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button onclick="editBarber(${b.id})" title="Chỉnh sửa" class="p-1.5 text-slate-400 hover:text-white text-xs transition">
+                  <i class="fas fa-edit"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function getFilteredBarbers() {
+      return BarbersData.filter(b => {
+        if (currentRankFilter !== 'all' && b.rank !== currentRankFilter) return false;
+        if (currentStatusFilter !== 'all' && b.status !== currentStatusFilter) return false;
+
+        if (barberSearchQuery.trim() !== '') {
+          const q = barberSearchQuery.toLowerCase();
+          const matchNick = b.nickname.toLowerCase().includes(q);
+          const matchFull = b.fullName.toLowerCase().includes(q);
+          const matchPhone = b.phone.includes(q);
+          const matchSkill = b.skills.some(s => s.toLowerCase().includes(q));
+          if (!matchNick && !matchFull && !matchPhone && !matchSkill) return false;
+        }
+
+        return true;
+      });
+    }
+
+    // --- 6. BARBER ACTIONS & CRUD ---
+    function openBarberModal() {
+      document.getElementById('barberEditId').value = '';
+      document.getElementById('barberModalTitle').textContent = 'Thêm Barber Mới';
+      document.getElementById('bFormFullName').value = '';
+      document.getElementById('bFormNickname').value = '';
+      document.getElementById('bFormPhone').value = '';
+      document.getElementById('bFormExp').value = '5';
+      document.getElementById('bFormSkills').value = '';
+      document.getElementById('bFormAvatar').value = '';
+      autoFillCommission();
+
+      const modal = document.getElementById('barberModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function editBarber(id) {
+      const b = BarbersData.find(item => item.id === id);
+      if (!b) return;
+
+      document.getElementById('barberEditId').value = b.id;
+      document.getElementById('barberModalTitle').textContent = `Chỉnh Sửa Barber: ${b.nickname}`;
+      document.getElementById('bFormFullName').value = b.fullName;
+      document.getElementById('bFormNickname').value = b.nickname;
+      document.getElementById('bFormPhone').value = b.phone;
+      document.getElementById('bFormExp').value = b.expYears || parseInt(b.experience) || 3;
+      document.getElementById('bFormRank').value = b.rank;
+      document.getElementById('bFormChair').value = b.chair;
+      document.getElementById('bFormCommission').value = b.commissionRate;
+      document.getElementById('bFormSkills').value = b.skills.join(', ');
+      document.getElementById('bFormStatus').value = b.status;
+      document.getElementById('bFormAvatar').value = b.avatar;
+
+      const modal = document.getElementById('barberModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeBarberModal() {
+      const modal = document.getElementById('barberModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    function autoFillCommission() {
+      const rank = document.getElementById('bFormRank').value;
+      const commInput = document.getElementById('bFormCommission');
+      if (!commInput) return;
+      if (rank === 'master') commInput.value = 45;
+      else if (rank === 'senior') commInput.value = 38;
+      else if (rank === 'junior') commInput.value = 30;
+      else if (rank === 'spa') commInput.value = 35;
+    }
+
+    function submitBarberForm(event) {
+      event.preventDefault();
+      const editId = document.getElementById('barberEditId').value;
+      const fullName = document.getElementById('bFormFullName').value.trim();
+      const nickname = document.getElementById('bFormNickname').value.trim();
+      const phone = document.getElementById('bFormPhone').value.trim();
+      const exp = parseInt(document.getElementById('bFormExp').value) || 1;
+      const rank = document.getElementById('bFormRank').value;
+      const chair = document.getElementById('bFormChair').value;
+      const comm = parseInt(document.getElementById('bFormCommission').value) || 30;
+      const status = document.getElementById('bFormStatus').value;
+      const avatar = document.getElementById('bFormAvatar').value.trim() || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&auto=format&fit=crop&q=80';
+      const skillsRaw = document.getElementById('bFormSkills').value.trim();
+      const skills = skillsRaw ? skillsRaw.split(',').map(s => s.trim()).filter(Boolean) : ['Cắt Tóc Tiêu Chuẩn', 'Fade'];
+
+      let rankLabel = 'Senior Barber';
+      if (rank === 'master') rankLabel = 'Master Barber (Trưởng Thợ)';
+      else if (rank === 'junior') rankLabel = 'Junior Barber';
+      else if (rank === 'spa') rankLabel = 'KTV Dưỡng Sinh & Spa';
+
+      if (editId) {
+        // Update existing
+        const b = BarbersData.find(item => item.id === parseInt(editId));
+        if (b) {
+          b.fullName = fullName;
+          b.nickname = nickname;
+          b.phone = phone;
+          b.expYears = exp;
+          b.experience = `${exp} năm KN`;
+          b.rank = rank;
+          b.rankLabel = rankLabel;
+          b.level = rank === 'master' ? 'Master Barber' : (rank === 'junior' ? 'Junior Barber' : (rank === 'spa' ? 'Skinner / Spa' : 'Senior Barber'));
+          b.chair = chair;
+          b.defaultChair = chair.split(' - ')[0];
+          b.commissionRate = comm;
+          b.status = status;
+          b.avatar = avatar;
+          b.skills = skills;
+          showToast(`Đã cập nhật hồ sơ Barber ${nickname} và đồng bộ toàn hệ thống!`, 'success');
+        }
+      } else {
+        // Create new
+        const newId = Math.max(...BarbersData.map(b => b.id), 0) + 1;
+        const newBarber = normalizeBarberItem({
+          id: newId,
+          fullName: fullName,
+          nickname: nickname,
+          rank: rank,
+          rankLabel: rankLabel,
+          expYears: exp,
+          experience: `${exp} năm KN`,
+          phone: phone,
+          avatar: avatar,
+          chair: chair,
+          defaultChair: chair.split(' - ')[0],
+          commissionRate: comm,
+          status: status,
+          todayCuts: 0,
+          todayRevenue: 0,
+          csat: 5.0,
+          votes: 1,
+          retentionRate: 90,
+          skills: skills,
+          bio: `Nghệ nhân tóc với ${exp} năm kinh nghiệm phục vụ tại The Gentleman Barber.`,
+          portfolioImages: []
+        });
+        BarbersData.unshift(newBarber);
+        showToast(`Đã thêm thành công Barber ${nickname} và đồng bộ toàn hệ thống!`, 'success');
+      }
+
+      saveSharedBarbers();
+      closeBarberModal();
+      updateKPIs();
+      if (currentBarberView === 'cards') renderBarberCards();
+      else renderBarberTable();
+    }
+
+    function toggleQuickStatus(id) {
+      const b = BarbersData.find(item => item.id === id);
+      if (!b) return;
+
+      const statuses = ['available', 'busy', 'break', 'off'];
+      const currentIndex = statuses.indexOf(b.status);
+      const nextStatus = statuses[(currentIndex + 1) % statuses.length];
+      b.status = nextStatus;
+
+      let statusMsg = '';
+      if (nextStatus === 'available') statusMsg = 'Sẵn sàng đón khách';
+      else if (nextStatus === 'busy') statusMsg = 'Đang cắt tóc';
+      else if (nextStatus === 'break') statusMsg = 'Nghỉ giải lao';
+      else if (nextStatus === 'off') statusMsg = 'Off ca hôm nay';
+
+      saveSharedBarbers();
+      updateKPIs();
+      if (currentBarberView === 'cards') renderBarberCards();
+      else renderBarberTable();
+      showToast(`Đã đổi trạng thái của ${b.nickname} sang: ${statusMsg}!`, 'info');
+    }
+
+    function deleteBarber(id) {
+      const b = BarbersData.find(item => item.id === id);
+      if (!b) return;
+
+      if (confirm(`Bạn có chắc chắn muốn xóa hồ sơ Barber ${b.nickname} (${b.fullName}) khỏi hệ thống?`)) {
+        BarbersData = BarbersData.filter(item => item.id !== id);
+        saveSharedBarbers();
+        updateKPIs();
+        if (currentBarberView === 'cards') renderBarberCards();
+        else renderBarberTable();
+        showToast(`Đã xóa Barber ${b.nickname}!`, 'info');
+      }
+    }
+
+    // --- 7. MODAL CONTROLS: PORTFOLIO & DETAIL ---
+    function openPortfolioModal(id) {
+      const b = BarbersData.find(item => item.id === id);
+      if (!b) return;
+
+      const modal = document.getElementById('portfolioModal');
+      document.getElementById('portfolioModalName').textContent = `${b.nickname} (${b.fullName})`;
+      document.getElementById('portfolioModalRank').textContent = `${b.rankLabel} &bull; ${b.expYears || parseInt(b.experience) || 3} năm kinh nghiệm &bull; ${b.chair}`;
+
+      const commissionAmount = Math.round(b.todayRevenue * (b.commissionRate / 100));
+
+      const body = document.getElementById('portfolioModalBody');
+      body.innerHTML = `
+        <div class="space-y-4">
+          <!-- Overview Hero -->
+          <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 flex items-center gap-4">
+            <img src="${b.avatar}" alt="${b.nickname}" class="w-16 h-16 rounded-2xl object-cover border-2 border-amber-500/40 shrink-0">
+            <div>
+              <div class="text-sm font-bold text-white flex items-center gap-2">
+                ${b.nickname}
+                <span class="text-xs px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 font-bold font-mono">Hoa hồng: ${b.commissionRate}%</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">${b.bio}</p>
+              <div class="flex items-center gap-4 mt-2 text-xs">
+                <span class="text-slate-300"><i class="fas fa-phone mr-1 text-amber-400"></i> ${b.phone}</span>
+                <span class="text-emerald-400 font-bold"><i class="fas fa-rotate-left mr-1"></i> Tỷ lệ khách quay lại: ${b.retentionRate}%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stats 4 Blocks -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 text-center">
+              <span class="text-[10px] text-slate-400 block">Lượt cắt hôm nay</span>
+              <span class="text-base font-black text-white">${b.todayCuts}</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 text-center">
+              <span class="text-[10px] text-slate-400 block">Doanh số tạo ra</span>
+              <span class="text-sm font-black text-amber-400 font-mono">${formatCurrency(b.todayRevenue)}</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 text-center">
+              <span class="text-[10px] text-slate-400 block">Hoa hồng nhận</span>
+              <span class="text-sm font-black text-emerald-400 font-mono">${formatCurrency(commissionAmount)}</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 text-center">
+              <span class="text-[10px] text-slate-400 block">Đánh giá CSAT</span>
+              <span class="text-base font-black text-amber-400 flex items-center justify-center gap-1">${b.csat} ★</span>
+            </div>
+          </div>
+
+          <!-- Skills List -->
+          <div>
+            <h4 class="text-xs font-bold text-white mb-2 uppercase tracking-wider">Kỹ Năng & Thế Mạnh Nghệ Nhân</h4>
+            <div class="flex flex-wrap gap-2">
+              ${b.skills.map(s => `<span class="px-2.5 py-1 rounded-lg bg-slate-800 text-amber-300 border border-amber-500/20 text-xs font-medium"><i class="fas fa-check-circle text-amber-400 mr-1 text-[10px]"></i> ${s}</span>`).join('')}
+            </div>
+          </div>
+
+          <!-- Portfolio Samples -->
+          ${b.portfolioImages.length > 0 ? `
+            <div>
+              <h4 class="text-xs font-bold text-white mb-2 uppercase tracking-wider">Tác Phẩm Mẫu Tiêu Biểu</h4>
+              <div class="grid grid-cols-3 gap-3">
+                ${b.portfolioImages.map(img => `
+                  <img src="${img}" alt="Tác phẩm" class="w-full h-24 object-cover rounded-xl border border-slate-700 hover:scale-105 transition cursor-pointer">
+                `).join('')}
+              </div>
+            </div>
+          ` : ''}
+
+          <div class="pt-3 border-t border-slate-800 flex justify-end gap-2">
+            <button onclick="closePortfolioModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition">Đóng</button>
+            <button onclick="closePortfolioModal(); editBarber(${b.id});" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold transition flex items-center gap-1.5">
+              <i class="fas fa-edit"></i> Chỉnh Sửa Hồ Sơ
+            </button>
+          </div>
+        </div>
+      `;
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closePortfolioModal() {
+      const modal = document.getElementById('portfolioModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    function exportCommissionReport() {
+      showToast('Đã xuất báo cáo năng suất & hoa hồng Barber hôm nay thành công (Barber_Commission_Report.xlsx)!', 'success');
+    }
+
+    // --- 8. UPDATE KPIS ---
+    function updateKPIs() {
+      const totalBarbers = BarbersData.length;
+      const onDuty = BarbersData.filter(b => b.status === 'available' || b.status === 'busy').length;
+      const totalRev = BarbersData.reduce((sum, b) => sum + b.todayRevenue, 0);
+      const avgRev = onDuty > 0 ? Math.round(totalRev / onDuty) : 0;
+
+      const kpiTotal = document.getElementById('kpiTotalBarbers');
+      const kpiDuty = document.getElementById('kpiOnDutyCount');
+      const kpiAvg = document.getElementById('kpiAvgRevenue');
+      const navBadge = document.getElementById('navBarberCountBadge');
+
+      if (kpiTotal) kpiTotal.textContent = `${totalBarbers} Nhân sự`;
+      if (kpiDuty) kpiDuty.textContent = `${onDuty} / ${totalBarbers} Thợ`;
+      if (kpiAvg) kpiAvg.textContent = formatCurrency(avgRev);
+      if (navBadge) navBadge.textContent = totalBarbers;
+    }
+
+    // --- 9. TOAST NOTIFICATIONS ---
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toastContainer');
+      if (!container) return;
+
+      const toast = document.createElement('div');
+      const icon = type === 'success' ? 'fa-check-circle text-emerald-400' : (type === 'danger' ? 'fa-exclamation-circle text-red-400' : 'fa-info-circle text-amber-400');
+
+      toast.className = `flex items-center gap-3 px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 shadow-2xl text-slate-200 text-xs transform transition-all duration-300 translate-y-3 opacity-0`;
+      toast.innerHTML = `
+        <i class="fas ${icon} text-base"></i>
+        <div class="flex-1 font-medium">${message}</div>
+        <button onclick="this.parentElement.remove()" class="text-slate-400 hover:text-white ml-2"><i class="fas fa-times"></i></button>
+      `;
+
+      container.appendChild(toast);
+      setTimeout(() => toast.classList.remove('translate-y-3', 'opacity-0'), 10);
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-3');
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+
+    // --- 10. INITIALIZATION ---
+    document.addEventListener('DOMContentLoaded', () => {
+      loadSharedBarbers();
+      initClock();
+      updateKPIs();
+      renderBarberCards();
+
+      window.addEventListener('storage', () => {
+        loadSharedBarbers();
+        updateKPIs();
+        if (currentBarberView === 'cards') renderBarberCards();
+        else renderBarberTable();
+      });
+
+      // Search input
+      const sInput = document.getElementById('barberSearchInput');
+      if (sInput) {
+        sInput.addEventListener('input', (e) => {
+          barberSearchQuery = e.target.value;
+          if (currentBarberView === 'cards') renderBarberCards();
+          else renderBarberTable();
+        });
+      }
+
+      // Mobile sidebar toggle
+      const sidebarToggle = document.getElementById('sidebarToggle');
+      const sidebar = document.getElementById('mainSidebar');
+      if (sidebarToggle && sidebar) {
+        sidebarToggle.addEventListener('click', () => {
+          sidebar.classList.toggle('-translate-x-full');
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>
