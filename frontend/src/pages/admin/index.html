@@ -500,42 +500,39 @@
 
                 <!-- Notification Bell Dropdown -->
                 <div class="relative">
-                    <button id="notifDropdownBtn"
+                    <button id="notifDropdownBtn" title="Thông báo hệ thống"
                         class="relative w-10 h-10 rounded-xl bg-slate-800/80 border border-slate-700 flex items-center justify-center text-slate-300 hover:text-amber-400 hover:border-amber-500/40 transition">
-                        <i class="far fa-bell text-sm"></i>
-                        <span
-                            class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white rounded-full text-[10px] font-black flex items-center justify-center">3</span>
+                        <i id="notifBellIcon" class="far fa-bell text-sm"></i>
+                        <span id="notifBadgeCount"
+                            class="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 bg-red-500 text-white rounded-full text-[10px] font-black flex items-center justify-center shadow-lg">3</span>
                     </button>
 
                     <!-- Notification Dropdown Menu -->
                     <div id="notifDropdownMenu"
-                        class="hidden absolute right-0 mt-2 w-80 bg-barber-card border border-barber-border rounded-2xl shadow-2xl z-50 overflow-hidden">
-                        <div class="px-4 py-3 border-b border-barber-border flex items-center justify-between">
-                            <span class="text-xs font-bold text-white uppercase tracking-wider">Thông báo mới</span>
-                            <span class="text-[10px] text-amber-400 font-medium cursor-pointer hover:underline">Đã đọc
-                                tất cả</span>
+                        class="hidden absolute right-0 mt-2 w-96 bg-barber-card border border-barber-border rounded-2xl shadow-2xl z-50 overflow-hidden">
+                        <div class="px-4 py-3 border-b border-barber-border flex items-center justify-between bg-slate-900/80">
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-bell text-amber-400 text-xs"></i>
+                                <span class="text-xs font-bold text-white uppercase tracking-wider">Trung tâm Thông báo</span>
+                                <span id="notifUnreadTag" class="text-[10px] px-1.5 py-0.5 rounded-full bg-red-500/20 text-red-400 border border-red-500/30 font-bold">3 mới</span>
+                            </div>
+                            <button type="button" onclick="markAllNotificationsRead()"
+                                class="text-[11px] text-amber-400 font-semibold cursor-pointer hover:underline">
+                                Đọc tất cả
+                            </button>
                         </div>
-                        <div class="divide-y divide-slate-800 text-xs max-h-72 overflow-y-auto">
-                            <div class="p-3 hover:bg-slate-800/50 transition cursor-pointer">
-                                <p class="font-semibold text-white">Khách VIP Trần Tuấn Anh vừa check-in</p>
-                                <p class="text-[11px] text-slate-400 mt-0.5">Yêu cầu Master Hoàng phục vụ combo Đế
-                                    Vương.</p>
-                                <span class="text-[10px] text-amber-400/80">3 phút trước</span>
-                            </div>
-                            <div onclick="window.location.href='inventory.html'"
-                                class="p-3 hover:bg-slate-800/50 transition cursor-pointer">
-                                <p class="font-semibold text-amber-300">Cảnh báo tồn kho sáp vuốt tóc</p>
-                                <p class="text-[11px] text-slate-400 mt-0.5">Sáp Reuzel Blue chỉ còn 2 hộp tại kho
-                                    chính.</p>
-                                <span class="text-[10px] text-amber-400/80">25 phút trước &bull; Nhấp xem kho
-                                    &rarr;</span>
-                            </div>
-                            <div class="p-3 hover:bg-slate-800/50 transition cursor-pointer">
-                                <p class="font-semibold text-emerald-400">Đánh giá 5 sao từ khách hàng</p>
-                                <p class="text-[11px] text-slate-400 mt-0.5">"Tuấn Fade cắt uốn tóc cực đẹp và chu đáo!"
-                                </p>
-                                <span class="text-[10px] text-slate-400">1 giờ trước</span>
-                            </div>
+                        <div class="px-3 py-2 bg-slate-900/50 border-b border-slate-800 flex items-center justify-between gap-2">
+                            <button type="button" onclick="triggerSimulatedCustomerBooking()"
+                                class="flex-1 text-[10px] font-bold py-1.5 px-2 rounded-lg bg-sky-500/15 hover:bg-sky-500/25 text-sky-300 border border-sky-500/30 transition">
+                                <i class="fas fa-calendar-plus mr-1"></i>+ Giả lập Khách Đặt Lịch
+                            </button>
+                            <button type="button" onclick="triggerCustomerStarReview()"
+                                class="flex-1 text-[10px] font-bold py-1.5 px-2 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/30 transition">
+                                <i class="fas fa-star mr-1"></i>+ Khách Đánh Giá 5 Sao
+                            </button>
+                        </div>
+                        <div id="notifDropdownList" class="divide-y divide-slate-800 text-xs max-h-80 overflow-y-auto">
+                            <!-- Dynamically rendered by dashboard.js -->
                         </div>
                     </div>
                 </div>
@@ -555,6 +552,26 @@
                 </button>
             </div>
         </header>
+
+        <!-- LIVE NOTIFICATION BAR (THANH THÔNG BÁO TRỰC TIẾP TRÊN CÙNG) -->
+        <div id="liveNotificationBar"
+            class="bg-gradient-to-r from-amber-500/15 via-slate-900/95 to-emerald-500/10 border-b border-amber-500/30 px-6 py-2 flex items-center justify-between gap-4 shrink-0 transition-all">
+            <div class="flex items-center gap-2.5 min-w-0">
+                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-500 text-slate-950 uppercase tracking-wider shrink-0">
+                    <i class="fas fa-bolt"></i> Live
+                </span>
+                <p id="liveNotificationBarText" class="text-xs text-slate-200 truncate font-medium">
+                    🔔 <strong class="text-amber-300">Thông báo mới:</strong> Khách VIP Trần Tuấn Anh vừa check-in Combo Đế Vương 7 bước tại Ghế 01 (Master Hoàng)
+                </p>
+            </div>
+            <div class="flex items-center gap-3 shrink-0">
+                <span id="liveNotificationBarTime" class="text-[11px] text-amber-400/90 font-mono">Vừa xong</span>
+                <button type="button" onclick="document.getElementById('notifDropdownMenu').classList.remove('hidden')"
+                    class="text-[11px] font-bold text-amber-300 hover:text-amber-200 underline">
+                    Xem tất cả
+                </button>
+            </div>
+        </div>
 
         <!-- MAIN SCROLLABLE DASHBOARD BODY -->
         <main class="flex-1 overflow-y-auto p-6">

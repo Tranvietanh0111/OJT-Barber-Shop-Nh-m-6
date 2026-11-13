@@ -214,6 +214,36 @@ const BarberState = {
     { name: "Gôm xịt Butterfly Shadow (600ml)", stock: 4, minStock: 12, status: "warning" },
     { name: "Dầu dưỡng râu Proraso Wood & Spice", stock: 3, minStock: 6, status: "warning" },
     { name: "Hộp lưỡi dao Feather Hi-Stainless", stock: 12, minStock: 25, status: "warning" }
+  ],
+
+  notifications: [
+    {
+      id: "NOTIF-01",
+      type: "booking",
+      title: "📅 Khách VIP Trần Tuấn Anh vừa đặt lịch & check-in",
+      message: "Yêu cầu Master Hoàng phục vụ gói Combo Đế Vương 7 bước tại Ghế 01.",
+      time: "3 phút trước",
+      link: "appointments.html",
+      unread: true
+    },
+    {
+      id: "NOTIF-02",
+      type: "rating",
+      title: "⭐ Đánh giá 5 sao mới từ khách hàng",
+      message: "Khách Lý Gia Hưng đánh giá 5⭐ cho Tuấn Fade: \"Cắt uốn tóc cực đẹp và chu đáo!\"",
+      time: "15 phút trước",
+      link: "barbers.html",
+      unread: true
+    },
+    {
+      id: "NOTIF-03",
+      type: "inventory",
+      title: "⚠️ Cảnh báo tồn kho sáp vuốt tóc",
+      message: "Sáp Reuzel Blue Pomade chỉ còn 2 hộp tại kho chính • Nhấp để nhập hàng.",
+      time: "25 phút trước",
+      link: "inventory.html",
+      unread: true
+    }
   ]
 };
 
@@ -228,7 +258,8 @@ const STORAGE_KEYS = {
   CUSTOMERS: 'gb_sync_customers_v1',
   STAFF: 'gb_sync_staff_v1',
   INVOICES: 'gb_sync_invoices_v1',
-  QUEUE: 'gb_sync_queue_v1'
+  QUEUE: 'gb_sync_queue_v1',
+  NOTIFICATIONS: 'gb_sync_notifications_v1'
 };
 
 const ADMIN_API_BASE = (window.BARBER_API_BASE || 'http://localhost:8000/api/v1/admin');
@@ -390,6 +421,16 @@ function loadSharedState() {
     } else {
       localStorage.setItem(STORAGE_KEYS.STATS, JSON.stringify(BarberState.stats));
     }
+
+    const savedNotifs = localStorage.getItem(STORAGE_KEYS.NOTIFICATIONS);
+    if (savedNotifs) {
+      const parsed = JSON.parse(savedNotifs);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        BarberState.notifications = parsed;
+      }
+    } else {
+      localStorage.setItem(STORAGE_KEYS.NOTIFICATIONS, JSON.stringify(BarberState.notifications));
+    }
   } catch (err) {
     console.warn('Error loading shared state from localStorage:', err);
   }
@@ -404,10 +445,241 @@ function saveSharedState() {
     localStorage.setItem(STORAGE_KEYS.APPOINTMENTS, JSON.stringify(BarberState.appointments));
     localStorage.setItem(STORAGE_KEYS.CHAIRS, JSON.stringify(BarberState.chairs));
     localStorage.setItem(STORAGE_KEYS.STATS, JSON.stringify(BarberState.stats));
+    localStorage.setItem(STORAGE_KEYS.NOTIFICATIONS, JSON.stringify(BarberState.notifications));
     updateDynamicFilterDropdowns();
+    renderNotificationsUI();
   } catch (err) {
     console.warn('Error saving shared state to localStorage:', err);
   }
+}
+
+// =============================================================================
+// REAL-TIME NOTIFICATION BELL & TOP NOTIFICATION BAR SYSTEM
+// =============================================================================
+function pushAdminNotification({ type = 'booking', title, message, link = 'appointments.html' }) {
+  const now = new Date();
+  const hh = String(now.getHours()).padStart(2, '0');
+  const mm = String(now.getMinutes()).padStart(2, '0');
+  const ss = String(now.getSeconds()).padStart(2, '0');
+
+  const newNotif = {
+    id: `NOTIF-${Date.now()}-${Math.floor(Math.random() * 100)}`,
+    type,
+    title,
+    message,
+    time: `Vừa xong (${hh}:${mm}:${ss})`,
+    link,
+    unread: true
+  };
+
+  if (!Array.isArray(BarberState.notifications)) {
+    BarberState.notifications = [];
+  }
+  BarberState.notifications.unshift(newNotif);
+  if (BarberState.notifications.length > 30) {
+    BarberState.notifications = BarberState.notifications.slice(0, 30);
+  }
+
+  try {
+    localStorage.setItem(STORAGE_KEYS.NOTIFICATIONS, JSON.stringify(BarberState.notifications));
+    window.dispatchEvent(new Event('gb-admin-sync'));
+  } catch (e) {}
+
+  renderNotificationsUI(true);
+}
+
+function renderNotificationsUI(highlightNew = false) {
+  const notifs = Array.isArray(BarberState.notifications) ? BarberState.notifications : [];
+  const unreadCount = notifs.filter(n => n.unread).length;
+
+  const badgeEl = document.getElementById('notifBadgeCount');
+  const unreadTagEl = document.getElementById('notifUnreadTag');
+  const bellIconEl = document.getElementById('notifBellIcon');
+  const listEl = document.getElementById('notifDropdownList');
+  const barTextEl = document.getElementById('liveNotificationBarText');
+  const barTimeEl = document.getElementById('liveNotificationBarTime');
+  const barContainerEl = document.getElementById('liveNotificationBar');
+
+  if (badgeEl) {
+    badgeEl.textContent = unreadCount;
+    if (unreadCount > 0) {
+      badgeEl.classList.remove('hidden');
+    } else {
+      badgeEl.classList.add('hidden');
+    }
+  }
+
+  if (unreadTagEl) {
+    unreadTagEl.textContent = `${unreadCount} mới`;
+  }
+
+  if (highlightNew && bellIconEl) {
+    bellIconEl.classList.add('text-amber-400', 'animate-bounce');
+    setTimeout(() => {
+      bellIconEl.classList.remove('animate-bounce');
+    }, 2200);
+  }
+
+  if (notifs.length > 0 && barTextEl) {
+    const latest = notifs[0];
+    barTextEl.innerHTML = `<strong class="text-amber-300">${latest.title}:</strong> ${latest.message}`;
+    if (barTimeEl) barTimeEl.textContent = latest.time;
+    if (highlightNew && barContainerEl) {
+      barContainerEl.classList.add('ring-2', 'ring-amber-400/70');
+      setTimeout(() => {
+        barContainerEl.classList.remove('ring-2', 'ring-amber-400/70');
+      }, 2000);
+    }
+  }
+
+  if (!listEl) return;
+
+  if (notifs.length === 0) {
+    listEl.innerHTML = `
+      <div class="p-6 text-center text-slate-400 text-xs">
+        <i class="far fa-bell-slash text-2xl text-slate-600 mb-2 block"></i>
+        Chưa có thông báo mới nào
+      </div>
+    `;
+    return;
+  }
+
+  listEl.innerHTML = notifs.map(n => {
+    let titleColor = 'text-white';
+    let iconHtml = '<i class="fas fa-calendar-check text-sky-400"></i>';
+    if (n.type === 'rating') {
+      titleColor = 'text-amber-300';
+      iconHtml = '<i class="fas fa-star text-amber-400"></i>';
+    } else if (n.type === 'payment') {
+      titleColor = 'text-emerald-400';
+      iconHtml = '<i class="fas fa-sack-dollar text-emerald-400"></i>';
+    } else if (n.type === 'checkin') {
+      titleColor = 'text-amber-200';
+      iconHtml = '<i class="fas fa-chair text-amber-400"></i>';
+    } else if (n.type === 'barber') {
+      titleColor = 'text-purple-300';
+      iconHtml = '<i class="fas fa-user-tie text-purple-400"></i>';
+    } else if (n.type === 'cancel' || n.type === 'inventory') {
+      titleColor = 'text-rose-400';
+      iconHtml = '<i class="fas fa-triangle-exclamation text-rose-400"></i>';
+    }
+
+    return `
+      <div onclick="handleNotificationItemClick('${n.id}', '${n.link || ''}')"
+        class="p-3 hover:bg-slate-800/70 transition cursor-pointer flex items-start gap-2.5 ${n.unread ? 'bg-amber-500/5 border-l-2 border-amber-400' : 'opacity-75'}">
+        <div class="w-7 h-7 rounded-lg bg-slate-900 border border-slate-700 flex items-center justify-center shrink-0 mt-0.5">
+          ${iconHtml}
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center justify-between gap-2">
+            <p class="font-bold ${titleColor} truncate">${n.title}</p>
+            ${n.unread ? '<span class="w-2 h-2 rounded-full bg-red-500 shrink-0"></span>' : ''}
+          </div>
+          <p class="text-[11px] text-slate-300 mt-0.5 leading-snug">${n.message}</p>
+          <span class="text-[10px] text-amber-400/80 mt-1 inline-block">${n.time}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function handleNotificationItemClick(notifId, link) {
+  const item = (BarberState.notifications || []).find(n => n.id === notifId);
+  if (item) {
+    item.unread = false;
+    try {
+      localStorage.setItem(STORAGE_KEYS.NOTIFICATIONS, JSON.stringify(BarberState.notifications));
+    } catch (e) {}
+    renderNotificationsUI();
+  }
+  if (link && link !== 'index.html' && !window.location.pathname.endsWith(link)) {
+    window.location.href = link;
+  }
+}
+
+function markAllNotificationsRead() {
+  if (!Array.isArray(BarberState.notifications)) return;
+  BarberState.notifications.forEach(n => { n.unread = false; });
+  try {
+    localStorage.setItem(STORAGE_KEYS.NOTIFICATIONS, JSON.stringify(BarberState.notifications));
+  } catch (e) {}
+  renderNotificationsUI();
+  showToast('Đã đánh dấu đọc tất cả thông báo!', 'info');
+}
+
+function triggerSimulatedCustomerBooking() {
+  const sampleNames = ['Đặng Minh Quân', 'Trịnh Hoàng Nam', 'Bùi Quốc Khánh', 'Lương Thế Vinh', 'Phạm Gia Huy'];
+  const sampleServices = [
+    { name: 'Combo Đế Vương 7 bước', price: 280000 },
+    { name: 'Cắt + Uốn Premlock Hàn Quốc', price: 450000 },
+    { name: 'Skin Fade + Cạo khăn nóng', price: 180000 },
+    { name: 'Gội Dưỡng Sinh Thảo Mộc', price: 190000 }
+  ];
+  const randomName = sampleNames[Math.floor(Math.random() * sampleNames.length)];
+  const randomPhone = `09${Math.floor(10 + Math.random() * 89)} ${Math.floor(100 + Math.random() * 899)} ${Math.floor(100 + Math.random() * 899)}`;
+  const randomSrv = sampleServices[Math.floor(Math.random() * sampleServices.length)];
+  const activeBarber = BarberState.barbers[Math.floor(Math.random() * BarberState.barbers.length)] || { nickname: 'Hoàng Barber (Master)', defaultChair: 'Ghế 01' };
+  const newId = `BK-${Math.floor(1100 + Math.random() * 890)}`;
+
+  const newAppointment = normalizeAppointmentRecord({
+    id: newId,
+    customer: randomName,
+    phone: randomPhone,
+    isVip: Math.random() > 0.4,
+    service: randomSrv.name,
+    barber: activeBarber.nickname,
+    time: '17:00 - 17:45',
+    chair: activeBarber.defaultChair || 'Ghế 01',
+    price: randomSrv.price,
+    status: 'waiting',
+    notes: 'Khách đặt lịch trực tuyến qua App'
+  });
+
+  BarberState.appointments.unshift(newAppointment);
+  BarberState.stats.totalBookings++;
+  BarberState.stats.waitingBookings++;
+
+  syncCustomerToCRM(newAppointment);
+  syncBookingToStationQueue(newAppointment);
+
+  pushAdminNotification({
+    type: 'booking',
+    title: '📅 Khách hàng vừa đặt lịch mới!',
+    message: `Khách ${randomName} (${randomPhone}) vừa đặt "${randomSrv.name}" lúc 17:00 với ${activeBarber.nickname} (${newId}).`,
+    link: 'appointments.html'
+  });
+
+  saveSharedState();
+  updateStatsHeaders();
+  renderChairsGrid();
+  renderAppointmentsTable();
+  showToast(`🔔 Khách ${randomName} vừa đặt lịch mới (${newId})! Đã hiện trên thanh thông báo.`, 'success');
+}
+
+function triggerCustomerStarReview() {
+  const sampleReviews = [
+    { customer: 'Nguyễn Anh Tuấn', stars: 5, comment: 'Cắt cực kỳ ưng ý, cạo khăn nóng rất êm và thư giãn!' },
+    { customer: 'Phan Mạnh Quỳnh', stars: 5, comment: 'Form tóc Pompadour giữ nếp chuẩn, không gian sang trọng 10 điểm!' },
+    { customer: 'Lê Minh Khang', stars: 5, comment: 'Thợ tỉa layer rất kỹ, gội dưỡng sinh cổ vai gáy cực sảng khoái!' }
+  ];
+  const rev = sampleReviews[Math.floor(Math.random() * sampleReviews.length)];
+  const activeBarber = BarberState.barbers[Math.floor(Math.random() * BarberState.barbers.length)] || { nickname: 'Hoàng Barber (Master)' };
+  if (activeBarber) {
+    activeBarber.reviewsCount = (activeBarber.reviewsCount || 50) + 1;
+    activeBarber.rating = 5.0;
+  }
+
+  pushAdminNotification({
+    type: 'rating',
+    title: `⭐ Khách đánh giá ${rev.stars} sao cho ${activeBarber.nickname}`,
+    message: `${rev.customer} đã chấm 5⭐: "${rev.comment}"`,
+    link: 'barbers.html'
+  });
+
+  saveSharedState();
+  renderBarbersList();
+  renderBarbersManagementView();
+  showToast(`⭐ Khách ${rev.customer} vừa đánh giá 5 sao cho ${activeBarber.nickname}!`, 'success');
 }
 
 function syncCustomerToCRM(booking) {
@@ -944,6 +1216,12 @@ function quickUpdateBarberStatus(barberId, newStatus) {
   renderBarbersList();
 
   const statusName = newStatus === 'available' ? 'Sẵn sàng' : (newStatus === 'busy' ? 'Đang cắt tóc' : (newStatus === 'break' ? 'Tạm nghỉ' : 'Nghỉ ca'));
+  pushAdminNotification({
+    type: 'barber',
+    title: `🔄 Trạng thái ca trực: ${barber.nickname}`,
+    message: `Thợ ${barber.nickname} (${barber.defaultChair}) vừa chuyển sang trạng thái "${statusName}".`,
+    link: 'barbers.html'
+  });
   showToast(`Đã chuyển trạng thái ${barber.nickname} sang: ${statusName}!`, 'info');
 }
 
@@ -1092,6 +1370,12 @@ function submitBarberForm(event) {
 
   saveSharedState();
   if (savedBarber) {
+    pushAdminNotification({
+      type: 'barber',
+      title: editingBarberId ? `👨‍💼 Đã cập nhật hồ sơ ${savedBarber.nickname}` : `🎉 Chào mừng Barber mới: ${savedBarber.nickname}`,
+      message: `${savedBarber.fullName} (${savedBarber.level}) phụ trách ${savedBarber.defaultChair} • Hoa hồng ${savedBarber.commissionRate}%.`,
+      link: 'barbers.html'
+    });
     const apiPayload = {
       name: savedBarber.nickname || savedBarber.fullName,
       phone: savedBarber.phone,
@@ -1206,13 +1490,25 @@ let currentFilter = 'all';
 let currentSearch = '';
 let currentBarberFilter = 'all';
 
+function matchesDashboardBarber(apptBarber, selectedFilter) {
+  if (!selectedFilter || selectedFilter === 'all') return true;
+  const norm = s => String(s || '').split('(')[0].trim().toLowerCase();
+  const a = norm(apptBarber);
+  const f = norm(selectedFilter);
+  if (!a || !f) return false;
+  return a === f || a.includes(f) || f.includes(a);
+}
+
 function renderAppointmentsTable() {
   const tbody = document.getElementById('appointmentsTableBody');
   if (!tbody) return;
 
-  let filtered = BarberState.appointments.filter(item => {
+  const barberScoped = BarberState.appointments.filter(item =>
+    matchesDashboardBarber(item.barber, currentBarberFilter)
+  );
+
+  let filtered = barberScoped.filter(item => {
     if (currentFilter !== 'all' && item.status !== currentFilter) return false;
-    if (currentBarberFilter !== 'all' && !item.barber.includes(currentBarberFilter)) return false;
 
     if (currentSearch.trim() !== '') {
       const q = currentSearch.toLowerCase();
@@ -1220,17 +1516,18 @@ function renderAppointmentsTable() {
       const matchPhone = item.phone.includes(q);
       const matchCode = item.id.toLowerCase().includes(q);
       const matchService = item.service.toLowerCase().includes(q);
-      if (!matchCustomer && !matchPhone && !matchCode && !matchService) return false;
+      const matchBarber = (item.barber || '').toLowerCase().includes(q);
+      if (!matchCustomer && !matchPhone && !matchCode && !matchService && !matchBarber) return false;
     }
 
     return true;
   });
 
-  const countAll = BarberState.appointments.length;
-  const countServing = BarberState.appointments.filter(a => a.status === 'serving').length;
-  const countWaiting = BarberState.appointments.filter(a => a.status === 'waiting').length;
-  const countDone = BarberState.appointments.filter(a => a.status === 'done').length;
-  const countCancelled = BarberState.appointments.filter(a => a.status === 'cancelled').length;
+  const countAll = barberScoped.length;
+  const countServing = barberScoped.filter(a => a.status === 'serving').length;
+  const countWaiting = barberScoped.filter(a => a.status === 'waiting').length;
+  const countDone = barberScoped.filter(a => a.status === 'done').length;
+  const countCancelled = barberScoped.filter(a => a.status === 'cancelled').length;
 
   const countAllEl = document.getElementById('countAll');
   const countServingEl = document.getElementById('countServing');
@@ -1290,7 +1587,9 @@ function renderAppointmentsTable() {
     } else if (item.status === 'cancelled') {
       statusBadge = `<span class="badge-cancelled text-xs font-semibold px-2.5 py-1 rounded-full inline-flex items-center gap-1.5"><i class="fas fa-ban"></i> Đã hủy</span>`;
       actionButtons = `
-        <span class="text-xs text-slate-500 italic">Đã hủy hẹn</span>
+        <button onclick="restoreAppointment('${item.id}')" title="Khôi phục lịch hẹn về Chờ cắt" class="px-2.5 py-1 rounded bg-amber-500/15 hover:bg-amber-500/25 text-amber-400 border border-amber-500/30 text-xs font-semibold transition">
+          <i class="fas fa-undo mr-1"></i> Khôi phục
+        </button>
       `;
     }
 
@@ -1631,6 +1930,12 @@ function submitNewBooking(event) {
 
   syncCustomerToCRM(newAppointment);
   syncBookingToStationQueue(newAppointment);
+  pushAdminNotification({
+    type: 'booking',
+    title: `📅 Khách ${name} vừa đặt lịch mới (${newId})`,
+    message: `Gói "${service}" lúc ${time || '16:00'} với ${barber} tại ${chair} • SĐT: ${phone}.`,
+    link: 'appointments.html'
+  });
   saveSharedState();
 
   updateStatsHeaders();
@@ -1666,6 +1971,12 @@ function checkinAppointment(id) {
     renderBarbersManagementView();
   }
 
+  pushAdminNotification({
+    type: 'checkin',
+    title: `✂️ Khách ${app.customer} vừa Check-in!`,
+    message: `Đã vào ${app.chair} phục vụ gói "${app.service}" cùng thợ ${app.barber}.`,
+    link: 'stations.html'
+  });
   saveSharedState();
   updateStatsHeaders();
   renderAppointmentsTable();
@@ -1703,6 +2014,12 @@ function finishAppointment(id) {
   }
 
   syncCompletedBookingToInvoices(app);
+  pushAdminNotification({
+    type: 'payment',
+    title: `💰 Thanh toán hoàn tất +${formatCurrency(app.price)}`,
+    message: `Khách ${app.customer} đã hoàn tất gói "${app.service}" (${app.barber}) và đánh giá 5⭐ hài lòng!`,
+    link: 'reports.html'
+  });
   saveSharedState();
   updateStatsHeaders();
   renderAppointmentsTable();
@@ -1718,11 +2035,37 @@ function cancelAppointment(id) {
     BarberState.stats.cancelledBookings++;
     if (BarberState.stats.waitingBookings > 0) BarberState.stats.waitingBookings--;
 
+    pushAdminNotification({
+      type: 'cancel',
+      title: `⚠️ Đã hủy lịch hẹn ${app.id}`,
+      message: `Khách ${app.customer} (${app.phone}) đã hủy gói "${app.service}" lúc ${app.time}.`,
+      link: 'appointments.html'
+    });
     saveSharedState();
     updateStatsHeaders();
     renderAppointmentsTable();
     showToast(`Đã hủy lịch hẹn ${app.id}!`, 'info');
   }
+}
+
+function restoreAppointment(id) {
+  const app = BarberState.appointments.find(a => a.id === id);
+  if (!app) return;
+
+  app.status = 'waiting';
+  if (BarberState.stats.cancelledBookings > 0) BarberState.stats.cancelledBookings--;
+  BarberState.stats.waitingBookings++;
+
+  pushAdminNotification({
+    type: 'booking',
+    title: `🔄 Khôi phục lịch hẹn ${app.id}`,
+    message: `Khách ${app.customer} (${app.phone}) đã được chuyển lại sang Chờ cắt lúc ${app.time} với ${app.barber}.`,
+    link: 'appointments.html'
+  });
+  saveSharedState();
+  updateStatsHeaders();
+  renderAppointmentsTable();
+  showToast(`Đã khôi phục lịch hẹn ${app.id} của khách ${app.customer} về trạng thái Chờ cắt!`, 'success');
 }
 
 function toggleChairReady(chairId) {
@@ -1858,6 +2201,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadSharedState();
   initRealtimeClock();
   updateDynamicFilterDropdowns();
+  renderNotificationsUI();
   renderChairsGrid();
   renderAppointmentsTable();
   renderBarbersList();
@@ -1869,6 +2213,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('storage', () => {
     loadSharedState();
     updateDynamicFilterDropdowns();
+    renderNotificationsUI(true);
     renderChairsGrid();
     renderAppointmentsTable();
     renderBarbersList();

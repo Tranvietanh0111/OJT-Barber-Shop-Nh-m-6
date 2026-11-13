@@ -4,6 +4,9 @@ import AdminLayout, {
   formatVND,
   useLiveClock,
   useAdminToast,
+  pushSharedNotification,
+  AdminNotificationBell,
+  AdminLiveNotificationBar,
 } from "./AdminSidebar";
 
 const BARBERS_LIST = [
@@ -385,16 +388,31 @@ export default function AppointmentManagement() {
     );
 
     if (newStatus === "in-progress") {
+      pushSharedNotification({
+        type: "checkin",
+        title: `✂️ Khách ${item.customer} vừa Check-in!`,
+        message: `Đã vào ${item.chair} cùng ${item.barber} phục vụ gói "${item.service}".`,
+      });
       showToast(
         "Check-in vào ghế thành công!",
         `Khách ${item.customer} đã vào ${item.chair} cùng ${item.barber}`
       );
     } else if (newStatus === "completed") {
+      pushSharedNotification({
+        type: "payment",
+        title: `💰 Thanh toán hoàn tất +${formatVND(item.price)}`,
+        message: `Khách ${item.customer} đã hoàn tất gói "${item.service}" và đánh giá 5⭐ hài lòng!`,
+      });
       showToast(
         "Hoàn tất dịch vụ!",
         `Đã thu ${formatVND(item.price)} từ khách ${item.customer}`
       );
     } else if (newStatus === "cancelled") {
+      pushSharedNotification({
+        type: "cancel",
+        title: `⚠️ Đã hủy lịch hẹn #${item.id}`,
+        message: `Khách ${item.customer} đã hủy lịch hẹn lúc ${item.time}.`,
+      });
       showToast(
         "Đã hủy lịch hẹn",
         `Lịch hẹn #${item.id} của khách ${item.customer} đã được hủy`,
@@ -428,6 +446,11 @@ export default function AppointmentManagement() {
       ...prev,
     ]);
 
+    pushSharedNotification({
+      type: "booking",
+      title: `📅 Khách ${custName.trim()} vừa đặt lịch mới (${newId})`,
+      message: `Gói "${serviceName}" lúc ${custTime} với ${barberName} tại ${chairName} • SĐT: ${custPhone.trim()}.`,
+    });
     setBookingModalOpen(false);
     setCustName("");
     setCustPhone("");
@@ -501,8 +524,12 @@ export default function AppointmentManagement() {
                 <i className="fa-solid fa-calendar-plus"></i>
                 <span>Tạo Lịch Hẹn Mới</span>
               </button>
+
+              <AdminNotificationBell />
             </div>
           </header>
+
+          <AdminLiveNotificationBar />
 
           {/* SCROLLABLE MAIN CONTENT */}
           <main className="flex-1 overflow-y-auto p-6 space-y-6 custom-scroll">

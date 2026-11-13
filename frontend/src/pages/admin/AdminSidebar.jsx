@@ -90,6 +90,250 @@ export function AdminToast({ toast }) {
   );
 }
 
+export const DEFAULT_NOTIFICATIONS = [
+  {
+    id: "NOTIF-01",
+    type: "booking",
+    title: "📅 Khách VIP Trần Tuấn Anh vừa đặt lịch & check-in",
+    message:
+      "Yêu cầu Master Hoàng phục vụ gói Combo Đế Vương 7 bước tại Ghế 01.",
+    time: "3 phút trước",
+    unread: true,
+  },
+  {
+    id: "NOTIF-02",
+    type: "rating",
+    title: "⭐ Đánh giá 5 sao mới từ khách hàng",
+    message:
+      'Khách Lý Gia Hưng chấm 5⭐ cho Tuấn Fade: "Cắt uốn tóc cực đẹp và chu đáo!"',
+    time: "15 phút trước",
+    unread: true,
+  },
+  {
+    id: "NOTIF-03",
+    type: "inventory",
+    title: "⚠️ Cảnh báo tồn kho sáp vuốt tóc",
+    message: "Sáp Reuzel Blue Pomade chỉ còn 2 hộp tại kho chính.",
+    time: "25 phút trước",
+    unread: true,
+  },
+];
+
+export function pushSharedNotification({
+  type = "booking",
+  title,
+  message,
+}) {
+  try {
+    const now = new Date();
+    const hh = String(now.getHours()).padStart(2, "0");
+    const mm = String(now.getMinutes()).padStart(2, "0");
+    const ss = String(now.getSeconds()).padStart(2, "0");
+    const raw = localStorage.getItem("gb_sync_notifications_v1");
+    const list = raw ? JSON.parse(raw) : [...DEFAULT_NOTIFICATIONS];
+    const newItem = {
+      id: `NOTIF-${Date.now()}-${Math.floor(Math.random() * 100)}`,
+      type,
+      title,
+      message,
+      time: `Vừa xong (${hh}:${mm}:${ss})`,
+      unread: true,
+    };
+    const updated = [newItem, ...(Array.isArray(list) ? list : [])].slice(
+      0,
+      30
+    );
+    localStorage.setItem("gb_sync_notifications_v1", JSON.stringify(updated));
+    window.dispatchEvent(new Event("gb-admin-sync"));
+    return newItem;
+  } catch {
+    return null;
+  }
+}
+
+export function AdminNotificationBell({ onQuickRating }) {
+  const [open, setOpen] = useState(false);
+  const [notifications, setNotifications] = useState(() => {
+    try {
+      const saved = JSON.parse(
+        localStorage.getItem("gb_sync_notifications_v1") || "null"
+      );
+      if (Array.isArray(saved) && saved.length > 0) return saved;
+    } catch {}
+    return DEFAULT_NOTIFICATIONS;
+  });
+
+  useEffect(() => {
+    const sync = () => {
+      try {
+        const saved = JSON.parse(
+          localStorage.getItem("gb_sync_notifications_v1") || "null"
+        );
+        if (Array.isArray(saved) && saved.length > 0) {
+          setNotifications(saved);
+        }
+      } catch {}
+    };
+    window.addEventListener("storage", sync);
+    window.addEventListener("gb-admin-sync", sync);
+    return () => {
+      window.removeEventListener("storage", sync);
+      window.removeEventListener("gb-admin-sync", sync);
+    };
+  }, []);
+
+  const unreadCount = notifications.filter((n) => n.unread).length;
+
+  const markAllRead = () => {
+    const updated = notifications.map((n) => ({ ...n, unread: false }));
+    setNotifications(updated);
+    try {
+      localStorage.setItem("gb_sync_notifications_v1", JSON.stringify(updated));
+      window.dispatchEvent(new Event("gb-admin-sync"));
+    } catch {}
+  };
+
+  const triggerFiveStarReview = () => {
+    pushSharedNotification({
+      type: "rating",
+      title: "⭐ Khách hàng vừa đánh giá 5 sao!",
+      message:
+        'Khách Nguyễn Anh Tuấn chấm 5⭐ cho Master Hoàng: "Cắt cực kỳ tỉ mỉ, cạo khăn nóng rất êm!"',
+    });
+    if (onQuickRating) onQuickRating();
+  };
+
+  return (
+    <div className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen((prev) => !prev)}
+        className="relative w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-300 hover:text-amber-400 hover:border-amber-500/40 transition-colors"
+        title="Trung tâm thông báo đặt lịch & đánh giá"
+      >
+        <i className="fa-regular fa-bell"></i>
+        {unreadCount > 0 && (
+          <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-rose-500 text-[10px] font-bold text-white flex items-center justify-center">
+            {unreadCount}
+          </span>
+        )}
+      </button>
+
+      {open && (
+        <div className="absolute right-0 mt-2 w-96 bg-barber-card border border-barber-border rounded-2xl shadow-2xl z-50 overflow-hidden">
+          <div className="px-4 py-3 border-b border-barber-border flex items-center justify-between bg-zinc-900/90">
+            <div className="flex items-center gap-2">
+              <i className="fa-solid fa-bell text-amber-400 text-xs"></i>
+              <span className="text-xs font-bold text-white uppercase tracking-wider">
+                Trung tâm Thông báo
+              </span>
+              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30 font-bold">
+                {unreadCount} mới
+              </span>
+            </div>
+            <button
+              type="button"
+              onClick={markAllRead}
+              className="text-[11px] text-amber-400 font-semibold hover:underline"
+            >
+              Đọc tất cả
+            </button>
+          </div>
+          <div className="px-3 py-2 bg-zinc-900/60 border-b border-zinc-800 flex items-center justify-between gap-2">
+            <button
+              type="button"
+              onClick={triggerFiveStarReview}
+              className="w-full text-[11px] font-bold py-1.5 px-2.5 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/30 transition"
+            >
+              <i className="fa-solid fa-star mr-1"></i>+ Giả lập Khách Đánh Giá 5 Sao
+            </button>
+          </div>
+          <div className="divide-y divide-zinc-800 text-xs max-h-80 overflow-y-auto">
+            {notifications.map((n) => (
+              <div
+                key={n.id}
+                onClick={() => {
+                  const updated = notifications.map((x) =>
+                    x.id === n.id ? { ...x, unread: false } : x
+                  );
+                  setNotifications(updated);
+                  try {
+                    localStorage.setItem(
+                      "gb_sync_notifications_v1",
+                      JSON.stringify(updated)
+                    );
+                  } catch {}
+                }}
+                className={`p-3 hover:bg-zinc-800/60 transition cursor-pointer ${
+                  n.unread
+                    ? "bg-amber-500/5 border-l-2 border-amber-400"
+                    : "opacity-75"
+                }`}
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <p className="font-bold text-white truncate">{n.title}</p>
+                  {n.unread && (
+                    <span className="w-2 h-2 rounded-full bg-rose-500 shrink-0"></span>
+                  )}
+                </div>
+                <p className="text-[11px] text-zinc-300 mt-0.5 leading-snug">
+                  {n.message}
+                </p>
+                <span className="text-[10px] text-amber-400/80 mt-1 inline-block">
+                  {n.time}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export function AdminLiveNotificationBar() {
+  const [latest, setLatest] = useState(DEFAULT_NOTIFICATIONS[0]);
+
+  useEffect(() => {
+    const sync = () => {
+      try {
+        const saved = JSON.parse(
+          localStorage.getItem("gb_sync_notifications_v1") || "null"
+        );
+        if (Array.isArray(saved) && saved.length > 0) {
+          setLatest(saved[0]);
+        }
+      } catch {}
+    };
+    sync();
+    window.addEventListener("storage", sync);
+    window.addEventListener("gb-admin-sync", sync);
+    return () => {
+      window.removeEventListener("storage", sync);
+      window.removeEventListener("gb-admin-sync", sync);
+    };
+  }, []);
+
+  if (!latest) return null;
+
+  return (
+    <div className="bg-gradient-to-r from-amber-500/15 via-zinc-900/95 to-emerald-500/10 border-b border-amber-500/30 px-6 py-2 flex items-center justify-between gap-4 shrink-0">
+      <div className="flex items-center gap-2.5 min-w-0">
+        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-500 text-black uppercase tracking-wider shrink-0">
+          <i className="fa-solid fa-bolt"></i> Live
+        </span>
+        <p className="text-xs text-zinc-200 truncate font-medium">
+          <strong className="text-amber-300">{latest.title}:</strong>{" "}
+          {latest.message}
+        </p>
+      </div>
+      <span className="text-[11px] text-amber-400/90 font-mono shrink-0">
+        {latest.time}
+      </span>
+    </div>
+  );
+}
+
 export default function AdminLayout({ activeKey, children, toast }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [barberBadgeCount, setBarberBadgeCount] = useState(8);

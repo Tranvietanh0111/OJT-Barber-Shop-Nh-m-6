@@ -5,6 +5,9 @@ import AdminLayout, {
   formatVND,
   useLiveClock,
   useAdminToast,
+  pushSharedNotification,
+  AdminNotificationBell,
+  AdminLiveNotificationBar,
 } from "./AdminSidebar";
 import StationManagement from "./StationManagement";
 import InventoryManagement from "./InventoryManagement";
@@ -628,17 +631,32 @@ export default function AdminDashboard() {
     );
 
     if (newStatus === "in-progress") {
+      pushSharedNotification({
+        type: "checkin",
+        title: `✂️ Khách ${item.customer} vừa Check-in!`,
+        message: `Đã mời vào ${item.chair} (${item.barber}) phục vụ gói "${item.service}".`,
+      });
       showToast(
         "Check-in thành công!",
         `Khách ${item.customer} đã được mời vào ${item.chair} (${item.barber})`
       );
     } else if (newStatus === "completed") {
       setTotalRevenue((prev) => prev + item.price);
+      pushSharedNotification({
+        type: "payment",
+        title: `💰 Thanh toán hoàn tất +${formatVND(item.price)}`,
+        message: `Khách ${item.customer} đã hoàn tất gói "${item.service}" và đánh giá 5⭐ hài lòng!`,
+      });
       showToast(
         "Hoàn tất & Cộng doanh thu!",
         `Đã thu ${formatVND(item.price)} từ khách ${item.customer}`
       );
     } else if (newStatus === "cancelled") {
+      pushSharedNotification({
+        type: "cancel",
+        title: `⚠️ Đã hủy lịch hẹn ${item.id}`,
+        message: `Khách ${item.customer} đã hủy lịch hẹn lúc ${item.time}.`,
+      });
       showToast(
         "Đã hủy lịch hẹn",
         `Lịch hẹn ${item.id} của ${item.customer} đã chuyển sang trạng thái hủy`,
@@ -736,6 +754,11 @@ export default function AdminDashboard() {
       return updated;
     });
 
+    pushSharedNotification({
+      type: "booking",
+      title: `📅 Khách ${custName.trim()} vừa đặt lịch mới (${newId})`,
+      message: `Gói "${serviceName}" lúc ${custTime} với ${barberName} tại ${chairName} • SĐT: ${custPhone.trim()}.`,
+    });
     setBookingModalOpen(false);
     setCustName("");
     setCustPhone("");
@@ -809,6 +832,11 @@ export default function AdminDashboard() {
       window.dispatchEvent(new Event("gb-admin-sync"));
     } catch (err) {}
 
+    pushSharedNotification({
+      type: "barber",
+      title: `🎉 Đã thêm Barber mới: ${displayNick}`,
+      message: `${newBarberFullName.trim()} (${newBarberLevel}) phụ trách ${newBarberChair} • Hoa hồng ${newBarberCommission}%.`,
+    });
     setBarberModalOpen(false);
     setNewBarberFullName("");
     setNewBarberNickname("");
@@ -915,22 +943,19 @@ export default function AdminDashboard() {
                 <span>Đặt Lịch Mới</span>
               </button>
 
-              <button
-                onClick={() =>
+              <AdminNotificationBell
+                onQuickRating={() =>
                   showToast(
-                    "Thông báo hệ thống",
-                    "Có 3 khách hẹn mới vừa đặt lịch qua Zalo Mini App!"
+                    "⭐ Đánh giá 5 sao mới!",
+                    "Khách Nguyễn Anh Tuấn vừa gửi đánh giá 5 sao cho Master Hoàng!"
                   )
                 }
-                className="relative w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-300 hover:text-amber-400 hover:border-amber-500/40 transition-colors"
-              >
-                <i className="fa-regular fa-bell"></i>
-                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-rose-500 text-[10px] font-bold text-white flex items-center justify-center">
-                  4
-                </span>
-              </button>
+              />
             </div>
           </header>
+
+          {/* THANH THÔNG BÁO TRỰC TIẾP TRÊN CÙNG */}
+          <AdminLiveNotificationBar />
 
           {/* SCROLLABLE DASHBOARD BODY */}
           <main className="flex-1 overflow-y-auto p-6 space-y-6 custom-scroll">
