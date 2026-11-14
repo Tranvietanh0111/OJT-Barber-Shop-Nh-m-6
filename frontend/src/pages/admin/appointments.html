@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quản lý lịch hẹn - BarberHub</title>
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <div class="adm-shell">
+    <!-- SIDEBAR -->
+    <aside class="adm-sidebar">
+      <div class="adm-brand">
+        <div class="adm-brand-logo">BH</div>
+        <div>
+          <h2 class="adm-brand-title">BarberHub</h2>
+          <p class="adm-brand-sub">Admin Panel</p>
+        </div>
+      </div>
+      <div class="adm-nav-section">Menu Quản Trị</div>
+      <nav class="adm-nav">
+        <a href="dashboard.html" class="adm-nav-link"><span class="adm-nav-left"><span class="adm-nav-icon">📊</span><span>Admin Dashboard</span></span></a>
+        <a href="users.html" class="adm-nav-link"><span class="adm-nav-left"><span class="adm-nav-icon">👥</span><span>Quản lý người dùng</span></span></a>
+        <a href="barbers.html" class="adm-nav-link"><span class="adm-nav-left"><span class="adm-nav-icon">✂️</span><span>Quản lý Barber</span></span></a>
+        <a href="services.html" class="adm-nav-link"><span class="adm-nav-left"><span class="adm-nav-icon">💈</span><span>Quản lý dịch vụ</span></span></a>
+        <a href="appointments.html" class="adm-nav-link active"><span class="adm-nav-left"><span class="adm-nav-icon">📅</span><span>Quản lý lịch hẹn</span></span></a>
+        <a href="invoices.html" class="adm-nav-link"><span class="adm-nav-left"><span class="adm-nav-icon">🧾</span><span>Quản lý hóa đơn</span></span></a>
+        <a href="revenue.html" class="adm-nav-link"><span class="adm-nav-left"><span class="adm-nav-icon">📈</span><span>Thống kê doanh thu</span></span></a>
+      </nav>
+      <div class="adm-sidebar-footer">
+        <div>
+          <strong>Trần Văn Thắng</strong>
+          <span>Phụ trách: Admin</span>
+        </div>
+        <a href="#logout" class="adm-logout-btn" title="Đăng xuất">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </a>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="adm-main">
+      <header class="adm-topbar">
+        <div>
+          <h1 class="adm-page-title">Quản lý lịch hẹn</h1>
+          <p class="adm-page-subtitle">Bảng lịch, lọc theo ngày và trạng thái</p>
+        </div>
+      </header>
+
+      <div class="adm-content">
+        <!-- Bộ lọc theo ngày và trạng thái -->
+        <div class="adm-toolbar">
+          <div class="adm-filters">
+            <input type="date" class="adm-input" value="2026-11-14" />
+            <select class="adm-select">
+              <option value="">Tất cả trạng thái</option>
+              <option value="pending">Chờ xác nhận (pending)</option>
+              <option value="confirmed">Đã xác nhận (confirmed)</option>
+              <option value="completed">Hoàn thành (completed)</option>
+              <option value="rejected">Từ chối (rejected)</option>
+              <option value="cancelled">Đã hủy (cancelled)</option>
+            </select>
+            <select class="adm-select">
+              <option value="">Tất cả Barber</option>
+              <option>Nguyễn Hoàng Nam</option>
+              <option>Lê Minh Tuấn</option>
+              <option>Phạm Quốc Bảo</option>
+            </select>
+            <input type="text" class="adm-input adm-search-input" placeholder="🔍 Tìm mã lịch, tên khách, SĐT..." />
+            <button type="button" class="adm-btn adm-btn-gold">Lọc lịch hẹn</button>
+          </div>
+        </div>
+
+        <!-- Tabs trạng thái nhanh -->
+        <div class="adm-tabs">
+          <span class="adm-tab active">Tất cả (5)</span>
+          <span class="adm-tab">Chờ xác nhận (1)</span>
+          <span class="adm-tab">Đã xác nhận (1)</span>
+          <span class="adm-tab">Hoàn thành (1)</span>
+          <span class="adm-tab">Từ chối (1)</span>
+          <span class="adm-tab">Đã hủy (1)</span>
+        </div>
+
+        <!-- Bảng lịch hẹn -->
+        <div class="adm-card">
+          <div class="adm-card-header">
+            <div>
+              <h3 class="adm-card-title">Bảng danh sách lịch hẹn</h3>
+              <p class="adm-card-subtitle">Hiển thị lịch hẹn theo ngày và trạng thái xử lý</p>
+            </div>
+          </div>
+          <div class="adm-table-wrap">
+            <table class="adm-table">
+              <thead>
+                <tr>
+                  <th>Mã lịch</th>
+                  <th>Khách hàng</th>
+                  <th>Barber phụ trách</th>
+                  <th>Dịch vụ</th>
+                  <th>Ngày & Giờ hẹn</th>
+                  <th>Giá tiền</th>
+                  <th>Trạng thái</th>
+                  <th>Thao tác</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>BK-2026-101</strong></td>
+                  <td>
+                    <div class="adm-cell-title">Hoàng Gia Huy</div>
+                    <div class="adm-cell-sub">0987654321</div>
+                  </td>
+                  <td>Nguyễn Hoàng Nam</td>
+                  <td>Combo Đế Vương 7 Bước</td>
+                  <td>14/11/2026 • 09:30</td>
+                  <td><strong>220.000 đ</strong></td>
+                  <td><span class="adm-badge adm-badge-green">completed</span></td>
+                  <td><button class="adm-btn adm-btn-outline adm-btn-sm">Chi tiết</button></td>
+                </tr>
+                <tr>
+                  <td><strong>BK-2026-102</strong></td>
+                  <td>
+                    <div class="adm-cell-title">Đặng Quang Vinh</div>
+                    <div class="adm-cell-sub">0978123456</div>
+                  </td>
+                  <td>Lê Minh Tuấn</td>
+                  <td>Uốn Định Hình Hàn Quốc</td>
+                  <td>14/11/2026 • 10:30</td>
+                  <td><strong>380.000 đ</strong></td>
+                  <td><span class="adm-badge adm-badge-blue">confirmed</span></td>
+                  <td><button class="adm-btn adm-btn-gold adm-btn-sm">Hoàn thành</button></td>
+                </tr>
+                <tr>
+                  <td><strong>BK-2026-103</strong></td>
+                  <td>
+                    <div class="adm-cell-title">Vũ Đình Khoa</div>
+                    <div class="adm-cell-sub">0965432109</div>
+                  </td>
+                  <td>Phạm Quốc Bảo</td>
+                  <td>Cắt Tóc Thương Gia</td>
+                  <td>14/11/2026 • 14:00</td>
+                  <td><strong>120.000 đ</strong></td>
+                  <td><span class="adm-badge adm-badge-yellow">pending</span></td>
+                  <td>
+                    <button class="adm-btn adm-btn-success adm-btn-sm">Duyệt</button>
+                    <button class="adm-btn adm-btn-danger adm-btn-sm">Từ chối</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>BK-2026-104</strong></td>
+                  <td>
+                    <div class="adm-cell-title">Ngô Gia Bảo</div>
+                    <div class="adm-cell-sub">0977889900</div>
+                  </td>
+                  <td>Trịnh Đức Anh</td>
+                  <td>Cắt Tóc Thương Gia</td>
+                  <td>13/11/2026 • 18:00</td>
+                  <td><strong>120.000 đ</strong></td>
+                  <td><span class="adm-badge adm-badge-red">rejected</span></td>
+                  <td><button class="adm-btn adm-btn-outline adm-btn-sm">Chi tiết</button></td>
+                </tr>
+                <tr>
+                  <td><strong>BK-2026-105</strong></td>
+                  <td>
+                    <div class="adm-cell-title">Bùi Xuân Trường</div>
+                    <div class="adm-cell-sub">0945112233</div>
+                  </td>
+                  <td>Phạm Quốc Bảo</td>
+                  <td>Cạo Râu Khăn Nóng</td>
+                  <td>13/11/2026 • 16:30</td>
+                  <td><strong>80.000 đ</strong></td>
+                  <td><span class="adm-badge adm-badge-gray">cancelled</span></td>
+                  <td><button class="adm-btn adm-btn-outline adm-btn-sm">Chi tiết</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+

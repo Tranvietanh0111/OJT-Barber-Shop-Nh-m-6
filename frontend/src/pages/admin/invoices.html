@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quản lý hóa đơn - BarberHub</title>
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <div class="adm-shell">
+    <!-- SIDEBAR -->
+    <aside class="adm-sidebar">
+      <div class="adm-brand">
+        <div class="adm-brand-logo">BH</div>
+        <div>
+          <h2 class="adm-brand-title">BarberHub</h2>
+          <p class="adm-brand-sub">Admin Panel</p>
+        </div>
+      </div>
+      <div class="adm-nav-section">Menu Quản Trị</div>
+      <nav class="adm-nav">
+        <a href="dashboard.html" class="adm-nav-link"><span class="adm-nav-left"><span class="adm-nav-icon">📊</span><span>Admin Dashboard</span></span></a>
+        <a href="users.html" class="adm-nav-link"><span class="adm-nav-left"><span class="adm-nav-icon">👥</span><span>Quản lý người dùng</span></span></a>
+        <a href="barbers.html" class="adm-nav-link"><span class="adm-nav-left"><span class="adm-nav-icon">✂️</span><span>Quản lý Barber</span></span></a>
+        <a href="services.html" class="adm-nav-link"><span class="adm-nav-left"><span class="adm-nav-icon">💈</span><span>Quản lý dịch vụ</span></span></a>
+        <a href="appointments.html" class="adm-nav-link"><span class="adm-nav-left"><span class="adm-nav-icon">📅</span><span>Quản lý lịch hẹn</span></span></a>
+        <a href="invoices.html" class="adm-nav-link active"><span class="adm-nav-left"><span class="adm-nav-icon">🧾</span><span>Quản lý hóa đơn</span></span></a>
+        <a href="revenue.html" class="adm-nav-link"><span class="adm-nav-left"><span class="adm-nav-icon">📈</span><span>Thống kê doanh thu</span></span></a>
+      </nav>
+      <div class="adm-sidebar-footer">
+        <div>
+          <strong>Trần Văn Thắng</strong>
+          <span>Phụ trách: Admin</span>
+        </div>
+        <a href="#logout" class="adm-logout-btn" title="Đăng xuất">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </a>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="adm-main">
+      <header class="adm-topbar">
+        <div>
+          <h1 class="adm-page-title">Quản lý hóa đơn</h1>
+          <p class="adm-page-subtitle">Danh sách, chi tiết và trạng thái thanh toán</p>
+        </div>
+      </header>
+
+      <div class="adm-content">
+        <!-- Thanh lọc hóa đơn -->
+        <div class="adm-toolbar">
+          <div class="adm-filters">
+            <input type="text" class="adm-input adm-search-input" placeholder="🔍 Tìm mã hóa đơn INV, tên khách hàng..." />
+            <select class="adm-select">
+              <option value="">Tất cả trạng thái thanh toán</option>
+              <option value="paid">Đã thanh toán (Paid)</option>
+              <option value="unpaid">Chờ thanh toán (Unpaid)</option>
+              <option value="refunded">Đã hoàn tiền (Refunded)</option>
+            </select>
+            <select class="adm-select">
+              <option value="">Tất cả phương thức</option>
+              <option>Chuyển khoản VietQR</option>
+              <option>Tiền mặt</option>
+              <option>Thẻ ngân hàng</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="adm-grid-2">
+          <!-- Danh sách hóa đơn -->
+          <div class="adm-card">
+            <div class="adm-card-header">
+              <div>
+                <h3 class="adm-card-title">Danh sách hóa đơn</h3>
+                <p class="adm-card-subtitle">Theo dõi các giao dịch và trạng thái thanh toán</p>
+              </div>
+            </div>
+            <div class="adm-table-wrap">
+              <table class="adm-table">
+                <thead>
+                  <tr>
+                    <th>Mã HĐ</th>
+                    <th>Khách hàng</th>
+                    <th>Barber</th>
+                    <th>Phương thức</th>
+                    <th>Tổng tiền</th>
+                    <th>Trạng thái</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="adm-cell-title">INV-2026-001</div>
+                      <div class="adm-cell-sub">14/11/2026 10:25</div>
+                    </td>
+                    <td>Hoàng Gia Huy</td>
+                    <td>Nguyễn Hoàng Nam</td>
+                    <td>Chuyển khoản QR</td>
+                    <td><strong>250.000 đ</strong></td>
+                    <td><span class="adm-badge adm-badge-green">Đã thanh toán</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="adm-cell-title">INV-2026-002</div>
+                      <div class="adm-cell-sub">14/11/2026 12:10</div>
+                    </td>
+                    <td>Đặng Quang Vinh</td>
+                    <td>Lê Minh Tuấn</td>
+                    <td>Thẻ POS</td>
+                    <td><strong>450.000 đ</strong></td>
+                    <td><span class="adm-badge adm-badge-green">Đã thanh toán</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="adm-cell-title">INV-2026-003</div>
+                      <div class="adm-cell-sub">14/11/2026 14:45</div>
+                    </td>
+                    <td>Vũ Đình Khoa</td>
+                    <td>Phạm Quốc Bảo</td>
+                    <td>Tiền mặt</td>
+                    <td><strong>200.000 đ</strong></td>
+                    <td><span class="adm-badge adm-badge-yellow">Chờ thanh toán</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="adm-cell-title">INV-2026-004</div>
+                      <div class="adm-cell-sub">12/11/2026 19:05</div>
+                    </td>
+                    <td>Lương Thế Thành</td>
+                    <td>Trịnh Đức Anh</td>
+                    <td>Chuyển khoản QR</td>
+                    <td><strong>380.000 đ</strong></td>
+                    <td><span class="adm-badge adm-badge-red">Đã hoàn tiền</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Chi tiết hóa đơn & Cập nhật trạng thái thanh toán -->
+          <div class="adm-card">
+            <div class="adm-card-header">
+              <div>
+                <h3 class="adm-card-title">Chi tiết hóa đơn: #INV-2026-001</h3>
+                <p class="adm-card-subtitle">Mã lịch hẹn: BK-2026-101 • Ngày lập: 14/11/2026 10:25</p>
+              </div>
+              <span class="adm-badge adm-badge-green">Đã thanh toán</span>
+            </div>
+
+            <div class="adm-receipt-info">
+              <div><strong>Khách hàng:</strong> Hoàng Gia Huy (0987654321)</div>
+              <div><strong>Barber thực hiện:</strong> Nguyễn Hoàng Nam</div>
+              <div><strong>Phương thức:</strong> Chuyển khoản VietQR</div>
+            </div>
+
+            <table class="adm-table" style="margin-bottom: 14px;">
+              <thead>
+                <tr>
+                  <th>Dịch vụ / Sản phẩm</th>
+                  <th>SL</th>
+                  <th>Đơn giá</th>
+                  <th>Thành tiền</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Combo Đế Vương 7 Bước</td>
+                  <td>1</td>
+                  <td>220.000 đ</td>
+                  <td><strong>220.000 đ</strong></td>
+                </tr>
+                <tr>
+                  <td>Sáp vuốt tóc Volcanic Clay</td>
+                  <td>1</td>
+                  <td>50.000 đ</td>
+                  <td><strong>50.000 đ</strong></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div style="border-top: 1px dashed #cbd5e1; padding-top: 12px; display: grid; gap: 6px; font-size: 14px;">
+              <div style="display: flex; justify-content: space-between;"><span>Tạm tính:</span><strong>270.000 đ</strong></div>
+              <div style="display: flex; justify-content: space-between; color: #10b981;"><span>Giảm giá:</span><strong>-20.000 đ</strong></div>
+              <div style="display: flex; justify-content: space-between; font-size: 16px; font-weight: 800;">
+                <span>Tổng thanh toán:</span><span style="color: #f5cb78;">250.000 đ</span>
+              </div>
+            </div>
+
+            <div class="adm-form-group" style="margin-top: 16px;">
+              <label>Cập nhật trạng thái thanh toán</label>
+              <div style="display: flex; gap: 8px; margin-top: 4px;">
+                <button type="button" class="adm-btn adm-btn-gold adm-btn-sm">Đã thanh toán</button>
+                <button type="button" class="adm-btn adm-btn-outline adm-btn-sm">Chờ thanh toán</button>
+                <button type="button" class="adm-btn adm-btn-danger adm-btn-sm">Hoàn tiền</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard - BarberHub</title>
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <div class="adm-shell">
+    <!-- SIDEBAR -->
+    <aside class="adm-sidebar">
+      <div class="adm-brand">
+        <div class="adm-brand-logo">BH</div>
+        <div>
+          <h2 class="adm-brand-title">BarberHub</h2>
+          <p class="adm-brand-sub">Admin Panel</p>
+        </div>
+      </div>
+
+      <div class="adm-nav-section">Menu Quản Trị</div>
+      <nav class="adm-nav">
+        <a href="dashboard.html" class="adm-nav-link active">
+          <span class="adm-nav-left"><span class="adm-nav-icon">📊</span><span>Admin Dashboard</span></span>
+        </a>
+        <a href="users.html" class="adm-nav-link">
+          <span class="adm-nav-left"><span class="adm-nav-icon">👥</span><span>Quản lý người dùng</span></span>
+        </a>
+        <a href="barbers.html" class="adm-nav-link">
+          <span class="adm-nav-left"><span class="adm-nav-icon">✂️</span><span>Quản lý Barber</span></span>
+        </a>
+        <a href="services.html" class="adm-nav-link">
+          <span class="adm-nav-left"><span class="adm-nav-icon">💈</span><span>Quản lý dịch vụ</span></span>
+        </a>
+        <a href="appointments.html" class="adm-nav-link">
+          <span class="adm-nav-left"><span class="adm-nav-icon">📅</span><span>Quản lý lịch hẹn</span></span>
+        </a>
+        <a href="invoices.html" class="adm-nav-link">
+          <span class="adm-nav-left"><span class="adm-nav-icon">🧾</span><span>Quản lý hóa đơn</span></span>
+        </a>
+        <a href="revenue.html" class="adm-nav-link">
+          <span class="adm-nav-left"><span class="adm-nav-icon">📈</span><span>Thống kê doanh thu</span></span>
+        </a>
+      </nav>
+
+      <div class="adm-sidebar-footer">
+        <div>
+          <strong>Trần Văn Thắng</strong>
+          <span>Phụ trách: Admin</span>
+        </div>
+        <a href="#logout" class="adm-logout-btn" title="Đăng xuất">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </a>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="adm-main">
+      <header class="adm-topbar">
+        <div>
+          <h1 class="adm-page-title">Admin Dashboard</h1>
+          <p class="adm-page-subtitle">Dashboard với số liệu mẫu và bố cục hoàn chỉnh</p>
+        </div>
+        <div class="adm-topbar-actions">
+          <a href="appointments.html" class="adm-btn adm-btn-outline">📅 Xem lịch hẹn</a>
+          <a href="revenue.html" class="adm-btn adm-btn-gold">📈 Thống kê doanh thu</a>
+        </div>
+      </header>
+
+      <div class="adm-content">
+        <!-- 4 Thẻ KPI số liệu mẫu -->
+        <div class="adm-kpi-grid">
+          <div class="adm-kpi-card">
+            <div class="adm-kpi-top">
+              <span class="adm-kpi-label">Doanh thu tháng</span>
+              <span class="adm-kpi-icon">💰</span>
+            </div>
+            <div class="adm-kpi-value">102.400.000 đ</div>
+            <div class="adm-kpi-foot"><span class="adm-trend-up">▲ +14.8%</span> so với tháng trước</div>
+          </div>
+
+          <div class="adm-kpi-card green">
+            <div class="adm-kpi-top">
+              <span class="adm-kpi-label">Lịch hẹn hôm nay</span>
+              <span class="adm-kpi-icon">📅</span>
+            </div>
+            <div class="adm-kpi-value">24 lịch</div>
+            <div class="adm-kpi-foot">4 lịch đang chờ xác nhận</div>
+          </div>
+
+          <div class="adm-kpi-card blue">
+            <div class="adm-kpi-top">
+              <span class="adm-kpi-label">Barber đang làm việc</span>
+              <span class="adm-kpi-icon">✂️</span>
+            </div>
+            <div class="adm-kpi-value">4 / 5 thợ</div>
+            <div class="adm-kpi-foot">1 thợ nghỉ phép hôm nay</div>
+          </div>
+
+          <div class="adm-kpi-card purple">
+            <div class="adm-kpi-top">
+              <span class="adm-kpi-label">Tổng người dùng</span>
+              <span class="adm-kpi-icon">👥</span>
+            </div>
+            <div class="adm-kpi-value">342 tài khoản</div>
+            <div class="adm-kpi-foot"><span class="adm-trend-up">+28</span> khách hàng mới</div>
+          </div>
+        </div>
+
+        <!-- Biểu đồ đường sắc nét & Biểu đồ Donut dịch vụ -->
+        <div class="adm-rev-grid">
+          <div class="adm-card">
+            <div class="adm-card-header">
+              <div>
+                <h3 class="adm-card-title">Biểu đồ doanh thu 7 ngày gần nhất (Số liệu mẫu)</h3>
+                <p class="adm-card-subtitle">Đơn vị tính: Triệu VNĐ</p>
+              </div>
+              <div class="adm-legend-inline">
+                <span><i class="adm-legend-dot" style="background: #f59e0b;"></i>Doanh thu ngày</span>
+              </div>
+            </div>
+
+            <div class="adm-svg-chart-wrap">
+              <svg viewBox="0 0 760 250" class="adm-svg-chart" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="dashGoldGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.35" />
+                    <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.02" />
+                  </linearGradient>
+                </defs>
+
+                <!-- Lưới ngang -->
+                <g stroke="rgba(148,163,184,0.12)" stroke-width="1">
+                  <line x1="55" y1="25" x2="725" y2="25" />
+                  <line x1="55" y1="62" x2="725" y2="62" />
+                  <line x1="55" y1="99" x2="725" y2="99" />
+                  <line x1="55" y1="136" x2="725" y2="136" />
+                  <line x1="55" y1="173" x2="725" y2="173" />
+                  <line x1="55" y1="210" x2="725" y2="210" />
+                </g>
+
+                <!-- Lưới dọc -->
+                <g stroke="rgba(148,163,184,0.06)" stroke-width="1">
+                  <line x1="75" y1="25" x2="75" y2="210" />
+                  <line x1="180" y1="25" x2="180" y2="210" />
+                  <line x1="285" y1="25" x2="285" y2="210" />
+                  <line x1="390" y1="25" x2="390" y2="210" />
+                  <line x1="495" y1="25" x2="495" y2="210" />
+                  <line x1="600" y1="25" x2="600" y2="210" />
+                  <line x1="705" y1="25" x2="705" y2="210" />
+                </g>
+
+                <!-- Trục Y -->
+                <g fill="#94a3b8" font-size="11" text-anchor="end" font-family="Plus Jakarta Sans, sans-serif">
+                  <text x="45" y="29">7.5M</text>
+                  <text x="45" y="66">6.0M</text>
+                  <text x="45" y="103">4.5M</text>
+                  <text x="45" y="140">3.0M</text>
+                  <text x="45" y="177">1.5M</text>
+                  <text x="45" y="214">0M</text>
+                </g>
+
+                <!-- Miền màu & Đường biểu đồ -->
+                <path
+                  d="M 75 131 C 115 125, 145 109, 180 109 C 215 109, 250 119, 285 119 C 320 119, 355 99, 390 99 C 425 99, 460 89, 495 89 C 530 89, 565 64, 600 64 C 635 64, 670 52, 705 52 L 705 210 L 75 210 Z"
+                  fill="url(#dashGoldGrad)"
+                />
+                <path
+                  d="M 75 131 C 115 125, 145 109, 180 109 C 215 109, 250 119, 285 119 C 320 119, 355 99, 390 99 C 425 99, 460 89, 495 89 C 530 89, 565 64, 600 64 C 635 64, 670 52, 705 52"
+                  fill="none"
+                  stroke="#f59e0b"
+                  stroke-width="3"
+                />
+
+                <!-- Điểm dữ liệu & Nhãn số -->
+                <g fill="#f59e0b" stroke="#0b0f19" stroke-width="2">
+                  <circle cx="75" cy="131" r="4.5" />
+                  <circle cx="180" cy="109" r="4.5" />
+                  <circle cx="285" cy="119" r="4.5" />
+                  <circle cx="390" cy="99" r="4.5" />
+                  <circle cx="495" cy="89" r="4.5" />
+                  <circle cx="600" cy="64" r="4.5" />
+                  <circle cx="705" cy="52" r="5.5" />
+                </g>
+
+                <g fill="#f5cb78" font-size="11" font-weight="700" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif">
+                  <text x="75" y="119">3.2M</text>
+                  <text x="180" y="97">4.1M</text>
+                  <text x="285" y="107">3.7M</text>
+                  <text x="390" y="87">4.5M</text>
+                  <text x="495" y="77">4.9M</text>
+                  <text x="600" y="52">5.9M</text>
+                  <text x="705" y="40">6.4M</text>
+                </g>
+
+                <!-- Trục X -->
+                <g fill="#cbd5e1" font-size="11.5" font-weight="600" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif">
+                  <text x="75" y="234">T2</text>
+                  <text x="180" y="234">T3</text>
+                  <text x="285" y="234">T4</text>
+                  <text x="390" y="234">T5</text>
+                  <text x="495" y="234">T6</text>
+                  <text x="600" y="234">T7</text>
+                  <text x="705" y="234" fill="#f5cb78">CN</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+
+          <div class="adm-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div class="adm-card-header" style="margin-bottom: 6px;">
+              <div>
+                <h3 class="adm-card-title">Dịch vụ được đặt nhiều nhất</h3>
+                <p class="adm-card-subtitle">Thống kê tỷ lệ sử dụng trong tháng</p>
+              </div>
+              <span style="color: #f5cb78; font-weight: 800; font-size: 12.5px;">573 lượt</span>
+            </div>
+
+            <div class="adm-donut-wrap">
+              <svg viewBox="0 0 220 220" class="adm-donut-svg">
+                <g class="adm-donut-default" font-family="Plus Jakarta Sans, sans-serif">
+                  <circle cx="110" cy="110" r="53" fill="rgba(15, 22, 41, 0.85)" stroke="rgba(148, 163, 184, 0.14)" stroke-width="1" />
+                  <text x="110" y="95" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-weight="700" letter-spacing="0.5">TỔNG LƯỢT ĐẶT</text>
+                  <text x="110" y="117" text-anchor="middle" fill="#ffffff" font-size="16" font-weight="800">573 lượt</text>
+                  <text x="110" y="133" text-anchor="middle" fill="#64748b" font-size="9.5">Di chuột xem chi tiết</text>
+                </g>
+
+                <g class="adm-donut-slice">
+                  <path class="adm-donut-arc" d="M 111.3 34.0 A 76 76 0 0 1 165.6 161.8" stroke="#e5a93c" />
+                  <g class="adm-donut-tooltip" font-family="Plus Jakarta Sans, sans-serif">
+                    <circle cx="110" cy="110" r="54" fill="#0f1629" stroke="#e5a93c" stroke-width="1.5" />
+                    <text x="110" y="93" text-anchor="middle" fill="#f5cb78" font-size="10.5" font-weight="700">Cắt Thương Gia</text>
+                    <text x="110" y="116" text-anchor="middle" fill="#ffffff" font-size="19" font-weight="800">37.5%</text>
+                    <text x="110" y="134" text-anchor="middle" fill="#cbd5e1" font-size="10.5" font-weight="600">215 lượt đặt</text>
+                  </g>
+                </g>
+
+                <g class="adm-donut-slice">
+                  <path class="adm-donut-arc" d="M 163.7 163.7 A 76 76 0 0 1 39.3 137.9" stroke="#38bdf8" />
+                  <g class="adm-donut-tooltip" font-family="Plus Jakarta Sans, sans-serif">
+                    <circle cx="110" cy="110" r="54" fill="#0f1629" stroke="#38bdf8" stroke-width="1.5" />
+                    <text x="110" y="93" text-anchor="middle" fill="#38bdf8" font-size="10.5" font-weight="700">Combo Đế Vương</text>
+                    <text x="110" y="116" text-anchor="middle" fill="#ffffff" font-size="19" font-weight="800">32.1%</text>
+                    <text x="110" y="134" text-anchor="middle" fill="#cbd5e1" font-size="10.5" font-weight="600">184 lượt đặt</text>
+                  </g>
+                </g>
+
+                <g class="adm-donut-slice">
+                  <path class="adm-donut-arc" d="M 38.4 135.4 A 76 76 0 0 1 50.9 62.2" stroke="#a855f7" />
+                  <g class="adm-donut-tooltip" font-family="Plus Jakarta Sans, sans-serif">
+                    <circle cx="110" cy="110" r="54" fill="#0f1629" stroke="#a855f7" stroke-width="1.5" />
+                    <text x="110" y="93" text-anchor="middle" fill="#c084fc" font-size="10.5" font-weight="700">Uốn Hàn Quốc</text>
+                    <text x="110" y="116" text-anchor="middle" fill="#ffffff" font-size="19" font-weight="800">16.8%</text>
+                    <text x="110" y="134" text-anchor="middle" fill="#cbd5e1" font-size="10.5" font-weight="600">96 lượt đặt</text>
+                  </g>
+                </g>
+
+                <g class="adm-donut-slice">
+                  <path class="adm-donut-arc" d="M 52.6 60.1 A 76 76 0 0 1 107.3 34.1" stroke="#10b981" />
+                  <g class="adm-donut-tooltip" font-family="Plus Jakarta Sans, sans-serif">
+                    <circle cx="110" cy="110" r="54" fill="#0f1629" stroke="#10b981" stroke-width="1.5" />
+                    <text x="110" y="93" text-anchor="middle" fill="#34d399" font-size="10.5" font-weight="700">Nhuộm Cao Cấp</text>
+                    <text x="110" y="116" text-anchor="middle" fill="#ffffff" font-size="19" font-weight="800">13.6%</text>
+                    <text x="110" y="134" text-anchor="middle" fill="#cbd5e1" font-size="10.5" font-weight="600">78 lượt đặt</text>
+                  </g>
+                </g>
+              </svg>
+            </div>
+
+            <div class="adm-service-legend-grid">
+              <div><span style="color: #f5cb78; font-weight: 700;">• Cắt Thương Gia:</span> 215 lượt</div>
+              <div><span style="color: #38bdf8; font-weight: 700;">• Combo Đế Vương:</span> 184 lượt</div>
+              <div><span style="color: #c084fc; font-weight: 700;">• Uốn Hàn Quốc:</span> 96 lượt</div>
+              <div><span style="color: #34d399; font-weight: 700;">• Nhuộm Cao Cấp:</span> 78 lượt</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bảng lịch hẹn gần đây -->
+        <div class="adm-card">
+          <div class="adm-card-header">
+            <div>
+              <h3 class="adm-card-title">Lịch hẹn mới nhất hôm nay</h3>
+              <p class="adm-card-subtitle">Danh sách lịch hẹn mẫu trên Dashboard</p>
+            </div>
+            <a href="appointments.html" class="adm-btn adm-btn-outline adm-btn-sm">Xem tất cả</a>
+          </div>
+          <div class="adm-table-wrap">
+            <table class="adm-table">
+              <thead>
+                <tr>
+                  <th>Mã lịch</th>
+                  <th>Khách hàng</th>
+                  <th>Barber</th>
+                  <th>Dịch vụ</th>
+                  <th>Giờ hẹn</th>
+                  <th>Trạng thái</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>BK-2026-101</strong></td>
+                  <td>Hoàng Gia Huy (0987654321)</td>
+                  <td>Nguyễn Hoàng Nam</td>
+                  <td>Combo Đế Vương 7 Bước</td>
+                  <td>09:30 - 14/11/2026</td>
+                  <td><span class="adm-badge adm-badge-green">Hoàn thành</span></td>
+                </tr>
+                <tr>
+                  <td><strong>BK-2026-102</strong></td>
+                  <td>Đặng Quang Vinh (0978123456)</td>
+                  <td>Lê Minh Tuấn</td>
+                  <td>Uốn Định Hình Hàn Quốc</td>
+                  <td>10:30 - 14/11/2026</td>
+                  <td><span class="adm-badge adm-badge-blue">Đã xác nhận</span></td>
+                </tr>
+                <tr>
+                  <td><strong>BK-2026-103</strong></td>
+                  <td>Vũ Đình Khoa (0965432109)</td>
+                  <td>Phạm Quốc Bảo</td>
+                  <td>Cắt Tóc Thương Gia</td>
+                  <td>14:00 - 14/11/2026</td>
+                  <td><span class="adm-badge adm-badge-yellow">Chờ xác nhận</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

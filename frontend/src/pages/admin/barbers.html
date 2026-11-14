@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quản lý Barber - BarberHub</title>
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <div class="adm-shell">
+    <!-- SIDEBAR -->
+    <aside class="adm-sidebar">
+      <div class="adm-brand">
+        <div class="adm-brand-logo">BH</div>
+        <div>
+          <h2 class="adm-brand-title">BarberHub</h2>
+          <p class="adm-brand-sub">Admin Panel</p>
+        </div>
+      </div>
+      <div class="adm-nav-section">Menu Quản Trị</div>
+      <nav class="adm-nav">
+        <a href="dashboard.html" class="adm-nav-link"><span class="adm-nav-left"><span class="adm-nav-icon">📊</span><span>Admin Dashboard</span></span></a>
+        <a href="users.html" class="adm-nav-link"><span class="adm-nav-left"><span class="adm-nav-icon">👥</span><span>Quản lý người dùng</span></span></a>
+        <a href="barbers.html" class="adm-nav-link active"><span class="adm-nav-left"><span class="adm-nav-icon">✂️</span><span>Quản lý Barber</span></span></a>
+        <a href="services.html" class="adm-nav-link"><span class="adm-nav-left"><span class="adm-nav-icon">💈</span><span>Quản lý dịch vụ</span></span></a>
+        <a href="appointments.html" class="adm-nav-link"><span class="adm-nav-left"><span class="adm-nav-icon">📅</span><span>Quản lý lịch hẹn</span></span></a>
+        <a href="invoices.html" class="adm-nav-link"><span class="adm-nav-left"><span class="adm-nav-icon">🧾</span><span>Quản lý hóa đơn</span></span></a>
+        <a href="revenue.html" class="adm-nav-link"><span class="adm-nav-left"><span class="adm-nav-icon">📈</span><span>Thống kê doanh thu</span></span></a>
+      </nav>
+      <div class="adm-sidebar-footer">
+        <div>
+          <strong>Trần Văn Thắng</strong>
+          <span>Phụ trách: Admin</span>
+        </div>
+        <a href="#logout" class="adm-logout-btn" title="Đăng xuất">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </a>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="adm-main">
+      <header class="adm-topbar">
+        <div>
+          <h1 class="adm-page-title">Quản lý Barber</h1>
+          <p class="adm-page-subtitle">Danh sách, thêm/sửa và trạng thái Barber</p>
+        </div>
+        <div class="adm-topbar-actions">
+          <a href="#barber-form" class="adm-btn adm-btn-gold">+ Thêm Barber mới</a>
+        </div>
+      </header>
+
+      <div class="adm-content">
+        <!-- Bộ lọc trạng thái Barber -->
+        <div class="adm-toolbar">
+          <div class="adm-filters">
+            <input type="text" class="adm-input adm-search-input" placeholder="🔍 Tìm theo tên Barber, chuyên môn, SĐT..." />
+            <select class="adm-select">
+              <option value="">Tất cả trạng thái Barber</option>
+              <option value="available">Sẵn sàng đón khách</option>
+              <option value="busy">Đang phục vụ khách</option>
+              <option value="off">Nghỉ ca / Nghỉ phép</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="adm-grid-2">
+          <!-- Danh sách Barber -->
+          <div class="adm-card">
+            <div class="adm-card-header">
+              <div>
+                <h3 class="adm-card-title">Danh sách Barber</h3>
+                <p class="adm-card-subtitle">Thông tin chuyên môn, ca làm việc và trạng thái hiện tại</p>
+              </div>
+            </div>
+            <div class="adm-table-wrap">
+              <table class="adm-table">
+                <thead>
+                  <tr>
+                    <th>Mã</th>
+                    <th>Tên Barber & Chuyên môn</th>
+                    <th>Kinh nghiệm</th>
+                    <th>Ca làm việc</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>BB-01</strong></td>
+                    <td>
+                      <div class="adm-cell-title">Nguyễn Hoàng Nam</div>
+                      <div class="adm-cell-sub">Skin Fade & Pompadour cổ điển</div>
+                    </td>
+                    <td>7 năm (⭐ 4.9)</td>
+                    <td>08:30 - 17:30</td>
+                    <td><span class="adm-badge adm-badge-green">Sẵn sàng</span></td>
+                    <td>
+                      <button class="adm-btn adm-btn-outline adm-btn-sm">Sửa</button>
+                      <button class="adm-btn adm-btn-primary adm-btn-sm">Đổi TT</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>BB-02</strong></td>
+                    <td>
+                      <div class="adm-cell-title">Lê Minh Tuấn</div>
+                      <div class="adm-cell-sub">Uốn Layer & Nhuộm Hàn Quốc</div>
+                    </td>
+                    <td>5 năm (⭐ 4.8)</td>
+                    <td>09:00 - 19:00</td>
+                    <td><span class="adm-badge adm-badge-blue">Đang bận</span></td>
+                    <td>
+                      <button class="adm-btn adm-btn-outline adm-btn-sm">Sửa</button>
+                      <button class="adm-btn adm-btn-primary adm-btn-sm">Đổi TT</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>BB-03</strong></td>
+                    <td>
+                      <div class="adm-cell-title">Phạm Quốc Bảo</div>
+                      <div class="adm-cell-sub">Taper Fade & Cạo khăn nóng</div>
+                    </td>
+                    <td>4 năm (⭐ 4.7)</td>
+                    <td>12:00 - 21:00</td>
+                    <td><span class="adm-badge adm-badge-yellow">Nghỉ phép</span></td>
+                    <td>
+                      <button class="adm-btn adm-btn-outline adm-btn-sm">Sửa</button>
+                      <button class="adm-btn adm-btn-primary adm-btn-sm">Đổi TT</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Form Thêm / Sửa Barber -->
+          <div class="adm-card" id="barber-form">
+            <div class="adm-card-header">
+              <div>
+                <h3 class="adm-card-title">Form Thêm / Sửa Barber</h3>
+                <p class="adm-card-subtitle">Cập nhật hồ sơ và trạng thái hoạt động của Barber</p>
+              </div>
+            </div>
+            <form style="display: flex; flex-direction: column; gap: 14px;">
+              <div class="adm-form-group">
+                <label>Họ và tên Barber *</label>
+                <input type="text" class="adm-input" placeholder="Nhập họ tên Barber..." value="Nguyễn Hoàng Nam" />
+              </div>
+              <div class="adm-form-row">
+                <div class="adm-form-group">
+                  <label>Số điện thoại *</label>
+                  <input type="text" class="adm-input" value="0912345678" />
+                </div>
+                <div class="adm-form-group">
+                  <label>Số năm kinh nghiệm</label>
+                  <input type="number" class="adm-input" value="7" />
+                </div>
+              </div>
+              <div class="adm-form-group">
+                <label>Chuyên môn chính *</label>
+                <input type="text" class="adm-input" value="Skin Fade & Pompadour cổ điển" />
+              </div>
+              <div class="adm-form-row">
+                <div class="adm-form-group">
+                  <label>Ca làm việc</label>
+                  <input type="text" class="adm-input" value="08:30 - 17:30" />
+                </div>
+                <div class="adm-form-group">
+                  <label>Trạng thái Barber</label>
+                  <select class="adm-select">
+                    <option value="available">Sẵn sàng đón khách</option>
+                    <option value="busy">Đang phục vụ khách</option>
+                    <option value="off">Nghỉ ca / Nghỉ phép</option>
+                    <option value="inactive">Ngừng hoạt động</option>
+                  </select>
+                </div>
+              </div>
+              <div style="display: flex; gap: 10px; margin-top: 6px;">
+                <button type="button" class="adm-btn adm-btn-gold">Lưu thông tin Barber</button>
+                <button type="reset" class="adm-btn adm-btn-outline">Hủy</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
