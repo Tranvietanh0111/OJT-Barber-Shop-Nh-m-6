@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kho Sáp, Pomade & Mỹ Phẩm Quý Ông | The Gentleman Barber Club</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+    rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            barber: {
+              gold: '#e5a93c',
+              'gold-light': '#f3c267',
+              'gold-dark': '#b87c19',
+              dark: '#0b0f17',
+              surface: '#121824',
+              card: '#182030',
+              border: '#243046'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Font Awesome 6 Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-primary: #0b0f17;
+      --bg-secondary: #121824;
+      --bg-card: #182030;
+      --border-color: #243046;
+      --accent-gold: #e5a93c;
+      --accent-gold-glow: rgba(229, 169, 60, 0.25);
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-primary);
+      color: #f8fafc;
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .vintage-font {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .barber-pole-badge {
+      background: repeating-linear-gradient(-45deg,
+          #dc2626,
+          #dc2626 8px,
+          #ffffff 8px,
+          #ffffff 16px,
+          #2563eb 16px,
+          #2563eb 24px,
+          #ffffff 24px,
+          #ffffff 32px);
+      background-size: 200% 200%;
+      animation: barberPoleAnim 4s linear infinite;
+    }
+
+    @keyframes barberPoleAnim {
+      0% {
+        background-position: 0 0;
+      }
+
+      100% {
+        background-position: 45px 0;
+      }
+    }
+
+    .barber-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .barber-card:hover {
+      border-color: rgba(229, 169, 60, 0.45);
+      box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.5);
+    }
+
+    .barber-card-glow {
+      background: linear-gradient(145deg, #192233 0%, #131a28 100%);
+      border: 1px solid rgba(229, 169, 60, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .barber-card-glow::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+    }
+
+    .pulse-red {
+      box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6);
+      animation: pulseRed 2s infinite;
+    }
+
+    @keyframes pulseRed {
+      0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6);
+      }
+
+      70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 8px rgba(239, 68, 68, 0);
+      }
+
+      100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+      }
+    }
+
+    .pulse-emerald {
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6);
+      animation: pulseEmerald 2s infinite;
+    }
+
+    @keyframes pulseEmerald {
+      0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6);
+      }
+
+      70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+      }
+
+      100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+      }
+    }
+
+    .modal-backdrop {
+      background-color: rgba(7, 10, 16, 0.85);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-item-active {
+      background: linear-gradient(90deg, rgba(229, 169, 60, 0.22) 0%, rgba(229, 169, 60, 0.05) 100%);
+      border-left: 3px solid #e5a93c;
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body class="flex bg-barber-dark text-slate-100 antialiased selection:bg-amber-500 selection:text-slate-950">
+
+  <!-- ==================== SIDEBAR ==================== -->
+  <aside id="mainSidebar"
+    class="fixed inset-y-0 left-0 z-50 w-64 bg-barber-surface border-r border-barber-border flex flex-col justify-between transition-transform duration-300 md:static md:translate-x-0 -translate-x-full">
+    <div>
+      <!-- Brand Logo / Barber Pole Header -->
+      <div class="h-20 flex items-center px-6 border-b border-barber-border gap-3.5 relative overflow-hidden">
+        <div class="w-1.5 h-12 rounded-full barber-pole-badge"></div>
+        <div>
+          <h1 class="text-lg font-black tracking-wider text-amber-400 vintage-font leading-tight">ROYAL BARBER</h1>
+          <p class="text-[10px] tracking-widest text-slate-400 font-semibold uppercase">Salon & Grooming POS</p>
+        </div>
+      </div>
+
+      <!-- Branch Selection Badge -->
+      <div class="px-5 py-3">
+        <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <i class="fas fa-store text-amber-400 text-xs"></i>
+            <div>
+              <p class="text-[11px] font-bold text-white">Chi nhánh 01 (Flagship)</p>
+              <p class="text-[10px] text-slate-400">88 Phố Cổ, Hoàn Kiếm, HN</p>
+            </div>
+          </div>
+          <span class="w-2 h-2 rounded-full bg-emerald-400 pulse-emerald" title="Trực tuyến"></span>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="px-3 py-2 space-y-1 text-sm font-medium">
+        <!-- Tổng quan -->
+        <a href="index.html#overview"
+          class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <div class="flex items-center gap-3">
+            <i class="fas fa-chart-pie text-base"></i>
+            <span>Tổng quan Salon</span>
+          </div>
+        </a>
+
+        <!-- Lịch đặt hẹn -->
+        <a href="appointments.html"
+          class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <div class="flex items-center gap-3">
+            <i class="far fa-calendar-check text-base"></i>
+            <span>Lịch đặt hẹn</span>
+          </div>
+          <span class="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">48</span>
+        </a>
+
+        <!-- Sơ đồ ghế cắt -->
+        <a href="stations.html"
+          class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <div class="flex items-center gap-3">
+            <i class="fas fa-chair text-base"></i>
+            <span>Sơ đồ ghế cắt</span>
+          </div>
+          <span class="text-[11px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-semibold">6/8
+            bận</span>
+        </a>
+
+        <!-- Đội ngũ Barber -->
+        <a href="barbers.html"
+          class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <div class="flex items-center gap-3">
+            <i class="fas fa-scissors text-base"></i>
+            <span>Đội ngũ Barber</span>
+          </div>
+          <span class="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">8</span>
+        </a>
+
+        <!-- Bảng giá & Dịch vụ -->
+        <a href="services.html"
+          class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <div class="flex items-center gap-3">
+            <i class="fas fa-list-check text-base"></i>
+            <span>Bảng giá & Dịch vụ</span>
+          </div>
+          <span class="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">18</span>
+        </a>
+
+        <!-- Quản lý Người dùng & Khách VIP -->
+        <a href="users.html"
+          class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <div class="flex items-center gap-3">
+            <i class="fas fa-users-gear text-base"></i>
+            <span>Quản lý Người dùng</span>
+          </div>
+          <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400 font-bold">CRM</span>
+        </a>
+
+        <!-- ACTIVE: KHO SÁP & MỸ PHẨM -->
+        <a href="inventory.html"
+          class="flex items-center justify-between px-3.5 py-2.5 rounded-xl nav-item-active text-white">
+          <div class="flex items-center gap-3">
+            <i class="fas fa-box-open text-base"></i>
+            <span>Kho sáp & Mỹ phẩm</span>
+          </div>
+          <span id="navLowStockBadge"
+            class="text-xs px-1.5 py-0.5 rounded-full bg-red-500/20 text-red-400 border border-red-500/30 font-bold">!
+            3</span>
+        </a>
+
+        <!-- Báo cáo doanh thu -->
+        <a href="reports.html"
+          class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <i class="fas fa-file-invoice-dollar text-base"></i>
+          <span>Báo cáo doanh thu</span>
+        </a>
+
+        <!-- Cài đặt hệ thống -->
+        <a href="settings.html"
+          class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
+          <i class="fas fa-cog text-base"></i>
+          <span>Cài đặt hệ thống</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- User Profile Footer -->
+    <div class="p-4 border-t border-barber-border">
+      <div class="flex items-center justify-between p-2 rounded-xl bg-slate-900/60 border border-slate-800">
+        <div class="flex items-center gap-3">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"
+              alt="Master Hoàng" class="w-10 h-10 rounded-full object-cover border border-amber-500/40">
+            <span
+              class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-slate-900"></span>
+          </div>
+          <div>
+            <h4 class="text-xs font-bold text-white leading-tight">Master Hoàng</h4>
+            <p class="text-[10px] text-amber-400/90 font-medium">Quản lý Cửa Hàng</p>
+          </div>
+        </div>
+        <button title="Đăng xuất" class="text-slate-400 hover:text-red-400 text-sm p-1.5 transition">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ==================== MAIN CONTENT WRAPPER ==================== -->
+  <div class="flex-1 flex flex-col h-screen overflow-hidden">
+
+    <!-- TOP HEADER -->
+    <header
+      class="h-20 bg-barber-surface border-b border-barber-border px-6 flex items-center justify-between shrink-0">
+      <div class="flex items-center gap-4">
+        <button id="sidebarToggle" class="md:hidden text-slate-400 hover:text-white p-2 text-lg">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <div>
+          <div class="flex items-center gap-2.5">
+            <h2 class="text-lg md:text-xl font-extrabold text-white">Quản Lý Kho Sáp, Pomade & Mỹ Phẩm Nam</h2>
+            <span
+              class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-red-500/10 text-red-400 border border-red-500/20">
+              <span class="w-1.5 h-1.5 rounded-full bg-red-400 mr-1.5 pulse-red"></span> 3 Mặt Hàng Cần Nhập Thêm
+            </span>
+          </div>
+          <div class="flex items-center gap-3 text-xs text-slate-400 mt-0.5">
+            <span id="liveDate" class="font-medium text-slate-300">--</span>
+            <span class="text-slate-600">&bull;</span>
+            <span id="liveClock"
+              class="font-mono text-amber-400 font-bold text-xs bg-slate-900 px-2 py-0.5 rounded border border-slate-800">--:--:--</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="flex items-center gap-3">
+        <!-- Search Input -->
+        <div class="relative hidden lg:block w-72">
+          <i class="fas fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+          <input type="text" id="productSearchInput" placeholder="Tìm theo tên sáp, mã SKU, thương hiệu..."
+            class="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-amber-500 transition">
+        </div>
+
+        <!-- Export Excel Stock Report -->
+        <button onclick="exportStockExcel()"
+          class="hidden sm:inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 font-bold text-xs border border-emerald-500/30 transition">
+          <i class="fas fa-file-excel"></i>
+          <span>Xuất Báo Cáo Kho</span>
+        </button>
+
+        <!-- New Product Button -->
+        <button onclick="openProductModal()"
+          class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs shadow-lg shadow-amber-500/20 transition transform active:scale-95">
+          <i class="fas fa-plus"></i>
+          <span>+ Thêm Sản Phẩm Mới</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- MAIN SCROLLABLE CONTENT -->
+    <main class="flex-1 overflow-y-auto p-6 space-y-6">
+
+      <!-- ==================== 1. KPI SUMMARY CARDS ==================== -->
+      <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- KPI 1: Tổng giá trị tồn kho -->
+        <div class="barber-card barber-card-glow p-4 flex flex-col justify-between">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-semibold text-slate-400">Tổng giá trị vốn tồn kho</span>
+            <div
+              class="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-sm">
+              <i class="fas fa-vault"></i>
+            </div>
+          </div>
+          <div>
+            <h3 id="kpiTotalStockValue" class="text-2xl font-black text-amber-400 tracking-tight">86.450.000 ₫</h3>
+            <div class="flex items-center gap-1.5 mt-1 text-xs">
+              <span class="text-slate-300">Giá trị bán lẻ dự kiến:</span>
+              <span class="text-emerald-400 font-bold">128.800.000 ₫</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- KPI 2: Tổng SKU & Số lượng -->
+        <div class="barber-card p-4 flex flex-col justify-between">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-semibold text-slate-400">Quy mô danh mục kho</span>
+            <div
+              class="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 text-sm">
+              <i class="fas fa-boxes-stacked"></i>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-baseline gap-2">
+              <h3 id="kpiTotalSkus" class="text-2xl font-black text-white tracking-tight">24 Mã hàng (SKU)</h3>
+            </div>
+            <p id="kpiTotalUnits" class="text-xs text-slate-400 mt-1">Tổng cộng 348 sản phẩm & vật tư trong kho</p>
+          </div>
+        </div>
+
+        <!-- KPI 3: Cảnh báo sắp hết hàng -->
+        <div
+          class="barber-card p-4 flex flex-col justify-between border-red-500/30 bg-gradient-to-b from-red-950/20 to-slate-900/60">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-semibold text-red-300 flex items-center gap-1.5">
+              <i class="fas fa-triangle-exclamation text-red-400"></i> Cảnh báo hết hàng
+            </span>
+            <div
+              class="w-8 h-8 rounded-lg bg-red-500/20 border border-red-500/40 flex items-center justify-center text-red-400 text-sm">
+              <i class="fas fa-bell"></i>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-baseline gap-2">
+              <h3 id="kpiLowStockCount" class="text-2xl font-black text-red-400 tracking-tight">3 Mặt hàng</h3>
+              <span class="text-xs text-red-300 font-semibold">Dưới mức an toàn</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">Reuzel Blue, Dao cạo Feather, Giấy cổ</p>
+          </div>
+        </div>
+
+        <!-- KPI 4: Doanh số bán lẻ hôm nay -->
+        <div class="barber-card p-4 flex flex-col justify-between">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-semibold text-slate-400">Doanh số mỹ phẩm hôm nay</span>
+            <div
+              class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-sm">
+              <i class="fas fa-cash-register"></i>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-baseline gap-2">
+              <h3 id="kpiTodaySoldRevenue" class="text-2xl font-black text-emerald-400 tracking-tight">2.140.000 ₫</h3>
+              <span class="text-xs text-emerald-400 font-bold">+18.2%</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">14 Sản phẩm bán lẻ kèm dịch vụ cắt tóc</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 2. TOOLBAR & CATEGORY TABS ==================== -->
+      <section class="barber-card p-4 space-y-3">
+        <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+          <!-- Category Filter Pills -->
+          <div class="flex items-center gap-2 overflow-x-auto w-full lg:w-auto pb-1 text-xs">
+            <button data-cat="all" onclick="setCategoryFilter('all', this)"
+              class="category-filter-btn px-3.5 py-2 rounded-xl font-bold bg-amber-500/20 text-amber-400 border border-amber-500/40 whitespace-nowrap transition">
+              <i class="fas fa-border-all mr-1.5"></i> Tất Cả (24)
+            </button>
+            <button data-cat="pomade" onclick="setCategoryFilter('pomade', this)"
+              class="category-filter-btn px-3.5 py-2 rounded-xl font-semibold text-slate-400 hover:text-white border border-transparent hover:bg-slate-800 whitespace-nowrap transition">
+              <i class="fas fa-spray-can-sparkles mr-1.5"></i> Sáp & Pomade (10)
+            </button>
+            <button data-cat="beard" onclick="setCategoryFilter('beard', this)"
+              class="category-filter-btn px-3.5 py-2 rounded-xl font-semibold text-slate-400 hover:text-white border border-transparent hover:bg-slate-800 whitespace-nowrap transition">
+              <i class="fas fa-user-ninja mr-1.5"></i> Cạo Râu & Dầu Dưỡng (5)
+            </button>
+            <button data-cat="shampoo" onclick="setCategoryFilter('shampoo', this)"
+              class="category-filter-btn px-3.5 py-2 rounded-xl font-semibold text-slate-400 hover:text-white border border-transparent hover:bg-slate-800 whitespace-nowrap transition">
+              <i class="fas fa-pump-soap mr-1.5"></i> Dầu Gội & Phục Hồi (4)
+            </button>
+            <button data-cat="consumable" onclick="setCategoryFilter('consumable', this)"
+              class="category-filter-btn px-3.5 py-2 rounded-xl font-semibold text-slate-400 hover:text-white border border-transparent hover:bg-slate-800 whitespace-nowrap transition">
+              <i class="fas fa-scissors mr-1.5"></i> Tiêu Hao & Vệ Sinh (5)
+            </button>
+          </div>
+
+          <!-- Stock Level Status Dropdown -->
+          <div class="flex items-center gap-2 w-full lg:w-auto justify-end text-xs">
+            <label for="stockStatusFilter" class="text-slate-400 whitespace-nowrap">Tình trạng tồn:</label>
+            <select id="stockStatusFilter" onchange="filterProducts()"
+              class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+              <option value="all">Tất cả tình trạng</option>
+              <option value="low">Sắp hết hàng (Dưới định mức)</option>
+              <option value="good">Tồn kho dồi dào</option>
+              <option value="out">Đã hết hàng (0)</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 3. INVENTORY PRODUCTS TABLE ==================== -->
+      <section class="barber-card overflow-hidden">
+        <div
+          class="px-5 py-4 border-b border-barber-border flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <h3 class="text-base font-extrabold text-white flex items-center gap-2">
+              <i class="fas fa-list-check text-amber-400"></i>
+              Danh Sách Mặt Hàng & Tồn Kho Thực Tế
+            </h3>
+            <p class="text-xs text-slate-400">Quản lý nhập xuất, giá bán lẻ niêm yết và mức tồn kho an toàn</p>
+          </div>
+          <span id="filteredProductCountText" class="text-xs text-slate-400 font-medium">Hiển thị 24 sản phẩm</span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr
+                class="bg-slate-900/90 text-[11px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-800">
+                <th class="py-3.5 px-4">Sản phẩm & Thương hiệu</th>
+                <th class="py-3.5 px-4">Mã SKU & Xuất xứ</th>
+                <th class="py-3.5 px-4">Danh mục</th>
+                <th class="py-3.5 px-4">Giá vốn nhập</th>
+                <th class="py-3.5 px-4">Giá bán lẻ</th>
+                <th class="py-3.5 px-4">Tồn kho / Định mức</th>
+                <th class="py-3.5 px-4">Tình trạng</th>
+                <th class="py-3.5 px-4 text-right">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody id="inventoryTableBody" class="divide-y divide-slate-800/60 text-xs">
+              <!-- Dynamically populated via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== 4. RECENT INVENTORY TRANSACTIONS LOG ==================== -->
+      <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Stock Transaction Log (2 Cols) -->
+        <div class="lg:col-span-2 barber-card p-5">
+          <div class="flex items-center justify-between pb-3 mb-3 border-b border-barber-border">
+            <h3 class="text-sm font-bold text-white flex items-center gap-2">
+              <i class="fas fa-clock-rotate-left text-amber-400"></i>
+              Nhật Ký Nhập / Xuất Kho Hôm Nay
+            </h3>
+            <span class="text-xs text-slate-400">Ghi nhận thời gian thực</span>
+          </div>
+
+          <div id="stockActivityLogs" class="space-y-3 text-xs">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- Supplier & Restock Recommendation (1 Col) -->
+        <div class="barber-card p-5 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-3 mb-3 border-b border-barber-border">
+              <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                <i class="fas fa-truck-ramp-box text-amber-400"></i>
+                Đề Xuất Nhập Hàng Gấp
+              </h3>
+              <span class="text-[10px] px-1.5 py-0.5 rounded bg-red-500/20 text-red-300 font-bold">Ưu tiên cao</span>
+            </div>
+
+            <p class="text-xs text-slate-300 mb-3">Các mặt hàng sau đây đang nằm dưới mức định mức an toàn tối thiểu:
+            </p>
+
+            <div class="space-y-2.5 text-xs">
+              <div class="p-2.5 rounded-xl bg-slate-900 border border-red-500/30 flex items-center justify-between">
+                <div>
+                  <div class="font-bold text-white">Sáp Reuzel Blue Water Soluble</div>
+                  <div class="text-[11px] text-red-400 font-semibold">Còn: 2 hộp (Tối thiểu: 10)</div>
+                </div>
+                <button onclick="openRestockModal(1)"
+                  class="px-2.5 py-1 rounded bg-amber-500/20 text-amber-400 hover:bg-amber-500/30 font-bold text-[11px] border border-amber-500/30 transition">
+                  Nhập +20
+                </button>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-slate-900 border border-red-500/30 flex items-center justify-between">
+                <div>
+                  <div class="font-bold text-white">Hộp Lưỡi Dao Cạo Feather Nhật Bản</div>
+                  <div class="text-[11px] text-red-400 font-semibold">Còn: 1 hộp (Tối thiểu: 5)</div>
+                </div>
+                <button onclick="openRestockModal(8)"
+                  class="px-2.5 py-1 rounded bg-amber-500/20 text-amber-400 hover:bg-amber-500/30 font-bold text-[11px] border border-amber-500/30 transition">
+                  Nhập +10
+                </button>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-slate-900 border border-red-500/30 flex items-center justify-between">
+                <div>
+                  <div class="font-bold text-white">Giấy Quấn Cổ Cắt Tóc Sanek</div>
+                  <div class="text-[11px] text-red-400 font-semibold">Còn: 3 cuộn (Tối thiểu: 15)</div>
+                </div>
+                <button onclick="openRestockModal(9)"
+                  class="px-2.5 py-1 rounded bg-amber-500/20 text-amber-400 hover:bg-amber-500/30 font-bold text-[11px] border border-amber-500/30 transition">
+                  Nhập +30
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-800 text-center">
+            <button onclick="restockAllUrgent()"
+              class="w-full py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition shadow-md shadow-amber-500/20">
+              <i class="fas fa-cart-flatbed mr-1"></i> Tạo Đơn Đặt Hàng Toàn Bộ
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ==================== MODAL 1: THÊM / SỬA SẢN PHẨM ==================== -->
+  <div id="productModal" class="hidden fixed inset-0 z-50 modal-backdrop items-center justify-center p-4">
+    <div
+      class="bg-barber-card border border-barber-border w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
+      <div class="px-6 py-4 border-b border-barber-border flex items-center justify-between bg-slate-900/80">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm">
+            <i class="fas fa-box"></i>
+          </div>
+          <div>
+            <h3 id="productModalTitle" class="text-base font-bold text-white">Thêm Sản Phẩm Mới</h3>
+            <p class="text-[11px] text-slate-400">Đăng ký mã SKU & niêm yết giá bán lẻ</p>
+          </div>
+        </div>
+        <button onclick="closeProductModal()" class="text-slate-400 hover:text-white p-1 text-base transition">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <form onsubmit="submitProductForm(event)" class="p-6 space-y-4 text-xs">
+        <input type="hidden" id="pFormEditId" value="">
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Tên sản phẩm mỹ phẩm *</label>
+          <input type="text" id="pFormName" required placeholder="Vd: Sáp Reuzel Pink Heavy Grease 113g"
+            class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 text-xs">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Thương hiệu / Hãng sản xuất *</label>
+            <input type="text" id="pFormBrand" required placeholder="Vd: Reuzel Pomade"
+              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 text-xs">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Mã SKU / Barcode *</label>
+            <input type="text" id="pFormSku" required placeholder="Vd: RZL-BLUE-113"
+              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 text-xs font-mono uppercase">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Danh mục sản phẩm *</label>
+            <select id="pFormCategory"
+              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500 text-xs">
+              <option value="pomade">Sáp & Pomade vuốt tóc</option>
+              <option value="beard">Cạo râu & Dầu dưỡng râu</option>
+              <option value="shampoo">Dầu gội & Điều trị da đầu</option>
+              <option value="consumable">Tiêu hao & Dụng cụ vệ sinh</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Xuất xứ sản phẩm</label>
+            <input type="text" id="pFormOrigin" placeholder="Vd: Hà Lan (Holland), Ý, Mỹ..."
+              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 text-xs">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Giá vốn nhập (VNĐ) *</label>
+            <input type="number" id="pFormCostPrice" required min="1000" step="1000" placeholder="Vd: 250000"
+              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500 text-xs font-mono">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Giá bán lẻ niêm yết (VNĐ) *</label>
+            <input type="number" id="pFormRetailPrice" required min="1000" step="1000" placeholder="Vd: 380000"
+              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500 text-xs font-mono">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Số lượng tồn kho hiện tại *</label>
+            <input type="number" id="pFormStock" required min="0" value="10"
+              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500 text-xs font-mono">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Mức tồn tối thiểu cảnh báo *</label>
+            <input type="number" id="pFormMinStock" required min="1" value="5"
+              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500 text-xs font-mono">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Link ảnh sản phẩm (URL)</label>
+          <input type="url" id="pFormImage" placeholder="Để trống để dùng ảnh mặc định"
+            class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 text-xs">
+        </div>
+
+        <div class="pt-3 border-t border-slate-800 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeProductModal()"
+            class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold transition">Hủy
+            bỏ</button>
+          <button type="submit"
+            class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition flex items-center gap-1.5">
+            <i class="fas fa-check"></i> Lưu Mặt Hàng
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: NHẬP THÊM HÀNG (RESTOCK) ==================== -->
+  <div id="restockModal" class="hidden fixed inset-0 z-50 modal-backdrop items-center justify-center p-4">
+    <div
+      class="bg-barber-card border border-barber-border w-full max-w-md rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
+      <div class="px-5 py-3.5 border-b border-barber-border flex items-center justify-between bg-slate-900/80">
+        <div class="flex items-center gap-2">
+          <i class="fas fa-truck-ramp-box text-amber-400"></i>
+          <h3 class="text-sm font-bold text-white">Nhập Kho Bổ Sung</h3>
+        </div>
+        <button onclick="closeRestockModal()" class="text-slate-400 hover:text-white p-1 text-sm transition">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <form onsubmit="submitRestockForm(event)" class="p-5 space-y-3.5 text-xs">
+        <input type="hidden" id="restockId" value="">
+        <div>
+          <label class="block text-slate-400 mb-1">Mặt hàng nhập:</label>
+          <div id="restockProductName" class="font-bold text-white text-sm">--</div>
+          <div id="restockCurrentStock" class="text-[11px] text-amber-400 font-mono mt-0.5">Tồn hiện tại: 0</div>
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Số lượng nhập thêm *</label>
+          <input type="number" id="restockQuantity" required min="1" value="20"
+            class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500 font-mono text-sm">
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Nhà cung cấp / Đơn vị phân phối</label>
+          <input type="text" id="restockSupplier" value="Reuzel Vietnam Official Distributor"
+            class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+        </div>
+
+        <div class="pt-3 border-t border-slate-800 flex items-center justify-end gap-2">
+          <button type="button" onclick="closeRestockModal()"
+            class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 font-semibold">Hủy</button>
+          <button type="submit"
+            class="px-4 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition">
+            Xác Nhận Nhập Kho
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 3: BÁN LẺ / XUẤT SỬ DỤNG TẠI GHẾ ==================== -->
+  <div id="sellModal" class="hidden fixed inset-0 z-50 modal-backdrop items-center justify-center p-4">
+    <div
+      class="bg-barber-card border border-barber-border w-full max-w-md rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
+      <div class="px-5 py-3.5 border-b border-barber-border flex items-center justify-between bg-slate-900/80">
+        <div class="flex items-center gap-2">
+          <i class="fas fa-cart-shopping text-emerald-400"></i>
+          <h3 class="text-sm font-bold text-white">Xuất Kho / Bán Lẻ Cho Khách</h3>
+        </div>
+        <button onclick="closeSellModal()" class="text-slate-400 hover:text-white p-1 text-sm transition">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <form onsubmit="submitSellForm(event)" class="p-5 space-y-3.5 text-xs">
+        <input type="hidden" id="sellId" value="">
+        <div>
+          <label class="block text-slate-400 mb-1">Mặt hàng xuất:</label>
+          <div id="sellProductName" class="font-bold text-white text-sm">--</div>
+          <div class="flex justify-between items-center mt-1">
+            <span id="sellCurrentStock" class="text-[11px] text-amber-400 font-mono">Tồn hiện tại: 0</span>
+            <span id="sellPriceTag" class="text-[11px] text-emerald-400 font-mono font-bold">Giá: 0 ₫</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Mục đích xuất *</label>
+            <select id="sellType"
+              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+              <option value="retail">Bán lẻ cho khách</option>
+              <option value="internal">Xuất dùng tại ghế cắt</option>
+              <option value="gift">Tặng khách VIP</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Số lượng xuất *</label>
+            <input type="number" id="sellQuantity" required min="1" value="1"
+              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500 font-mono text-sm">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Tên khách hàng / Thợ nhận</label>
+          <input type="text" id="sellCustomerOrBarber" placeholder="Vd: Trần Tuấn Anh (VIP) hoặc Master Hoàng"
+            class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500">
+        </div>
+
+        <div class="pt-3 border-t border-slate-800 flex items-center justify-end gap-2">
+          <button type="button" onclick="closeSellModal()"
+            class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 font-semibold">Hủy</button>
+          <button type="submit"
+            class="px-4 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold transition">
+            Xác Nhận Xuất Kho
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== TOAST NOTIFICATION CONTAINER ==================== -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 space-y-2 max-w-sm pointer-events-auto"></div>
+
+  <!-- ==================== LOGIC JAVASCRIPT ==================== -->
+  <script>
+    // --- 1. SAMPLE INVENTORY DATA STORE ---
+    let ProductsData = [
+      // CATEGORY 1: POMADE & SÁP VUỐT TÓC
+      {
+        id: 1,
+        name: "Sáp Reuzel Blue Water Soluble High Sheen Pomade",
+        brand: "Reuzel Pomade",
+        sku: "RZL-BLUE-113",
+        category: "pomade",
+        categoryLabel: "Sáp & Pomade",
+        origin: "Hà Lan (Holland)",
+        costPrice: 245000,
+        retailPrice: 380000,
+        stock: 2, // LOW STOCK
+        minStock: 10,
+        image: "https://images.unsplash.com/photo-1595152772835-219674b2a8a6?w=150&auto=format&fit=crop&q=80",
+        description: "Pomade gốc nước cao cấp độ bóng cao và giữ nếp cực mạnh. Dễ dàng gội sạch."
+      },
+      {
+        id: 2,
+        name: "Sáp Reuzel Pink Heavy Grease Pomade (Gốc dầu)",
+        brand: "Reuzel Pomade",
+        sku: "RZL-PINK-113",
+        category: "pomade",
+        categoryLabel: "Sáp & Pomade",
+        origin: "Hà Lan (Holland)",
+        costPrice: 245000,
+        retailPrice: 380000,
+        stock: 14,
+        minStock: 8,
+        image: "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=150&auto=format&fit=crop&q=80",
+        description: "Hương thơm kẹo cao su ngọt ngào, độ giữ nếp tối đa cho kiểu tóc Pompadour cổ điển."
+      },
+      {
+        id: 3,
+        name: "Sáp Uppercut Deluxe Pomade Monster Hold",
+        brand: "Uppercut Deluxe",
+        sku: "UPP-DLX-100",
+        category: "pomade",
+        categoryLabel: "Sáp & Pomade",
+        origin: "Australia",
+        costPrice: 270000,
+        retailPrice: 420000,
+        stock: 18,
+        minStock: 8,
+        image: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=150&auto=format&fit=crop&q=80",
+        description: "Chất sáp đặc sáp mờ tự nhiên, phù hợp mọi chất tóc châu Á."
+      },
+      {
+        id: 4,
+        name: "Sáp Vuốt Tóc Kevin Murphy Rough Rider Matte Clay",
+        brand: "Kevin Murphy",
+        sku: "KM-ROUGH-100",
+        category: "pomade",
+        categoryLabel: "Sáp & Pomade",
+        origin: "Mỹ (USA)",
+        costPrice: 480000,
+        retailPrice: 680000,
+        stock: 11,
+        minStock: 6,
+        image: "https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=150&auto=format&fit=crop&q=80",
+        description: "Chiết xuất đậu nành và tre vàng, tạo độ phồng và hút dầu da đầu cực tốt."
+      },
+      {
+        id: 5,
+        name: "Sáp Suavecito Original Hold Pomade",
+        brand: "Suavecito",
+        sku: "SVC-ORIG-113",
+        category: "pomade",
+        categoryLabel: "Sáp & Pomade",
+        origin: "Mỹ (USA)",
+        costPrice: 220000,
+        retailPrice: 350000,
+        stock: 22,
+        minStock: 10,
+        image: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=150&auto=format&fit=crop&q=80",
+        description: "Pomade biểu tượng phong cách Chicano cổ điển, hương nước hoa nam tính."
+      },
+
+      // CATEGORY 2: BEARD CARE & SHAVING (CHĂM SÓC RÂU & CẠO)
+      {
+        id: 6,
+        name: "Kem Cạo Râu Ý Proraso Sandalwood Khăn Nóng 150ml",
+        brand: "Proraso Firenze 1948",
+        sku: "PRO-SHAVE-150",
+        category: "beard",
+        categoryLabel: "Cạo Râu & Dưỡng",
+        origin: "Ý (Italy)",
+        costPrice: 190000,
+        retailPrice: 320000,
+        stock: 16,
+        minStock: 8,
+        image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=150&auto=format&fit=crop&q=80",
+        description: "Công thức bơ hạt mỡ và tinh dầu gỗ đàn hương làm mềm râu cứng tức thì."
+      },
+      {
+        id: 7,
+        name: "Dầu Dưỡng Râu Quý Ông Captain Fawcett's Private Stock",
+        brand: "Captain Fawcett",
+        sku: "CFT-BEARD-50",
+        category: "beard",
+        categoryLabel: "Cạo Râu & Dưỡng",
+        origin: "Anh Quốc (UK)",
+        costPrice: 420000,
+        retailPrice: 650000,
+        stock: 7,
+        minStock: 5,
+        image: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=150&auto=format&fit=crop&q=80",
+        description: "Nuôi dưỡng nang râu, giảm ngứa và tạo mùi hương trầm ấm quý phái."
+      },
+      {
+        id: 8,
+        name: "Hộp Lưỡi Dao Cạo Feather Hi-Stainless Nhật Bản (20 tép)",
+        brand: "Feather Safety Razor",
+        sku: "FTH-BLADE-JP",
+        category: "consumable",
+        categoryLabel: "Tiêu Hao & Vệ Sinh",
+        origin: "Nhật Bản (Japan)",
+        costPrice: 85000,
+        retailPrice: 150000,
+        stock: 1, // LOW STOCK
+        minStock: 5,
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
+        description: "Lưỡi dao cạo sắc bén nhất thế giới mạ bạch kim dùng cho dao cạo thẳng Barber."
+      },
+      {
+        id: 9,
+        name: "Giấy Quấn Cổ Cắt Tóc Sanek Cổ Điển (Cây 5 cuộn)",
+        brand: "Sanek Neck Strips",
+        sku: "SNK-NECK-05",
+        category: "consumable",
+        categoryLabel: "Tiêu Hao & Vệ Sinh",
+        origin: "Mỹ (USA)",
+        costPrice: 65000,
+        retailPrice: 110000,
+        stock: 3, // LOW STOCK
+        minStock: 15,
+        image: "https://images.unsplash.com/photo-1517832606589-7629c33971a6?w=150&auto=format&fit=crop&q=80",
+        description: "Chất liệu giấy co giãn mềm dai chống vụn tóc bám dính vào cổ khách hàng."
+      },
+
+      // CATEGORY 3: SHAMPOO & TREATMENT (DẦU GỘI & DƯỠNG SINH)
+      {
+        id: 10,
+        name: "Dầu Gội Trị Rụng & Kích Thích Mọc Tóc Davines Energizing 250ml",
+        brand: "Davines Naturaltech",
+        sku: "DVN-ENG-250",
+        category: "shampoo",
+        categoryLabel: "Dầu Gội & Phục Hồi",
+        origin: "Ý (Italy)",
+        costPrice: 320000,
+        retailPrice: 495000,
+        stock: 15,
+        minStock: 8,
+        image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=150&auto=format&fit=crop&q=80",
+        description: "Chứa phức hợp năng lượng caffeine và tinh dầu bạc hà sảng khoái."
+      },
+      {
+        id: 11,
+        name: "Dầu Gội Than Hoạt Tính Reuzel Daily Shampoo 350ml",
+        brand: "Reuzel Pomade",
+        sku: "RZL-SHAMP-350",
+        category: "shampoo",
+        categoryLabel: "Dầu Gội & Phục Hồi",
+        origin: "Hà Lan (Holland)",
+        costPrice: 210000,
+        retailPrice: 340000,
+        stock: 19,
+        minStock: 10,
+        image: "https://images.unsplash.com/photo-1595152772835-219674b2a8a6?w=150&auto=format&fit=crop&q=80",
+        description: "Làm sạch sâu bã nhờn và cặn sáp mà không gây khô xơ tóc."
+      },
+      {
+        id: 12,
+        name: "Dung Dịch Khử Trùng Kéo & Tông Đơ Barbicide Blue 473ml",
+        brand: "Barbicide",
+        sku: "BRB-DISINF-473",
+        category: "consumable",
+        categoryLabel: "Tiêu Hao & Vệ Sinh",
+        origin: "Mỹ (USA)",
+        costPrice: 280000,
+        retailPrice: 390000,
+        stock: 8,
+        minStock: 4,
+        image: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=150&auto=format&fit=crop&q=80",
+        description: "Dung dịch diệt khuẩn chuyên dụng cho bình thủy tinh ngâm dụng cụ cắt tóc."
+      }
+    ];
+
+    // Activity log store
+    let StockLogs = [
+      { id: "LOG-501", time: "15:40", product: "Sáp Reuzel Pink Heavy Grease", type: "sell", quantity: 1, operator: "Tuấn Fade", target: "Khách VIP Lê Minh Khang" },
+      { id: "LOG-502", time: "15:20", product: "Kem Cạo Râu Ý Proraso Sandalwood", type: "sell", quantity: 1, operator: "Master Hoàng", target: "Khách VIP Trần Tuấn Anh" },
+      { id: "LOG-503", time: "14:10", product: "Hộp Lưỡi Dao Cạo Feather Nhật Bản", type: "internal", quantity: 1, operator: "Dũng Scissor", target: "Xuất dùng tại Ghế 05" },
+      { id: "LOG-504", time: "11:30", product: "Sáp Reuzel Blue Water Soluble", type: "sell", quantity: 2, operator: "Thu ngân Mai Lan", target: "Khách vãng lai" },
+      { id: "LOG-505", time: "09:15", product: "Dầu Gội Than Hoạt Tính Reuzel Daily", type: "restock", quantity: 20, operator: "Master Hoàng", target: "Nhập từ Reuzel VN" }
+    ];
+
+    // --- 2. UTILITIES ---
+    const formatCurrency = (amount) => {
+      return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+    };
+
+    function initClock() {
+      const clockEl = document.getElementById('liveClock');
+      const dateEl = document.getElementById('liveDate');
+      const update = () => {
+        const now = new Date();
+        const days = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
+        if (clockEl) clockEl.textContent = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+        if (dateEl) dateEl.textContent = `${days[now.getDay()]}, ${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()}`;
+      };
+      update();
+      setInterval(update, 1000);
+    }
+
+    // --- 3. FILTERING CONTROLLER ---
+    let currentCategoryFilter = 'all';
+    let currentStockStatusFilter = 'all';
+    let productSearchQuery = '';
+
+    function setCategoryFilter(cat, btn) {
+      currentCategoryFilter = cat;
+      document.querySelectorAll('.category-filter-btn').forEach(b => {
+        b.classList.remove('bg-amber-500/20', 'text-amber-400', 'border-amber-500/40', 'font-bold');
+        b.classList.add('text-slate-400', 'border-transparent', 'font-semibold');
+      });
+      btn.classList.add('bg-amber-500/20', 'text-amber-400', 'border-amber-500/40', 'font-bold');
+      btn.classList.remove('text-slate-400', 'border-transparent', 'font-semibold');
+      renderInventoryTable();
+    }
+
+    function filterProducts() {
+      currentStockStatusFilter = document.getElementById('stockStatusFilter').value;
+      renderInventoryTable();
+    }
+
+    function getFilteredProducts() {
+      return ProductsData.filter(p => {
+        if (currentCategoryFilter !== 'all' && p.category !== currentCategoryFilter) return false;
+
+        if (currentStockStatusFilter === 'low' && p.stock > p.minStock) return false;
+        if (currentStockStatusFilter === 'out' && p.stock > 0) return false;
+        if (currentStockStatusFilter === 'good' && p.stock <= p.minStock) return false;
+
+        if (productSearchQuery.trim() !== '') {
+          const q = productSearchQuery.toLowerCase();
+          const matchName = p.name.toLowerCase().includes(q);
+          const matchSku = p.sku.toLowerCase().includes(q);
+          const matchBrand = p.brand.toLowerCase().includes(q);
+          const matchOrigin = p.origin.toLowerCase().includes(q);
+          if (!matchName && !matchSku && !matchBrand && !matchOrigin) return false;
+        }
+
+        return true;
+      });
+    }
+
+    // --- 4. RENDER INVENTORY TABLE ---
+    function renderInventoryTable() {
+      const tbody = document.getElementById('inventoryTableBody');
+      const countEl = document.getElementById('filteredProductCountText');
+      if (!tbody) return;
+
+      const filtered = getFilteredProducts();
+      if (countEl) countEl.textContent = `Hiển thị ${filtered.length} / ${ProductsData.length} sản phẩm`;
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8" class="text-center py-8 text-slate-400">
+              <i class="fas fa-boxes-packing text-3xl mb-2 text-slate-600 block"></i>
+              Không tìm thấy sản phẩm nào phù hợp với bộ lọc tìm kiếm.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(p => {
+        const isLow = p.stock <= p.minStock && p.stock > 0;
+        const isOut = p.stock === 0;
+
+        let statusBadge = '';
+        if (isOut) {
+          statusBadge = `<span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-800 text-slate-400 border border-slate-700">Hết hàng</span>`;
+        } else if (isLow) {
+          statusBadge = `<span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-500/20 text-red-400 border border-red-500/30 flex items-center gap-1 w-fit"><span class="w-1.5 h-1.5 rounded-full bg-red-400 pulse-red"></span> Sắp hết</span>`;
+        } else {
+          statusBadge = `<span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Tồn tốt</span>`;
+        }
+
+        const profitMargin = Math.round(((p.retailPrice - p.costPrice) / p.retailPrice) * 100);
+
+        return `
+          <tr class="hover:bg-slate-800/40 border-b border-slate-800/80 transition">
+            <td class="py-3 px-4">
+              <div class="flex items-center gap-3">
+                <img src="${p.image}" alt="${p.name}" class="w-10 h-10 rounded-xl object-cover border border-slate-700 shrink-0">
+                <div>
+                  <div class="font-bold text-white text-xs hover:text-amber-400 transition cursor-pointer" onclick="openProductModal(${p.id})">
+                    ${p.name}
+                  </div>
+                  <div class="text-[11px] text-slate-400">${p.brand}</div>
+                </div>
+              </div>
+            </td>
+            <td class="py-3 px-4">
+              <div class="font-mono text-xs font-bold text-amber-400">${p.sku}</div>
+              <div class="text-[11px] text-slate-400">${p.origin}</div>
+            </td>
+            <td class="py-3 px-4">
+              <span class="text-xs px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700/80">${p.categoryLabel}</span>
+            </td>
+            <td class="py-3 px-4 font-mono text-xs text-slate-300">${formatCurrency(p.costPrice)}</td>
+            <td class="py-3 px-4">
+              <div class="font-mono font-bold text-xs text-emerald-400">${formatCurrency(p.retailPrice)}</div>
+              <div class="text-[10px] text-amber-400/90 font-medium">+${profitMargin}% lãi</div>
+            </td>
+            <td class="py-3 px-4">
+              <div class="font-mono font-bold text-sm ${isLow ? 'text-red-400' : 'text-white'}">
+                ${p.stock} <span class="text-xs text-slate-400 font-normal">hộp</span>
+              </div>
+              <div class="text-[10px] text-slate-500">Định mức: ${p.minStock}</div>
+            </td>
+            <td class="py-3 px-4">${statusBadge}</td>
+            <td class="py-3 px-4 text-right">
+              <div class="flex items-center justify-end gap-1.5">
+                <button onclick="openSellModal(${p.id})" title="Bán lẻ / Xuất dùng" class="px-2 py-1 rounded bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 text-xs font-semibold border border-emerald-500/30 transition">
+                  <i class="fas fa-cart-arrow-down mr-1"></i> Xuất
+                </button>
+                <button onclick="openRestockModal(${p.id})" title="Nhập hàng" class="px-2 py-1 rounded bg-amber-500/20 text-amber-400 hover:bg-amber-500/30 text-xs font-semibold border border-amber-500/30 transition">
+                  <i class="fas fa-plus mr-1"></i> Nhập
+                </button>
+                <button onclick="openProductModal(${p.id})" title="Sửa mặt hàng" class="p-1 text-slate-400 hover:text-white text-xs transition">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button onclick="deleteProduct(${p.id})" title="Xóa" class="p-1 text-slate-400 hover:text-red-400 text-xs transition">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // --- 5. RENDER RECENT STOCK ACTIVITY LOGS ---
+    function renderStockLogs() {
+      const container = document.getElementById('stockActivityLogs');
+      if (!container) return;
+
+      container.innerHTML = StockLogs.map(log => {
+        let icon = 'fa-arrow-up text-emerald-400';
+        let badge = 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30';
+        let label = 'Bán lẻ';
+
+        if (log.type === 'restock') {
+          icon = 'fa-truck text-amber-400';
+          badge = 'bg-amber-500/10 text-amber-400 border-amber-500/30';
+          label = 'Nhập kho';
+        } else if (log.type === 'internal') {
+          icon = 'fa-scissors text-purple-400';
+          badge = 'bg-purple-500/10 text-purple-400 border-purple-500/30';
+          label = 'Dùng tại ghế';
+        }
+
+        return `
+          <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-lg ${badge} border flex items-center justify-center text-sm shrink-0">
+                <i class="fas ${icon}"></i>
+              </span>
+              <div>
+                <div class="font-bold text-white">${log.product} <span class="text-amber-400 font-mono">(${log.quantity > 0 ? '+' : ''}${log.quantity})</span></div>
+                <div class="text-[11px] text-slate-400">Thực hiện: ${log.operator} &bull; ${log.target}</div>
+              </div>
+            </div>
+            <span class="text-[11px] text-slate-400 font-mono">${log.time}</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // --- 6. PRODUCT CRUD CONTROLS ---
+    function openProductModal(id = null) {
+      const modal = document.getElementById('productModal');
+      const title = document.getElementById('productModalTitle');
+      const editId = document.getElementById('pFormEditId');
+
+      if (id) {
+        const p = ProductsData.find(item => item.id === id);
+        if (!p) return;
+        editId.value = p.id;
+        title.textContent = `Chỉnh Sửa Sản Phẩm: ${p.sku}`;
+        document.getElementById('pFormName').value = p.name;
+        document.getElementById('pFormBrand').value = p.brand;
+        document.getElementById('pFormSku').value = p.sku;
+        document.getElementById('pFormCategory').value = p.category;
+        document.getElementById('pFormOrigin').value = p.origin;
+        document.getElementById('pFormCostPrice').value = p.costPrice;
+        document.getElementById('pFormRetailPrice').value = p.retailPrice;
+        document.getElementById('pFormStock').value = p.stock;
+        document.getElementById('pFormMinStock').value = p.minStock;
+        document.getElementById('pFormImage').value = p.image;
+      } else {
+        editId.value = '';
+        title.textContent = 'Thêm Sản Phẩm Mới';
+        document.getElementById('pFormName').value = '';
+        document.getElementById('pFormBrand').value = '';
+        document.getElementById('pFormSku').value = `RZL-PROD-${Math.floor(100 + Math.random() * 900)}`;
+        document.getElementById('pFormCategory').value = 'pomade';
+        document.getElementById('pFormOrigin').value = 'Mỹ (USA)';
+        document.getElementById('pFormCostPrice').value = '250000';
+        document.getElementById('pFormRetailPrice').value = '380000';
+        document.getElementById('pFormStock').value = '10';
+        document.getElementById('pFormMinStock').value = '5';
+        document.getElementById('pFormImage').value = '';
+      }
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeProductModal() {
+      const modal = document.getElementById('productModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    function submitProductForm(event) {
+      event.preventDefault();
+      const editId = document.getElementById('pFormEditId').value;
+      const name = document.getElementById('pFormName').value.trim();
+      const brand = document.getElementById('pFormBrand').value.trim();
+      const sku = document.getElementById('pFormSku').value.trim().toUpperCase();
+      const category = document.getElementById('pFormCategory').value;
+      const origin = document.getElementById('pFormOrigin').value.trim() || 'Nhập khẩu';
+      const costPrice = parseInt(document.getElementById('pFormCostPrice').value) || 0;
+      const retailPrice = parseInt(document.getElementById('pFormRetailPrice').value) || 0;
+      const stock = parseInt(document.getElementById('pFormStock').value) || 0;
+      const minStock = parseInt(document.getElementById('pFormMinStock').value) || 5;
+      const image = document.getElementById('pFormImage').value.trim() || 'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?w=150&auto=format&fit=crop&q=80';
+
+      let catLabel = 'Sáp & Pomade';
+      if (category === 'beard') catLabel = 'Cạo Râu & Dưỡng';
+      else if (category === 'shampoo') catLabel = 'Dầu Gội & Phục Hồi';
+      else if (category === 'consumable') catLabel = 'Tiêu Hao & Vệ Sinh';
+
+      if (editId) {
+        const p = ProductsData.find(item => item.id === parseInt(editId));
+        if (p) {
+          p.name = name;
+          p.brand = brand;
+          p.sku = sku;
+          p.category = category;
+          p.categoryLabel = catLabel;
+          p.origin = origin;
+          p.costPrice = costPrice;
+          p.retailPrice = retailPrice;
+          p.stock = stock;
+          p.minStock = minStock;
+          p.image = image;
+          showToast(`Đã cập nhật thông tin sản phẩm ${sku}!`, 'success');
+        }
+      } else {
+        const newId = Math.max(...ProductsData.map(p => p.id), 0) + 1;
+        ProductsData.unshift({
+          id: newId,
+          name, brand, sku, category,
+          categoryLabel: catLabel,
+          origin, costPrice, retailPrice, stock, minStock, image,
+          description: "Mỹ phẩm nam nhập khẩu cao cấp phục vụ tại The Gentleman Barber."
+        });
+        showToast(`Đã thêm mới thành công sản phẩm ${name} (${sku})!`, 'success');
+      }
+
+      closeProductModal();
+      updateKPIs();
+      renderInventoryTable();
+    }
+
+    function deleteProduct(id) {
+      const p = ProductsData.find(item => item.id === id);
+      if (!p) return;
+
+      if (confirm(`Bạn có chắc muốn xóa sản phẩm ${p.name} (${p.sku}) khỏi danh mục kho?`)) {
+        ProductsData = ProductsData.filter(item => item.id !== id);
+        updateKPIs();
+        renderInventoryTable();
+        showToast(`Đã xóa sản phẩm ${p.sku}!`, 'info');
+      }
+    }
+
+    // --- 7. RESTOCK ACTIONS ---
+    function openRestockModal(id) {
+      const p = ProductsData.find(item => item.id === id);
+      if (!p) return;
+
+      document.getElementById('restockId').value = p.id;
+      document.getElementById('restockProductName').textContent = p.name;
+      document.getElementById('restockCurrentStock').textContent = `Tồn hiện tại: ${p.stock} hộp (Tối thiểu: ${p.minStock})`;
+      document.getElementById('restockQuantity').value = 20;
+
+      const modal = document.getElementById('restockModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeRestockModal() {
+      const modal = document.getElementById('restockModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    function submitRestockForm(event) {
+      event.preventDefault();
+      const id = parseInt(document.getElementById('restockId').value);
+      const qty = parseInt(document.getElementById('restockQuantity').value) || 1;
+      const supplier = document.getElementById('restockSupplier').value.trim();
+
+      const p = ProductsData.find(item => item.id === id);
+      if (!p) return;
+
+      p.stock += qty;
+
+      // Add to log
+      StockLogs.unshift({
+        id: `LOG-${Math.floor(510 + Math.random() * 100)}`,
+        time: `${new Date().getHours()}:${String(new Date().getMinutes()).padStart(2, '0')}`,
+        product: p.name,
+        type: 'restock',
+        quantity: qty,
+        operator: "Quản lý kho",
+        target: `Nhập từ ${supplier}`
+      });
+
+      closeRestockModal();
+      updateKPIs();
+      renderInventoryTable();
+      renderStockLogs();
+      showToast(`Đã nhập thêm +${qty} hộp ${p.sku} vào kho thành công!`, 'success');
+    }
+
+    function restockAllUrgent() {
+      let count = 0;
+      ProductsData.forEach(p => {
+        if (p.stock <= p.minStock) {
+          p.stock += 20;
+          count++;
+        }
+      });
+      updateKPIs();
+      renderInventoryTable();
+      renderStockLogs();
+      showToast(`Đã tạo đơn nhập bổ sung tự động cho ${count} mặt hàng sắp hết!`, 'success');
+    }
+
+    // --- 8. SELL & EXPORT ACTIONS ---
+    function openSellModal(id) {
+      const p = ProductsData.find(item => item.id === id);
+      if (!p) return;
+
+      document.getElementById('sellId').value = p.id;
+      document.getElementById('sellProductName').textContent = p.name;
+      document.getElementById('sellCurrentStock').textContent = `Tồn hiện tại: ${p.stock} hộp`;
+      document.getElementById('sellPriceTag').textContent = `Giá: ${formatCurrency(p.retailPrice)}`;
+      document.getElementById('sellQuantity').value = 1;
+
+      const modal = document.getElementById('sellModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeSellModal() {
+      const modal = document.getElementById('sellModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    function submitSellForm(event) {
+      event.preventDefault();
+      const id = parseInt(document.getElementById('sellId').value);
+      const qty = parseInt(document.getElementById('sellQuantity').value) || 1;
+      const type = document.getElementById('sellType').value;
+      const target = document.getElementById('sellCustomerOrBarber').value.trim() || 'Khách hàng';
+
+      const p = ProductsData.find(item => item.id === id);
+      if (!p) return;
+
+      if (p.stock < qty) {
+        showToast(`Tồn kho không đủ! Chỉ còn ${p.stock} sản phẩm.`, 'danger');
+        return;
+      }
+
+      p.stock -= qty;
+
+      StockLogs.unshift({
+        id: `LOG-${Math.floor(510 + Math.random() * 100)}`,
+        time: `${new Date().getHours()}:${String(new Date().getMinutes()).padStart(2, '0')}`,
+        product: p.name,
+        type: type,
+        quantity: -qty,
+        operator: "Lễ tân thu ngân",
+        target: `${type === 'retail' ? 'Bán lẻ' : 'Xuất'} cho ${target}`
+      });
+
+      closeSellModal();
+      updateKPIs();
+      renderInventoryTable();
+      renderStockLogs();
+      showToast(`Đã xuất ${qty} sản phẩm ${p.name} thành công (${formatCurrency(p.retailPrice * qty)})!`, 'success');
+    }
+
+    function exportStockExcel() {
+      showToast('Đã xuất báo cáo Nhập Xuất Tồn kho sáp & mỹ phẩm thành công (Barbershop_Inventory_Report.xlsx)!', 'success');
+    }
+
+    // --- 9. UPDATE KPIS ---
+    function updateKPIs() {
+      const totalSkus = ProductsData.length;
+      const totalUnits = ProductsData.reduce((sum, p) => sum + p.stock, 0);
+      const totalStockVal = ProductsData.reduce((sum, p) => sum + (p.costPrice * p.stock), 0);
+      const lowStockCount = ProductsData.filter(p => p.stock <= p.minStock).length;
+
+      const kpiVal = document.getElementById('kpiTotalStockValue');
+      const kpiSkus = document.getElementById('kpiTotalSkus');
+      const kpiUnits = document.getElementById('kpiTotalUnits');
+      const kpiLow = document.getElementById('kpiLowStockCount');
+      const navBadge = document.getElementById('navLowStockBadge');
+
+      if (kpiVal) kpiVal.textContent = formatCurrency(totalStockVal);
+      if (kpiSkus) kpiSkus.textContent = `${totalSkus} Mã hàng (SKU)`;
+      if (kpiUnits) kpiUnits.textContent = `Tổng cộng ${totalUnits} sản phẩm & vật tư trong kho`;
+      if (kpiLow) kpiLow.textContent = `${lowStockCount} Mặt hàng`;
+      if (navBadge) navBadge.textContent = `! ${lowStockCount}`;
+    }
+
+    // --- 10. TOAST NOTIFICATIONS ---
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toastContainer');
+      if (!container) return;
+
+      const toast = document.createElement('div');
+      const icon = type === 'success' ? 'fa-check-circle text-emerald-400' : (type === 'danger' ? 'fa-exclamation-circle text-red-400' : 'fa-info-circle text-amber-400');
+
+      toast.className = `flex items-center gap-3 px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 shadow-2xl text-slate-200 text-xs transform transition-all duration-300 translate-y-3 opacity-0`;
+      toast.innerHTML = `
+        <i class="fas ${icon} text-base"></i>
+        <div class="flex-1 font-medium">${message}</div>
+        <button onclick="this.parentElement.remove()" class="text-slate-400 hover:text-white ml-2"><i class="fas fa-times"></i></button>
+      `;
+
+      container.appendChild(toast);
+      setTimeout(() => toast.classList.remove('translate-y-3', 'opacity-0'), 10);
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-3');
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+
+    // --- 11. INITIALIZATION ---
+    document.addEventListener('DOMContentLoaded', () => {
+      initClock();
+      updateKPIs();
+      renderInventoryTable();
+      renderStockLogs();
+
+      // Search input listener
+      const sInput = document.getElementById('productSearchInput');
+      if (sInput) {
+        sInput.addEventListener('input', (e) => {
+          productSearchQuery = e.target.value;
+          renderInventoryTable();
+        });
+      }
+
+      // Sync sidebar badges with shared localStorage
+      const syncSidebarBadges = () => {
+        try {
+          const b = JSON.parse(localStorage.getItem('gb_sync_barbers_v1') || 'null');
+          if (Array.isArray(b)) document.querySelectorAll('aside a[href="barbers.html"] span.ml-auto').forEach(el => { el.textContent = b.length; });
+          const a = JSON.parse(localStorage.getItem('gb_sync_appointments_v1') || 'null');
+          if (Array.isArray(a)) document.querySelectorAll('aside a[href="appointments.html"] span.ml-auto').forEach(el => { el.textContent = a.length; });
+        } catch (e) {}
+      };
+      syncSidebarBadges();
+      window.addEventListener('storage', syncSidebarBadges);
+
+      // Mobile sidebar toggle
+      const sidebarToggle = document.getElementById('sidebarToggle');
+      const sidebar = document.getElementById('mainSidebar');
+      if (sidebarToggle && sidebar) {
+        sidebarToggle.addEventListener('click', () => {
+          sidebar.classList.toggle('-translate-x-full');
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>
