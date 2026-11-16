@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quản lý người dùng - BarberHub</title>
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <div class="adm-shell">
+    <!-- SIDEBAR -->
+    <aside class="adm-sidebar">
+      <div class="adm-brand">
+        <div class="adm-brand-logo">BH</div>
+        <div>
+          <h2 class="adm-brand-title">BarberHub</h2>
+          <p class="adm-brand-sub">Admin Panel</p>
+        </div>
+      </div>
+      <div class="adm-nav-section">Menu Quản Trị</div>
+      <nav class="adm-nav">
+        <a href="dashboard.html" class="adm-nav-link"><span class="adm-nav-left"><span class="adm-nav-icon">📊</span><span>Admin Dashboard</span></span></a>
+        <a href="users.html" class="adm-nav-link active"><span class="adm-nav-left"><span class="adm-nav-icon">👥</span><span>Quản lý người dùng</span></span></a>
+        <a href="barbers.html" class="adm-nav-link"><span class="adm-nav-left"><span class="adm-nav-icon">✂️</span><span>Quản lý Barber</span></span></a>
+        <a href="services.html" class="adm-nav-link"><span class="adm-nav-left"><span class="adm-nav-icon">💈</span><span>Quản lý dịch vụ</span></span></a>
+        <a href="appointments.html" class="adm-nav-link"><span class="adm-nav-left"><span class="adm-nav-icon">📅</span><span>Quản lý lịch hẹn</span></span></a>
+        <a href="invoices.html" class="adm-nav-link"><span class="adm-nav-left"><span class="adm-nav-icon">🧾</span><span>Quản lý hóa đơn</span></span></a>
+        <a href="revenue.html" class="adm-nav-link"><span class="adm-nav-left"><span class="adm-nav-icon">📈</span><span>Thống kê doanh thu</span></span></a>
+      </nav>
+      <div class="adm-sidebar-footer">
+        <div>
+          <strong>Trần Văn Thắng</strong>
+          <span>Phụ trách: Admin</span>
+        </div>
+        <a href="#logout" class="adm-logout-btn" title="Đăng xuất">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </a>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="adm-main">
+      <header class="adm-topbar">
+        <div>
+          <h1 class="adm-page-title">Quản lý người dùng</h1>
+          <p class="adm-page-subtitle">Bảng, tìm kiếm, lọc và form thao tác mẫu</p>
+        </div>
+        <div class="adm-topbar-actions">
+          <a href="#user-form" class="adm-btn adm-btn-gold">+ Thêm người dùng</a>
+        </div>
+      </header>
+
+      <div class="adm-content">
+        <!-- Thanh tìm kiếm và lọc -->
+        <div class="adm-toolbar">
+          <div class="adm-filters">
+            <input type="text" class="adm-input adm-search-input" placeholder="🔍 Tìm kiếm theo họ tên, email, SĐT..." />
+            <select class="adm-select">
+              <option value="">Tất cả vai trò</option>
+              <option value="admin">Quản trị viên (Admin)</option>
+              <option value="barber">Thợ cắt tóc (Barber)</option>
+              <option value="customer">Khách hàng (Customer)</option>
+            </select>
+            <select class="adm-select">
+              <option value="">Tất cả trạng thái</option>
+              <option value="active">Đang hoạt động</option>
+              <option value="locked">Đang tạm khóa</option>
+            </select>
+            <button type="button" class="adm-btn adm-btn-primary">Lọc dữ liệu</button>
+          </div>
+        </div>
+
+        <div class="adm-grid-2">
+          <!-- Bảng danh sách người dùng -->
+          <div class="adm-card">
+            <div class="adm-card-header">
+              <div>
+                <h3 class="adm-card-title">Danh sách người dùng</h3>
+                <p class="adm-card-subtitle">Hiển thị dữ liệu mẫu tài khoản hệ thống</p>
+              </div>
+            </div>
+            <div class="adm-table-wrap">
+              <table class="adm-table">
+                <thead>
+                  <tr>
+                    <th>Mã</th>
+                    <th>Họ tên & Email</th>
+                    <th>SĐT</th>
+                    <th>Vai trò</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>USR-001</strong></td>
+                    <td>
+                      <div class="adm-cell-title">Trần Văn Thắng</div>
+                      <div class="adm-cell-sub">thang.admin@barberhub.vn</div>
+                    </td>
+                    <td>0901234567</td>
+                    <td><span class="adm-badge adm-badge-purple">Admin</span></td>
+                    <td><span class="adm-badge adm-badge-green">Hoạt động</span></td>
+                    <td>
+                      <button class="adm-btn adm-btn-outline adm-btn-sm">Sửa</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>USR-002</strong></td>
+                    <td>
+                      <div class="adm-cell-title">Nguyễn Hoàng Nam</div>
+                      <div class="adm-cell-sub">nam.barber@barberhub.vn</div>
+                    </td>
+                    <td>0912345678</td>
+                    <td><span class="adm-badge adm-badge-blue">Barber</span></td>
+                    <td><span class="adm-badge adm-badge-green">Hoạt động</span></td>
+                    <td>
+                      <button class="adm-btn adm-btn-outline adm-btn-sm">Sửa</button>
+                      <button class="adm-btn adm-btn-danger adm-btn-sm">Khóa</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>USR-003</strong></td>
+                    <td>
+                      <div class="adm-cell-title">Hoàng Gia Huy</div>
+                      <div class="adm-cell-sub">giahuy@gmail.com</div>
+                    </td>
+                    <td>0987654321</td>
+                    <td><span class="adm-badge adm-badge-green">Customer</span></td>
+                    <td><span class="adm-badge adm-badge-green">Hoạt động</span></td>
+                    <td>
+                      <button class="adm-btn adm-btn-outline adm-btn-sm">Sửa</button>
+                      <button class="adm-btn adm-btn-danger adm-btn-sm">Khóa</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>USR-004</strong></td>
+                    <td>
+                      <div class="adm-cell-title">Bùi Xuân Trường</div>
+                      <div class="adm-cell-sub">xuantruong@gmail.com</div>
+                    </td>
+                    <td>0945112233</td>
+                    <td><span class="adm-badge adm-badge-green">Customer</span></td>
+                    <td><span class="adm-badge adm-badge-red">Đã khóa</span></td>
+                    <td>
+                      <button class="adm-btn adm-btn-outline adm-btn-sm">Sửa</button>
+                      <button class="adm-btn adm-btn-success adm-btn-sm">Mở khóa</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Form thao tác mẫu -->
+          <div class="adm-card" id="user-form">
+            <div class="adm-card-header">
+              <div>
+                <h3 class="adm-card-title">Form thao tác người dùng (Mẫu)</h3>
+                <p class="adm-card-subtitle">Thêm mới hoặc cập nhật thông tin & quyền người dùng</p>
+              </div>
+            </div>
+            <form style="display: flex; flex-direction: column; gap: 14px;">
+              <div class="adm-form-group">
+                <label>Họ và tên *</label>
+                <input type="text" class="adm-input" placeholder="Nhập họ và tên..." value="Hoàng Gia Huy" />
+              </div>
+              <div class="adm-form-group">
+                <label>Email *</label>
+                <input type="email" class="adm-input" placeholder="example@gmail.com" value="giahuy@gmail.com" />
+              </div>
+              <div class="adm-form-group">
+                <label>Số điện thoại *</label>
+                <input type="text" class="adm-input" placeholder="09xxxxxxxx" value="0987654321" />
+              </div>
+              <div class="adm-form-row">
+                <div class="adm-form-group">
+                  <label>Vai trò</label>
+                  <select class="adm-select">
+                    <option value="customer">Khách hàng (Customer)</option>
+                    <option value="barber">Thợ cắt (Barber)</option>
+                    <option value="admin">Quản trị viên (Admin)</option>
+                  </select>
+                </div>
+                <div class="adm-form-group">
+                  <label>Trạng thái</label>
+                  <select class="adm-select">
+                    <option value="active">Hoạt động</option>
+                    <option value="locked">Tạm khóa</option>
+                  </select>
+                </div>
+              </div>
+              <div style="display: flex; gap: 10px; margin-top: 6px;">
+                <button type="button" class="adm-btn adm-btn-gold">Lưu người dùng</button>
+                <button type="reset" class="adm-btn adm-btn-outline">Làm mới form</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+

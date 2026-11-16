@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quản lý dịch vụ - BarberHub</title>
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <div class="adm-shell">
+    <!-- SIDEBAR -->
+    <aside class="adm-sidebar">
+      <div class="adm-brand">
+        <div class="adm-brand-logo">BH</div>
+        <div>
+          <h2 class="adm-brand-title">BarberHub</h2>
+          <p class="adm-brand-sub">Admin Panel</p>
+        </div>
+      </div>
+      <div class="adm-nav-section">Menu Quản Trị</div>
+      <nav class="adm-nav">
+        <a href="dashboard.html" class="adm-nav-link"><span class="adm-nav-left"><span class="adm-nav-icon">📊</span><span>Admin Dashboard</span></span></a>
+        <a href="users.html" class="adm-nav-link"><span class="adm-nav-left"><span class="adm-nav-icon">👥</span><span>Quản lý người dùng</span></span></a>
+        <a href="barbers.html" class="adm-nav-link"><span class="adm-nav-left"><span class="adm-nav-icon">✂️</span><span>Quản lý Barber</span></span></a>
+        <a href="services.html" class="adm-nav-link active"><span class="adm-nav-left"><span class="adm-nav-icon">💈</span><span>Quản lý dịch vụ</span></span></a>
+        <a href="appointments.html" class="adm-nav-link"><span class="adm-nav-left"><span class="adm-nav-icon">📅</span><span>Quản lý lịch hẹn</span></span></a>
+        <a href="invoices.html" class="adm-nav-link"><span class="adm-nav-left"><span class="adm-nav-icon">🧾</span><span>Quản lý hóa đơn</span></span></a>
+        <a href="revenue.html" class="adm-nav-link"><span class="adm-nav-left"><span class="adm-nav-icon">📈</span><span>Thống kê doanh thu</span></span></a>
+      </nav>
+      <div class="adm-sidebar-footer">
+        <div>
+          <strong>Trần Văn Thắng</strong>
+          <span>Phụ trách: Admin</span>
+        </div>
+        <a href="#logout" class="adm-logout-btn" title="Đăng xuất">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </a>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="adm-main">
+      <header class="adm-topbar">
+        <div>
+          <h1 class="adm-page-title">Quản lý dịch vụ</h1>
+          <p class="adm-page-subtitle">Danh sách, thêm/sửa/ẩn dịch vụ</p>
+        </div>
+        <div class="adm-topbar-actions">
+          <a href="#service-form" class="adm-btn adm-btn-gold">+ Thêm dịch vụ</a>
+        </div>
+      </header>
+
+      <div class="adm-content">
+        <!-- Thanh lọc dịch vụ -->
+        <div class="adm-toolbar">
+          <div class="adm-filters">
+            <input type="text" class="adm-input adm-search-input" placeholder="🔍 Tìm theo tên dịch vụ..." />
+            <select class="adm-select">
+              <option value="">Tất cả danh mục</option>
+              <option>Cắt & Tạo kiểu</option>
+              <option>Combo VIP</option>
+              <option>Uốn & Nhuộm</option>
+              <option>Chăm sóc Râu & Da</option>
+            </select>
+            <select class="adm-select">
+              <option value="">Tất cả trạng thái</option>
+              <option>Đang hiển thị</option>
+              <option>Đang ẩn</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="adm-grid-2">
+          <!-- Danh sách dịch vụ -->
+          <div class="adm-card">
+            <div class="adm-card-header">
+              <div>
+                <h3 class="adm-card-title">Danh sách dịch vụ</h3>
+                <p class="adm-card-subtitle">Quản lý bảng giá, thời lượng và ẩn/hiện dịch vụ</p>
+              </div>
+            </div>
+            <div class="adm-table-wrap">
+              <table class="adm-table">
+                <thead>
+                  <tr>
+                    <th>Mã</th>
+                    <th>Tên dịch vụ</th>
+                    <th>Thời lượng</th>
+                    <th>Giá tiền</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>SV-01</strong></td>
+                    <td>
+                      <div class="adm-cell-title">Cắt Tóc Thương Gia</div>
+                      <div class="adm-cell-sub">Cắt & Tạo kiểu</div>
+                    </td>
+                    <td>45 phút</td>
+                    <td><strong>120.000 đ</strong></td>
+                    <td><span class="adm-badge adm-badge-green">Hiển thị</span></td>
+                    <td>
+                      <button class="adm-btn adm-btn-outline adm-btn-sm">Sửa</button>
+                      <button class="adm-btn adm-btn-danger adm-btn-sm">Ẩn</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>SV-02</strong></td>
+                    <td>
+                      <div class="adm-cell-title">Combo Đế Vương 7 Bước</div>
+                      <div class="adm-cell-sub">Combo VIP</div>
+                    </td>
+                    <td>60 phút</td>
+                    <td><strong>220.000 đ</strong></td>
+                    <td><span class="adm-badge adm-badge-green">Hiển thị</span></td>
+                    <td>
+                      <button class="adm-btn adm-btn-outline adm-btn-sm">Sửa</button>
+                      <button class="adm-btn adm-btn-danger adm-btn-sm">Ẩn</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>SV-03</strong></td>
+                    <td>
+                      <div class="adm-cell-title">Uốn Định Hình Hàn Quốc</div>
+                      <div class="adm-cell-sub">Uốn & Nhuộm</div>
+                    </td>
+                    <td>90 phút</td>
+                    <td><strong>380.000 đ</strong></td>
+                    <td><span class="adm-badge adm-badge-green">Hiển thị</span></td>
+                    <td>
+                      <button class="adm-btn adm-btn-outline adm-btn-sm">Sửa</button>
+                      <button class="adm-btn adm-btn-danger adm-btn-sm">Ẩn</button>
+                    </td>
+                  </tr>
+                  <tr style="opacity: 0.65;">
+                    <td><strong>SV-04</strong></td>
+                    <td>
+                      <div class="adm-cell-title">Tẩy Tóc Bạch Kim Olaplex</div>
+                      <div class="adm-cell-sub">Uốn & Nhuộm</div>
+                    </td>
+                    <td>120 phút</td>
+                    <td><strong>550.000 đ</strong></td>
+                    <td><span class="adm-badge adm-badge-gray">Đang ẩn</span></td>
+                    <td>
+                      <button class="adm-btn adm-btn-outline adm-btn-sm">Sửa</button>
+                      <button class="adm-btn adm-btn-success adm-btn-sm">Hiện</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Form Thêm / Sửa / Ẩn dịch vụ -->
+          <div class="adm-card" id="service-form">
+            <div class="adm-card-header">
+              <div>
+                <h3 class="adm-card-title">Form Thêm / Sửa dịch vụ</h3>
+                <p class="adm-card-subtitle">Thiết lập thông tin và trạng thái ẩn/hiện dịch vụ</p>
+              </div>
+            </div>
+            <form style="display: flex; flex-direction: column; gap: 14px;">
+              <div class="adm-form-group">
+                <label>Tên dịch vụ *</label>
+                <input type="text" class="adm-input" value="Combo Đế Vương 7 Bước" />
+              </div>
+              <div class="adm-form-row">
+                <div class="adm-form-group">
+                  <label>Danh mục</label>
+                  <select class="adm-select">
+                    <option>Combo VIP</option>
+                    <option>Cắt & Tạo kiểu</option>
+                    <option>Uốn & Nhuộm</option>
+                    <option>Chăm sóc Râu & Da</option>
+                  </select>
+                </div>
+                <div class="adm-form-group">
+                  <label>Thời lượng (phút)</label>
+                  <input type="number" class="adm-input" value="60" />
+                </div>
+              </div>
+              <div class="adm-form-row">
+                <div class="adm-form-group">
+                  <label>Giá dịch vụ (VNĐ) *</label>
+                  <input type="number" class="adm-input" value="220000" />
+                </div>
+                <div class="adm-form-group">
+                  <label>Trạng thái hiển thị</label>
+                  <select class="adm-select">
+                    <option value="visible">Hiển thị trên web</option>
+                    <option value="hidden">Tạm ẩn dịch vụ</option>
+                  </select>
+                </div>
+              </div>
+              <div class="adm-form-group">
+                <label>Mô tả dịch vụ</label>
+                <textarea rows="3" class="adm-textarea">Cắt tóc, cạo mặt khăn nóng, lột mụn cám, gội massage cổ vai gáy.</textarea>
+              </div>
+              <div style="display: flex; gap: 10px;">
+                <button type="button" class="adm-btn adm-btn-gold">Lưu dịch vụ</button>
+                <button type="reset" class="adm-btn adm-btn-outline">Làm mới</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
