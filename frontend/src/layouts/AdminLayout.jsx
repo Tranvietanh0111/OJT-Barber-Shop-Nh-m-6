@@ -90,7 +90,6 @@ export default function AdminLayout() {
             <h2 style={{ fontSize: "18px", fontWeight: "700", color: "var(--text-primary)" }}>
               Hệ thống Quản trị BarberHub
             </h2>
-            <span className="badge badge-info">Phiên bản Sprint 2</span>
           </div>
 
           <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
