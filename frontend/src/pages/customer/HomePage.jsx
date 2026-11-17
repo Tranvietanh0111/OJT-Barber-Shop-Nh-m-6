@@ -1,5 +1,5 @@
 // Phụ trách: Lương Trọng Đạt - Customer Module
-// Route: / (Trang chủ khách hàng BarberHub)
+// Route: / (Trang chủ khách hàng BarberHub - Tích hợp đầy đủ Giao diện, Dữ liệu & Phong cách Royal Gold)
 import { Link } from "react-router-dom";
 
 export default function HomePage() {
@@ -8,7 +8,7 @@ export default function HomePage() {
       id: "srv-1",
       name: "Cắt Tóc Nam Chuẩn Barber",
       category: "Cắt Tạo Kiểu",
-      badgeClass: "bg-amber-500/10 text-amber-400 border-amber-500/20",
+      badgeType: "gold",
       price: "150.000 đ",
       duration: "30 Phút",
       desc: "Tư vấn phom tóc phù hợp khuôn mặt (Sidepart, Undercut, Fade), sấy tạo kiểu ép hairline sắc nét."
@@ -17,7 +17,7 @@ export default function HomePage() {
       id: "srv-2",
       name: "Combo Cắt + Gội + Massage Đăng Quang",
       category: "Combo VIP",
-      badgeClass: "bg-red-500/10 text-red-400 border-red-500/20",
+      badgeType: "red",
       price: "250.000 đ",
       duration: "45 Phút",
       desc: "Cắt tóc, rửa mặt thảo mộc, gội đầu dưỡng sinh, massage bấm huyệt cổ vai gáy, sấy vuốt sáp tạo kiểu."
@@ -26,7 +26,7 @@ export default function HomePage() {
       id: "srv-3",
       name: "Uốn Xoăn Hàn Quốc / Fly / Texture",
       category: "Uốn Tóc Nam",
-      badgeClass: "bg-blue-500/10 text-blue-400 border-blue-500/20",
+      badgeType: "blue",
       price: "450.000 đ",
       duration: "90 Phút",
       desc: "Định hình phom tóc bồng bềnh chuẩn soái ca, sử dụng thuốc uốn collagen không khô rát da đầu."
@@ -35,7 +35,7 @@ export default function HomePage() {
       id: "srv-4",
       name: "Nhuộm Màu / Tẩy Tóc Cao Cấp",
       category: "Nhuộm Màu",
-      badgeClass: "bg-purple-500/10 text-purple-400 border-purple-500/20",
+      badgeType: "purple",
       price: "600.000 đ",
       duration: "120 Phút",
       desc: "Tẩy khói, nâu tây, xanh rêu, xám chì... Tặng kèm hấp phục hồi khóa màu siêu mượt."
@@ -44,7 +44,7 @@ export default function HomePage() {
       id: "srv-5",
       name: "Cạo Râu & Mặt Khăn Nóng Classic",
       category: "Cạo Râu Classic",
-      badgeClass: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+      badgeType: "emerald",
       price: "100.000 đ",
       duration: "20 Phút",
       desc: "Cạo bằng dao thợ truyền thống, ủ khăn nóng tinh dầu thảo mộc, bôi lotion sau cạo kháng khuẩn."
@@ -53,7 +53,7 @@ export default function HomePage() {
       id: "srv-6",
       name: "Tẩy Tế Bào Chết & Trị Gàu Da Đầu",
       category: "Chăm Sóc Da Đầu",
-      badgeClass: "bg-amber-500/10 text-amber-400 border-amber-500/20",
+      badgeType: "gold",
       price: "200.000 đ",
       duration: "30 Phút",
       desc: "Tẩy sạch bã nhờn chân tóc, thanh lọc da đầu bằng muối khoáng sinh học, thông thoáng mát lạnh."
@@ -68,7 +68,7 @@ export default function HomePage() {
       rating: "4.98",
       completedCuts: 142,
       status: "Sẵn sàng",
-      statusClass: "bg-emerald-500 text-zinc-950",
+      isReady: true,
       avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=240&auto=format&fit=crop&q=80"
     },
     {
@@ -78,7 +78,7 @@ export default function HomePage() {
       rating: "4.95",
       completedCuts: 128,
       status: "Đang cắt",
-      statusClass: "bg-amber-500 text-zinc-950",
+      isReady: false,
       avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=240&auto=format&fit=crop&q=80"
     },
     {
@@ -88,7 +88,7 @@ export default function HomePage() {
       rating: "4.90",
       completedCuts: 95,
       status: "Sẵn sàng",
-      statusClass: "bg-emerald-500 text-zinc-950",
+      isReady: true,
       avatar: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=240&auto=format&fit=crop&q=80"
     },
     {
@@ -98,123 +98,621 @@ export default function HomePage() {
       rating: "4.92",
       completedCuts: 88,
       status: "Sẵn sàng",
-      statusClass: "bg-emerald-500 text-zinc-950",
+      isReady: true,
       avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=240&auto=format&fit=crop&q=80"
     }
   ];
 
+  const bookingSteps = [
+    {
+      step: "01",
+      title: "Chọn Dịch Vụ",
+      desc: "Lựa chọn các gói cắt tóc, uốn nhuộm thời trang hoặc spa thư giãn theo nhu cầu.",
+      icon: "✂️"
+    },
+    {
+      step: "02",
+      title: "Chọn Master Barber",
+      desc: "Chỉ định thợ ruột có tay nghề phù hợp với kiểu tóc bạn mong muốn.",
+      icon: "💈"
+    },
+    {
+      step: "03",
+      title: "Chọn Khung Giờ",
+      desc: "Hệ thống cập nhật thời gian thực, đảm bảo ghế trống sẵn sàng khi bạn tới.",
+      icon: "🕒"
+    },
+    {
+      step: "04",
+      title: "Tút Tát Đẳng Cấp",
+      desc: "Đến đúng giờ, thưởng thức trà bánh miễn phí và đón nhận diện mạo tự tin.",
+      icon: "👑"
+    }
+  ];
+
+  const customerReviews = [
+    {
+      name: "Anh Hoàng Nam",
+      tier: "Khách VIP",
+      stars: 5,
+      comment: "Tuấn Master cắt cực kỳ tỉ mỉ! Hiệu ứng Skin Fade sắc nét, đường cạo viền chuẩn chỉ. Khăn nóng tinh dầu thảo mộc rất thư giãn, xứng đáng 5 sao cho chất lượng dịch vụ BarberHub."
+    },
+    {
+      name: "Lê Minh Đức",
+      tier: "Khách Thân Thiết",
+      stars: 5,
+      comment: "Lần đầu uốn tóc nhưng Minh Barber tư vấn phom cực kỳ chuẩn soái ca. Tóc uốn xong bồng bềnh tự nhiên, không bị khô xơ da đầu. Salon phục vụ trà sen rất ngon!"
+    },
+    {
+      name: "Trần Quốc Bảo",
+      tier: "Khách Thân Thiết",
+      stars: 5,
+      comment: "Tẩy khói ở đây cực kỳ êm ái, hoàn toàn không bị xót rát da đầu như các tiệm khác. Màu lên sáng và bóng mượt, được tặng kèm gói hấp collagen thơm nức."
+    }
+  ];
+
   return (
-    <div className="space-y-16 py-6 sm:py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      {/* 1. HERO BANNER SECTION */}
-      <section>
-        <div className="relative bg-gradient-to-r from-zinc-900 via-zinc-900 to-zinc-950 border border-zinc-800 rounded-3xl p-8 sm:p-12 lg:p-16 overflow-hidden shadow-2xl">
-          <div className="absolute -top-24 -right-24 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div className="cust-home-wrap">
+      {/* Self-contained CSS styles for Customer Home Page */}
+      <style>{`
+        .cust-home-wrap {
+          max-width: 1240px;
+          margin: 0 auto;
+          padding: 32px 20px 64px;
+          color: #f8fafc;
+          font-family: 'Plus Jakarta Sans', sans-serif;
+        }
 
-          <div className="max-w-2xl relative z-10 space-y-6">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-black uppercase tracking-wider">
-              <i className="ph-bold ph-crown text-sm"></i>
-              <span>Hair Salon Suite Dành Riêng Cho Quý Ông</span>
-            </div>
+        /* 1. Hero Section */
+        .cust-hero {
+          background: linear-gradient(135deg, #0e1015 0%, #171b26 50%, #15130b 100%);
+          border: 1px solid rgba(245, 158, 11, 0.3);
+          border-radius: 28px;
+          padding: 48px 36px;
+          position: relative;
+          overflow: hidden;
+          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(245, 158, 11, 0.1);
+          margin-bottom: 56px;
+        }
+        .cust-hero::after {
+          content: '';
+          position: absolute;
+          top: -60px;
+          right: -60px;
+          width: 320px;
+          height: 320px;
+          background: radial-gradient(circle, rgba(245, 158, 11, 0.18) 0%, transparent 70%);
+          pointer-events: none;
+          border-radius: 50%;
+        }
+        .cust-hero-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 6px 16px;
+          background: rgba(245, 158, 11, 0.12);
+          border: 1px solid rgba(245, 158, 11, 0.35);
+          border-radius: 9999px;
+          color: #fbbf24;
+          font-size: 11px;
+          font-weight: 800;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          margin-bottom: 20px;
+        }
+        .cust-hero-title {
+          font-size: 42px;
+          font-weight: 900;
+          line-height: 1.18;
+          color: #ffffff;
+          margin-bottom: 16px;
+          letter-spacing: -0.02em;
+        }
+        .cust-hero-gold {
+          background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+        .cust-hero-desc {
+          font-size: 15px;
+          color: #94a3b8;
+          max-width: 620px;
+          line-height: 1.65;
+          margin-bottom: 28px;
+        }
+        .cust-hero-actions {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 14px;
+          margin-bottom: 36px;
+        }
+        .cust-btn-primary {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 13px 26px;
+          background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+          color: #08090c;
+          font-weight: 800;
+          font-size: 13px;
+          border-radius: 14px;
+          text-decoration: none;
+          box-shadow: 0 4px 18px rgba(245, 158, 11, 0.3);
+          transition: all 0.2s ease;
+          border: none;
+          cursor: pointer;
+        }
+        .cust-btn-primary:hover {
+          background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+          transform: translateY(-2px);
+          box-shadow: 0 6px 24px rgba(245, 158, 11, 0.45);
+        }
+        .cust-btn-secondary {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 13px 22px;
+          background: #141720;
+          color: #e2e8f0;
+          font-weight: 700;
+          font-size: 13px;
+          border-radius: 14px;
+          border: 1px solid #2e3548;
+          text-decoration: none;
+          transition: all 0.2s ease;
+        }
+        .cust-btn-secondary:hover {
+          background: #1b1f2b;
+          border-color: #f59e0b;
+          color: #ffffff;
+        }
+        .cust-hero-stats {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 20px;
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          padding-top: 24px;
+          max-width: 680px;
+        }
+        .cust-stat-val {
+          font-size: 22px;
+          font-weight: 900;
+          color: #ffffff;
+        }
+        .cust-stat-val.gold {
+          color: #fbbf24;
+        }
+        .cust-stat-lbl {
+          font-size: 11px;
+          color: #64748b;
+          margin-top: 4px;
+        }
 
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-tight">
-              Tút Lại Phong Độ, <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600">
-                Định Hình Đẳng Cấp.
-              </span>
-            </h1>
+        /* 2. Section Header Common */
+        .cust-sec-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-end;
+          flex-wrap: wrap;
+          gap: 12px;
+          margin-bottom: 28px;
+        }
+        .cust-tag {
+          font-size: 11px;
+          font-weight: 800;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+          color: #f59e0b;
+          display: block;
+          margin-bottom: 4px;
+        }
+        .cust-sec-title {
+          font-size: 26px;
+          font-weight: 800;
+          color: #ffffff;
+          line-height: 1.25;
+        }
+        .cust-sec-sub {
+          font-size: 13px;
+          color: #94a3b8;
+          margin-top: 4px;
+        }
+        .cust-link-more {
+          color: #fbbf24;
+          font-size: 13px;
+          font-weight: 700;
+          text-decoration: none;
+          display: inline-flex;
+          align-items: center;
+          gap: 4px;
+          transition: gap 0.2s ease;
+        }
+        .cust-link-more:hover {
+          gap: 8px;
+          color: #f59e0b;
+        }
 
-            <p className="text-sm sm:text-base text-zinc-400 leading-relaxed">
-              Hệ thống cắt tóc & chăm sóc râu chuyên nghiệp hàng đầu. Đặt lịch trực tuyến 30 giây để được phục vụ đúng giờ, không xếp hàng chờ đợi cùng đội ngũ Master Barber tay nghề cao.
-            </p>
+        /* 3. Services Grid */
+        .cust-srv-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+          gap: 24px;
+          margin-bottom: 64px;
+        }
+        .cust-srv-card {
+          background: #141720;
+          border: 1px solid #232736;
+          border-radius: 20px;
+          padding: 24px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          transition: all 0.25s ease;
+        }
+        .cust-srv-card:hover {
+          border-color: rgba(245, 158, 11, 0.45);
+          transform: translateY(-3px);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+        }
+        .cust-srv-top {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 12px;
+        }
+        .cust-srv-badge {
+          padding: 4px 10px;
+          border-radius: 9999px;
+          font-size: 10px;
+          font-weight: 800;
+          text-transform: uppercase;
+        }
+        .cust-srv-badge.gold {
+          background: rgba(245, 158, 11, 0.12);
+          color: #fbbf24;
+          border: 1px solid rgba(245, 158, 11, 0.25);
+        }
+        .cust-srv-badge.red {
+          background: rgba(239, 68, 68, 0.12);
+          color: #f87171;
+          border: 1px solid rgba(239, 68, 68, 0.25);
+        }
+        .cust-srv-badge.blue {
+          background: rgba(59, 130, 246, 0.12);
+          color: #60a5fa;
+          border: 1px solid rgba(59, 130, 246, 0.25);
+        }
+        .cust-srv-badge.purple {
+          background: rgba(168, 85, 247, 0.12);
+          color: #c084fc;
+          border: 1px solid rgba(168, 85, 247, 0.25);
+        }
+        .cust-srv-badge.emerald {
+          background: rgba(16, 185, 129, 0.12);
+          color: #34d399;
+          border: 1px solid rgba(16, 185, 129, 0.25);
+        }
+        .cust-srv-duration {
+          font-size: 11px;
+          color: #94a3b8;
+          font-weight: 600;
+        }
+        .cust-srv-title {
+          font-size: 17px;
+          font-weight: 800;
+          color: #ffffff;
+          margin-bottom: 8px;
+        }
+        .cust-srv-desc {
+          font-size: 13px;
+          color: #94a3b8;
+          line-height: 1.55;
+          margin-bottom: 20px;
+        }
+        .cust-srv-bot {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding-top: 16px;
+          border-top: 1px solid #1f2433;
+        }
+        .cust-srv-price {
+          font-size: 20px;
+          font-weight: 900;
+          color: #fbbf24;
+        }
+        .cust-srv-btns {
+          display: flex;
+          gap: 8px;
+        }
+        .cust-btn-xs {
+          padding: 8px 14px;
+          font-size: 11px;
+          font-weight: 700;
+          border-radius: 10px;
+          text-decoration: none;
+          transition: all 0.2s ease;
+        }
+        .cust-btn-detail {
+          background: #1b1f2b;
+          color: #cbd5e1;
+          border: 1px solid #2e3548;
+        }
+        .cust-btn-detail:hover {
+          background: #282f42;
+          color: #ffffff;
+        }
+        .cust-btn-book {
+          background: #f59e0b;
+          color: #08090c;
+          font-weight: 800;
+          border: none;
+        }
+        .cust-btn-book:hover {
+          background: #fbbf24;
+        }
 
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <Link
-                to="/booking/service"
-                className="px-7 py-3.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-zinc-950 font-black text-sm rounded-2xl shadow-xl shadow-amber-500/25 transition transform hover:-translate-y-0.5 flex items-center space-x-2"
-              >
-                <i className="ph-bold ph-calendar-check text-lg"></i>
-                <span>Đặt Lịch Cắt Tóc Ngay</span>
-              </Link>
-              <Link
-                to="/services"
-                className="px-6 py-3.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-800 font-bold text-sm rounded-2xl transition"
-              >
-                Khám Phá Bảng Giá
-              </Link>
-            </div>
+        /* 4. Barbers Grid */
+        .cust-barber-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+          gap: 24px;
+          margin-bottom: 64px;
+        }
+        .cust-barber-card {
+          background: #141720;
+          border: 1px solid #232736;
+          border-radius: 20px;
+          padding: 24px;
+          text-align: center;
+          transition: all 0.25s ease;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+        .cust-barber-card:hover {
+          border-color: rgba(245, 158, 11, 0.45);
+          transform: translateY(-3px);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+        }
+        .cust-barber-avatar-box {
+          position: relative;
+          width: 96px;
+          height: 96px;
+          margin: 0 auto 16px;
+        }
+        .cust-barber-avatar {
+          width: 100%;
+          height: 100%;
+          border-radius: 20px;
+          object-fit: cover;
+          border: 2px solid rgba(245, 158, 11, 0.4);
+        }
+        .cust-barber-status {
+          position: absolute;
+          bottom: -6px;
+          right: -6px;
+          padding: 2px 8px;
+          border-radius: 9999px;
+          font-size: 10px;
+          font-weight: 800;
+        }
+        .cust-barber-status.ready {
+          background: #10b981;
+          color: #08090c;
+        }
+        .cust-barber-status.busy {
+          background: #f59e0b;
+          color: #08090c;
+        }
+        .cust-barber-name {
+          font-size: 16px;
+          font-weight: 800;
+          color: #ffffff;
+        }
+        .cust-barber-role {
+          font-size: 12px;
+          color: #fbbf24;
+          font-weight: 600;
+          margin-top: 2px;
+          margin-bottom: 8px;
+        }
+        .cust-barber-meta {
+          font-size: 12px;
+          color: #94a3b8;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          margin-bottom: 18px;
+        }
+        .cust-barber-meta strong {
+          color: #fbbf24;
+        }
 
-            <div className="grid grid-cols-3 gap-6 pt-6 border-t border-zinc-800/80">
-              <div>
-                <span className="text-2xl font-black text-white">4.98★</span>
-                <p className="text-xs text-zinc-500 mt-0.5">Đánh giá trung bình</p>
-              </div>
-              <div>
-                <span className="text-2xl font-black text-amber-400">10.000+</span>
-                <p className="text-xs text-zinc-500 mt-0.5">Khách hàng tin chọn</p>
-              </div>
-              <div>
-                <span className="text-2xl font-black text-white">4 Ghế VIP</span>
-                <p className="text-xs text-zinc-500 mt-0.5">Phục vụ liên tục</p>
-              </div>
-            </div>
-          </div>
+        /* 5. Booking Steps */
+        .cust-steps-box {
+          background: #10131a;
+          border: 1px solid #232736;
+          border-radius: 24px;
+          padding: 36px 28px;
+          margin-bottom: 64px;
+        }
+        .cust-steps-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+          gap: 24px;
+        }
+        .cust-step-item {
+          position: relative;
+          padding: 16px;
+          background: #141720;
+          border: 1px solid #1f2433;
+          border-radius: 16px;
+        }
+        .cust-step-num {
+          font-size: 24px;
+          font-weight: 900;
+          color: rgba(245, 158, 11, 0.35);
+          line-height: 1;
+          margin-bottom: 12px;
+        }
+        .cust-step-icon {
+          font-size: 28px;
+          margin-bottom: 10px;
+        }
+        .cust-step-title {
+          font-size: 15px;
+          font-weight: 800;
+          color: #ffffff;
+          margin-bottom: 6px;
+        }
+        .cust-step-desc {
+          font-size: 12px;
+          color: #94a3b8;
+          line-height: 1.5;
+        }
+
+        /* 6. Reviews Section */
+        .cust-reviews-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+          gap: 24px;
+        }
+        .cust-review-card {
+          background: #141720;
+          border: 1px solid #232736;
+          border-radius: 20px;
+          padding: 24px;
+          position: relative;
+        }
+        .cust-review-top {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 12px;
+        }
+        .cust-review-author {
+          font-size: 14px;
+          font-weight: 800;
+          color: #ffffff;
+        }
+        .cust-review-tier {
+          font-size: 10px;
+          font-weight: 800;
+          padding: 2px 8px;
+          background: rgba(245, 158, 11, 0.12);
+          color: #fbbf24;
+          border-radius: 9999px;
+          border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+        .cust-review-stars {
+          color: #f59e0b;
+          font-size: 13px;
+          margin-bottom: 10px;
+        }
+        .cust-review-text {
+          font-size: 13px;
+          color: #cbd5e1;
+          line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+          .cust-hero-title {
+            font-size: 28px;
+          }
+          .cust-hero-stats {
+            grid-template-columns: repeat(2, 1fr);
+          }
+          .cust-srv-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+      `}</style>
+
+      {/* 1. HERO BANNER */}
+      <section className="cust-hero">
+        <div className="cust-hero-badge">
+          <span>👑 Hair Salon Suite Dành Riêng Cho Quý Ông</span>
         </div>
-      </section>
+        <h1 className="cust-hero-title">
+          Tút Lại Phong Độ, <br />
+          <span className="cust-hero-gold">Định Hình Đẳng Cấp.</span>
+        </h1>
+        <p className="cust-hero-desc">
+          Hệ thống cắt tóc & chăm sóc râu chuyên nghiệp hàng đầu. Đặt lịch trực tuyến 30 giây để được phục vụ đúng giờ, không xếp hàng chờ đợi cùng đội ngũ Master Barber tay nghề cao.
+        </p>
 
-      {/* 2. FEATURED SERVICES SECTION */}
-      <section className="space-y-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-          <div>
-            <span className="text-xs font-black uppercase text-amber-500 tracking-widest block">Dịch Vụ Nổi Bật</span>
-            <h2 className="text-2xl sm:text-3xl font-black text-white mt-1">Bảng Giá Dịch Vụ Barber & Hair Salon</h2>
-            <p className="text-xs sm:text-sm text-zinc-400 mt-1">Đầy đủ các gói cắt tạo kiểu, uốn nhuộm thời trang và spa thư giãn chuyên sâu.</p>
-          </div>
-          <Link to="/services" className="inline-flex items-center text-xs font-bold text-amber-400 hover:underline">
-            Xem tất cả 6 dịch vụ →
+        <div className="cust-hero-actions">
+          <Link to="/booking/service" className="cust-btn-primary">
+            <span>✂️</span>
+            <span>Đặt Lịch Cắt Tóc Ngay</span>
+          </Link>
+          <Link to="/services" className="cust-btn-secondary">
+            <span>Khám Phá Bảng Giá</span>
+          </Link>
+          <Link to="/barbers" className="cust-btn-secondary">
+            <span>Đội Ngũ Barber</span>
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="cust-hero-stats">
+          <div>
+            <div className="cust-stat-val gold">4.98 ★</div>
+            <div className="cust-stat-lbl">Đánh giá trung bình</div>
+          </div>
+          <div>
+            <div className="cust-stat-val">10.000+</div>
+            <div className="cust-stat-lbl">Khách hàng tin chọn</div>
+          </div>
+          <div>
+            <div className="cust-stat-val">4 Ghế VIP</div>
+            <div className="cust-stat-lbl">Phục vụ liên tục</div>
+          </div>
+          <div>
+            <div className="cust-stat-val gold">100%</div>
+            <div className="cust-stat-lbl">Tiệt trùng UV chuẩn y tế</div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2. FEATURED SERVICES */}
+      <section style={{ marginBottom: "56px" }}>
+        <div className="cust-sec-header">
+          <div>
+            <span className="cust-tag">Dịch Vụ Tiêu Biểu</span>
+            <h2 className="cust-sec-title">Bảng Giá Dịch Vụ Barber & Hair Salon</h2>
+            <p className="cust-sec-sub">Đầy đủ các gói cắt tạo kiểu, uốn nhuộm thời trang và spa thư giãn chuyên sâu.</p>
+          </div>
+          <Link to="/services" className="cust-link-more">
+            <span>Xem tất cả 6 dịch vụ</span>
+            <span>→</span>
+          </Link>
+        </div>
+
+        <div className="cust-srv-grid">
           {featuredServices.map((s) => (
-            <div
-              key={s.id}
-              className="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 flex flex-col justify-between hover:border-amber-500/50 hover:shadow-xl hover:shadow-amber-500/5 transition group"
-            >
+            <div key={s.id} className="cust-srv-card">
               <div>
-                <div className="flex items-center justify-between">
-                  <span className={`text-[11px] font-extrabold uppercase px-3 py-1 rounded-full border ${s.badgeClass}`}>
-                    {s.category}
-                  </span>
-                  <span className="text-xs text-zinc-500 flex items-center font-medium">
-                    <i className="ph-bold ph-clock mr-1 text-amber-400"></i> {s.duration}
-                  </span>
+                <div className="cust-srv-top">
+                  <span className={`cust-srv-badge ${s.badgeType}`}>{s.category}</span>
+                  <span className="cust-srv-duration">⏱️ {s.duration}</span>
                 </div>
-                <h3 className="text-lg font-bold text-white mt-3 group-hover:text-amber-400 transition">
-                  {s.name}
-                </h3>
-                <p className="text-xs text-zinc-400 mt-2 leading-relaxed">
-                  {s.desc}
-                </p>
+                <h3 className="cust-srv-title">{s.name}</h3>
+                <p className="cust-srv-desc">{s.desc}</p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-zinc-800/80 flex items-center justify-between">
+              <div className="cust-srv-bot">
                 <div>
-                  <span className="text-[10px] text-zinc-500 block uppercase font-medium">Giá niêm yết</span>
-                  <span className="text-xl font-black text-amber-400">{s.price}</span>
+                  <span style={{ fontSize: "10px", color: "#64748b", display: "block", textTransform: "uppercase" }}>Giá niêm yết</span>
+                  <span className="cust-srv-price">{s.price}</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <Link
-                    to={`/services/${s.id}`}
-                    className="px-3 py-2 text-xs font-bold bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white rounded-xl transition"
-                  >
+                <div className="cust-srv-btns">
+                  <Link to={`/services/${s.id}`} className="cust-btn-xs cust-btn-detail">
                     Chi Tiết
                   </Link>
-                  <Link
-                    to={`/booking/service?service=${encodeURIComponent(s.name)}`}
-                    className="px-3.5 py-2 text-xs font-black bg-amber-500 hover:bg-amber-600 text-zinc-950 rounded-xl transition shadow-md shadow-amber-500/20 flex items-center space-x-1"
-                  >
-                    <span>Đặt Ngay</span>
-                    <i className="ph-bold ph-arrow-right text-xs"></i>
+                  <Link to={`/booking/service?service=${encodeURIComponent(s.name)}`} className="cust-btn-xs cust-btn-book">
+                    Đặt Ngay
                   </Link>
                 </div>
               </div>
@@ -223,126 +721,98 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 3. MASTER BARBERS TEAM */}
-      <section className="space-y-8">
-        <div className="text-center max-w-xl mx-auto space-y-2">
-          <span className="text-xs font-black uppercase text-amber-500 tracking-widest block">Đội Ngũ Nghệ Nhân</span>
-          <h2 className="text-2xl sm:text-3xl font-black text-white">Gặp Gỡ Đội Ngũ Master Barber</h2>
-          <p className="text-xs sm:text-sm text-zinc-400">Những người thợ tâm huyết với tay nghề dao kéo điêu luyện sẵn sàng tạo nên diện mạo hoàn hảo cho bạn.</p>
+      {/* 3. MASTER BARBERS */}
+      <section style={{ marginBottom: "56px" }}>
+        <div className="cust-sec-header">
+          <div>
+            <span className="cust-tag">Đội Ngũ Tay Nghề Cao</span>
+            <h2 className="cust-sec-title">Nghệ Nhân Tạo Mẫu Master Barbers</h2>
+            <p className="cust-sec-sub">Được đào tạo bài bản chuẩn quốc tế với hơn 5 năm kinh nghiệm thực chiến.</p>
+          </div>
+          <Link to="/barbers" className="cust-link-more">
+            <span>Gặp gỡ toàn bộ Barber</span>
+            <span>→</span>
+          </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="cust-barber-grid">
           {masterBarbers.map((b) => (
-            <div
-              key={b.id}
-              className="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 text-center hover:border-zinc-700 hover:shadow-xl transition flex flex-col justify-between group"
-            >
+            <div key={b.id} className="cust-barber-card">
               <div>
-                <div className="relative w-28 h-28 mx-auto mb-4">
-                  <img
-                    src={b.avatar}
-                    alt={b.name}
-                    className="w-full h-full rounded-2xl object-cover ring-2 ring-amber-500/40 group-hover:ring-amber-500 transition"
-                  />
-                  <span className={`absolute -bottom-2 -right-2 px-2 py-0.5 rounded-full text-[10px] font-black ${b.statusClass}`}>
+                <div className="cust-barber-avatar-box">
+                  <img src={b.avatar} alt={b.name} className="cust-barber-avatar" />
+                  <span className={`cust-barber-status ${b.isReady ? "ready" : "busy"}`}>
                     {b.status}
                   </span>
                 </div>
-                <h3 className="font-bold text-white text-base">{b.name}</h3>
-                <p className="text-xs text-amber-400 font-semibold mt-0.5">{b.role}</p>
-                <p className="text-xs text-zinc-400 mt-1 flex items-center justify-center space-x-1">
-                  <span className="text-amber-400">★ {b.rating}</span>
-                  <span className="text-zinc-600">•</span>
+                <h3 className="cust-barber-name">{b.name}</h3>
+                <p className="cust-barber-role">{b.role}</p>
+                <div className="cust-barber-meta">
+                  <span>★ <strong>{b.rating}</strong></span>
+                  <span>•</span>
                   <span>{b.completedCuts} lượt cắt</span>
-                </p>
+                </div>
               </div>
-              <div className="mt-5 pt-4 border-t border-zinc-800/80">
-                <Link
-                  to={`/booking/barber?barber=${encodeURIComponent(b.name)}`}
-                  className="w-full py-2.5 bg-zinc-950 hover:bg-amber-500 hover:text-zinc-950 text-zinc-300 border border-zinc-800 rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1.5"
-                >
-                  <i className="ph-bold ph-scissors text-amber-400 group-hover:text-zinc-950"></i>
-                  <span>Đặt Ghế Với Thợ</span>
-                </Link>
-              </div>
+
+              <Link
+                to={`/booking/barber?barber=${encodeURIComponent(b.name)}`}
+                className="cust-btn-xs cust-btn-detail"
+                style={{ display: "block", textAlign: "center", marginTop: "12px" }}
+              >
+                ✂️ Đặt Ghế Với {b.name.split(" ")[0]}
+              </Link>
             </div>
           ))}
         </div>
       </section>
 
-      {/* 4. SALON HIGHLIGHTS / PROMISES */}
-      <section>
-        <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 sm:p-12">
-          <div className="text-center max-w-lg mx-auto mb-10">
-            <span className="text-xs font-black uppercase text-amber-500 tracking-widest block">Đặc Quyền Của Bạn</span>
-            <h2 className="text-2xl sm:text-3xl font-black text-white mt-1">Cam Kết Trải Nghiệm Đẳng Cấp 5 Sao</h2>
-          </div>
+      {/* 4. BOOKING STEPS */}
+      <section className="cust-steps-box">
+        <div style={{ textAlign: "center", maxWidth: "600px", margin: "0 auto 32px" }}>
+          <span className="cust-tag">Quy Trình Đơn Giản</span>
+          <h2 className="cust-sec-title">4 Bước Đặt Lịch Chuẩn Quý Ông</h2>
+          <p className="cust-sec-sub">Tiện lợi, nhanh gọn và đảm bảo luôn có ghế phục vụ đúng giờ đã chọn.</p>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="p-5 bg-zinc-950 rounded-2xl border border-zinc-800 space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-xl">
-                <i className="ph-bold ph-shield-check"></i>
-              </div>
-              <h4 className="font-bold text-white text-base">Vệ Sinh Tuyệt Đối</h4>
-              <p className="text-xs text-zinc-400 leading-relaxed">
-                100% dao lam thay mới trước mặt khách, khăn nóng thảo mộc và dụng cụ khử trùng bằng tia cực tím UV.
-              </p>
+        <div className="cust-steps-grid">
+          {bookingSteps.map((st) => (
+            <div key={st.step} className="cust-step-item">
+              <div className="cust-step-num">{st.step}</div>
+              <div className="cust-step-icon">{st.icon}</div>
+              <h3 className="cust-step-title">{st.title}</h3>
+              <p className="cust-step-desc">{st.desc}</p>
             </div>
-
-            <div className="p-5 bg-zinc-950 rounded-2xl border border-zinc-800 space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-xl">
-                <i className="ph-bold ph-medal"></i>
-              </div>
-              <h4 className="font-bold text-white text-base">Master Barbers</h4>
-              <p className="text-xs text-zinc-400 leading-relaxed">
-                Đội ngũ thợ chính giàu kinh nghiệm, đào tạo bài bản và luôn cập nhật xu hướng tóc nam quốc tế mới nhất.
-              </p>
-            </div>
-
-            <div className="p-5 bg-zinc-950 rounded-2xl border border-zinc-800 space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-xl">
-                <i className="ph-bold ph-arrow-counter-clockwise"></i>
-              </div>
-              <h4 className="font-bold text-white text-base">Bảo Hành 7 Ngày</h4>
-              <p className="text-xs text-zinc-400 leading-relaxed">
-                Bảo hành nếp tóc và hỗ trợ chỉnh sửa hoàn toàn miễn phí nếu khách hàng chưa thực sự ưng ý với kiểu tóc.
-              </p>
-            </div>
-
-            <div className="p-5 bg-zinc-950 rounded-2xl border border-zinc-800 space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-xl">
-                <i className="ph-bold ph-coffee"></i>
-              </div>
-              <h4 className="font-bold text-white text-base">Đồ Uống & Spa Free</h4>
-              <p className="text-xs text-zinc-400 leading-relaxed">
-                Trà sen thảo mộc, cà phê hạt rang xay miễn phí cùng dịch vụ massage cổ vai gáy thư giãn giải tỏa mệt mỏi.
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
-      {/* 5. CALL TO ACTION BANNER */}
+      {/* 5. CUSTOMER REVIEWS */}
       <section>
-        <div className="bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 rounded-3xl p-8 sm:p-12 text-center text-zinc-950 relative overflow-hidden shadow-2xl">
-          <div className="max-w-2xl mx-auto space-y-4 relative z-10">
-            <span className="inline-block px-3 py-1 rounded-full bg-zinc-950 text-amber-400 text-xs font-black uppercase tracking-wider">
-              Sẵn Sàng Phục Vụ Bạn
-            </span>
-            <h2 className="text-2xl sm:text-4xl font-black">Đặt Chỗ Trước Để Không Phải Chờ Đợi</h2>
-            <p className="text-xs sm:text-sm text-zinc-900 font-medium leading-relaxed">
-              Hệ thống sắp lịch tự động giữ chỗ theo đúng giờ hẹn với thợ ruột. Tận hưởng không gian sang trọng và tay nghề đẳng cấp.
-            </p>
-            <div className="pt-2">
-              <Link
-                to="/booking/service"
-                className="inline-flex items-center space-x-2 px-8 py-3.5 bg-zinc-950 hover:bg-zinc-900 text-white font-extrabold text-sm rounded-2xl shadow-xl transition"
-              >
-                <i className="ph-bold ph-calendar-check text-amber-400 text-base"></i>
-                <span>Đặt Lịch Ngay Trong 30 Giây</span>
-              </Link>
-            </div>
+        <div className="cust-sec-header">
+          <div>
+            <span className="cust-tag">Cảm Nhận Khách Hàng</span>
+            <h2 className="cust-sec-title">Trải Nghiệm Thực Tế Tại BarberHub</h2>
+            <p className="cust-sec-sub">Hơn 10.000 quý ông đã hài lòng với sự tận tâm và tay nghề của chúng tôi.</p>
           </div>
+          <Link to="/reviews" className="cust-link-more">
+            <span>Xem thêm đánh giá</span>
+            <span>→</span>
+          </Link>
+        </div>
+
+        <div className="cust-reviews-grid">
+          {customerReviews.map((r, i) => (
+            <div key={i} className="cust-review-card">
+              <div className="cust-review-top">
+                <span className="cust-review-author">{r.name}</span>
+                <span className="cust-review-tier">{r.tier}</span>
+              </div>
+              <div className="cust-review-stars">
+                {"★".repeat(r.stars)}
+              </div>
+              <p className="cust-review-text">"{r.comment}"</p>
+            </div>
+          ))}
         </div>
       </section>
     </div>
