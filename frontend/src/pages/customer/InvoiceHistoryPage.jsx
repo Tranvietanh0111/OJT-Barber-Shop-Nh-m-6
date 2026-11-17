@@ -100,12 +100,12 @@ export default function InvoiceHistoryPage() {
         .cust-header-title {
           font-size: 32px;
           font-weight: 900;
-          color: #ffffff;
+          color: #1f2937;
           letter-spacing: -0.02em;
         }
         .cust-header-sub {
           font-size: 14px;
-          color: #94a3b8;
+          color: #6b7280;
           margin-top: 4px;
         }
         .cust-btn-primary {
@@ -114,7 +114,7 @@ export default function InvoiceHistoryPage() {
           gap: 8px;
           padding: 12px 24px;
           background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-          color: #08090c;
+          color: #ffffff;
           font-weight: 800;
           font-size: 13px;
           border-radius: 12px;
@@ -138,14 +138,15 @@ export default function InvoiceHistoryPage() {
           margin-bottom: 40px;
         }
         .cust-metric-card {
-          background: #141720;
-          border: 1px solid #232736;
+          background: #ffffff;
+          border: 1px solid #f1e7d0;
           border-radius: 20px;
           padding: 24px;
+          box-shadow: 0 4px 16px -4px rgba(120, 80, 10, 0.08);
         }
         .cust-metric-lbl {
           font-size: 11px;
-          color: #64748b;
+          color: #6b7280;
           text-transform: uppercase;
           font-weight: 800;
           margin-bottom: 6px;
@@ -153,27 +154,27 @@ export default function InvoiceHistoryPage() {
         .cust-metric-val {
           font-size: 28px;
           font-weight: 900;
-          color: #fbbf24;
+          color: #b45309;
           margin-bottom: 4px;
         }
         .cust-metric-val.green {
-          color: #34d399;
+          color: #059669;
         }
         .cust-metric-val.white {
-          color: #ffffff;
+          color: #1f2937;
         }
         .cust-metric-sub {
           font-size: 12px;
-          color: #94a3b8;
+          color: #6b7280;
         }
 
         /* Table Box */
         .cust-table-card {
-          background: #141720;
-          border: 1px solid #232736;
+          background: #ffffff;
+          border: 1px solid #f1e7d0;
           border-radius: 24px;
           overflow: hidden;
-          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 4px 20px -4px rgba(120, 80, 10, 0.08);
         }
         .cust-table-responsive {
           width: 100%;
@@ -186,41 +187,41 @@ export default function InvoiceHistoryPage() {
           font-size: 13px;
         }
         .cust-table th {
-          background: #0a0b0f;
+          background: #fffdfa;
           padding: 16px 20px;
           font-size: 11px;
           font-weight: 800;
           text-transform: uppercase;
-          color: #64748b;
+          color: #6b7280;
           letter-spacing: 0.05em;
-          border-bottom: 1px solid #232736;
+          border-bottom: 1px solid #f1e7d0;
           white-space: nowrap;
         }
         .cust-table td {
           padding: 16px 20px;
-          border-bottom: 1px solid #1f2433;
-          color: #cbd5e1;
+          border-bottom: 1px solid #f1e7d0;
+          color: #4b5563;
           vertical-align: middle;
         }
         .cust-table tr:hover td {
-          background: rgba(245, 158, 11, 0.03);
+          background: #fff7e6;
         }
         .cust-table-code {
           font-weight: 900;
-          color: #fbbf24;
+          color: #b45309;
         }
         .cust-table-service {
           font-weight: 700;
-          color: #ffffff;
+          color: #1f2937;
         }
         .cust-table-discount {
-          color: #34d399;
+          color: #059669;
           font-weight: 700;
         }
         .cust-table-total {
           font-size: 15px;
           font-weight: 900;
-          color: #fbbf24;
+          color: #b45309;
         }
         .cust-pay-badge {
           display: inline-block;
@@ -231,24 +232,24 @@ export default function InvoiceHistoryPage() {
         }
         .cust-pay-badge.emerald {
           background: rgba(16, 185, 129, 0.12);
-          color: #34d399;
+          color: #059669;
           border: 1px solid rgba(16, 185, 129, 0.3);
         }
         .cust-pay-badge.blue {
           background: rgba(59, 130, 246, 0.12);
-          color: #60a5fa;
+          color: #2563eb;
           border: 1px solid rgba(59, 130, 246, 0.3);
         }
         .cust-pay-badge.neutral {
-          background: rgba(148, 163, 184, 0.12);
-          color: #cbd5e1;
-          border: 1px solid rgba(148, 163, 184, 0.3);
+          background: #f3f4f6;
+          color: #4b5563;
+          border: 1px solid #e5e7eb;
         }
         .cust-btn-view-invoice {
           padding: 7px 14px;
-          background: #1b1f2b;
-          border: 1px solid #2e3548;
-          color: #cbd5e1;
+          background: #fff7e6;
+          border: 1px solid #fde68a;
+          color: #b45309;
           border-radius: 10px;
           font-size: 12px;
           font-weight: 700;
@@ -257,7 +258,7 @@ export default function InvoiceHistoryPage() {
         }
         .cust-btn-view-invoice:hover {
           background: #f59e0b;
-          color: #08090c;
+          color: #ffffff;
           border-color: #f59e0b;
         }
 
@@ -266,7 +267,7 @@ export default function InvoiceHistoryPage() {
           position: fixed;
           inset: 0;
           z-index: 999;
-          background: rgba(8, 9, 12, 0.85);
+          background: rgba(15, 23, 42, 0.45);
           backdrop-filter: blur(8px);
           display: flex;
           align-items: center;
@@ -274,13 +275,13 @@ export default function InvoiceHistoryPage() {
           padding: 20px;
         }
         .cust-receipt-modal {
-          background: #141720;
-          border: 1px solid #2e3548;
+          background: #ffffff;
+          border: 1px solid #f1e7d0;
           border-radius: 24px;
           width: 100%;
           max-width: 440px;
           padding: 28px;
-          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+          box-shadow: 0 20px 50px rgba(120, 80, 10, 0.2);
           animation: popIn 0.25s ease;
         }
         @keyframes popIn {
@@ -291,14 +292,14 @@ export default function InvoiceHistoryPage() {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          border-bottom: 1px solid #232736;
+          border-bottom: 1px solid #f1e7d0;
           padding-bottom: 14px;
           margin-bottom: 18px;
         }
         .cust-modal-title {
           font-size: 16px;
           font-weight: 800;
-          color: #ffffff;
+          color: #1f2937;
           display: flex;
           align-items: center;
           gap: 8px;
@@ -306,36 +307,36 @@ export default function InvoiceHistoryPage() {
         .cust-btn-close {
           background: transparent;
           border: none;
-          color: #64748b;
+          color: #6b7280;
           font-size: 18px;
           cursor: pointer;
           padding: 4px;
         }
         .cust-btn-close:hover {
-          color: #ffffff;
+          color: #1f2937;
         }
         .cust-receipt-body {
-          background: #0a0b0f;
-          border: 1px solid #1f2433;
+          background: #fffdfa;
+          border: 1px solid #f1e7d0;
           border-radius: 18px;
           padding: 20px;
           margin-bottom: 20px;
         }
         .cust-receipt-brand {
           text-align: center;
-          border-bottom: 1px solid #1f2433;
+          border-bottom: 1px solid #f1e7d0;
           padding-bottom: 12px;
           margin-bottom: 16px;
         }
         .cust-receipt-brand h4 {
           font-size: 15px;
           font-weight: 900;
-          color: #ffffff;
+          color: #1f2937;
           letter-spacing: 0.05em;
         }
         .cust-receipt-brand p {
           font-size: 11px;
-          color: #64748b;
+          color: #6b7280;
           margin-top: 2px;
         }
         .cust-receipt-row {
@@ -345,14 +346,14 @@ export default function InvoiceHistoryPage() {
           margin-bottom: 8px;
         }
         .cust-receipt-lbl {
-          color: #64748b;
+          color: #6b7280;
         }
         .cust-receipt-val {
-          color: #e2e8f0;
+          color: #1f2937;
           font-weight: 600;
         }
         .cust-receipt-total-row {
-          border-top: 1px solid #1f2433;
+          border-top: 1px solid #f1e7d0;
           padding-top: 12px;
           margin-top: 12px;
           display: flex;
@@ -362,13 +363,13 @@ export default function InvoiceHistoryPage() {
         .cust-receipt-total-val {
           font-size: 20px;
           font-weight: 900;
-          color: #fbbf24;
+          color: #b45309;
         }
         .cust-receipt-stamp {
           background: rgba(16, 185, 129, 0.12);
           border: 1px solid rgba(16, 185, 129, 0.3);
           border-radius: 10px;
-          color: #34d399;
+          color: #059669;
           font-size: 12px;
           font-weight: 800;
           text-align: center;
@@ -378,6 +379,7 @@ export default function InvoiceHistoryPage() {
         .cust-modal-actions {
           display: flex;
           gap: 12px;
+        }
         }
         .cust-modal-actions button {
           flex: 1;
@@ -536,7 +538,7 @@ export default function InvoiceHistoryPage() {
               <button
                 onClick={() => alert("Đang xuất hóa đơn PDF về máy của bạn...")}
                 className="cust-btn-primary"
-                style={{ background: "#1b1f2b", color: "#cbd5e1", border: "1px solid #2e3548" }}
+                style={{ background: "#fff7e6", color: "#b45309", border: "1px solid #fde68a" }}
               >
                 Tải PDF
               </button>

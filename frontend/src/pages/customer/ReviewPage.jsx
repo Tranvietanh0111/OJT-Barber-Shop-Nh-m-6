@@ -132,12 +132,12 @@ export default function ReviewPage() {
         .cust-header-title {
           font-size: 32px;
           font-weight: 900;
-          color: #ffffff;
+          color: #1f2937;
           letter-spacing: -0.02em;
         }
         .cust-header-sub {
           font-size: 14px;
-          color: #94a3b8;
+          color: #6b7280;
           margin-top: 4px;
         }
 
@@ -147,9 +147,9 @@ export default function ReviewPage() {
           bottom: 28px;
           right: 28px;
           z-index: 999;
-          background: #141720;
+          background: #ffffff;
           border: 1px solid #10b981;
-          color: #34d399;
+          color: #059669;
           padding: 12px 20px;
           border-radius: 14px;
           font-size: 13px;
@@ -157,7 +157,7 @@ export default function ReviewPage() {
           display: flex;
           align-items: center;
           gap: 8px;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
           animation: slideUp 0.3s ease;
         }
         @keyframes slideUp {
@@ -167,15 +167,15 @@ export default function ReviewPage() {
 
         /* Summary Header Box */
         .cust-summary-hero {
-          background: #141720;
-          border: 1px solid #232736;
+          background: #ffffff;
+          border: 1px solid #f1e7d0;
           border-radius: 28px;
           padding: 36px;
           display: grid;
           grid-template-columns: 1fr;
           gap: 36px;
           margin-bottom: 48px;
-          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 4px 20px -4px rgba(120, 80, 10, 0.08);
         }
         @media (min-width: 768px) {
           .cust-summary-hero {
@@ -190,14 +190,14 @@ export default function ReviewPage() {
         }
         @media (min-width: 768px) {
           .cust-score-box {
-            border-right: 1px solid #232736;
+            border-right: 1px solid #f1e7d0;
             padding-right: 36px;
           }
         }
         .cust-score-big {
           font-size: 56px;
           font-weight: 900;
-          color: #fbbf24;
+          color: #b45309;
           line-height: 1;
           margin-bottom: 8px;
         }
@@ -208,7 +208,7 @@ export default function ReviewPage() {
         }
         .cust-score-count {
           font-size: 12px;
-          color: #94a3b8;
+          color: #6b7280;
         }
 
         /* Progress Bars */
@@ -225,13 +225,13 @@ export default function ReviewPage() {
         }
         .cust-bar-lbl {
           width: 50px;
-          color: #94a3b8;
+          color: #6b7280;
           font-weight: 700;
         }
         .cust-bar-track {
           flex: 1;
           height: 8px;
-          background: #0a0b0f;
+          background: #f3ede0;
           border-radius: 9999px;
           overflow: hidden;
         }
@@ -243,7 +243,7 @@ export default function ReviewPage() {
         .cust-bar-pct {
           width: 36px;
           text-align: right;
-          color: #64748b;
+          color: #6b7280;
           font-weight: 700;
         }
 
@@ -261,21 +261,22 @@ export default function ReviewPage() {
 
         /* Review Form Box */
         .cust-form-box {
-          background: #141720;
-          border: 1px solid #232736;
+          background: #ffffff;
+          border: 1px solid #f1e7d0;
           border-radius: 24px;
           padding: 28px;
           height: fit-content;
+          box-shadow: 0 4px 16px -4px rgba(120, 80, 10, 0.08);
         }
         .cust-form-title {
           font-size: 18px;
           font-weight: 800;
-          color: #ffffff;
+          color: #1f2937;
           margin-bottom: 4px;
         }
         .cust-form-sub {
           font-size: 12px;
-          color: #94a3b8;
+          color: #6b7280;
           margin-bottom: 20px;
         }
         .cust-field {
@@ -285,17 +286,17 @@ export default function ReviewPage() {
           display: block;
           font-size: 11px;
           font-weight: 800;
-          color: #94a3b8;
+          color: #6b7280;
           text-transform: uppercase;
           margin-bottom: 6px;
         }
         .cust-select, .cust-textarea {
           width: 100%;
           padding: 12px 14px;
-          background: #0a0b0f;
-          border: 1px solid #232736;
+          background: #ffffff;
+          border: 1px solid #e5d6b4;
           border-radius: 12px;
-          color: #ffffff;
+          color: #1f2937;
           font-size: 13px;
           outline: none;
           box-sizing: border-box;
@@ -315,11 +316,11 @@ export default function ReviewPage() {
           cursor: pointer;
         }
         .cust-star-opt {
-          color: #3f475a;
+          color: #d1d5db;
           transition: color 0.15s ease;
         }
         .cust-star-opt.active {
-          color: #fbbf24;
+          color: #f59e0b;
         }
         .cust-btn-primary {
           display: inline-flex;
@@ -329,7 +330,7 @@ export default function ReviewPage() {
           width: 100%;
           padding: 13px;
           background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-          color: #08090c;
+          color: #ffffff;
           font-weight: 800;
           font-size: 13px;
           border-radius: 12px;
@@ -352,22 +353,24 @@ export default function ReviewPage() {
         }
         .cust-pill-btn {
           padding: 8px 16px;
-          background: #141720;
-          border: 1px solid #232736;
+          background: #ffffff;
+          border: 1px solid #e5d6b4;
           border-radius: 9999px;
-          color: #94a3b8;
+          color: #4b5563;
           font-size: 12px;
           font-weight: 700;
           cursor: pointer;
           transition: all 0.2s ease;
         }
         .cust-pill-btn:hover {
-          color: #ffffff;
+          color: #b45309;
+          background: #fff7e6;
+          border-color: #f59e0b;
         }
         .cust-pill-btn.active {
           background: #f59e0b;
           border-color: #f59e0b;
-          color: #08090c;
+          color: #ffffff;
           font-weight: 800;
         }
 
@@ -378,14 +381,16 @@ export default function ReviewPage() {
           gap: 18px;
         }
         .cust-rev-card {
-          background: #141720;
-          border: 1px solid #232736;
+          background: #ffffff;
+          border: 1px solid #f1e7d0;
           border-radius: 20px;
           padding: 24px;
           transition: all 0.25s ease;
+          box-shadow: 0 4px 16px -4px rgba(120, 80, 10, 0.08);
         }
         .cust-rev-card:hover {
-          border-color: rgba(245, 158, 11, 0.35);
+          border-color: rgba(245, 158, 11, 0.5);
+          box-shadow: 0 10px 24px -4px rgba(120, 80, 10, 0.14);
         }
         .cust-rev-top {
           display: flex;
@@ -401,7 +406,7 @@ export default function ReviewPage() {
         .cust-rev-author {
           font-size: 15px;
           font-weight: 800;
-          color: #ffffff;
+          color: #1f2937;
         }
         .cust-rev-tier-badge {
           font-size: 10px;
@@ -410,27 +415,27 @@ export default function ReviewPage() {
           border-radius: 9999px;
         }
         .cust-rev-tier-badge.gold {
-          background: rgba(245, 158, 11, 0.12);
-          color: #fbbf24;
-          border: 1px solid rgba(245, 158, 11, 0.3);
+          background: rgba(245, 158, 11, 0.15);
+          color: #b45309;
+          border: 1px solid rgba(245, 158, 11, 0.4);
         }
         .cust-rev-tier-badge.blue {
-          background: rgba(59, 130, 246, 0.12);
-          color: #60a5fa;
-          border: 1px solid rgba(59, 130, 246, 0.3);
+          background: rgba(59, 130, 246, 0.15);
+          color: #2563eb;
+          border: 1px solid rgba(59, 130, 246, 0.4);
         }
         .cust-rev-tier-badge.neutral {
-          background: rgba(148, 163, 184, 0.12);
-          color: #cbd5e1;
-          border: 1px solid rgba(148, 163, 184, 0.3);
+          background: #f3f4f6;
+          color: #4b5563;
+          border: 1px solid #e5e7eb;
         }
         .cust-rev-date {
           font-size: 11px;
-          color: #64748b;
+          color: #6b7280;
         }
         .cust-rev-meta-sub {
           font-size: 12px;
-          color: #fbbf24;
+          color: #b45309;
           margin-bottom: 10px;
           display: flex;
           align-items: center;
@@ -438,7 +443,7 @@ export default function ReviewPage() {
         }
         .cust-rev-comment {
           font-size: 13px;
-          color: #cbd5e1;
+          color: #4b5563;
           line-height: 1.65;
           margin-bottom: 12px;
         }

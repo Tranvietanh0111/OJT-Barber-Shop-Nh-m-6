@@ -159,19 +159,19 @@ export default function HomePage() {
           max-width: 1240px;
           margin: 0 auto;
           padding: 32px 20px 64px;
-          color: #f8fafc;
+          color: var(--text-primary);
           font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
         /* 1. Hero Section */
         .cust-hero {
-          background: linear-gradient(135deg, #0e1015 0%, #171b26 50%, #15130b 100%);
-          border: 1px solid rgba(245, 158, 11, 0.3);
+          background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 45%, #fff7ed 100%);
+          border: 1px solid var(--gold-border);
           border-radius: 28px;
           padding: 48px 36px;
           position: relative;
           overflow: hidden;
-          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(245, 158, 11, 0.1);
+          box-shadow: 0 12px 36px -10px rgba(180, 83, 9, 0.15), 0 0 20px rgba(245, 158, 11, 0.08);
           margin-bottom: 56px;
         }
         .cust-hero::after {
@@ -181,7 +181,7 @@ export default function HomePage() {
           right: -60px;
           width: 320px;
           height: 320px;
-          background: radial-gradient(circle, rgba(245, 158, 11, 0.18) 0%, transparent 70%);
+          background: radial-gradient(circle, rgba(245, 158, 11, 0.22) 0%, transparent 70%);
           pointer-events: none;
           border-radius: 50%;
         }
@@ -190,10 +190,10 @@ export default function HomePage() {
           align-items: center;
           gap: 8px;
           padding: 6px 16px;
-          background: rgba(245, 158, 11, 0.12);
-          border: 1px solid rgba(245, 158, 11, 0.35);
+          background: rgba(245, 158, 11, 0.15);
+          border: 1px solid rgba(245, 158, 11, 0.4);
           border-radius: 9999px;
-          color: #fbbf24;
+          color: #b45309;
           font-size: 11px;
           font-weight: 800;
           text-transform: uppercase;
@@ -204,18 +204,18 @@ export default function HomePage() {
           font-size: 42px;
           font-weight: 900;
           line-height: 1.18;
-          color: #ffffff;
+          color: #1f2937;
           margin-bottom: 16px;
           letter-spacing: -0.02em;
         }
         .cust-hero-gold {
-          background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+          background: linear-gradient(135deg, #b45309 0%, #d97706 50%, #f59e0b 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
         }
         .cust-hero-desc {
           font-size: 15px;
-          color: #94a3b8;
+          color: #4b5563;
           max-width: 620px;
           line-height: 1.65;
           margin-bottom: 28px;
@@ -232,7 +232,7 @@ export default function HomePage() {
           gap: 8px;
           padding: 13px 26px;
           background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-          color: #08090c;
+          color: #ffffff;
           font-weight: 800;
           font-size: 13px;
           border-radius: 14px;
@@ -252,39 +252,39 @@ export default function HomePage() {
           align-items: center;
           gap: 8px;
           padding: 13px 22px;
-          background: #141720;
-          color: #e2e8f0;
+          background: #ffffff;
+          color: #1f2937;
           font-weight: 700;
           font-size: 13px;
           border-radius: 14px;
-          border: 1px solid #2e3548;
+          border: 1px solid #e5d6b4;
           text-decoration: none;
           transition: all 0.2s ease;
         }
         .cust-btn-secondary:hover {
-          background: #1b1f2b;
+          background: #fff7e6;
           border-color: #f59e0b;
-          color: #ffffff;
+          color: #b45309;
         }
         .cust-hero-stats {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
           gap: 20px;
-          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          border-top: 1px solid rgba(180, 83, 9, 0.15);
           padding-top: 24px;
           max-width: 680px;
         }
         .cust-stat-val {
           font-size: 22px;
           font-weight: 900;
-          color: #ffffff;
+          color: #1f2937;
         }
         .cust-stat-val.gold {
-          color: #fbbf24;
+          color: #b45309;
         }
         .cust-stat-lbl {
           font-size: 11px;
-          color: #64748b;
+          color: #6b7280;
           margin-top: 4px;
         }
 
@@ -302,23 +302,23 @@ export default function HomePage() {
           font-weight: 800;
           text-transform: uppercase;
           letter-spacing: 0.1em;
-          color: #f59e0b;
+          color: #b45309;
           display: block;
           margin-bottom: 4px;
         }
         .cust-sec-title {
           font-size: 26px;
           font-weight: 800;
-          color: #ffffff;
+          color: #1f2937;
           line-height: 1.25;
         }
         .cust-sec-sub {
           font-size: 13px;
-          color: #94a3b8;
+          color: #6b7280;
           margin-top: 4px;
         }
         .cust-link-more {
-          color: #fbbf24;
+          color: #b45309;
           font-size: 13px;
           font-weight: 700;
           text-decoration: none;
@@ -329,7 +329,7 @@ export default function HomePage() {
         }
         .cust-link-more:hover {
           gap: 8px;
-          color: #f59e0b;
+          color: #d97706;
         }
 
         /* 3. Services Grid */
@@ -340,19 +340,21 @@ export default function HomePage() {
           margin-bottom: 64px;
         }
         .cust-srv-card {
-          background: #141720;
-          border: 1px solid #232736;
+          background: #ffffff;
+          border: 1px solid #f1e7d0;
           border-radius: 20px;
           padding: 24px;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
           transition: all 0.25s ease;
+          box-shadow: 0 4px 16px -4px rgba(120, 80, 10, 0.08);
         }
         .cust-srv-card:hover {
-          border-color: rgba(245, 158, 11, 0.45);
+          border-color: rgba(245, 158, 11, 0.5);
           transform: translateY(-3px);
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+          box-shadow: 0 12px 28px -6px rgba(120, 80, 10, 0.16);
+          background: #fffdf8;
         }
         .cust-srv-top {
           display: flex;
@@ -368,44 +370,44 @@ export default function HomePage() {
           text-transform: uppercase;
         }
         .cust-srv-badge.gold {
-          background: rgba(245, 158, 11, 0.12);
-          color: #fbbf24;
-          border: 1px solid rgba(245, 158, 11, 0.25);
+          background: rgba(245, 158, 11, 0.14);
+          color: #b45309;
+          border: 1px solid rgba(245, 158, 11, 0.3);
         }
         .cust-srv-badge.red {
           background: rgba(239, 68, 68, 0.12);
-          color: #f87171;
+          color: #dc2626;
           border: 1px solid rgba(239, 68, 68, 0.25);
         }
         .cust-srv-badge.blue {
           background: rgba(59, 130, 246, 0.12);
-          color: #60a5fa;
+          color: #2563eb;
           border: 1px solid rgba(59, 130, 246, 0.25);
         }
         .cust-srv-badge.purple {
           background: rgba(168, 85, 247, 0.12);
-          color: #c084fc;
+          color: #7c3aed;
           border: 1px solid rgba(168, 85, 247, 0.25);
         }
         .cust-srv-badge.emerald {
           background: rgba(16, 185, 129, 0.12);
-          color: #34d399;
+          color: #059669;
           border: 1px solid rgba(16, 185, 129, 0.25);
         }
         .cust-srv-duration {
           font-size: 11px;
-          color: #94a3b8;
+          color: #6b7280;
           font-weight: 600;
         }
         .cust-srv-title {
           font-size: 17px;
           font-weight: 800;
-          color: #ffffff;
+          color: #1f2937;
           margin-bottom: 8px;
         }
         .cust-srv-desc {
           font-size: 13px;
-          color: #94a3b8;
+          color: #6b7280;
           line-height: 1.55;
           margin-bottom: 20px;
         }
@@ -414,12 +416,12 @@ export default function HomePage() {
           justify-content: space-between;
           align-items: center;
           padding-top: 16px;
-          border-top: 1px solid #1f2433;
+          border-top: 1px solid #f1e7d0;
         }
         .cust-srv-price {
           font-size: 20px;
           font-weight: 900;
-          color: #fbbf24;
+          color: #b45309;
         }
         .cust-srv-btns {
           display: flex;
@@ -434,22 +436,22 @@ export default function HomePage() {
           transition: all 0.2s ease;
         }
         .cust-btn-detail {
-          background: #1b1f2b;
-          color: #cbd5e1;
-          border: 1px solid #2e3548;
+          background: #fff7e6;
+          color: #b45309;
+          border: 1px solid #fde68a;
         }
         .cust-btn-detail:hover {
-          background: #282f42;
-          color: #ffffff;
+          background: #fef3c7;
+          color: #92400e;
         }
         .cust-btn-book {
           background: #f59e0b;
-          color: #08090c;
+          color: #ffffff;
           font-weight: 800;
           border: none;
         }
         .cust-btn-book:hover {
-          background: #fbbf24;
+          background: #d97706;
         }
 
         /* 4. Barbers Grid */
@@ -460,8 +462,8 @@ export default function HomePage() {
           margin-bottom: 64px;
         }
         .cust-barber-card {
-          background: #141720;
-          border: 1px solid #232736;
+          background: #ffffff;
+          border: 1px solid #f1e7d0;
           border-radius: 20px;
           padding: 24px;
           text-align: center;
@@ -469,11 +471,13 @@ export default function HomePage() {
           display: flex;
           flex-direction: column;
           justify-content: space-between;
+          box-shadow: 0 4px 16px -4px rgba(120, 80, 10, 0.08);
         }
         .cust-barber-card:hover {
-          border-color: rgba(245, 158, 11, 0.45);
+          border-color: rgba(245, 158, 11, 0.5);
           transform: translateY(-3px);
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+          box-shadow: 0 12px 28px -6px rgba(120, 80, 10, 0.16);
+          background: #fffdf8;
         }
         .cust-barber-avatar-box {
           position: relative;
@@ -499,27 +503,27 @@ export default function HomePage() {
         }
         .cust-barber-status.ready {
           background: #10b981;
-          color: #08090c;
+          color: #ffffff;
         }
         .cust-barber-status.busy {
           background: #f59e0b;
-          color: #08090c;
+          color: #ffffff;
         }
         .cust-barber-name {
           font-size: 16px;
           font-weight: 800;
-          color: #ffffff;
+          color: #1f2937;
         }
         .cust-barber-role {
           font-size: 12px;
-          color: #fbbf24;
+          color: #b45309;
           font-weight: 600;
           margin-top: 2px;
           margin-bottom: 8px;
         }
         .cust-barber-meta {
           font-size: 12px;
-          color: #94a3b8;
+          color: #6b7280;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -527,16 +531,17 @@ export default function HomePage() {
           margin-bottom: 18px;
         }
         .cust-barber-meta strong {
-          color: #fbbf24;
+          color: #b45309;
         }
 
         /* 5. Booking Steps */
         .cust-steps-box {
-          background: #10131a;
-          border: 1px solid #232736;
+          background: #fffdfa;
+          border: 1px solid #f1e7d0;
           border-radius: 24px;
           padding: 36px 28px;
           margin-bottom: 64px;
+          box-shadow: 0 4px 20px -6px rgba(120, 80, 10, 0.08);
         }
         .cust-steps-grid {
           display: grid;
@@ -546,14 +551,15 @@ export default function HomePage() {
         .cust-step-item {
           position: relative;
           padding: 16px;
-          background: #141720;
-          border: 1px solid #1f2433;
+          background: #ffffff;
+          border: 1px solid #f1e7d0;
           border-radius: 16px;
+          box-shadow: 0 2px 8px -2px rgba(120, 80, 10, 0.06);
         }
         .cust-step-num {
           font-size: 24px;
           font-weight: 900;
-          color: rgba(245, 158, 11, 0.35);
+          color: rgba(217, 119, 6, 0.4);
           line-height: 1;
           margin-bottom: 12px;
         }
@@ -564,12 +570,12 @@ export default function HomePage() {
         .cust-step-title {
           font-size: 15px;
           font-weight: 800;
-          color: #ffffff;
+          color: #1f2937;
           margin-bottom: 6px;
         }
         .cust-step-desc {
           font-size: 12px;
-          color: #94a3b8;
+          color: #6b7280;
           line-height: 1.5;
         }
 
@@ -580,11 +586,19 @@ export default function HomePage() {
           gap: 24px;
         }
         .cust-review-card {
-          background: #141720;
-          border: 1px solid #232736;
+          background: #ffffff;
+          border: 1px solid #f1e7d0;
           border-radius: 20px;
           padding: 24px;
           position: relative;
+          box-shadow: 0 4px 16px -4px rgba(120, 80, 10, 0.08);
+          transition: all 0.25s ease;
+        }
+        .cust-review-card:hover {
+          border-color: rgba(245, 158, 11, 0.5);
+          transform: translateY(-3px);
+          box-shadow: 0 12px 28px -6px rgba(120, 80, 10, 0.16);
+          background: #fffdf8;
         }
         .cust-review-top {
           display: flex;
@@ -595,14 +609,14 @@ export default function HomePage() {
         .cust-review-author {
           font-size: 14px;
           font-weight: 800;
-          color: #ffffff;
+          color: #1f2937;
         }
         .cust-review-tier {
           font-size: 10px;
           font-weight: 800;
           padding: 2px 8px;
-          background: rgba(245, 158, 11, 0.12);
-          color: #fbbf24;
+          background: rgba(245, 158, 11, 0.14);
+          color: #b45309;
           border-radius: 9999px;
           border: 1px solid rgba(245, 158, 11, 0.3);
         }
@@ -613,7 +627,7 @@ export default function HomePage() {
         }
         .cust-review-text {
           font-size: 13px;
-          color: #cbd5e1;
+          color: #4b5563;
           line-height: 1.6;
         }
 

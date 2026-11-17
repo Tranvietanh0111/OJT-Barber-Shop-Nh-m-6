@@ -112,12 +112,12 @@ export default function BarberInfoPage() {
         .cust-header-title {
           font-size: 32px;
           font-weight: 900;
-          color: #ffffff;
+          color: #1f2937;
           letter-spacing: -0.02em;
         }
         .cust-header-sub {
           font-size: 14px;
-          color: #94a3b8;
+          color: #6b7280;
           margin-top: 4px;
         }
         .cust-btn-primary {
@@ -126,7 +126,7 @@ export default function BarberInfoPage() {
           gap: 8px;
           padding: 12px 24px;
           background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-          color: #08090c;
+          color: #ffffff;
           font-weight: 800;
           font-size: 13px;
           border-radius: 12px;
@@ -151,23 +151,24 @@ export default function BarberInfoPage() {
         }
         .cust-pill-btn {
           padding: 8px 18px;
-          background: #141720;
-          border: 1px solid #232736;
+          background: #ffffff;
+          border: 1px solid #e5d6b4;
           border-radius: 9999px;
-          color: #94a3b8;
+          color: #4b5563;
           font-size: 12px;
           font-weight: 700;
           cursor: pointer;
           transition: all 0.2s ease;
         }
         .cust-pill-btn:hover {
-          color: #ffffff;
-          background: #1b1f2b;
+          color: #b45309;
+          background: #fff7e6;
+          border-color: #f59e0b;
         }
         .cust-pill-btn.active {
           background: #f59e0b;
           border-color: #f59e0b;
-          color: #08090c;
+          color: #ffffff;
           font-weight: 800;
         }
 
@@ -179,8 +180,8 @@ export default function BarberInfoPage() {
           margin-bottom: 64px;
         }
         .cust-barber-card {
-          background: #141720;
-          border: 1px solid #232736;
+          background: #ffffff;
+          border: 1px solid #f1e7d0;
           border-radius: 24px;
           padding: 28px 24px;
           text-align: center;
@@ -188,11 +189,13 @@ export default function BarberInfoPage() {
           flex-direction: column;
           justify-content: space-between;
           transition: all 0.25s ease;
+          box-shadow: 0 4px 16px -4px rgba(120, 80, 10, 0.08);
         }
         .cust-barber-card:hover {
-          border-color: rgba(245, 158, 11, 0.45);
+          border-color: rgba(245, 158, 11, 0.5);
           transform: translateY(-4px);
-          box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 12px 28px -6px rgba(120, 80, 10, 0.16);
+          background: #fffdf8;
         }
         .cust-avatar-box {
           position: relative;
@@ -218,26 +221,26 @@ export default function BarberInfoPage() {
         }
         .cust-status-badge.ready {
           background: #10b981;
-          color: #08090c;
+          color: #ffffff;
         }
         .cust-status-badge.busy {
           background: #f59e0b;
-          color: #08090c;
+          color: #ffffff;
         }
         .cust-barber-title {
           font-size: 18px;
           font-weight: 800;
-          color: #ffffff;
+          color: #1f2937;
         }
         .cust-barber-role {
           font-size: 12px;
-          color: #fbbf24;
+          color: #b45309;
           font-weight: 600;
           margin-top: 3px;
         }
         .cust-barber-meta {
           font-size: 11px;
-          color: #94a3b8;
+          color: #6b7280;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -246,17 +249,17 @@ export default function BarberInfoPage() {
           margin-bottom: 14px;
         }
         .cust-barber-meta strong {
-          color: #fbbf24;
+          color: #b45309;
         }
         .cust-barber-bio {
           font-size: 12px;
-          color: #cbd5e1;
+          color: #4b5563;
           line-height: 1.6;
           text-align: left;
-          background: #0a0b0f;
+          background: #fffdfa;
           padding: 12px;
           border-radius: 12px;
-          border: 1px solid #1f2433;
+          border: 1px solid #f1e7d0;
           margin-bottom: 14px;
         }
         .cust-strengths-box {
@@ -269,18 +272,18 @@ export default function BarberInfoPage() {
           font-size: 10px;
           font-weight: 600;
           padding: 3px 8px;
-          background: #1b1f2b;
-          border: 1px solid #2e3548;
+          background: #fff7e6;
+          border: 1px solid #fde68a;
           border-radius: 6px;
-          color: #e2e8f0;
+          color: #b45309;
         }
         .cust-btn-book-barber {
           width: 100%;
           padding: 11px;
-          background: #141720;
-          border: 1px solid #2e3548;
+          background: #fff7e6;
+          border: 1px solid #fde68a;
           border-radius: 12px;
-          color: #fbbf24;
+          color: #b45309;
           font-size: 12px;
           font-weight: 800;
           text-decoration: none;
@@ -293,16 +296,17 @@ export default function BarberInfoPage() {
         }
         .cust-btn-book-barber:hover {
           background: #f59e0b;
-          color: #08090c;
+          color: #ffffff;
           border-color: #f59e0b;
         }
 
         /* Standards Philosophy Box */
         .cust-standards-box {
-          background: #141720;
-          border: 1px solid #232736;
+          background: #fffdfa;
+          border: 1px solid #f1e7d0;
           border-radius: 24px;
           padding: 36px 28px;
+          box-shadow: 0 4px 20px -6px rgba(120, 80, 10, 0.08);
         }
         .cust-std-grid {
           display: grid;
@@ -310,10 +314,11 @@ export default function BarberInfoPage() {
           gap: 24px;
         }
         .cust-std-item {
-          background: #0a0b0f;
-          border: 1px solid #1f2433;
+          background: #ffffff;
+          border: 1px solid #f1e7d0;
           border-radius: 18px;
           padding: 24px;
+          box-shadow: 0 2px 8px -2px rgba(120, 80, 10, 0.06);
         }
         .cust-std-icon {
           font-size: 32px;
@@ -322,12 +327,12 @@ export default function BarberInfoPage() {
         .cust-std-title {
           font-size: 16px;
           font-weight: 800;
-          color: #ffffff;
+          color: #1f2937;
           margin-bottom: 8px;
         }
         .cust-std-desc {
           font-size: 13px;
-          color: #94a3b8;
+          color: #6b7280;
           line-height: 1.6;
         }
       `}</style>
@@ -430,10 +435,10 @@ export default function BarberInfoPage() {
       <div className="cust-standards-box">
         <div style={{ textAlign: "center", maxWidth: "600px", margin: "0 auto 32px" }}>
           <span className="cust-header-tag">Tiêu Chuẩn Nghệ Nhân</span>
-          <h2 style={{ fontSize: "24px", fontWeight: "900", color: "#ffffff", marginBottom: "6px" }}>
+          <h2 style={{ fontSize: "24px", fontWeight: "900", color: "#1f2937", marginBottom: "6px" }}>
             Tại Sao Khách Hàng Tin Tưởng BarberHub?
           </h2>
-          <p style={{ fontSize: "13px", color: "#94a3b8" }}>
+          <p style={{ fontSize: "13px", color: "#6b7280" }}>
             Mỗi đường kéo đều là tâm huyết và sự tận tụy nhằm mang đến diện mạo hoàn hảo nhất cho quý khách.
           </p>
         </div>

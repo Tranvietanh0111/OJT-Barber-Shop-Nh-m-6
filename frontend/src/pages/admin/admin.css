@@ -3,32 +3,32 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
 
 :root {
-  --adm-bg: #0b0f19;
-  --adm-bg-soft: #111827;
-  --adm-surface: #161f30;
-  --adm-surface-2: #1e293b;
-  --adm-sidebar: #080c14;
-  --adm-gold: #e5a93c;
-  --adm-gold-light: #f5cb78;
-  --adm-gold-dark: #b87c19;
-  --adm-gold-soft: rgba(229, 169, 60, 0.15);
-  --adm-gold-border: rgba(229, 169, 60, 0.32);
-  --adm-text: #f8fafc;
-  --adm-text-secondary: #cbd5e1;
-  --adm-text-muted: #94a3b8;
-  --adm-border: rgba(148, 163, 184, 0.14);
+  --adm-bg: #fffaf0;
+  --adm-bg-soft: #fffdfa;
+  --adm-surface: #ffffff;
+  --adm-surface-2: #fff8eb;
+  --adm-sidebar: #ffffff;
+  --adm-gold: #d97706;
+  --adm-gold-light: #f59e0b;
+  --adm-gold-dark: #b45309;
+  --adm-gold-soft: rgba(217, 119, 6, 0.12);
+  --adm-gold-border: rgba(245, 158, 11, 0.35);
+  --adm-text: #1f2937;
+  --adm-text-secondary: #4b5563;
+  --adm-text-muted: #6b7280;
+  --adm-border: #f1e7d0;
   --adm-success: #10b981;
   --adm-success-bg: rgba(16, 185, 129, 0.15);
   --adm-warning: #f59e0b;
   --adm-warning-bg: rgba(245, 158, 11, 0.16);
-  --adm-danger: #f43f5e;
-  --adm-danger-bg: rgba(244, 63, 94, 0.16);
-  --adm-info: #38bdf8;
-  --adm-info-bg: rgba(56, 189, 248, 0.15);
-  --adm-purple: #a855f7;
-  --adm-purple-bg: rgba(168, 85, 247, 0.16);
+  --adm-danger: #ef4444;
+  --adm-danger-bg: rgba(239, 68, 68, 0.12);
+  --adm-info: #3b82f6;
+  --adm-info-bg: rgba(59, 130, 246, 0.12);
+  --adm-purple: #8b5cf6;
+  --adm-purple-bg: rgba(139, 92, 246, 0.12);
   --adm-radius: 16px;
-  --adm-shadow: 0 14px 34px -6px rgba(0, 0, 0, 0.45), 0 4px 12px -2px rgba(0, 0, 0, 0.3);
+  --adm-shadow: 0 4px 16px -4px rgba(120, 80, 10, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
 }
 
 * {
@@ -58,13 +58,13 @@ body {
 /* SIDEBAR SANG TRỌNG */
 .adm-sidebar {
   width: 276px;
-  background: linear-gradient(180deg, #070a12 0%, #0d1322 100%);
-  color: #f8fafc;
+  background: #ffffff;
+  color: var(--adm-text);
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
-  border-right: 1px solid var(--adm-gold-border);
-  box-shadow: 8px 0 30px rgba(0, 0, 0, 0.4);
+  border-right: 1px solid var(--adm-border);
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.04);
   position: sticky;
   top: 0;
   height: 100vh;
@@ -281,11 +281,11 @@ body {
 }
 
 .adm-kpi-card {
-  background: linear-gradient(145deg, #182235 0%, #111827 100%);
+  background: #ffffff;
   border-radius: var(--adm-radius);
   padding: 22px;
   box-shadow: var(--adm-shadow);
-  border: 1px solid rgba(229, 169, 60, 0.22);
+  border: 1px solid var(--adm-border);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -298,7 +298,8 @@ body {
 .adm-kpi-card:hover {
   transform: translateY(-4px);
   border-color: var(--adm-gold);
-  box-shadow: 0 18px 38px -8px rgba(0, 0, 0, 0.6), 0 0 20px rgba(229, 169, 60, 0.14);
+  box-shadow: 0 12px 28px -6px rgba(120, 80, 10, 0.16);
+  background: #fffdf8;
 }
 
 .adm-kpi-card::before {
@@ -368,7 +369,7 @@ body {
 .adm-kpi-value {
   font-size: 28px;
   font-weight: 800;
-  color: #ffffff;
+  color: var(--adm-text);
   letter-spacing: -0.5px;
 }
 
@@ -381,7 +382,7 @@ body {
 }
 
 .adm-trend-up {
-  color: #34d399;
+  color: #059669;
   font-weight: 700;
   background: rgba(16, 185, 129, 0.14);
   padding: 2px 8px;
@@ -397,7 +398,7 @@ body {
 }
 
 .adm-card {
-  background: linear-gradient(160deg, #161f30 0%, #111827 100%);
+  background: #ffffff;
   border-radius: var(--adm-radius);
   border: 1px solid var(--adm-border);
   box-shadow: var(--adm-shadow);
@@ -412,7 +413,7 @@ body {
   gap: 12px;
   margin-bottom: 18px;
   padding-bottom: 14px;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+  border-bottom: 1px solid var(--adm-border);
   flex-wrap: wrap;
 }
 
@@ -420,7 +421,7 @@ body {
   margin: 0;
   font-size: 17px;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--adm-text);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -448,10 +449,10 @@ body {
   justify-content: space-between;
   gap: 14px;
   flex-wrap: wrap;
-  background: linear-gradient(145deg, #161f30 0%, #111827 100%);
+  background: #ffffff;
   padding: 16px 22px;
   border-radius: var(--adm-radius);
-  border: 1px solid var(--adm-gold-border);
+  border: 1px solid var(--adm-border);
   box-shadow: var(--adm-shadow);
 }
 
@@ -468,10 +469,10 @@ body {
 .adm-textarea {
   padding: 10px 14px;
   border-radius: 10px;
-  border: 1px solid rgba(148, 163, 184, 0.25);
+  border: 1px solid #e5d6b4;
   font-size: 13.5px;
-  color: #f8fafc;
-  background: #0b111e;
+  color: var(--adm-text);
+  background: #ffffff;
   outline: none;
   transition: all 0.2s ease;
   font-family: inherit;
@@ -479,15 +480,15 @@ body {
 
 .adm-input::placeholder,
 .adm-textarea::placeholder {
-  color: #64748b;
+  color: #9ca3af;
 }
 
 .adm-input:focus,
 .adm-select:focus,
 .adm-textarea:focus {
   border-color: var(--adm-gold);
-  box-shadow: 0 0 0 3px rgba(229, 169, 60, 0.2);
-  background: #0f172a;
+  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.15);
+  background: #ffffff;
 }
 
 .adm-search-input {
@@ -513,9 +514,9 @@ body {
 }
 
 .adm-btn-primary {
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-  color: var(--adm-gold-light);
-  border-color: var(--adm-gold-border);
+  background: linear-gradient(135deg, var(--adm-gold) 0%, var(--adm-gold-dark) 100%);
+  color: #ffffff;
+  border-color: var(--adm-gold);
 }
 
 .adm-btn-primary:hover {
@@ -587,30 +588,30 @@ body {
   border-radius: 99px;
   font-size: 13px;
   font-weight: 700;
-  background: #161f30;
-  color: #94a3b8;
+  background: #ffffff;
+  color: var(--adm-text-secondary);
   border: 1px solid var(--adm-border);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .adm-tab:hover {
-  color: #ffffff;
-  border-color: rgba(229, 169, 60, 0.4);
+  color: var(--adm-gold-dark);
+  border-color: var(--adm-gold);
 }
 
 .adm-tab.active {
   background: linear-gradient(135deg, var(--adm-gold) 0%, var(--adm-gold-dark) 100%);
-  color: #090d16;
-  border-color: var(--adm-gold-light);
-  box-shadow: 0 4px 14px rgba(229, 169, 60, 0.3);
+  color: #ffffff;
+  border-color: var(--adm-gold);
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.25);
 }
 
 /* BẢNG DỮ LIỆU (TABLE) */
 .adm-table-wrap {
   overflow-x: auto;
   border-radius: 12px;
-  border: 1px solid rgba(148, 163, 184, 0.12);
+  border: 1px solid var(--adm-border);
 }
 
 .adm-table {
@@ -622,21 +623,21 @@ body {
 .adm-table th {
   text-align: left;
   padding: 14px 16px;
-  background: rgba(11, 15, 25, 0.75);
-  color: var(--adm-gold-light);
+  background: #fffdfa;
+  color: var(--adm-gold-dark);
   font-weight: 700;
   font-size: 11.5px;
   text-transform: uppercase;
   letter-spacing: 0.8px;
-  border-bottom: 1px solid rgba(229, 169, 60, 0.2);
+  border-bottom: 1px solid var(--adm-border);
   white-space: nowrap;
 }
 
 .adm-table td {
   padding: 14px 16px;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+  border-bottom: 1px solid var(--adm-border);
   vertical-align: middle;
-  color: #e2e8f0;
+  color: var(--adm-text);
 }
 
 .adm-table tbody tr {
@@ -644,11 +645,11 @@ body {
 }
 
 .adm-table tbody tr:hover {
-  background: rgba(229, 169, 60, 0.06);
+  background: #fff7e6;
 }
 
 .adm-table strong {
-  color: var(--adm-gold-light);
+  color: var(--adm-gold-dark);
 }
 
 /* NHÃN TRẠNG THÁI (BADGES) */
@@ -891,8 +892,8 @@ body {
 .adm-period-group {
   display: inline-flex;
   align-items: center;
-  background: #0b0f19;
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: #ffffff;
+  border: 1px solid var(--adm-border);
   border-radius: 12px;
   padding: 4px;
   gap: 4px;
@@ -903,13 +904,13 @@ body {
   border-radius: 8px;
   font-size: 12px;
   font-weight: 600;
-  color: #94a3b8;
+  color: var(--adm-text-secondary);
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .adm-period-item:hover {
-  color: #ffffff;
+  color: var(--adm-gold-dark);
 }
 
 .adm-period-item.active {

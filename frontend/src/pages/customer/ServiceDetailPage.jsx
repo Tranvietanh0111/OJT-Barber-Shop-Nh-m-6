@@ -183,15 +183,15 @@ export default function ServiceDetailPage() {
 
         /* Hero Banner */
         .cust-detail-hero {
-          background: #141720;
-          border: 1px solid #232736;
+          background: #ffffff;
+          border: 1px solid #f1e7d0;
           border-radius: 28px;
           padding: 36px;
           display: grid;
           grid-template-columns: 1fr;
           gap: 36px;
           margin-bottom: 48px;
-          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+          box-shadow: 0 4px 20px -4px rgba(120, 80, 10, 0.08);
         }
         @media (min-width: 992px) {
           .cust-detail-hero {
@@ -222,7 +222,7 @@ export default function ServiceDetailPage() {
         }
         .cust-detail-badge.gold {
           background: rgba(245, 158, 11, 0.9);
-          color: #08090c;
+          color: #ffffff;
         }
         .cust-detail-badge.red {
           background: rgba(239, 68, 68, 0.9);
@@ -246,25 +246,26 @@ export default function ServiceDetailPage() {
           right: 14px;
           padding: 5px 12px;
           border-radius: 10px;
-          background: rgba(8, 9, 12, 0.85);
+          background: rgba(255, 255, 255, 0.9);
           backdrop-filter: blur(4px);
           font-size: 12px;
           font-weight: 700;
-          color: #cbd5e1;
+          color: #4b5563;
+          border: 1px solid #f1e7d0;
         }
         .cust-detail-tag {
           font-size: 11px;
           font-weight: 800;
           text-transform: uppercase;
           letter-spacing: 0.1em;
-          color: #f59e0b;
+          color: #b45309;
           display: block;
           margin-bottom: 6px;
         }
         .cust-detail-title {
           font-size: 32px;
           font-weight: 900;
-          color: #ffffff;
+          color: #1f2937;
           line-height: 1.2;
           margin-bottom: 12px;
         }
@@ -277,15 +278,15 @@ export default function ServiceDetailPage() {
         .cust-detail-price {
           font-size: 32px;
           font-weight: 900;
-          color: #fbbf24;
+          color: #b45309;
         }
         .cust-detail-price-sub {
           font-size: 12px;
-          color: #64748b;
+          color: #6b7280;
         }
         .cust-detail-desc {
           font-size: 14px;
-          color: #cbd5e1;
+          color: #4b5563;
           line-height: 1.7;
           margin-bottom: 24px;
         }
@@ -301,7 +302,7 @@ export default function ServiceDetailPage() {
           gap: 8px;
           padding: 13px 28px;
           background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-          color: #08090c;
+          color: #ffffff;
           font-weight: 800;
           font-size: 13px;
           border-radius: 12px;
@@ -321,25 +322,25 @@ export default function ServiceDetailPage() {
           align-items: center;
           gap: 8px;
           padding: 13px 22px;
-          background: #1b1f2b;
-          color: #cbd5e1;
+          background: #ffffff;
+          color: #1f2937;
           font-weight: 700;
           font-size: 13px;
           border-radius: 12px;
-          border: 1px solid #2e3548;
+          border: 1px solid #e5d6b4;
           text-decoration: none;
           transition: all 0.2s ease;
         }
         .cust-btn-secondary:hover {
-          background: #252b3d;
+          background: #fff7e6;
           border-color: #f59e0b;
-          color: #ffffff;
+          color: #b45309;
         }
         .cust-detail-perks {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
           gap: 12px;
-          border-top: 1px solid #232736;
+          border-top: 1px solid #f1e7d0;
           padding-top: 20px;
         }
         .cust-perk-item {
@@ -347,11 +348,11 @@ export default function ServiceDetailPage() {
           align-items: center;
           gap: 6px;
           font-size: 12px;
-          color: #94a3b8;
+          color: #6b7280;
           font-weight: 600;
         }
         .cust-perk-icon {
-          color: #10b981;
+          color: #059669;
           font-size: 14px;
         }
 
@@ -367,25 +368,26 @@ export default function ServiceDetailPage() {
           }
         }
         .cust-box {
-          background: #141720;
-          border: 1px solid #232736;
+          background: #ffffff;
+          border: 1px solid #f1e7d0;
           border-radius: 24px;
           padding: 32px;
+          box-shadow: 0 4px 16px -4px rgba(120, 80, 10, 0.08);
         }
         .cust-box-header {
-          border-bottom: 1px solid #232736;
+          border-bottom: 1px solid #f1e7d0;
           padding-bottom: 16px;
           margin-bottom: 24px;
         }
         .cust-box-title {
           font-size: 20px;
           font-weight: 800;
-          color: #ffffff;
+          color: #1f2937;
           margin-top: 4px;
         }
         .cust-box-sub {
           font-size: 12px;
-          color: #94a3b8;
+          color: #6b7280;
           margin-top: 2px;
         }
 
@@ -395,8 +397,8 @@ export default function ServiceDetailPage() {
           align-items: flex-start;
           gap: 16px;
           padding: 16px;
-          background: #0a0b0f;
-          border: 1px solid #1f2433;
+          background: #fffdfa;
+          border: 1px solid #f1e7d0;
           border-radius: 16px;
           margin-bottom: 12px;
         }
@@ -404,9 +406,9 @@ export default function ServiceDetailPage() {
           width: 36px;
           height: 36px;
           border-radius: 12px;
-          background: rgba(245, 158, 11, 0.12);
+          background: rgba(245, 158, 11, 0.15);
           border: 1px solid rgba(245, 158, 11, 0.3);
-          color: #fbbf24;
+          color: #b45309;
           font-size: 14px;
           font-weight: 900;
           display: flex;
@@ -417,12 +419,12 @@ export default function ServiceDetailPage() {
         .cust-step-name {
           font-size: 14px;
           font-weight: 800;
-          color: #ffffff;
+          color: #1f2937;
           margin-bottom: 4px;
         }
         .cust-step-text {
           font-size: 12px;
-          color: #94a3b8;
+          color: #6b7280;
           line-height: 1.55;
         }
 
@@ -432,24 +434,25 @@ export default function ServiceDetailPage() {
           align-items: center;
           gap: 10px;
           padding: 14px 16px;
-          background: #0a0b0f;
-          border: 1px solid #1f2433;
+          background: #fffdfa;
+          border: 1px solid #f1e7d0;
           border-radius: 14px;
           margin-bottom: 10px;
           font-size: 13px;
-          color: #cbd5e1;
+          color: #4b5563;
         }
         .cust-benefit-icon {
-          color: #fbbf24;
+          color: #b45309;
           font-size: 16px;
           flex-shrink: 0;
         }
         .cust-callout-box {
-          background: linear-gradient(135deg, #181d2a 0%, #10131a 100%);
-          border: 1px solid rgba(245, 158, 11, 0.3);
+          background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 50%, #fff7ed 100%);
+          border: 1px solid var(--gold-border);
           border-radius: 20px;
           padding: 24px;
           margin-top: 24px;
+          box-shadow: 0 4px 16px -4px rgba(180, 83, 9, 0.1);
         }
         .cust-callout-top {
           display: flex;
@@ -461,8 +464,8 @@ export default function ServiceDetailPage() {
           width: 42px;
           height: 42px;
           border-radius: 12px;
-          background: rgba(245, 158, 11, 0.15);
-          color: #fbbf24;
+          background: rgba(245, 158, 11, 0.2);
+          color: #b45309;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -471,11 +474,11 @@ export default function ServiceDetailPage() {
         .cust-callout-title {
           font-size: 15px;
           font-weight: 800;
-          color: #ffffff;
+          color: #1f2937;
         }
         .cust-callout-sub {
           font-size: 12px;
-          color: #94a3b8;
+          color: #6b7280;
         }
         .cust-callout-btns {
           display: grid;
