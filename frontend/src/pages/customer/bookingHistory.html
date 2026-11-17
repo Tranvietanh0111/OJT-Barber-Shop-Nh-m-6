@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="vi" class="h-full bg-zinc-950 text-zinc-100">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lịch Hẹn Của Tôi - BarberHub Customer Portal</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            amber: {
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+            },
+            barber: {
+              gold: '#D4AF37',
+              red: '#ef4444',
+              blue: '#3b82f6',
+              card: '#18181b',
+              dark: '#09090b'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'Plus Jakarta Sans', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body class="min-h-full font-sans bg-zinc-950 text-zinc-100 flex flex-col justify-between antialiased selection:bg-amber-500 selection:text-zinc-950">
+
+  <!-- HEADER / NAVIGATION -->
+  <header class="sticky top-0 z-40 bg-zinc-950/85 backdrop-blur-md border-b border-zinc-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="home.html" class="flex items-center space-x-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-600 flex items-center justify-center text-zinc-950 font-black shadow-lg shadow-amber-500/20 group-hover:scale-105 transition">
+          <i class="ph-bold ph-scissors text-2xl"></i>
+        </div>
+        <div>
+          <span class="font-extrabold text-lg tracking-wider text-white uppercase block leading-none">Barber<span class="text-amber-500">Hub</span></span>
+          <span class="text-[10px] text-amber-500 font-semibold tracking-widest uppercase">Customer Club</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
+        <a href="home.html" class="px-4 py-2 rounded-xl text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-900 transition">
+          Trang Chủ
+        </a>
+        <a href="serviceList.html" class="px-4 py-2 rounded-xl text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-900 transition">
+          Bảng Giá Dịch Vụ
+        </a>
+        <a href="barberInfo.html" class="px-4 py-2 rounded-xl text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-900 transition">
+          Master Barbers
+        </a>
+        <a href="bookingHistory.html" class="px-4 py-2 rounded-xl text-sm font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20 transition">
+          Lịch Hẹn Của Tôi
+        </a>
+        <a href="invoiceHistory.html" class="px-4 py-2 rounded-xl text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-900 transition">
+          Hóa Đơn
+        </a>
+        <a href="review.html" class="px-4 py-2 rounded-xl text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-900 transition">
+          Đánh Giá
+        </a>
+        <a href="profile.html" class="px-4 py-2 rounded-xl text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-900 transition">
+          Hồ Sơ VIP
+        </a>
+      </nav>
+
+      <!-- Right User Pill -->
+      <div class="flex items-center space-x-3">
+        <a href="profile.html" class="flex items-center space-x-2.5 p-1.5 pr-3 rounded-xl bg-zinc-900 border border-zinc-800 hover:border-amber-500/40 transition">
+          <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&auto=format&fit=crop&q=80" alt="Avatar" class="w-8 h-8 rounded-lg object-cover ring-1 ring-amber-500">
+          <div class="hidden lg:block text-left">
+            <p class="text-xs font-bold text-white truncate max-w-[100px]">Anh Hoàng Nam</p>
+            <p class="text-[10px] text-amber-400 font-semibold truncate">Khách VIP</p>
+          </div>
+        </a>
+
+        <button onclick="document.getElementById('mobileNavMenu').classList.toggle('hidden')" class="md:hidden p-2 rounded-xl text-zinc-400 hover:text-white hover:bg-zinc-900 border border-zinc-800">
+          <i class="ph-bold ph-list text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Menu -->
+    <div id="mobileNavMenu" class="hidden md:hidden border-t border-zinc-800 bg-zinc-950 px-4 py-3 space-y-2">
+      <a href="home.html" class="block px-3.5 py-2.5 rounded-xl text-sm font-medium text-zinc-400 hover:bg-zinc-900">Trang Chủ</a>
+      <a href="serviceList.html" class="block px-3.5 py-2.5 rounded-xl text-sm font-medium text-zinc-400 hover:bg-zinc-900">Bảng Giá Dịch Vụ</a>
+      <a href="barberInfo.html" class="block px-3.5 py-2.5 rounded-xl text-sm font-medium text-zinc-400 hover:bg-zinc-900">Master Barbers</a>
+      <a href="bookingHistory.html" class="block px-3.5 py-2.5 rounded-xl text-sm font-bold text-amber-400 bg-amber-500/10">Lịch Hẹn Của Tôi</a>
+      <a href="invoiceHistory.html" class="block px-3.5 py-2.5 rounded-xl text-sm font-medium text-zinc-400 hover:bg-zinc-900">Hóa Đơn</a>
+      <a href="review.html" class="block px-3.5 py-2.5 rounded-xl text-sm font-medium text-zinc-400 hover:bg-zinc-900">Đánh Giá</a>
+      <a href="profile.html" class="block px-3.5 py-2.5 rounded-xl text-sm font-medium text-zinc-400 hover:bg-zinc-900">Hồ Sơ VIP</a>
+    </div>
+  </header>
+
+  <!-- MAIN PAGE CONTENT -->
+  <main class="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 w-full space-y-6">
+    
+    <!-- Title & Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-zinc-800 pb-5">
+      <div>
+        <span class="text-xs font-black uppercase text-amber-500 tracking-widest block">Theo Dõi Cuộc Hẹn</span>
+        <h1 class="text-2xl sm:text-3xl font-black text-white mt-1">Lịch Hẹn Cắt Tóc Của Tôi</h1>
+        <p class="text-xs sm:text-sm text-zinc-400 mt-1">Quản lý các lịch hẹn sắp tới, theo dõi tiến độ và đánh giá chất lượng phục vụ.</p>
+      </div>
+
+      <!-- Filter Pills -->
+      <div class="flex items-center space-x-1 p-1.5 bg-zinc-900 rounded-2xl border border-zinc-800 shrink-0">
+        <button id="btnAll" onclick="filterBookings('all', this)" class="bk-tab px-4 py-2 rounded-xl text-xs font-bold bg-amber-500 text-zinc-950 transition">
+          Tất Cả
+        </button>
+        <button id="btnUpcoming" onclick="filterBookings('upcoming', this)" class="bk-tab px-4 py-2 rounded-xl text-xs font-bold bg-zinc-900 text-zinc-400 hover:text-white transition">
+          Sắp Tới
+        </button>
+        <button id="btnCompleted" onclick="filterBookings('completed', this)" class="bk-tab px-4 py-2 rounded-xl text-xs font-bold bg-zinc-900 text-zinc-400 hover:text-white transition">
+          Hoàn Thành
+        </button>
+        <button id="btnCancelled" onclick="filterBookings('cancelled', this)" class="bk-tab px-4 py-2 rounded-xl text-xs font-bold bg-zinc-900 text-zinc-400 hover:text-white transition">
+          Đã Hủy
+        </button>
+      </div>
+    </div>
+
+    <!-- Booking List Container -->
+    <div id="bookingListContainer" class="space-y-4">
+      
+      <!-- Item 1: Hoàn thành -->
+      <div class="booking-item bg-zinc-900 border border-zinc-800 rounded-3xl p-5 sm:p-6 hover:border-zinc-700 transition space-y-4" data-status="completed">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-800 pb-4">
+          <div class="flex items-center space-x-3">
+            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-500 text-xl font-black">
+              <i class="ph-bold ph-scissors"></i>
+            </div>
+            <div>
+              <span class="text-xs font-extrabold text-amber-400 block">09:00 AM • 16/11/2026</span>
+              <h3 class="text-base font-bold text-white mt-0.5">Cắt Fade Barber + Cạo Râu Khăn Nóng</h3>
+            </div>
+          </div>
+          <div class="flex items-center space-x-3">
+            <span class="px-3 py-1 text-xs font-bold rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              Hoàn Thành
+            </span>
+            <span class="text-base font-black text-amber-400">250.000 đ</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
+          <div class="p-3 bg-zinc-950 rounded-xl border border-zinc-800/80">
+            <span class="text-[10px] text-zinc-500 uppercase block font-semibold">Thợ thực hiện</span>
+            <span class="font-bold text-white mt-0.5 block">Tuấn Master</span>
+          </div>
+          <div class="p-3 bg-zinc-950 rounded-xl border border-zinc-800/80">
+            <span class="text-[10px] text-zinc-500 uppercase block font-semibold">Vị trí ghế</span>
+            <span class="font-bold text-white mt-0.5 block">Ghế Barber VIP 01</span>
+          </div>
+          <div class="col-span-2 sm:col-span-1 p-3 bg-zinc-950 rounded-xl border border-zinc-800/80">
+            <span class="text-[10px] text-zinc-500 uppercase block font-semibold">Chi nhánh</span>
+            <span class="font-bold text-amber-400 mt-0.5 block">Hàng Bạc, Hà Nội</span>
+          </div>
+        </div>
+
+        <div class="pt-2 flex flex-wrap items-center justify-between gap-2 border-t border-zinc-800/80">
+          <span class="text-xs text-zinc-500">Mã đặt lịch: <strong class="text-zinc-400">#BH-98214</strong></span>
+          <div class="flex items-center space-x-2">
+            <a href="invoiceHistory.html" class="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 rounded-xl text-xs font-bold transition flex items-center space-x-1">
+              <i class="ph-bold ph-receipt text-amber-400"></i>
+              <span>Hóa Đơn</span>
+            </a>
+            <a href="review.html" class="px-3.5 py-1.5 bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded-xl text-xs font-bold transition flex items-center space-x-1">
+              <span>⭐ Đánh Giá</span>
+            </a>
+            <a href="serviceDetail.html?id=srv-2" class="px-3.5 py-1.5 bg-amber-500 hover:bg-amber-600 text-zinc-950 rounded-xl text-xs font-bold transition">
+              Đặt Lại Kiểu Này
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 2: Đang cắt -->
+      <div class="booking-item bg-zinc-900 border border-zinc-800 rounded-3xl p-5 sm:p-6 hover:border-zinc-700 transition space-y-4" data-status="upcoming">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-800 pb-4">
+          <div class="flex items-center space-x-3">
+            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-500 text-xl font-black">
+              <i class="ph-bold ph-scissors"></i>
+            </div>
+            <div>
+              <span class="text-xs font-extrabold text-amber-400 block">03:30 PM • Hôm nay</span>
+              <h3 class="text-base font-bold text-white mt-0.5">Combo Cắt Gội Massage Đăng Quang</h3>
+            </div>
+          </div>
+          <div class="flex items-center space-x-3">
+            <span class="px-3 py-1 text-xs font-bold rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center">
+              <span class="w-2 h-2 rounded-full bg-amber-400 mr-1.5 animate-pulse"></span> Đang Cắt
+            </span>
+            <span class="text-base font-black text-amber-400">250.000 đ</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
+          <div class="p-3 bg-zinc-950 rounded-xl border border-zinc-800/80">
+            <span class="text-[10px] text-zinc-500 uppercase block font-semibold">Thợ thực hiện</span>
+            <span class="font-bold text-white mt-0.5 block">Tuấn Master</span>
+          </div>
+          <div class="p-3 bg-zinc-950 rounded-xl border border-zinc-800/80">
+            <span class="text-[10px] text-zinc-500 uppercase block font-semibold">Vị trí ghế</span>
+            <span class="font-bold text-white mt-0.5 block">Ghế VIP 01</span>
+          </div>
+          <div class="col-span-2 sm:col-span-1 p-3 bg-zinc-950 rounded-xl border border-zinc-800/80">
+            <span class="text-[10px] text-zinc-500 uppercase block font-semibold">Chi nhánh</span>
+            <span class="font-bold text-amber-400 mt-0.5 block">Hàng Bạc, Hà Nội</span>
+          </div>
+        </div>
+
+        <div class="pt-2 flex flex-wrap items-center justify-between gap-2 border-t border-zinc-800/80">
+          <span class="text-xs text-zinc-500">Mã đặt lịch: <strong class="text-zinc-400">#BH-98350</strong></span>
+          <div class="flex items-center space-x-2">
+            <a href="https://maps.google.com" target="_blank" class="px-3.5 py-1.5 bg-zinc-800 hover:bg-zinc-700 text-white rounded-xl text-xs font-bold transition flex items-center space-x-1">
+              <i class="ph-bold ph-navigation-arrow text-amber-400"></i>
+              <span>Chỉ Đường</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 3: Sắp tới -->
+      <div class="booking-item bg-zinc-900 border border-zinc-800 rounded-3xl p-5 sm:p-6 hover:border-zinc-700 transition space-y-4" data-status="upcoming">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-800 pb-4">
+          <div class="flex items-center space-x-3">
+            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-500 text-xl font-black">
+              <i class="ph-bold ph-scissors"></i>
+            </div>
+            <div>
+              <span class="text-xs font-extrabold text-amber-400 block">10:00 AM • 20/11/2026</span>
+              <h3 class="text-base font-bold text-white mt-0.5">Uốn Xoăn Hàn Quốc / Fly / Texture</h3>
+            </div>
+          </div>
+          <div class="flex items-center space-x-3">
+            <span class="px-3 py-1 text-xs font-bold rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
+              Sắp Tới
+            </span>
+            <span class="text-base font-black text-amber-400">450.000 đ</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
+          <div class="p-3 bg-zinc-950 rounded-xl border border-zinc-800/80">
+            <span class="text-[10px] text-zinc-500 uppercase block font-semibold">Thợ thực hiện</span>
+            <span class="font-bold text-white mt-0.5 block">Minh Barber</span>
+          </div>
+          <div class="p-3 bg-zinc-950 rounded-xl border border-zinc-800/80">
+            <span class="text-[10px] text-zinc-500 uppercase block font-semibold">Vị trí ghế</span>
+            <span class="font-bold text-white mt-0.5 block">Ghế 02</span>
+          </div>
+          <div class="col-span-2 sm:col-span-1 p-3 bg-zinc-950 rounded-xl border border-zinc-800/80">
+            <span class="text-[10px] text-zinc-500 uppercase block font-semibold">Chi nhánh</span>
+            <span class="font-bold text-amber-400 mt-0.5 block">Hàng Bạc, Hà Nội</span>
+          </div>
+        </div>
+
+        <div class="pt-2 flex flex-wrap items-center justify-between gap-2 border-t border-zinc-800/80">
+          <span class="text-xs text-zinc-500">Mã đặt lịch: <strong class="text-zinc-400">#BH-98402</strong></span>
+          <div class="flex items-center space-x-2">
+            <button onclick="cancelBooking(this)" class="px-3 py-1.5 bg-zinc-800 hover:bg-red-500/20 hover:text-red-400 text-zinc-400 rounded-xl text-xs font-bold transition">
+              Hủy Lịch Hẹn
+            </button>
+            <a href="https://maps.google.com" target="_blank" class="px-3.5 py-1.5 bg-zinc-800 hover:bg-zinc-700 text-white rounded-xl text-xs font-bold transition flex items-center space-x-1">
+              <i class="ph-bold ph-navigation-arrow text-amber-400"></i>
+              <span>Chỉ Đường</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-zinc-900 border-t border-zinc-800 py-10 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-400">
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 rounded-lg bg-amber-500 flex items-center justify-center text-zinc-950 font-bold">
+          <i class="ph-bold ph-scissors"></i>
+        </div>
+        <div>
+          <span class="font-bold text-white uppercase">BarberHub Salon Suite</span>
+          <p class="text-[11px] text-zinc-500">Chi nhánh Hàng Bạc, Hoàn Kiếm, Hà Nội • Hotline: 0904.123.888</p>
+        </div>
+      </div>
+      <p>© 2026 BarberHub. Phụ trách: Lương Trọng Đạt - Customer Module</p>
+    </div>
+  </footer>
+
+  <script>
+    function filterBookings(status, btn) {
+      document.querySelectorAll('.bk-tab').forEach(b => {
+        b.className = 'bk-tab px-4 py-2 rounded-xl text-xs font-bold bg-zinc-900 text-zinc-400 hover:text-white transition';
+      });
+      btn.className = 'bk-tab px-4 py-2 rounded-xl text-xs font-bold bg-amber-500 text-zinc-950 transition';
+
+      const items = document.querySelectorAll('.booking-item');
+      items.forEach(it => {
+        const s = it.getAttribute('data-status');
+        if (status === 'all' || s === status) {
+          it.style.display = 'block';
+        } else {
+          it.style.display = 'none';
+        }
+      });
+    }
+
+    function cancelBooking(btn) {
+      if (confirm('Bạn có chắc muốn hủy lịch hẹn này?')) {
+        const card = btn.closest('.booking-item');
+        card.setAttribute('data-status', 'cancelled');
+        alert('Đã hủy lịch hẹn thành công!');
+        btn.remove();
+      }
+    }
+  </script>
+</body>
+</html>

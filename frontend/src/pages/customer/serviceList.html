@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="vi" class="h-full bg-zinc-950 text-zinc-100">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bảng Giá Dịch Vụ - BarberHub Customer Portal</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            amber: {
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+            },
+            barber: {
+              gold: '#D4AF37',
+              red: '#ef4444',
+              blue: '#3b82f6',
+              card: '#18181b',
+              dark: '#09090b'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'Plus Jakarta Sans', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body class="min-h-full font-sans bg-zinc-950 text-zinc-100 flex flex-col justify-between antialiased selection:bg-amber-500 selection:text-zinc-950">
+
+  <!-- HEADER / NAVIGATION -->
+  <header class="sticky top-0 z-40 bg-zinc-950/85 backdrop-blur-md border-b border-zinc-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="home.html" class="flex items-center space-x-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-600 flex items-center justify-center text-zinc-950 font-black shadow-lg shadow-amber-500/20 group-hover:scale-105 transition">
+          <i class="ph-bold ph-scissors text-2xl"></i>
+        </div>
+        <div>
+          <span class="font-extrabold text-lg tracking-wider text-white uppercase block leading-none">Barber<span class="text-amber-500">Hub</span></span>
+          <span class="text-[10px] text-amber-500 font-semibold tracking-widest uppercase">Customer Club</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
+        <a href="home.html" class="px-4 py-2 rounded-xl text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-900 transition">
+          Trang Chủ
+        </a>
+        <a href="serviceList.html" class="px-4 py-2 rounded-xl text-sm font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20 transition">
+          Bảng Giá Dịch Vụ
+        </a>
+        <a href="barberInfo.html" class="px-4 py-2 rounded-xl text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-900 transition">
+          Master Barbers
+        </a>
+        <a href="bookingHistory.html" class="px-4 py-2 rounded-xl text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-900 transition">
+          Lịch Hẹn Của Tôi
+        </a>
+        <a href="invoiceHistory.html" class="px-4 py-2 rounded-xl text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-900 transition">
+          Hóa Đơn
+        </a>
+        <a href="review.html" class="px-4 py-2 rounded-xl text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-900 transition">
+          Đánh Giá
+        </a>
+        <a href="profile.html" class="px-4 py-2 rounded-xl text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-900 transition">
+          Hồ Sơ VIP
+        </a>
+      </nav>
+
+      <!-- Right Actions & User Pill -->
+      <div class="flex items-center space-x-3">
+        <a href="profile.html" class="flex items-center space-x-2.5 p-1.5 pr-3 rounded-xl bg-zinc-900 border border-zinc-800 hover:border-amber-500/40 transition">
+          <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&auto=format&fit=crop&q=80" alt="Avatar" class="w-8 h-8 rounded-lg object-cover ring-1 ring-amber-500">
+          <div class="hidden lg:block text-left">
+            <p class="text-xs font-bold text-white truncate max-w-[100px]">Anh Hoàng Nam</p>
+            <p class="text-[10px] text-amber-400 font-semibold truncate">Khách VIP</p>
+          </div>
+        </a>
+
+        <button onclick="document.getElementById('mobileNavMenu').classList.toggle('hidden')" class="md:hidden p-2 rounded-xl text-zinc-400 hover:text-white hover:bg-zinc-900 border border-zinc-800">
+          <i class="ph-bold ph-list text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Menu -->
+    <div id="mobileNavMenu" class="hidden md:hidden border-t border-zinc-800 bg-zinc-950 px-4 py-3 space-y-2">
+      <a href="home.html" class="block px-3.5 py-2.5 rounded-xl text-sm font-medium text-zinc-400 hover:bg-zinc-900">Trang Chủ</a>
+      <a href="serviceList.html" class="block px-3.5 py-2.5 rounded-xl text-sm font-bold text-amber-400 bg-amber-500/10">Bảng Giá Dịch Vụ</a>
+      <a href="barberInfo.html" class="block px-3.5 py-2.5 rounded-xl text-sm font-medium text-zinc-400 hover:bg-zinc-900">Master Barbers</a>
+      <a href="bookingHistory.html" class="block px-3.5 py-2.5 rounded-xl text-sm font-medium text-zinc-400 hover:bg-zinc-900">Lịch Hẹn Của Tôi</a>
+      <a href="invoiceHistory.html" class="block px-3.5 py-2.5 rounded-xl text-sm font-medium text-zinc-400 hover:bg-zinc-900">Hóa Đơn</a>
+      <a href="review.html" class="block px-3.5 py-2.5 rounded-xl text-sm font-medium text-zinc-400 hover:bg-zinc-900">Đánh Giá</a>
+      <a href="profile.html" class="block px-3.5 py-2.5 rounded-xl text-sm font-medium text-zinc-400 hover:bg-zinc-900">Hồ Sơ VIP</a>
+    </div>
+  </header>
+
+  <!-- MAIN PAGE CONTENT -->
+  <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 w-full space-y-8">
+    
+    <!-- Title & Header -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-zinc-800 pb-6">
+      <div>
+        <span class="text-xs font-black uppercase text-amber-500 tracking-widest block">Bảng Giá Dịch Vụ 2026</span>
+        <h1 class="text-2xl sm:text-4xl font-black text-white mt-1">Dịch Vụ Cắt Tóc & Chăm Sóc Quý Ông</h1>
+        <p class="text-xs sm:text-sm text-zinc-400 mt-1">Cam kết giá niêm yết minh bạch, bảo hành 7 ngày và đồ uống thảo mộc miễn phí.</p>
+      </div>
+      <a href="serviceDetail.html?id=srv-2" class="px-6 py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-zinc-950 font-black text-xs rounded-xl shadow-lg shadow-amber-500/20 transition flex items-center space-x-1.5 self-start md:self-auto">
+        <i class="ph-bold ph-calendar-plus text-base"></i>
+        <span>Đặt Lịch Ngay</span>
+      </a>
+    </div>
+
+    <!-- Search & Filter Bar -->
+    <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 space-y-5">
+      <!-- Search Input -->
+      <div class="relative">
+        <i class="ph-bold ph-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 text-lg"></i>
+        <input
+          id="searchInput"
+          type="text"
+          placeholder="Tìm kiếm dịch vụ (ví dụ: Fade, Uốn Hàn Quốc, Gội đầu thảo mộc, Cạo râu...)"
+          oninput="filterServices()"
+          class="w-full pl-11 pr-4 py-3 bg-zinc-950 border border-zinc-800 rounded-2xl text-sm text-white placeholder-zinc-500 focus:border-amber-500 outline-none transition"
+        />
+      </div>
+
+      <!-- Filter Pills -->
+      <div class="flex flex-wrap items-center gap-2" id="filterPills">
+        <button onclick="setCategory('all', this)" class="cat-pill px-4 py-2 rounded-xl text-xs font-bold bg-amber-500 text-zinc-950 transition shadow-md shadow-amber-500/20">
+          Tất Cả (6)
+        </button>
+        <button onclick="setCategory('Cắt Tạo Kiểu', this)" class="cat-pill px-4 py-2 rounded-xl text-xs font-bold bg-zinc-950 text-zinc-400 hover:text-white hover:bg-zinc-800 border border-zinc-800 transition">
+          Cắt Tạo Kiểu
+        </button>
+        <button onclick="setCategory('Combo VIP', this)" class="cat-pill px-4 py-2 rounded-xl text-xs font-bold bg-zinc-950 text-zinc-400 hover:text-white hover:bg-zinc-800 border border-zinc-800 transition">
+          Combo VIP
+        </button>
+        <button onclick="setCategory('Uốn Tóc Nam', this)" class="cat-pill px-4 py-2 rounded-xl text-xs font-bold bg-zinc-950 text-zinc-400 hover:text-white hover:bg-zinc-800 border border-zinc-800 transition">
+          Uốn Tóc Nam
+        </button>
+        <button onclick="setCategory('Nhuộm Thời Trang', this)" class="cat-pill px-4 py-2 rounded-xl text-xs font-bold bg-zinc-950 text-zinc-400 hover:text-white hover:bg-zinc-800 border border-zinc-800 transition">
+          Nhuộm Màu
+        </button>
+        <button onclick="setCategory('Cạo Râu Classic', this)" class="cat-pill px-4 py-2 rounded-xl text-xs font-bold bg-zinc-950 text-zinc-400 hover:text-white hover:bg-zinc-800 border border-zinc-800 transition">
+          Cạo Râu
+        </button>
+        <button onclick="setCategory('Chăm Sóc Da Đầu', this)" class="cat-pill px-4 py-2 rounded-xl text-xs font-bold bg-zinc-950 text-zinc-400 hover:text-white hover:bg-zinc-800 border border-zinc-800 transition">
+          Chăm Sóc Da
+        </button>
+      </div>
+    </div>
+
+    <!-- Services Grid -->
+    <div id="servicesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      <!-- Service 1 -->
+      <div class="service-card bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden hover:border-amber-500/50 hover:shadow-2xl hover:shadow-amber-500/10 transition group flex flex-col justify-between" data-category="Cắt Tạo Kiểu" data-name="Cắt Tóc Nam Chuẩn Barber Fade Sidepart">
+        <div>
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=600&auto=format&fit=crop&q=80" alt="Cắt Tóc Nam Chuẩn Barber" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-[11px] font-extrabold uppercase bg-amber-500/90 text-zinc-950 backdrop-blur-md">
+              Cắt Tạo Kiểu
+            </span>
+            <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-lg text-xs font-bold bg-zinc-950/80 text-zinc-200 backdrop-blur-md flex items-center">
+              <i class="ph-bold ph-clock mr-1 text-amber-400"></i> 30 Phút
+            </span>
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-white group-hover:text-amber-400 transition">Cắt Tóc Nam Chuẩn Barber</h3>
+            <p class="text-xs text-zinc-400 mt-2 leading-relaxed">Tư vấn phom tóc phù hợp khuôn mặt (Sidepart, Undercut, Fade), sấy tạo kiểu ép hairline sắc nét.</p>
+          </div>
+        </div>
+        <div class="px-6 pb-6 pt-4 border-t border-zinc-800 flex items-center justify-between">
+          <div>
+            <span class="text-[10px] text-zinc-500 block uppercase font-medium">Giá niêm yết</span>
+            <span class="text-xl font-black text-amber-400">150.000 đ</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <a href="serviceDetail.html?id=srv-1" class="px-3.5 py-2 text-xs font-bold bg-zinc-800 hover:bg-zinc-700 text-zinc-300 rounded-xl transition">
+              Chi Tiết
+            </a>
+            <a href="serviceDetail.html?id=srv-1" class="px-3.5 py-2 text-xs font-black bg-amber-500 hover:bg-amber-600 text-zinc-950 rounded-xl transition shadow-md shadow-amber-500/20">
+              Đặt Ngay
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service 2 -->
+      <div class="service-card bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden hover:border-amber-500/50 hover:shadow-2xl hover:shadow-amber-500/10 transition group flex flex-col justify-between" data-category="Combo VIP" data-name="Combo Cắt + Gội + Massage Đăng Quang VIP">
+        <div>
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=600&auto=format&fit=crop&q=80" alt="Combo Cắt + Gội + Massage Đăng Quang" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-[11px] font-extrabold uppercase bg-red-500/90 text-white backdrop-blur-md">
+              Combo VIP
+            </span>
+            <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-lg text-xs font-bold bg-zinc-950/80 text-zinc-200 backdrop-blur-md flex items-center">
+              <i class="ph-bold ph-clock mr-1 text-amber-400"></i> 45 Phút
+            </span>
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-white group-hover:text-amber-400 transition">Combo Cắt + Gội + Massage Đăng Quang</h3>
+            <p class="text-xs text-zinc-400 mt-2 leading-relaxed">Cắt tóc, rửa mặt thảo mộc, gội đầu dưỡng sinh, massage bấm huyệt cổ vai gáy, sấy vuốt sáp tạo kiểu.</p>
+          </div>
+        </div>
+        <div class="px-6 pb-6 pt-4 border-t border-zinc-800 flex items-center justify-between">
+          <div>
+            <span class="text-[10px] text-zinc-500 block uppercase font-medium">Giá niêm yết</span>
+            <span class="text-xl font-black text-amber-400">250.000 đ</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <a href="serviceDetail.html?id=srv-2" class="px-3.5 py-2 text-xs font-bold bg-zinc-800 hover:bg-zinc-700 text-zinc-300 rounded-xl transition">
+              Chi Tiết
+            </a>
+            <a href="serviceDetail.html?id=srv-2" class="px-3.5 py-2 text-xs font-black bg-amber-500 hover:bg-amber-600 text-zinc-950 rounded-xl transition shadow-md shadow-amber-500/20">
+              Đặt Ngay
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service 3 -->
+      <div class="service-card bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden hover:border-amber-500/50 hover:shadow-2xl hover:shadow-amber-500/10 transition group flex flex-col justify-between" data-category="Uốn Tóc Nam" data-name="Uốn Xoăn Hàn Quốc Fly Texture">
+        <div>
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=600&auto=format&fit=crop&q=80" alt="Uốn Xoăn Hàn Quốc / Fly / Texture" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-[11px] font-extrabold uppercase bg-blue-500/90 text-white backdrop-blur-md">
+              Uốn Tóc Nam
+            </span>
+            <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-lg text-xs font-bold bg-zinc-950/80 text-zinc-200 backdrop-blur-md flex items-center">
+              <i class="ph-bold ph-clock mr-1 text-amber-400"></i> 90 Phút
+            </span>
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-white group-hover:text-amber-400 transition">Uốn Xoăn Hàn Quốc / Fly / Texture</h3>
+            <p class="text-xs text-zinc-400 mt-2 leading-relaxed">Định hình phom tóc bồng bềnh chuẩn soái ca, sử dụng thuốc uốn collagen không khô rát da đầu.</p>
+          </div>
+        </div>
+        <div class="px-6 pb-6 pt-4 border-t border-zinc-800 flex items-center justify-between">
+          <div>
+            <span class="text-[10px] text-zinc-500 block uppercase font-medium">Giá niêm yết</span>
+            <span class="text-xl font-black text-amber-400">450.000 đ</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <a href="serviceDetail.html?id=srv-3" class="px-3.5 py-2 text-xs font-bold bg-zinc-800 hover:bg-zinc-700 text-zinc-300 rounded-xl transition">
+              Chi Tiết
+            </a>
+            <a href="serviceDetail.html?id=srv-3" class="px-3.5 py-2 text-xs font-black bg-amber-500 hover:bg-amber-600 text-zinc-950 rounded-xl transition shadow-md shadow-amber-500/20">
+              Đặt Ngay
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service 4 -->
+      <div class="service-card bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden hover:border-amber-500/50 hover:shadow-2xl hover:shadow-amber-500/10 transition group flex flex-col justify-between" data-category="Nhuộm Thời Trang" data-name="Nhuộm Màu Tẩy Tóc Cao Cấp Khói Xám">
+        <div>
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1517832606589-7629c3395909?w=600&auto=format&fit=crop&q=80" alt="Nhuộm Màu / Tẩy Tóc Cao Cấp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-[11px] font-extrabold uppercase bg-purple-500/90 text-white backdrop-blur-md">
+              Nhuộm Màu
+            </span>
+            <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-lg text-xs font-bold bg-zinc-950/80 text-zinc-200 backdrop-blur-md flex items-center">
+              <i class="ph-bold ph-clock mr-1 text-amber-400"></i> 120 Phút
+            </span>
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-white group-hover:text-amber-400 transition">Nhuộm Màu / Tẩy Tóc Cao Cấp</h3>
+            <p class="text-xs text-zinc-400 mt-2 leading-relaxed">Tẩy khói, nâu tây, xanh rêu, xám chì... Tặng kèm hấp phục hồi khóa màu siêu mượt.</p>
+          </div>
+        </div>
+        <div class="px-6 pb-6 pt-4 border-t border-zinc-800 flex items-center justify-between">
+          <div>
+            <span class="text-[10px] text-zinc-500 block uppercase font-medium">Giá niêm yết</span>
+            <span class="text-xl font-black text-amber-400">600.000 đ</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <a href="serviceDetail.html?id=srv-4" class="px-3.5 py-2 text-xs font-bold bg-zinc-800 hover:bg-zinc-700 text-zinc-300 rounded-xl transition">
+              Chi Tiết
+            </a>
+            <a href="serviceDetail.html?id=srv-4" class="px-3.5 py-2 text-xs font-black bg-amber-500 hover:bg-amber-600 text-zinc-950 rounded-xl transition shadow-md shadow-amber-500/20">
+              Đặt Ngay
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service 5 -->
+      <div class="service-card bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden hover:border-amber-500/50 hover:shadow-2xl hover:shadow-amber-500/10 transition group flex flex-col justify-between" data-category="Cạo Râu Classic" data-name="Cạo Râu Khăn Nóng Classic Truyền Thống">
+        <div>
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=600&auto=format&fit=crop&q=80" alt="Cạo Râu & Mặt Khăn Nóng Classic" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-[11px] font-extrabold uppercase bg-emerald-500/90 text-white backdrop-blur-md">
+              Cạo Râu Classic
+            </span>
+            <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-lg text-xs font-bold bg-zinc-950/80 text-zinc-200 backdrop-blur-md flex items-center">
+              <i class="ph-bold ph-clock mr-1 text-amber-400"></i> 20 Phút
+            </span>
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-white group-hover:text-amber-400 transition">Cạo Râu & Mặt Khăn Nóng Classic</h3>
+            <p class="text-xs text-zinc-400 mt-2 leading-relaxed">Cạo bằng dao thợ truyền thống, ủ khăn nóng tinh dầu thảo mộc, bôi lotion sau cạo kháng khuẩn.</p>
+          </div>
+        </div>
+        <div class="px-6 pb-6 pt-4 border-t border-zinc-800 flex items-center justify-between">
+          <div>
+            <span class="text-[10px] text-zinc-500 block uppercase font-medium">Giá niêm yết</span>
+            <span class="text-xl font-black text-amber-400">100.000 đ</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <a href="serviceDetail.html?id=srv-5" class="px-3.5 py-2 text-xs font-bold bg-zinc-800 hover:bg-zinc-700 text-zinc-300 rounded-xl transition">
+              Chi Tiết
+            </a>
+            <a href="serviceDetail.html?id=srv-5" class="px-3.5 py-2 text-xs font-black bg-amber-500 hover:bg-amber-600 text-zinc-950 rounded-xl transition shadow-md shadow-amber-500/20">
+              Đặt Ngay
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service 6 -->
+      <div class="service-card bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden hover:border-amber-500/50 hover:shadow-2xl hover:shadow-amber-500/10 transition group flex flex-col justify-between" data-category="Chăm Sóc Da Đầu" data-name="Tẩy Tế Bào Chết Trị Gàu Da Đầu">
+        <div>
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1519500570469-6502c314d43f?w=600&auto=format&fit=crop&q=80" alt="Tẩy Tế Bào Chết & Trị Gàu Da Đầu" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-[11px] font-extrabold uppercase bg-amber-500/90 text-zinc-950 backdrop-blur-md">
+              Chăm Sóc Da Đầu
+            </span>
+            <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-lg text-xs font-bold bg-zinc-950/80 text-zinc-200 backdrop-blur-md flex items-center">
+              <i class="ph-bold ph-clock mr-1 text-amber-400"></i> 30 Phút
+            </span>
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-white group-hover:text-amber-400 transition">Tẩy Tế Bào Chết & Trị Gàu Da Đầu</h3>
+            <p class="text-xs text-zinc-400 mt-2 leading-relaxed">Tẩy sạch bã nhờn chân tóc, thanh lọc da đầu bằng muối khoáng sinh học, thông thoáng mát lạnh.</p>
+          </div>
+        </div>
+        <div class="px-6 pb-6 pt-4 border-t border-zinc-800 flex items-center justify-between">
+          <div>
+            <span class="text-[10px] text-zinc-500 block uppercase font-medium">Giá niêm yết</span>
+            <span class="text-xl font-black text-amber-400">200.000 đ</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <a href="serviceDetail.html?id=srv-6" class="px-3.5 py-2 text-xs font-bold bg-zinc-800 hover:bg-zinc-700 text-zinc-300 rounded-xl transition">
+              Chi Tiết
+            </a>
+            <a href="serviceDetail.html?id=srv-6" class="px-3.5 py-2 text-xs font-black bg-amber-500 hover:bg-amber-600 text-zinc-950 rounded-xl transition shadow-md shadow-amber-500/20">
+              Đặt Ngay
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-zinc-900 border-t border-zinc-800 py-10 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-400">
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 rounded-lg bg-amber-500 flex items-center justify-center text-zinc-950 font-bold">
+          <i class="ph-bold ph-scissors"></i>
+        </div>
+        <div>
+          <span class="font-bold text-white uppercase">BarberHub Salon Suite</span>
+          <p class="text-[11px] text-zinc-500">Chi nhánh Hàng Bạc, Hoàn Kiếm, Hà Nội • Hotline: 0904.123.888</p>
+        </div>
+      </div>
+      <p>© 2026 BarberHub. Phụ trách: Lương Trọng Đạt - Customer Module</p>
+    </div>
+  </footer>
+
+  <script>
+    let activeCategory = 'all';
+
+    function setCategory(cat, btn) {
+      activeCategory = cat;
+      document.querySelectorAll('.cat-pill').forEach(b => {
+        b.className = 'cat-pill px-4 py-2 rounded-xl text-xs font-bold bg-zinc-950 text-zinc-400 hover:text-white hover:bg-zinc-800 border border-zinc-800 transition';
+      });
+      btn.className = 'cat-pill px-4 py-2 rounded-xl text-xs font-bold bg-amber-500 text-zinc-950 transition shadow-md shadow-amber-500/20';
+      filterServices();
+    }
+
+    function filterServices() {
+      const q = document.getElementById('searchInput').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.service-card');
+      cards.forEach(card => {
+        const cat = card.getAttribute('data-category');
+        const name = card.getAttribute('data-name').toLowerCase();
+        const matchesCat = (activeCategory === 'all' || cat === activeCategory);
+        const matchesSearch = !q || name.includes(q);
+        if (matchesCat && matchesSearch) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
