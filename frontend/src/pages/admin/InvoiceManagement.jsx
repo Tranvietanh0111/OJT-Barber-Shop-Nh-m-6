@@ -6,34 +6,7 @@ import "./admin.css";
 export default function InvoiceManagement() {
   return (
     <div className="adm-shell">
-      <aside className="adm-sidebar">
-        <div className="adm-brand">
-          <div className="adm-brand-logo">BH</div>
-          <div>
-            <h2 className="adm-brand-title">BarberHub</h2>
-            <p className="adm-brand-sub">Admin Panel</p>
-          </div>
-        </div>
-        <div className="adm-nav-section">Menu Quản Trị</div>
-        <nav className="adm-nav">
-          <Link to="/admin" className="adm-nav-link"><span className="adm-nav-left"><span className="adm-nav-icon">📊</span><span>Admin Dashboard</span></span></Link>
-          <Link to="/admin/users" className="adm-nav-link"><span className="adm-nav-left"><span className="adm-nav-icon">👥</span><span>Quản lý người dùng</span></span></Link>
-          <Link to="/admin/barbers" className="adm-nav-link"><span className="adm-nav-left"><span className="adm-nav-icon">✂️</span><span>Quản lý Barber</span></span></Link>
-          <Link to="/admin/services" className="adm-nav-link"><span className="adm-nav-left"><span className="adm-nav-icon">💈</span><span>Quản lý dịch vụ</span></span></Link>
-          <Link to="/admin/appointments" className="adm-nav-link"><span className="adm-nav-left"><span className="adm-nav-icon">📅</span><span>Quản lý lịch hẹn</span></span></Link>
-          <Link to="/admin/invoices" className="adm-nav-link active"><span className="adm-nav-left"><span className="adm-nav-icon">🧾</span><span>Quản lý hóa đơn</span></span></Link>
-          <Link to="/admin/revenue" className="adm-nav-link"><span className="adm-nav-left"><span className="adm-nav-icon">📈</span><span>Thống kê doanh thu</span></span></Link>
-        </nav>
-        <div className="adm-sidebar-footer">
-          <div>
-            <strong>Trần Văn Thắng</strong>
-            <span>Phụ trách: Admin</span>
-          </div>
-          <a href="#logout" className="adm-logout-btn" title="Đăng xuất">
-            <i className="fa-solid fa-right-from-bracket" />
-          </a>
-        </div>
-      </aside>
+      
 
       <div className="adm-main">
         <header className="adm-topbar">
