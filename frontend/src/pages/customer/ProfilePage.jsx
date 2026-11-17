@@ -1,5 +1,5 @@
 // Phụ trách: Lương Trọng Đạt - Customer Module
-// Route: /profile (Hồ sơ khách hàng, đặc quyền VIP & quản lý tài khoản)
+// Route: /profile (Hồ sơ khách hàng, đặc quyền VIP & quản lý tài khoản - Tích hợp đầy đủ Giao diện, Chuyển tài khoản & Phong cách Royal Gold)
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -11,6 +11,7 @@ export default function ProfilePage() {
       phone: "0904.123.888",
       email: "hoangnam.barber@gmail.com",
       tier: "VIP",
+      tierColor: "gold",
       cutCount: 12,
       totalSpent: "2.850.000 đ",
       favBarber: "Tuấn Master",
@@ -25,6 +26,7 @@ export default function ProfilePage() {
       phone: "0978.555.210",
       email: "duc.leminh@gmail.com",
       tier: "Thân Thiết",
+      tierColor: "blue",
       cutCount: 6,
       totalSpent: "1.600.000 đ",
       favBarber: "Minh Barber",
@@ -39,6 +41,7 @@ export default function ProfilePage() {
       phone: "0912.999.341",
       email: "bao.tq@gmail.com",
       tier: "Thân Thiết",
+      tierColor: "blue",
       cutCount: 5,
       totalSpent: "1.750.000 đ",
       favBarber: "Hoàng Stylist",
@@ -53,6 +56,7 @@ export default function ProfilePage() {
       phone: "0983.111.444",
       email: "cuong.pv@gmail.com",
       tier: "Mới",
+      tierColor: "neutral",
       cutCount: 2,
       totalSpent: "400.000 đ",
       favBarber: "Dũng Barber",
@@ -100,12 +104,8 @@ export default function ProfilePage() {
     }
   };
 
-  const handleProfileSave = (e) => {
+  const handleSaveInfo = (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.phone) {
-      alert("Vui lòng điền họ tên và số điện thoại!");
-      return;
-    }
     setCurrentClient({
       ...currentClient,
       name: formData.name,
@@ -114,258 +114,537 @@ export default function ProfilePage() {
       birthday: formData.birthday,
       address: formData.address
     });
-    showToast("Đã lưu thông tin cá nhân thành công!");
+    showToast("Cập nhật thông tin tài khoản thành công!");
   };
 
-  const handlePasswordChange = (e) => {
+  const handleChangePassword = (e) => {
     e.preventDefault();
     if (!passData.oldPass || !passData.newPass) {
-      alert("Vui lòng nhập mật khẩu hiện tại và mật khẩu mới!");
-      return;
-    }
-    if (passData.newPass.length < 6) {
-      alert("Mật khẩu mới phải có tối thiểu 6 ký tự!");
+      alert("Vui lòng nhập đầy đủ mật khẩu cũ và mới!");
       return;
     }
     if (passData.newPass !== passData.confirmPass) {
-      alert("Xác nhận mật khẩu mới không khớp!");
+      alert("Xác nhận mật khẩu mới không trùng khớp!");
       return;
     }
-
     setPassData({ oldPass: "", newPass: "", confirmPass: "" });
-    showToast("Đã cập nhật mật khẩu thành công!");
+    showToast("Đổi mật khẩu thành công! Hãy ghi nhớ mật khẩu mới.");
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 w-full space-y-8">
-      {/* Toast Notification */}
+    <div className="cust-profile-wrap">
+      {/* Self-contained CSS styles for Profile Page */}
+      <style>{`
+        .cust-profile-wrap {
+          max-width: 1240px;
+          margin: 0 auto;
+          padding: 32px 20px 64px;
+          color: #f8fafc;
+          font-family: 'Plus Jakarta Sans', sans-serif;
+          position: relative;
+        }
+
+        .cust-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-end;
+          flex-wrap: wrap;
+          gap: 16px;
+          border-bottom: 1px solid #232736;
+          padding-bottom: 24px;
+          margin-bottom: 32px;
+        }
+        .cust-header-tag {
+          font-size: 11px;
+          font-weight: 800;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+          color: #f59e0b;
+          display: block;
+          margin-bottom: 4px;
+        }
+        .cust-header-title {
+          font-size: 32px;
+          font-weight: 900;
+          color: #ffffff;
+          letter-spacing: -0.02em;
+        }
+        .cust-account-selector {
+          background: #141720;
+          border: 1px solid #2e3548;
+          border-radius: 12px;
+          padding: 8px 14px;
+          color: #fbbf24;
+          font-size: 13px;
+          font-weight: 700;
+          outline: none;
+          cursor: pointer;
+        }
+
+        /* Toast */
+        .cust-toast {
+          position: fixed;
+          bottom: 28px;
+          right: 28px;
+          z-index: 999;
+          background: #141720;
+          border: 1px solid #10b981;
+          color: #34d399;
+          padding: 12px 20px;
+          border-radius: 14px;
+          font-size: 13px;
+          font-weight: 700;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+          animation: slideUp 0.3s ease;
+        }
+        @keyframes slideUp {
+          from { transform: translateY(20px); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Hero Profile Card */
+        .cust-profile-hero {
+          background: linear-gradient(135deg, #141720 0%, #1a1e2b 100%);
+          border: 1px solid #232736;
+          border-radius: 28px;
+          padding: 36px;
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 32px;
+          margin-bottom: 48px;
+          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+        }
+        @media (min-width: 992px) {
+          .cust-profile-hero {
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+          }
+        }
+        .cust-user-meta-left {
+          display: flex;
+          align-items: center;
+          gap: 24px;
+        }
+        .cust-user-avatar {
+          width: 96px;
+          height: 96px;
+          border-radius: 24px;
+          object-fit: cover;
+          border: 3px solid #f59e0b;
+          box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+        }
+        .cust-user-name {
+          font-size: 24px;
+          font-weight: 900;
+          color: #ffffff;
+          margin-bottom: 4px;
+        }
+        .cust-tier-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 4px 12px;
+          border-radius: 9999px;
+          font-size: 11px;
+          font-weight: 800;
+          text-transform: uppercase;
+        }
+        .cust-tier-badge.gold {
+          background: rgba(245, 158, 11, 0.15);
+          color: #fbbf24;
+          border: 1px solid rgba(245, 158, 11, 0.4);
+        }
+        .cust-tier-badge.blue {
+          background: rgba(59, 130, 246, 0.15);
+          color: #60a5fa;
+          border: 1px solid rgba(59, 130, 246, 0.4);
+        }
+        .cust-tier-badge.neutral {
+          background: rgba(148, 163, 184, 0.15);
+          color: #cbd5e1;
+          border: 1px solid rgba(148, 163, 184, 0.4);
+        }
+
+        /* 4 Stats Grid */
+        .cust-stats-box {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+        }
+        .cust-stat-card {
+          background: #0a0b0f;
+          border: 1px solid #1f2433;
+          border-radius: 16px;
+          padding: 16px;
+        }
+        .cust-stat-label {
+          font-size: 11px;
+          color: #64748b;
+          text-transform: uppercase;
+          font-weight: 700;
+          margin-bottom: 4px;
+        }
+        .cust-stat-value {
+          font-size: 20px;
+          font-weight: 900;
+          color: #fbbf24;
+        }
+
+        /* Content Sections Grid */
+        .cust-profile-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 36px;
+        }
+        @media (min-width: 992px) {
+          .cust-profile-grid {
+            grid-template-columns: 1.3fr 1fr;
+          }
+        }
+        .cust-card-box {
+          background: #141720;
+          border: 1px solid #232736;
+          border-radius: 24px;
+          padding: 32px;
+          margin-bottom: 36px;
+        }
+        .cust-card-box-header {
+          border-bottom: 1px solid #232736;
+          padding-bottom: 16px;
+          margin-bottom: 24px;
+        }
+        .cust-card-box-title {
+          font-size: 18px;
+          font-weight: 800;
+          color: #ffffff;
+        }
+
+        /* Forms */
+        .cust-form-group {
+          margin-bottom: 18px;
+        }
+        .cust-label {
+          display: block;
+          font-size: 11px;
+          font-weight: 800;
+          color: #94a3b8;
+          text-transform: uppercase;
+          margin-bottom: 6px;
+        }
+        .cust-input {
+          width: 100%;
+          padding: 12px 14px;
+          background: #0a0b0f;
+          border: 1px solid #232736;
+          border-radius: 12px;
+          color: #ffffff;
+          font-size: 13px;
+          outline: none;
+          transition: border-color 0.2s ease;
+          box-sizing: border-box;
+        }
+        .cust-input:focus {
+          border-color: #f59e0b;
+        }
+        .cust-form-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 16px;
+        }
+
+        .cust-btn-primary {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 12px 24px;
+          background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+          color: #08090c;
+          font-weight: 800;
+          font-size: 13px;
+          border-radius: 12px;
+          text-decoration: none;
+          box-shadow: 0 4px 18px rgba(245, 158, 11, 0.3);
+          transition: all 0.2s ease;
+          border: none;
+          cursor: pointer;
+        }
+        .cust-btn-primary:hover {
+          background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+          transform: translateY(-2px);
+          box-shadow: 0 6px 24px rgba(245, 158, 11, 0.45);
+        }
+
+        /* VIP Benefits List */
+        .cust-benefit-row {
+          display: flex;
+          align-items: flex-start;
+          gap: 12px;
+          padding: 14px 16px;
+          background: #0a0b0f;
+          border: 1px solid #1f2433;
+          border-radius: 16px;
+          margin-bottom: 12px;
+        }
+        .cust-benefit-icon {
+          font-size: 20px;
+          color: #fbbf24;
+          flex-shrink: 0;
+        }
+        .cust-benefit-title {
+          font-size: 13px;
+          font-weight: 800;
+          color: #ffffff;
+          margin-bottom: 2px;
+        }
+        .cust-benefit-desc {
+          font-size: 11px;
+          color: #94a3b8;
+          line-height: 1.5;
+        }
+      `}</style>
+
+      {/* TOAST NOTIFICATION */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 flex items-center space-x-2 bg-zinc-900 border border-emerald-500/40 text-emerald-300 px-4 py-3 rounded-2xl shadow-2xl text-xs font-bold">
-          <i className="ph-bold ph-check-circle text-base"></i>
+        <div className="cust-toast">
+          <span>✓</span>
           <span>{toastMessage}</span>
         </div>
       )}
 
-      {/* Account Switcher Bar (Demo Feature) */}
-      <div className="flex flex-wrap items-center justify-between gap-4 bg-zinc-900 border border-zinc-800 p-4 rounded-2xl">
-        <div className="flex items-center space-x-2">
-          <i className="ph-bold ph-user-switch text-amber-500 text-lg"></i>
-          <span className="text-xs sm:text-sm font-bold text-white">Chuyển tài khoản khách hàng demo:</span>
-        </div>
-        <select
-          value={currentClient.id}
-          onChange={handleAccountSwitch}
-          className="p-2 bg-zinc-950 border border-zinc-800 rounded-xl text-xs font-bold text-amber-400 outline-none"
-        >
-          {demoAccounts.map((acc) => (
-            <option key={acc.id} value={acc.id}>
-              {acc.name} ({acc.tier}) - {acc.phone}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      {/* Profile Header Card */}
-      <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 sm:p-8 relative overflow-hidden shadow-2xl">
-        <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
-
-        <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 relative z-10">
-          <div className="relative">
-            <img
-              src={currentClient.avatar}
-              alt="Avatar"
-              className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-cover ring-4 ring-amber-500/30 shadow-lg"
-            />
-            <button
-              onClick={() => alert("Tính năng đổi ảnh đại diện đã sẵn sàng!")}
-              className="absolute -bottom-2 -right-2 p-2 bg-amber-500 hover:bg-amber-600 text-zinc-950 rounded-xl shadow-md transition"
-            >
-              <i className="ph-bold ph-camera text-sm"></i>
-            </button>
-          </div>
-
-          <div className="flex-1 text-center sm:text-left space-y-2">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div>
-                <div className="flex items-center justify-center sm:justify-start space-x-2">
-                  <h1 className="text-2xl sm:text-3xl font-black text-white">{currentClient.name}</h1>
-                  <span className="px-3 py-1 rounded-full text-xs font-black bg-amber-500/10 text-amber-400 border border-amber-500/20">
-                    Khách {currentClient.tier}
-                  </span>
-                </div>
-                <p className="text-xs text-zinc-400 mt-1 flex items-center justify-center sm:justify-start">
-                  <i className="ph-bold ph-phone mr-1"></i> {currentClient.phone} • <i className="ph-bold ph-envelope mr-1 ml-2"></i> {currentClient.email}
-                </p>
-              </div>
-              <Link
-                to="/booking/service"
-                className="px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-zinc-950 font-bold text-xs rounded-xl transition shadow-md shadow-amber-500/20 inline-flex items-center space-x-1.5 self-center sm:self-auto"
-              >
-                <i className="ph-bold ph-scissors"></i>
-                <span>Đặt Lịch Cắt Mới</span>
-              </Link>
-            </div>
-          </div>
+      {/* HEADER WITH DEMO ACCOUNT SWITCHER */}
+      <div className="cust-header">
+        <div>
+          <span className="cust-header-tag">Tài Khoản & Đặc Quyền</span>
+          <h1 className="cust-header-title">Hồ Sơ Khách Hàng BarberHub</h1>
         </div>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-6 border-t border-zinc-800">
-          <div className="p-4 bg-zinc-950/60 border border-zinc-800/80 rounded-2xl">
-            <p className="text-xs text-zinc-400 font-semibold uppercase">Tổng Số Lần Cắt</p>
-            <p className="text-2xl font-black text-white mt-1">{currentClient.cutCount} Lần</p>
-          </div>
-          <div className="p-4 bg-zinc-950/60 border border-zinc-800/80 rounded-2xl">
-            <p className="text-xs text-zinc-400 font-semibold uppercase">Tổng Chi Tiêu</p>
-            <p className="text-2xl font-black text-amber-400 mt-1">{currentClient.totalSpent}</p>
-          </div>
-          <div className="p-4 bg-zinc-950/60 border border-zinc-800/80 rounded-2xl">
-            <p className="text-xs text-zinc-400 font-semibold uppercase">Thợ Cắt Ưa Thích</p>
-            <p className="text-lg font-bold text-white mt-1 truncate">{currentClient.favBarber}</p>
-          </div>
-          <div className="p-4 bg-zinc-950/60 border border-zinc-800/80 rounded-2xl">
-            <p className="text-xs text-zinc-400 font-semibold uppercase">Đánh Giá Đã Gửi</p>
-            <p className="text-2xl font-black text-blue-400 mt-1">{currentClient.reviewsSent} Lượt</p>
-          </div>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <span style={{ fontSize: "12px", color: "#64748b", fontWeight: "600" }}>Chọn tài khoản Demo:</span>
+          <select
+            value={currentClient.id}
+            onChange={handleAccountSwitch}
+            className="cust-account-selector"
+          >
+            {demoAccounts.map((acc) => (
+              <option key={acc.id} value={acc.id}>
+                {acc.name} ({acc.tier})
+              </option>
+            ))}
+          </select>
         </div>
       </div>
 
-      {/* VIP Member Privileges Card */}
-      <div className="bg-gradient-to-r from-amber-500/10 via-zinc-900 to-zinc-900 border border-amber-500/20 rounded-3xl p-6 sm:p-8 space-y-4">
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-xl bg-amber-500 text-zinc-950 flex items-center justify-center text-xl font-bold shadow-md shadow-amber-500/20">
-            <i className="ph-bold ph-crown"></i>
-          </div>
+      {/* HERO PROFILE CARD */}
+      <div className="cust-profile-hero">
+        <div className="cust-user-meta-left">
+          <img src={currentClient.avatar} alt={currentClient.name} className="cust-user-avatar" />
           <div>
-            <h3 className="font-bold text-white text-base">Đặc Quyền Hội Viên VIP BarberHub Club</h3>
-            <p className="text-xs text-zinc-400">Bạn đang hưởng những đặc quyền cao cấp nhất dành cho khách hàng thân thiết.</p>
+            <div className={`cust-tier-badge ${currentClient.tierColor}`} style={{ marginBottom: "8px" }}>
+              <span>👑 Hạng: {currentClient.tier}</span>
+            </div>
+            <h2 className="cust-user-name">{currentClient.name}</h2>
+            <p style={{ fontSize: "13px", color: "#94a3b8" }}>{currentClient.phone} • {currentClient.email}</p>
           </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-          <div className="p-3 bg-zinc-950/70 border border-zinc-800 rounded-xl text-xs space-y-1">
-            <span className="font-bold text-amber-400 block">✓ Giảm 10% Trọn Đời</span>
-            <p className="text-zinc-400 text-[11px]">Tự động áp dụng cho mọi gói dịch vụ cắt, uốn, nhuộm tại salon.</p>
+
+        <div className="cust-stats-box">
+          <div className="cust-stat-card">
+            <div className="cust-stat-label">Số Lần Cắt</div>
+            <div className="cust-stat-value">{currentClient.cutCount} lần</div>
           </div>
-          <div className="p-3 bg-zinc-950/70 border border-zinc-800 rounded-xl text-xs space-y-1">
-            <span className="font-bold text-amber-400 block">✓ Ưu Tiên Giữ Ghế</span>
-            <p className="text-zinc-400 text-[11px]">Luôn được ưu tiên sắp xếp ghế và thợ ruột trong các khung giờ cao điểm.</p>
+          <div className="cust-stat-card">
+            <div className="cust-stat-label">Tổng Chi Tiêu</div>
+            <div className="cust-stat-value">{currentClient.totalSpent}</div>
           </div>
-          <div className="p-3 bg-zinc-950/70 border border-zinc-800 rounded-xl text-xs space-y-1">
-            <span className="font-bold text-amber-400 block">✓ Đồ Uống & Spa Free</span>
-            <p className="text-zinc-400 text-[11px]">Miễn phí đồ uống cao cấp và tặng thêm 10 phút massage cổ vai gáy thảo mộc.</p>
+          <div className="cust-stat-card">
+            <div className="cust-stat-label">Barber Ruột</div>
+            <div className="cust-stat-value" style={{ fontSize: "16px" }}>{currentClient.favBarber}</div>
+          </div>
+          <div className="cust-stat-card">
+            <div className="cust-stat-label">Đánh Giá Gửi Đi</div>
+            <div className="cust-stat-value">{currentClient.reviewsSent} phản hồi</div>
           </div>
         </div>
       </div>
 
-      {/* Edit Profile & Password Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Edit Personal Info (Col 2) */}
-        <div className="lg:col-span-2 bg-zinc-900 border border-zinc-800 rounded-3xl p-6 sm:p-8 space-y-5">
-          <div className="flex items-center justify-between border-b border-zinc-800 pb-4">
-            <h2 className="text-lg font-bold text-white flex items-center">
-              <i className="ph-bold ph-user-gear mr-2 text-amber-500"></i> Chỉnh Sửa Thông Tin Cá Nhân
-            </h2>
-            <span className="text-xs text-zinc-500">Dùng để đặt lịch & nhận SMS</span>
-          </div>
+      {/* MAIN TWO-COLUMN SECTION */}
+      <div className="cust-profile-grid">
+        {/* Left Column: Form thông tin cá nhân */}
+        <div>
+          <div className="cust-card-box">
+            <div className="cust-card-box-header">
+              <h3 className="cust-card-box-title">Thông Tin Cá Nhân & Liên Hệ</h3>
+            </div>
 
-          <form onSubmit={handleProfileSave} className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-semibold text-zinc-400 uppercase mb-1">Họ và Tên</label>
-                <input
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full p-3 bg-zinc-950 border border-zinc-800 rounded-xl text-sm font-bold text-white focus:border-amber-500 outline-none"
-                  required
-                />
+            <form onSubmit={handleSaveInfo}>
+              <div className="cust-form-row">
+                <div className="cust-form-group">
+                  <label className="cust-label">Họ và tên</label>
+                  <input
+                    type="text"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="cust-input"
+                    required
+                  />
+                </div>
+                <div className="cust-form-group">
+                  <label className="cust-label">Số điện thoại</label>
+                  <input
+                    type="text"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    className="cust-input"
+                    required
+                  />
+                </div>
               </div>
-              <div>
-                <label className="block text-xs font-semibold text-zinc-400 uppercase mb-1">Số Điện Thoại</label>
-                <input
-                  type="text"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full p-3 bg-zinc-950 border border-zinc-800 rounded-xl text-sm font-bold text-white focus:border-amber-500 outline-none"
-                  required
-                />
+
+              <div className="cust-form-row">
+                <div className="cust-form-group">
+                  <label className="cust-label">Email</label>
+                  <input
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="cust-input"
+                    required
+                  />
+                </div>
+                <div className="cust-form-group">
+                  <label className="cust-label">Ngày sinh</label>
+                  <input
+                    type="date"
+                    value={formData.birthday}
+                    onChange={(e) => setFormData({ ...formData, birthday: e.target.value })}
+                    className="cust-input"
+                  />
+                </div>
               </div>
-              <div className="md:col-span-2">
-                <label className="block text-xs font-semibold text-zinc-400 uppercase mb-1">Email Liên Hệ</label>
-                <input
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full p-3 bg-zinc-950 border border-zinc-800 rounded-xl text-sm font-bold text-white focus:border-amber-500 outline-none"
-                />
-              </div>
-              <div className="md:col-span-2">
-                <label className="block text-xs font-semibold text-zinc-400 uppercase mb-1">Địa Chỉ Thường Trú</label>
+
+              <div className="cust-form-group">
+                <label className="cust-label">Địa chỉ</label>
                 <input
                   type="text"
                   value={formData.address}
                   onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                  className="w-full p-3 bg-zinc-950 border border-zinc-800 rounded-xl text-sm font-bold text-white focus:border-amber-500 outline-none"
+                  className="cust-input"
                 />
+              </div>
+
+              <div style={{ marginTop: "24px" }}>
+                <button type="submit" className="cust-btn-primary">
+                  <span>💾</span>
+                  <span>Lưu Thay Đổi</span>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          {/* Form đổi mật khẩu */}
+          <div className="cust-card-box">
+            <div className="cust-card-box-header">
+              <h3 className="cust-card-box-title">Đổi Mật Khẩu Đăng Nhập</h3>
+            </div>
+
+            <form onSubmit={handleChangePassword}>
+              <div className="cust-form-group">
+                <label className="cust-label">Mật khẩu hiện tại</label>
+                <input
+                  type="password"
+                  placeholder="••••••••"
+                  value={passData.oldPass}
+                  onChange={(e) => setPassData({ ...passData, oldPass: e.target.value })}
+                  className="cust-input"
+                />
+              </div>
+
+              <div className="cust-form-row">
+                <div className="cust-form-group">
+                  <label className="cust-label">Mật khẩu mới</label>
+                  <input
+                    type="password"
+                    placeholder="••••••••"
+                    value={passData.newPass}
+                    onChange={(e) => setPassData({ ...passData, newPass: e.target.value })}
+                    className="cust-input"
+                  />
+                </div>
+                <div className="cust-form-group">
+                  <label className="cust-label">Xác nhận mật khẩu</label>
+                  <input
+                    type="password"
+                    placeholder="••••••••"
+                    value={passData.confirmPass}
+                    onChange={(e) => setPassData({ ...passData, confirmPass: e.target.value })}
+                    className="cust-input"
+                  />
+                </div>
+              </div>
+
+              <div style={{ marginTop: "24px" }}>
+                <button type="submit" className="cust-btn-primary">
+                  <span>🔒</span>
+                  <span>Cập Nhật Mật Khẩu</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        {/* Right Column: Đặc quyền VIP & Lịch sử phím tắt */}
+        <div>
+          <div className="cust-card-box">
+            <div className="cust-card-box-header">
+              <h3 className="cust-card-box-title">Đặc Quyền Thành Viên BarberHub</h3>
+            </div>
+
+            <div>
+              <div className="cust-benefit-row">
+                <div className="cust-benefit-icon">💎</div>
+                <div>
+                  <h4 className="cust-benefit-title">Giảm 10% Trọn Đời</h4>
+                  <p className="cust-benefit-desc">Tự động áp dụng chiết khấu cho mọi hóa đơn dịch vụ cắt, uốn và spa.</p>
+                </div>
+              </div>
+
+              <div className="cust-benefit-row">
+                <div className="cust-benefit-icon">⏱️</div>
+                <div>
+                  <h4 className="cust-benefit-title">Ưu Tiên Giữ Ghế Đúng Giờ</h4>
+                  <p className="cust-benefit-desc">Được phục vụ ngay khi tới salon mà không cần chờ đợi dù giờ cao điểm.</p>
+                </div>
+              </div>
+
+              <div className="cust-benefit-row">
+                <div className="cust-benefit-icon">☕</div>
+                <div>
+                  <h4 className="cust-benefit-title">Menu Đồ Uống VIP Miễn Phí</h4>
+                  <p className="cust-benefit-desc">Thưởng thức trà sen Tây Hồ, cà phê Espresso rang xay và đồ ăn nhẹ.</p>
+                </div>
+              </div>
+
+              <div className="cust-benefit-row">
+                <div className="cust-benefit-icon">🎁</div>
+                <div>
+                  <h4 className="cust-benefit-title">Voucher Sinh Nhật 200.000 đ</h4>
+                  <p className="cust-benefit-desc">Tặng phiếu trải nghiệm dịch vụ uốn hoặc nhuộm trong tháng sinh nhật.</p>
+                </div>
               </div>
             </div>
 
-            <div className="pt-3 flex justify-end">
-              <button
-                type="submit"
-                className="px-6 py-3 bg-amber-500 hover:bg-amber-600 text-zinc-950 font-black text-xs rounded-xl shadow-md shadow-amber-500/20 transition"
-              >
-                Lưu Thông Tin Cá Nhân
-              </button>
+            <div style={{ marginTop: "24px", paddingTop: "20px", borderTop: "1px solid #232736", display: "flex", gap: "10px" }}>
+              <Link to="/my-bookings" className="cust-btn-primary" style={{ flex: 1, justifyContent: "center" }}>
+                Lịch Hẹn Của Tôi
+              </Link>
+              <Link to="/my-invoices" className="cust-btn-primary" style={{ flex: 1, justifyContent: "center", background: "#1b1f2b", color: "#cbd5e1", border: "1px solid #2e3548" }}>
+                Xem Hóa Đơn
+              </Link>
             </div>
-          </form>
-        </div>
-
-        {/* Change Password Card (Col 1) */}
-        <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 sm:p-8 space-y-4">
-          <h2 className="text-lg font-bold text-white flex items-center">
-            <i className="ph-bold ph-lock mr-2 text-amber-500"></i> Đổi Mật Khẩu
-          </h2>
-          <form onSubmit={handlePasswordChange} className="space-y-3">
-            <div>
-              <label className="block text-xs font-semibold text-zinc-400 uppercase mb-1">Mật khẩu hiện tại</label>
-              <input
-                type="password"
-                placeholder="••••••••"
-                value={passData.oldPass}
-                onChange={(e) => setPassData({ ...passData, oldPass: e.target.value })}
-                className="w-full p-3 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-white focus:border-amber-500 outline-none"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-semibold text-zinc-400 uppercase mb-1">Mật khẩu mới</label>
-              <input
-                type="password"
-                placeholder="••••••••"
-                value={passData.newPass}
-                onChange={(e) => setPassData({ ...passData, newPass: e.target.value })}
-                className="w-full p-3 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-white focus:border-amber-500 outline-none"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-semibold text-zinc-400 uppercase mb-1">Xác nhận mật khẩu</label>
-              <input
-                type="password"
-                placeholder="••••••••"
-                value={passData.confirmPass}
-                onChange={(e) => setPassData({ ...passData, confirmPass: e.target.value })}
-                className="w-full p-3 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-white focus:border-amber-500 outline-none"
-                required
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full py-3 bg-zinc-800 hover:bg-zinc-700 text-amber-400 font-bold text-xs rounded-xl transition"
-            >
-              Cập Nhật Mật Khẩu
-            </button>
-          </form>
+          </div>
         </div>
       </div>
     </div>
