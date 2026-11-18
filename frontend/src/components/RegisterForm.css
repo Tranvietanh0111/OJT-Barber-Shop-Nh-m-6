@@ -1,0 +1,143 @@
+.register-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 12px;
+  background: #f1f3f4;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+.register-card {
+  width: 400px;
+  max-width: 100%;
+  background: #fff;
+  padding: 28px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.register-card h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.register-subtitle {
+  margin: 4px 0 14px;
+  color: #5f6368;
+}
+
+.register-card label {
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.register-card input[type="text"],
+.register-card input[type="email"],
+.register-card input[type="tel"],
+.register-card input[type="password"] {
+  margin-top: 6px;
+  padding: 10px 12px;
+  font-size: 15px;
+  border: 1px solid #dadce0;
+  border-radius: 6px;
+  outline: none;
+}
+
+.register-card input:focus {
+  border-color: #1a73e8;
+}
+
+.register-card input.input-error {
+  border-color: #d93025;
+}
+
+.field-error {
+  min-height: 18px;
+  margin: 2px 0 6px;
+  font-size: 13px;
+  color: #d93025;
+}
+
+.inline-check {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 400 !important;
+  cursor: pointer;
+}
+
+.inline-check.agree {
+  margin-top: 8px;
+  align-items: flex-start;
+  font-size: 13px !important;
+}
+
+/* Thanh độ mạnh mật khẩu */
+.strength {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.strength-bars {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+}
+
+.bar {
+  flex: 1;
+  height: 5px;
+  border-radius: 3px;
+  background: #e0e0e0;
+}
+
+.bar.on.level-1 { background: #d93025; }
+.bar.on.level-2 { background: #f9ab00; }
+.bar.on.level-3 { background: #7cb342; }
+.bar.on.level-4 { background: #188038; }
+
+.strength-label {
+  font-size: 12px;
+  color: #5f6368;
+  min-width: 70px;
+  text-align: right;
+}
+
+.register-banner {
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.register-banner.error {
+  background: #fce8e6;
+  color: #d93025;
+}
+
+.register-banner.success {
+  background: #e6f4ea;
+  color: #188038;
+}
+
+.register-btn {
+  margin-top: 14px;
+  padding: 11px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  background: #1a73e8;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.register-btn:hover {
+  background: #1557b0;
+}
