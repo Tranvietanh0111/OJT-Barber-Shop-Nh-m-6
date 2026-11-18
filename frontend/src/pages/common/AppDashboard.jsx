@@ -165,9 +165,9 @@ export default function AppDashboard() {
 
   return (
     <div className="container" style={{ paddingBottom: "48px" }}>
-      {/* Top Banner Header Vàng Đen */}
+      {/* Top Banner Header Tone Sáng */}
       <div style={{
-        background: "linear-gradient(135deg, #0e1015 0%, #171b26 50%, #1f1b13 100%)",
+        background: "linear-gradient(135deg, #fffbeb 0%, #fef3c7 45%, #fff7ed 100%)",
         border: "1px solid var(--gold-border)",
         borderRadius: "var(--radius-lg)",
         padding: "40px 36px",
@@ -183,7 +183,7 @@ export default function AppDashboard() {
           right: "-50px",
           width: "200px",
           height: "200px",
-          background: "radial-gradient(circle, rgba(245, 158, 11, 0.18) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(245, 158, 11, 0.22) 0%, transparent 70%)",
           pointerEvents: "none"
         }} />
 
@@ -194,10 +194,10 @@ export default function AppDashboard() {
                 👑 BARBERHUB PORTAL
               </span>
               <span className="badge badge-neutral" style={{ color: "var(--text-secondary)" }}>
-                Sprint 2 – Giao diện Mockup Vàng Đen
+                Sprint 2 – Giao diện Fresh Gold & Cream
               </span>
             </div>
-            <h1 style={{ fontSize: "32px", fontWeight: "900", color: "#ffffff", marginBottom: "10px", letterSpacing: "-0.5px" }}>
+            <h1 style={{ fontSize: "32px", fontWeight: "900", color: "var(--text-primary)", marginBottom: "10px", letterSpacing: "-0.5px" }}>
               Bảng Điều Khiển Tổng Quan Cấp Ứng Dụng
             </h1>
             <p style={{ color: "var(--text-secondary)", fontSize: "15px", maxWidth: "660px", lineHeight: "1.6" }}>
@@ -222,10 +222,10 @@ export default function AppDashboard() {
 
       {/* KPI Cards Grid */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "18px" }}>
-        <h2 style={{ fontSize: "20px", fontWeight: "800", color: "#ffffff", display: "flex", alignItems: "center", gap: "8px" }}>
-          <span style={{ color: "var(--gold-light)" }}>📊</span> Chỉ Số Vận Hành Cốt Lõi (Dữ liệu mẫu)
+        <h2 style={{ fontSize: "20px", fontWeight: "800", color: "var(--text-primary)", display: "flex", alignItems: "center", gap: "8px" }}>
+          <span style={{ color: "var(--gold-deep)" }}>📊</span> Chỉ Số Vận Hành Cốt Lõi (Dữ liệu mẫu)
         </h2>
-        <span style={{ fontSize: "13px", color: "var(--gold-light)", fontWeight: "600" }}>
+        <span style={{ fontSize: "13px", color: "var(--gold-deep)", fontWeight: "600" }}>
           ● Hệ thống thời gian thực
         </span>
       </div>
@@ -253,7 +253,7 @@ export default function AppDashboard() {
               </span>
             </div>
 
-            <div style={{ fontSize: "26px", fontWeight: "900", color: "var(--gold-bright)", marginBottom: "10px", letterSpacing: "-0.5px" }}>
+            <div style={{ fontSize: "26px", fontWeight: "900", color: "var(--text-gold)", marginBottom: "10px", letterSpacing: "-0.5px" }}>
               {item.value}
             </div>
 
@@ -328,7 +328,7 @@ export default function AppDashboard() {
 
         {/* Cột phải: Tỷ trọng dịch vụ */}
         <div className="card">
-          <h3 style={{ fontSize: "18px", fontWeight: "800", color: "#ffffff", marginBottom: "8px", display: "flex", alignItems: "center", gap: "8px" }}>
+          <h3 style={{ fontSize: "18px", fontWeight: "800", color: "var(--text-primary)", marginBottom: "8px", display: "flex", alignItems: "center", gap: "8px" }}>
             <span>✂️</span> Tỷ Trọng Dịch Vụ
           </h3>
           <p style={{ fontSize: "13px", color: "var(--text-secondary)", marginBottom: "24px" }}>
@@ -342,15 +342,15 @@ export default function AppDashboard() {
                   <span style={{ color: "var(--text-secondary)" }}>{item.name}</span>
                   <span style={{ color: item.color, fontWeight: "800" }}>{item.percent}%</span>
                 </div>
-                <div style={{ height: "8px", background: "#0a0b0f", borderRadius: "99px", overflow: "hidden", border: "1px solid var(--border-subtle)" }}>
+                <div style={{ height: "8px", background: "#f3ede0", borderRadius: "99px", overflow: "hidden", border: "1px solid var(--border-subtle)" }}>
                   <div style={{ width: `${item.percent}%`, height: "100%", background: item.color, borderRadius: "99px", boxShadow: `0 0 10px ${item.color}` }} />
                 </div>
               </div>
             ))}
           </div>
 
-          <div style={{ marginTop: "28px", padding: "16px", background: "#0b0c10", borderRadius: "var(--radius-md)", border: "1px solid var(--gold-border)" }}>
-            <div style={{ fontSize: "13px", fontWeight: "700", color: "var(--gold-bright)", marginBottom: "4px" }}>
+          <div style={{ marginTop: "28px", padding: "16px", background: "#fff9eb", borderRadius: "var(--radius-md)", border: "1px solid var(--gold-border)" }}>
+            <div style={{ fontSize: "13px", fontWeight: "700", color: "var(--gold-deep)", marginBottom: "4px" }}>
               💡 Mẹo quản lý phong cách tiệm
             </div>
             <p style={{ fontSize: "12px", color: "var(--text-secondary)", lineHeight: "1.6" }}>
@@ -361,8 +361,8 @@ export default function AppDashboard() {
       </div>
 
       {/* Điều hướng nhanh các phân hệ Sprint 2 */}
-      <h2 style={{ fontSize: "20px", fontWeight: "800", marginBottom: "20px", color: "#ffffff", display: "flex", alignItems: "center", gap: "8px" }}>
-        <span style={{ color: "var(--gold-light)" }}>🚀</span> Điều Hướng Kiểm Thử 7 Phân Hệ Sprint 2
+      <h2 style={{ fontSize: "20px", fontWeight: "800", marginBottom: "20px", color: "var(--text-primary)", display: "flex", alignItems: "center", gap: "8px" }}>
+        <span style={{ color: "var(--gold-deep)" }}>🚀</span> Điều Hướng Kiểm Thử 7 Phân Hệ Sprint 2
       </h2>
 
       <div style={{
@@ -373,10 +373,10 @@ export default function AppDashboard() {
         {sprintModules.map((mod, index) => (
           <div key={index} className="card" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
             <div>
-              <h4 style={{ fontSize: "16px", fontWeight: "800", color: "#ffffff", marginBottom: "4px" }}>
+              <h4 style={{ fontSize: "16px", fontWeight: "800", color: "var(--text-primary)", marginBottom: "4px" }}>
                 {mod.title}
               </h4>
-              <div style={{ fontSize: "12px", color: "var(--gold-light)", fontWeight: "700", marginBottom: "16px" }}>
+              <div style={{ fontSize: "12px", color: "var(--gold-deep)", fontWeight: "700", marginBottom: "16px" }}>
                 👤 Phụ trách: {mod.owner}
               </div>
 
@@ -390,22 +390,24 @@ export default function AppDashboard() {
                         alignItems: "center",
                         justifyContent: "space-between",
                         padding: "9px 14px",
-                        background: "#0c0e14",
+                        background: "#fffdfa",
                         borderRadius: "var(--radius-sm)",
                         fontSize: "13px",
-                        color: "var(--text-secondary)",
+                        color: "var(--text-primary)",
                         border: "1px solid var(--border-subtle)",
                         fontWeight: "500",
                         transition: "all 0.2s"
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.borderColor = "var(--gold-primary)";
-                        e.currentTarget.style.color = "var(--gold-light)";
+                        e.currentTarget.style.color = "var(--gold-deep)";
+                        e.currentTarget.style.background = "#fff7e6";
                         e.currentTarget.style.transform = "translateX(3px)";
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.borderColor = "var(--border-subtle)";
-                        e.currentTarget.style.color = "var(--text-secondary)";
+                        e.currentTarget.style.color = "var(--text-primary)";
+                        e.currentTarget.style.background = "#fffdfa";
                         e.currentTarget.style.transform = "translateX(0)";
                       }}
                     >

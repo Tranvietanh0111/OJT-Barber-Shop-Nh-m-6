@@ -137,20 +137,20 @@ export default function BookingHistoryPage() {
         .cust-header-title {
           font-size: 32px;
           font-weight: 900;
-          color: #ffffff;
+          color: #1f2937;
           letter-spacing: -0.02em;
         }
         .cust-header-sub {
           font-size: 14px;
-          color: #94a3b8;
+          color: #6b7280;
           margin-top: 4px;
         }
 
         /* Filter Tabs */
         .cust-filter-tabs {
           display: flex;
-          background: #141720;
-          border: 1px solid #232736;
+          background: #ffffff;
+          border: 1px solid #e5d6b4;
           border-radius: 14px;
           padding: 4px;
           gap: 4px;
@@ -160,18 +160,18 @@ export default function BookingHistoryPage() {
           border-radius: 10px;
           border: none;
           background: transparent;
-          color: #94a3b8;
+          color: #6b7280;
           font-size: 12px;
           font-weight: 700;
           cursor: pointer;
           transition: all 0.2s ease;
         }
         .cust-tab-btn:hover {
-          color: #ffffff;
+          color: #b45309;
         }
         .cust-tab-btn.active {
           background: #f59e0b;
-          color: #08090c;
+          color: #ffffff;
           font-weight: 800;
         }
 
@@ -181,9 +181,9 @@ export default function BookingHistoryPage() {
           bottom: 28px;
           right: 28px;
           z-index: 999;
-          background: #141720;
+          background: #ffffff;
           border: 1px solid #10b981;
-          color: #34d399;
+          color: #059669;
           padding: 12px 20px;
           border-radius: 14px;
           font-size: 13px;
@@ -191,7 +191,7 @@ export default function BookingHistoryPage() {
           display: flex;
           align-items: center;
           gap: 8px;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
           animation: slideUp 0.3s ease;
         }
         @keyframes slideUp {
@@ -206,15 +206,16 @@ export default function BookingHistoryPage() {
           gap: 20px;
         }
         .cust-bk-card {
-          background: #141720;
-          border: 1px solid #232736;
+          background: #ffffff;
+          border: 1px solid #f1e7d0;
           border-radius: 24px;
           padding: 24px;
           transition: all 0.25s ease;
+          box-shadow: 0 4px 16px -4px rgba(120, 80, 10, 0.08);
         }
         .cust-bk-card:hover {
-          border-color: rgba(245, 158, 11, 0.35);
-          box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+          border-color: rgba(245, 158, 11, 0.5);
+          box-shadow: 0 10px 24px -4px rgba(120, 80, 10, 0.14);
         }
         .cust-bk-top {
           display: flex;
@@ -222,7 +223,7 @@ export default function BookingHistoryPage() {
           align-items: center;
           flex-wrap: wrap;
           gap: 12px;
-          border-bottom: 1px solid #1f2433;
+          border-bottom: 1px solid #f1e7d0;
           padding-bottom: 18px;
           margin-bottom: 18px;
         }
@@ -245,12 +246,12 @@ export default function BookingHistoryPage() {
         .cust-bk-datetime {
           font-size: 12px;
           font-weight: 800;
-          color: #fbbf24;
+          color: #b45309;
         }
         .cust-bk-title {
           font-size: 17px;
           font-weight: 800;
-          color: #ffffff;
+          color: #1f2937;
           margin-top: 2px;
         }
         .cust-bk-status-price {
@@ -269,28 +270,28 @@ export default function BookingHistoryPage() {
         }
         .cust-badge-status.done {
           background: rgba(16, 185, 129, 0.12);
-          color: #34d399;
+          color: #059669;
           border: 1px solid rgba(16, 185, 129, 0.3);
         }
         .cust-badge-status.cutting {
           background: rgba(245, 158, 11, 0.15);
-          color: #fbbf24;
+          color: #b45309;
           border: 1px solid rgba(245, 158, 11, 0.4);
         }
         .cust-badge-status.booked {
           background: rgba(59, 130, 246, 0.12);
-          color: #60a5fa;
+          color: #2563eb;
           border: 1px solid rgba(59, 130, 246, 0.3);
         }
         .cust-badge-status.canceled {
           background: rgba(148, 163, 184, 0.12);
-          color: #94a3b8;
+          color: #6b7280;
           border: 1px solid rgba(148, 163, 184, 0.25);
         }
         .cust-bk-price {
           font-size: 18px;
           font-weight: 900;
-          color: #fbbf24;
+          color: #b45309;
         }
 
         /* 3-col info row */
@@ -306,14 +307,14 @@ export default function BookingHistoryPage() {
           }
         }
         .cust-bk-meta-item {
-          background: #0a0b0f;
-          border: 1px solid #1f2433;
+          background: #fffdfa;
+          border: 1px solid #f1e7d0;
           border-radius: 12px;
           padding: 12px 14px;
         }
         .cust-bk-meta-lbl {
           font-size: 10px;
-          color: #64748b;
+          color: #6b7280;
           text-transform: uppercase;
           font-weight: 700;
           margin-bottom: 2px;
@@ -321,7 +322,7 @@ export default function BookingHistoryPage() {
         .cust-bk-meta-val {
           font-size: 13px;
           font-weight: 700;
-          color: #ffffff;
+          color: #1f2937;
         }
 
         /* Card bottom bar */
@@ -332,14 +333,14 @@ export default function BookingHistoryPage() {
           flex-wrap: wrap;
           gap: 12px;
           padding-top: 14px;
-          border-top: 1px solid #1f2433;
+          border-top: 1px solid #f1e7d0;
         }
         .cust-bk-code {
           font-size: 12px;
-          color: #64748b;
+          color: #6b7280;
         }
         .cust-bk-code strong {
-          color: #94a3b8;
+          color: #4b5563;
         }
         .cust-bk-actions {
           display: flex;
@@ -361,7 +362,7 @@ export default function BookingHistoryPage() {
         }
         .cust-btn-cancel {
           background: rgba(239, 68, 68, 0.12);
-          color: #f87171;
+          color: #dc2626;
           border: 1px solid rgba(239, 68, 68, 0.3);
         }
         .cust-btn-cancel:hover {
@@ -369,38 +370,38 @@ export default function BookingHistoryPage() {
           color: #ffffff;
         }
         .cust-btn-dir {
-          background: #1b1f2b;
-          color: #ffffff;
-          border: 1px solid #2e3548;
+          background: #fff7e6;
+          color: #b45309;
+          border: 1px solid #fde68a;
         }
         .cust-btn-dir:hover {
-          background: #252b3d;
+          background: #fef3c7;
           border-color: #f59e0b;
         }
         .cust-btn-review {
-          background: rgba(245, 158, 11, 0.12);
-          color: #fbbf24;
-          border: 1px solid rgba(245, 158, 11, 0.3);
+          background: #fff7e6;
+          color: #b45309;
+          border: 1px solid #fde68a;
         }
         .cust-btn-review:hover {
           background: #f59e0b;
-          color: #08090c;
+          color: #ffffff;
         }
         .cust-btn-rebook {
           background: #f59e0b;
-          color: #08090c;
+          color: #ffffff;
           font-weight: 800;
         }
         .cust-btn-rebook:hover {
-          background: #fbbf24;
+          background: #d97706;
         }
 
         /* Empty state */
         .cust-empty-box {
           padding: 64px 20px;
           text-align: center;
-          background: #141720;
-          border: 1px solid #232736;
+          background: #ffffff;
+          border: 1px solid #f1e7d0;
           border-radius: 24px;
         }
         .cust-empty-icon {
@@ -410,12 +411,12 @@ export default function BookingHistoryPage() {
         .cust-empty-title {
           font-size: 18px;
           font-weight: 800;
-          color: #ffffff;
+          color: #1f2937;
           margin-bottom: 6px;
         }
         .cust-empty-desc {
           font-size: 13px;
-          color: #94a3b8;
+          color: #6b7280;
           max-width: 400px;
           margin: 0 auto 20px;
           line-height: 1.5;

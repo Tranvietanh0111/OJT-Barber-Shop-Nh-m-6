@@ -1,5 +1,5 @@
 /* ==========================================================================
-   BARBERHUB LUXURY DESIGN SYSTEM – TONE VÀNG ĐEN (ROYAL GOLD & JET BLACK)
+   BARBERHUB DESIGN SYSTEM – TONE SÁNG (FRESH GOLD & CREAM)
    Phụ trách: Trần Việt Anh – Nhóm trưởng
    ========================================================================== */
 
@@ -10,7 +10,7 @@
   --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-heading: 'Outfit', 'Plus Jakarta Sans', sans-serif;
 
-  /* Royal Gold Palette (Vàng Ánh Kim Quý Tộc) */
+  /* Gold Palette */
   --gold-primary: #f59e0b;
   --gold-light: #fbbf24;
   --gold-bright: #fde047;
@@ -18,29 +18,35 @@
   --gold-deep: #b45309;
   --gold-gradient: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #fbbf24 100%);
   --gold-gradient-hover: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #fde047 100%);
-  --gold-glow: 0 4px 25px rgba(245, 158, 11, 0.3);
-  --gold-glow-subtle: 0 0 15px rgba(245, 158, 11, 0.15);
-  --gold-border: rgba(245, 158, 11, 0.35);
+  --gold-text-gradient: linear-gradient(135deg, #b45309 0%, #d97706 55%, #f59e0b 100%);
+  --gold-glow: 0 4px 16px rgba(245, 158, 11, 0.28);
+  --gold-glow-subtle: 0 0 10px rgba(245, 158, 11, 0.12);
+  --gold-border: rgba(245, 158, 11, 0.45);
 
-  /* Jet Black & Dark Luxury Palette (Đen Tuyền Sang Trọng) */
-  --bg-app: #08090c;            /* Nền chính app */
-  --bg-surface: #0e1015;        /* Nền header, sidebar, footer */
-  --bg-card: #141720;           /* Nền các khối thẻ card */
-  --bg-card-hover: #1b1f2b;     /* Nền card khi hover */
-  --bg-input: #0a0b0f;          /* Nền form inputs */
-  --bg-overlay: rgba(8, 9, 12, 0.85);
+  /* Light Palette (Sáng, tươi) */
+  --bg-app: #fffaf0;
+  /* Nền chính app */
+  --bg-surface: #ffffff;
+  /* Nền header, sidebar, footer */
+  --bg-card: #ffffff;
+  /* Nền các khối thẻ card */
+  --bg-card-hover: #fff7e6;
+  /* Nền card khi hover */
+  --bg-input: #ffffff;
+  /* Nền form inputs */
+  --bg-overlay: rgba(255, 255, 255, 0.85);
 
   /* Borders & Dividers */
-  --border-subtle: #232736;
-  --border-medium: #2e3548;
+  --border-subtle: #f1e7d0;
+  --border-medium: #e5d6b4;
   --border-highlight: var(--gold-border);
 
   /* Text Colors */
-  --text-primary: #ffffff;
-  --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
-  --text-gold: #fbbf24;
-  --text-gold-bright: #fde047;
+  --text-primary: #1f2937;
+  --text-secondary: #4b5563;
+  --text-muted: #6b7280;
+  --text-gold: #b45309;
+  --text-gold-bright: #d97706;
 
   /* Functional Status Colors */
   --success: #10b981;
@@ -48,9 +54,9 @@
   --warning: #f59e0b;
   --warning-bg: rgba(245, 158, 11, 0.15);
   --danger: #ef4444;
-  --danger-bg: rgba(239, 68, 68, 0.15);
+  --danger-bg: rgba(239, 68, 68, 0.12);
   --info: #3b82f6;
-  --info-bg: rgba(59, 130, 246, 0.15);
+  --info-bg: rgba(59, 130, 246, 0.12);
 
   /* Dimensions & Radius */
   --header-height: 72px;
@@ -60,22 +66,25 @@
   --radius-lg: 18px;
   --radius-full: 9999px;
 
-  /* Shadows */
-  --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.6), 0 0 1px 1px rgba(255, 255, 255, 0.05);
-  --shadow-lg: 0 20px 40px -10px rgba(0, 0, 0, 0.8);
+  /* Shadows (nhẹ, mềm) */
+  --shadow-card: 0 8px 24px -8px rgba(120, 80, 10, 0.16), 0 0 1px 1px rgba(120, 80, 10, 0.05);
+  --shadow-lg: 0 16px 36px -10px rgba(120, 80, 10, 0.25);
 }
 
 /* ==========================================================================
    RESET & TYPOGRAPHY
    ========================================================================== */
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-html, body {
+html,
+body {
   font-family: var(--font-body);
   background-color: var(--bg-app);
   color: var(--text-primary);
@@ -85,7 +94,12 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   color: var(--text-primary);
   letter-spacing: -0.02em;
@@ -98,28 +112,34 @@ a {
   transition: all 0.2s ease;
 }
 
-button, input, select, textarea {
+button,
+input,
+select,
+textarea {
   font-family: var(--font-body);
 }
 
-/* Custom Scrollbar Vàng Đen */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--bg-app);
 }
+
 ::-webkit-scrollbar-thumb {
-  background: #2a2e3d;
+  background: #e5d6b4;
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--gold-dark);
 }
 
 /* ==========================================================================
-   CONTAINER & COMMON LAYOUT (TRẢI RỘNG CÂN ĐỐI, KHÔNG BỊ CHỤM Ở GIỮA)
+   CONTAINER & COMMON LAYOUT
    ========================================================================== */
 
 .container {
@@ -138,7 +158,7 @@ button, input, select, textarea {
 }
 
 /* ==========================================================================
-   BUTTONS (NÚT BẤM VÀNG ĐEN SANG TRỌNG)
+   BUTTONS
    ========================================================================== */
 
 .btn {
@@ -160,7 +180,7 @@ button, input, select, textarea {
 
 .btn-primary {
   background: var(--gold-gradient);
-  color: #08090c;
+  color: #1f1300;
   box-shadow: var(--gold-glow);
   font-weight: 800;
 }
@@ -168,7 +188,7 @@ button, input, select, textarea {
 .btn-primary:hover {
   background: var(--gold-gradient-hover);
   transform: translateY(-2px);
-  box-shadow: 0 6px 28px rgba(245, 158, 11, 0.45);
+  box-shadow: 0 6px 22px rgba(245, 158, 11, 0.4);
 }
 
 .btn-primary:active {
@@ -176,42 +196,42 @@ button, input, select, textarea {
 }
 
 .btn-outline-gold {
-  background-color: transparent;
-  color: var(--gold-light);
+  background-color: #ffffff;
+  color: var(--gold-deep);
   border: 1.5px solid var(--gold-primary);
   box-shadow: var(--gold-glow-subtle);
 }
 
 .btn-outline-gold:hover {
-  background-color: rgba(245, 158, 11, 0.12);
-  color: #ffffff;
-  border-color: var(--gold-light);
+  background-color: rgba(245, 158, 11, 0.14);
+  color: #92400e;
+  border-color: var(--gold-dark);
   transform: translateY(-2px);
 }
 
 .btn-secondary {
-  background-color: #1a1e29;
-  color: #f8fafc;
+  background-color: #ffffff;
+  color: #374151;
   border: 1px solid var(--border-medium);
 }
 
 .btn-secondary:hover {
-  background-color: #242a3a;
+  background-color: #fff7e6;
   border-color: var(--gold-border);
-  color: var(--gold-light);
+  color: var(--gold-deep);
   transform: translateY(-2px);
 }
 
 .btn-dark {
-  background-color: var(--bg-surface);
-  color: #cbd5e1;
-  border: 1px solid var(--border-subtle);
+  background-color: #f5f0e3;
+  color: #4b5563;
+  border: 1px solid var(--border-medium);
 }
 
 .btn-dark:hover {
-  background-color: #161922;
-  border-color: var(--border-medium);
-  color: #ffffff;
+  background-color: #ece3cd;
+  border-color: var(--gold-border);
+  color: #111827;
 }
 
 .btn-sm {
@@ -227,7 +247,7 @@ button, input, select, textarea {
 }
 
 /* ==========================================================================
-   BADGES & CHIPS (NHÃN TRẠNG THÁI ÁNH KIM)
+   BADGES & CHIPS
    ========================================================================== */
 
 .badge {
@@ -241,39 +261,39 @@ button, input, select, textarea {
   letter-spacing: 0.02em;
 }
 
-.badge-warning, .badge-gold {
+.badge-warning,
+.badge-gold {
   background: var(--warning-bg);
-  color: var(--gold-bright);
+  color: #92400e;
   border: 1px solid var(--gold-border);
-  box-shadow: 0 0 10px rgba(245, 158, 11, 0.15);
 }
 
 .badge-success {
   background: var(--success-bg);
-  color: #34d399;
-  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #047857;
+  border: 1px solid rgba(16, 185, 129, 0.4);
 }
 
 .badge-danger {
   background: var(--danger-bg);
-  color: #f87171;
-  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #b91c1c;
+  border: 1px solid rgba(239, 68, 68, 0.4);
 }
 
 .badge-info {
   background: var(--info-bg);
-  color: #60a5fa;
-  border: 1px solid rgba(59, 130, 246, 0.35);
+  color: #1d4ed8;
+  border: 1px solid rgba(59, 130, 246, 0.4);
 }
 
 .badge-neutral {
-  background: #181b24;
+  background: #f3f4f6;
   color: var(--text-secondary);
   border: 1px solid var(--border-subtle);
 }
 
 /* ==========================================================================
-   CARDS (THẺ NỘI DUNG TONE VÀNG ĐEN)
+   CARDS
    ========================================================================== */
 
 .card {
@@ -291,11 +311,11 @@ button, input, select, textarea {
   background-color: var(--bg-card-hover);
   border-color: var(--gold-border);
   transform: translateY(-3px);
-  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(245, 158, 11, 0.12);
+  box-shadow: 0 14px 32px -10px rgba(120, 80, 10, 0.25), 0 0 16px rgba(245, 158, 11, 0.12);
 }
 
 /* ==========================================================================
-   SITE HEADER (1 HÀNG DUY NHẤT – TRẢI RỘNG KHÔNG BỊ CHỤM, CHỮ KHÔNG XUỐNG DÒNG)
+   SITE HEADER
    ========================================================================== */
 
 .site-header {
@@ -303,7 +323,7 @@ button, input, select, textarea {
   top: 0;
   z-index: 100;
   height: var(--header-height);
-  background: rgba(11, 13, 18, 0.96);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-subtle);
@@ -330,22 +350,22 @@ button, input, select, textarea {
   font-family: var(--font-heading);
   font-size: 22px;
   font-weight: 900;
-  color: #ffffff;
+  color: var(--text-primary);
   letter-spacing: 0.5px;
   white-space: nowrap !important;
   flex-shrink: 0;
 }
 
 .brand-logo span {
-  color: var(--gold-light);
-  background: var(--gold-gradient);
+  color: var(--gold-dark);
+  background: var(--gold-text-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .brand-icon {
   background: var(--gold-gradient);
-  color: #08090c;
+  color: #1f1300;
   width: 40px;
   height: 40px;
   border-radius: 10px;
@@ -375,7 +395,7 @@ button, input, select, textarea {
   padding: 8px 16px;
   border-radius: var(--radius-md);
   transition: all 0.2s ease;
-  white-space: nowrap !important; /* ĐẢM BẢO 1 DÒNG DUY NHẤT, TUYỆT ĐỐI KHÔNG XUỐNG DÒNG */
+  white-space: nowrap !important;
   display: inline-flex;
   align-items: center;
   flex-shrink: 0;
@@ -383,14 +403,14 @@ button, input, select, textarea {
 }
 
 .nav-link:hover {
-  color: var(--gold-light);
-  background-color: rgba(245, 158, 11, 0.08);
-  border-color: rgba(245, 158, 11, 0.2);
+  color: var(--gold-deep);
+  background-color: rgba(245, 158, 11, 0.1);
+  border-color: rgba(245, 158, 11, 0.25);
 }
 
 .nav-link.active {
-  color: var(--gold-bright);
-  background-color: rgba(245, 158, 11, 0.16);
+  color: var(--gold-deep);
+  background-color: rgba(245, 158, 11, 0.18);
   border: 1px solid var(--gold-border);
   box-shadow: var(--gold-glow-subtle);
   font-weight: 700;
@@ -408,7 +428,7 @@ button, input, select, textarea {
   display: flex;
   align-items: center;
   gap: 4px;
-  background-color: #10131a;
+  background-color: #f5f0e3;
   padding: 4px;
   border-radius: var(--radius-md);
   border: 1px solid var(--border-subtle);
@@ -429,18 +449,18 @@ button, input, select, textarea {
 }
 
 .role-btn:hover {
-  color: #ffffff;
-  background: #1c202d;
+  color: var(--text-primary);
+  background: #ece3cd;
 }
 
 .role-btn.active {
   background: var(--gold-gradient);
-  color: #08090c;
-  box-shadow: 0 0 12px rgba(245, 158, 11, 0.35);
+  color: #1f1300;
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
 }
 
 /* ==========================================================================
-   HERO TYPOGRAPHY & SYMMETRY (CÂN XỨNG, KHÔNG BỊ BẺ CHỮ CỤT)
+   HERO TYPOGRAPHY
    ========================================================================== */
 
 .hero-title {
@@ -449,7 +469,7 @@ button, input, select, textarea {
   letter-spacing: -0.03em;
   line-height: 1.22;
   margin-bottom: 24px;
-  color: #ffffff;
+  color: var(--text-primary);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -458,21 +478,21 @@ button, input, select, textarea {
 
 .hero-title .title-line-1 {
   white-space: nowrap;
-  color: #ffffff;
+  color: var(--text-primary);
 }
 
 .hero-title .title-line-2 {
   white-space: nowrap;
-  background: var(--gold-gradient);
+  background: var(--gold-text-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .mobile-toggle {
   display: none;
-  background: #1a1e29;
+  background: #ffffff;
   border: 1px solid var(--border-medium);
-  color: var(--gold-light);
+  color: var(--gold-deep);
   font-size: 20px;
   width: 40px;
   height: 40px;
@@ -483,11 +503,11 @@ button, input, select, textarea {
 }
 
 /* ==========================================================================
-   FOOTER (CHÂN TRANG ĐEN VÀNG HOÀNG GIA)
+   FOOTER
    ========================================================================== */
 
 .site-footer {
-  background-color: #06070a;
+  background-color: #fff3d6;
   color: var(--text-secondary);
   border-top: 1px solid var(--border-subtle);
   padding-top: 64px;
@@ -504,7 +524,7 @@ button, input, select, textarea {
   right: 0;
   height: 1px;
   background: linear-gradient(90deg, transparent 0%, var(--gold-primary) 50%, transparent 100%);
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 .footer-grid {
@@ -515,7 +535,7 @@ button, input, select, textarea {
 }
 
 .footer-col h4 {
-  color: #ffffff;
+  color: var(--text-primary);
   font-family: var(--font-heading);
   font-size: 15px;
   font-weight: 800;
@@ -561,12 +581,12 @@ button, input, select, textarea {
 }
 
 .footer-links a:hover {
-  color: var(--gold-light);
+  color: var(--gold-deep);
   transform: translateX(4px);
 }
 
 .footer-bottom {
-  border-top: 1px solid var(--border-subtle);
+  border-top: 1px solid var(--border-medium);
   padding-top: 28px;
   display: flex;
   align-items: center;
@@ -587,7 +607,7 @@ button, input, select, textarea {
 
 .sidebar {
   width: var(--sidebar-width);
-  background-color: #0b0c10;
+  background-color: #ffffff;
   border-right: 1px solid var(--border-subtle);
   display: flex;
   flex-direction: column;
@@ -612,7 +632,7 @@ button, input, select, textarea {
   text-transform: uppercase;
   padding: 2px 8px;
   background: var(--gold-gradient);
-  color: #08090c;
+  color: #1f1300;
   border-radius: var(--radius-sm);
   font-weight: 800;
   letter-spacing: 0.05em;
@@ -641,13 +661,13 @@ button, input, select, textarea {
 }
 
 .sidebar-link:hover {
-  color: var(--gold-light);
-  background-color: rgba(245, 158, 11, 0.08);
+  color: var(--gold-deep);
+  background-color: rgba(245, 158, 11, 0.1);
 }
 
 .sidebar-link.active {
   background: var(--gold-gradient);
-  color: #08090c;
+  color: #1f1300;
   font-weight: 800;
   box-shadow: var(--gold-glow);
 }
@@ -668,7 +688,7 @@ button, input, select, textarea {
 
 .dashboard-topbar {
   height: var(--header-height);
-  background-color: #0e1015;
+  background-color: #ffffff;
   border-bottom: 1px solid var(--border-subtle);
   padding: 0 28px;
   display: flex;
@@ -703,7 +723,7 @@ button, input, select, textarea {
     top: var(--header-height);
     left: 0;
     right: 0;
-    background-color: #0b0c10;
+    background-color: #ffffff;
     border-bottom: 1px solid var(--gold-border);
     padding: 20px;
     gap: 10px;

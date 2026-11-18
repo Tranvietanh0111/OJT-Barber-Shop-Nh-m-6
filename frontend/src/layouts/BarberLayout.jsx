@@ -21,7 +21,7 @@ export default function BarberLayout() {
         <div className="sidebar-header">
           <div className="brand-icon">💈</div>
           <div>
-            <div style={{ color: "#fff", fontWeight: "800", fontSize: "16px" }}>BarberHub</div>
+            <div style={{ color: "var(--text-primary)", fontWeight: "800", fontSize: "16px" }}>BarberHub</div>
             <span className="sidebar-role-badge" style={{ backgroundColor: "#10b981" }}>BARBER PORTAL</span>
           </div>
         </div>

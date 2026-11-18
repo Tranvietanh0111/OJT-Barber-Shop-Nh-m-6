@@ -10,7 +10,7 @@ export default function AuthLayout() {
       backgroundColor: "var(--bg-app)",
       color: "var(--text-primary)"
     }}>
-      {/* Top Header Vàng Đen */}
+      {/* Top Header */}
       <header style={{
         height: "var(--header-height)",
         padding: "0 28px",
@@ -18,7 +18,7 @@ export default function AuthLayout() {
         alignItems: "center",
         justifyContent: "space-between",
         borderBottom: "1px solid var(--border-subtle)",
-        background: "rgba(14, 16, 21, 0.95)"
+        background: "rgba(255, 255, 255, 0.95)"
       }}>
         <Link to="/" className="brand-logo">
           <div className="brand-icon">✂️</div>

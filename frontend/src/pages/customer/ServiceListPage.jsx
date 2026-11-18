@@ -122,12 +122,12 @@ export default function ServiceListPage() {
         .cust-header-title {
           font-size: 32px;
           font-weight: 900;
-          color: #ffffff;
+          color: #1f2937;
           letter-spacing: -0.02em;
         }
         .cust-header-sub {
           font-size: 14px;
-          color: #94a3b8;
+          color: #6b7280;
           margin-top: 4px;
         }
         .cust-btn-primary {
@@ -136,7 +136,7 @@ export default function ServiceListPage() {
           gap: 8px;
           padding: 12px 24px;
           background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-          color: #08090c;
+          color: #ffffff;
           font-weight: 800;
           font-size: 13px;
           border-radius: 12px;
@@ -172,11 +172,11 @@ export default function ServiceListPage() {
         }
         .cust-search-input {
           width: 100%;
-          background: #141720;
-          border: 1px solid #232736;
+          background: #ffffff;
+          border: 1px solid #e5d6b4;
           border-radius: 12px;
           padding: 10px 14px 10px 38px;
-          color: #ffffff;
+          color: #1f2937;
           font-size: 13px;
           outline: none;
           transition: border-color 0.2s ease;
@@ -190,7 +190,7 @@ export default function ServiceListPage() {
           left: 12px;
           top: 50%;
           transform: translateY(-50%);
-          color: #64748b;
+          color: #9ca3af;
           font-size: 14px;
         }
         .cust-filter-pills {
@@ -200,23 +200,24 @@ export default function ServiceListPage() {
         }
         .cust-pill-btn {
           padding: 8px 16px;
-          background: #141720;
-          border: 1px solid #232736;
+          background: #ffffff;
+          border: 1px solid #e5d6b4;
           border-radius: 9999px;
-          color: #94a3b8;
+          color: #4b5563;
           font-size: 12px;
           font-weight: 700;
           cursor: pointer;
           transition: all 0.2s ease;
         }
         .cust-pill-btn:hover {
-          color: #ffffff;
-          background: #1b1f2b;
+          color: #b45309;
+          background: #fff7e6;
+          border-color: #f59e0b;
         }
         .cust-pill-btn.active {
           background: #f59e0b;
           border-color: #f59e0b;
-          color: #08090c;
+          color: #ffffff;
           font-weight: 800;
         }
 
@@ -228,19 +229,21 @@ export default function ServiceListPage() {
           margin-bottom: 64px;
         }
         .cust-card {
-          background: #141720;
-          border: 1px solid #232736;
+          background: #ffffff;
+          border: 1px solid #f1e7d0;
           border-radius: 24px;
           overflow: hidden;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
           transition: all 0.25s ease;
+          box-shadow: 0 4px 16px -4px rgba(120, 80, 10, 0.08);
         }
         .cust-card:hover {
-          border-color: rgba(245, 158, 11, 0.45);
+          border-color: rgba(245, 158, 11, 0.5);
           transform: translateY(-4px);
-          box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 12px 28px -6px rgba(120, 80, 10, 0.16);
+          background: #fffdf8;
         }
         .cust-card-img-wrap {
           position: relative;
@@ -268,7 +271,7 @@ export default function ServiceListPage() {
         }
         .cust-card-badge.gold {
           background: rgba(245, 158, 11, 0.9);
-          color: #08090c;
+          color: #ffffff;
         }
         .cust-card-badge.red {
           background: rgba(239, 68, 68, 0.9);
@@ -292,11 +295,12 @@ export default function ServiceListPage() {
           right: 12px;
           padding: 4px 10px;
           border-radius: 8px;
-          background: rgba(8, 9, 12, 0.85);
+          background: rgba(255, 255, 255, 0.9);
           backdrop-filter: blur(4px);
           font-size: 11px;
           font-weight: 700;
-          color: #cbd5e1;
+          color: #4b5563;
+          border: 1px solid #f1e7d0;
         }
         .cust-card-body {
           padding: 20px;
@@ -308,12 +312,12 @@ export default function ServiceListPage() {
         .cust-card-title {
           font-size: 18px;
           font-weight: 800;
-          color: #ffffff;
+          color: #1f2937;
           margin-bottom: 8px;
         }
         .cust-card-desc {
           font-size: 13px;
-          color: #94a3b8;
+          color: #6b7280;
           line-height: 1.6;
           margin-bottom: 18px;
         }
@@ -322,12 +326,12 @@ export default function ServiceListPage() {
           justify-content: space-between;
           align-items: center;
           padding-top: 16px;
-          border-top: 1px solid #1f2433;
+          border-top: 1px solid #f1e7d0;
         }
         .cust-card-price {
           font-size: 20px;
           font-weight: 900;
-          color: #fbbf24;
+          color: #b45309;
         }
         .cust-card-actions {
           display: flex;
@@ -342,30 +346,31 @@ export default function ServiceListPage() {
           transition: all 0.2s ease;
         }
         .cust-btn-detail {
-          background: #1b1f2b;
-          color: #cbd5e1;
-          border: 1px solid #2e3548;
+          background: #fff7e6;
+          color: #b45309;
+          border: 1px solid #fde68a;
         }
         .cust-btn-detail:hover {
-          background: #282f42;
-          color: #ffffff;
+          background: #fef3c7;
+          color: #92400e;
         }
         .cust-btn-book {
           background: #f59e0b;
-          color: #08090c;
+          color: #ffffff;
           font-weight: 800;
           border: none;
         }
         .cust-btn-book:hover {
-          background: #fbbf24;
+          background: #d97706;
         }
 
         /* Standards Grid */
         .cust-standards-box {
-          background: #141720;
-          border: 1px solid #232736;
+          background: #fffdfa;
+          border: 1px solid #f1e7d0;
           border-radius: 24px;
           padding: 36px 28px;
+          box-shadow: 0 4px 20px -6px rgba(120, 80, 10, 0.08);
         }
         .cust-standards-grid {
           display: grid;
@@ -373,10 +378,11 @@ export default function ServiceListPage() {
           gap: 24px;
         }
         .cust-std-item {
-          background: #0a0b0f;
-          border: 1px solid #1f2433;
+          background: #ffffff;
+          border: 1px solid #f1e7d0;
           border-radius: 16px;
           padding: 20px;
+          box-shadow: 0 2px 8px -2px rgba(120, 80, 10, 0.06);
         }
         .cust-std-icon {
           font-size: 26px;
@@ -385,12 +391,12 @@ export default function ServiceListPage() {
         .cust-std-title {
           font-size: 15px;
           font-weight: 800;
-          color: #ffffff;
+          color: #1f2937;
           margin-bottom: 6px;
         }
         .cust-std-desc {
           font-size: 12px;
-          color: #94a3b8;
+          color: #6b7280;
           line-height: 1.5;
         }
 
@@ -398,8 +404,8 @@ export default function ServiceListPage() {
         .cust-empty-state {
           padding: 64px 20px;
           text-align: center;
-          background: #141720;
-          border: 1px solid #232736;
+          background: #ffffff;
+          border: 1px solid #f1e7d0;
           border-radius: 24px;
           margin-bottom: 48px;
         }
@@ -410,12 +416,12 @@ export default function ServiceListPage() {
         .cust-empty-title {
           font-size: 18px;
           font-weight: 800;
-          color: #ffffff;
+          color: #1f2937;
           margin-bottom: 6px;
         }
         .cust-empty-desc {
           font-size: 13px;
-          color: #94a3b8;
+          color: #6b7280;
           margin-bottom: 18px;
         }
       `}</style>
@@ -515,7 +521,7 @@ export default function ServiceListPage() {
       <div className="cust-standards-box">
         <div style={{ textAlign: "center", maxWidth: "600px", margin: "0 auto 28px" }}>
           <span className="cust-header-tag">Cam Kết Chất Lượng</span>
-          <h2 style={{ fontSize: "22px", fontWeight: "800", color: "#fff" }}>Đặc Quyền Dành Cho Khách Hàng BarberHub</h2>
+          <h2 style={{ fontSize: "22px", fontWeight: "800", color: "#1f2937" }}>Đặc Quyền Dành Cho Khách Hàng BarberHub</h2>
         </div>
 
         <div className="cust-standards-grid">
