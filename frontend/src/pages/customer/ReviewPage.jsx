@@ -105,7 +105,7 @@ export default function ReviewPage() {
           max-width: 1240px;
           margin: 0 auto;
           padding: 32px 20px 64px;
-          color: #f8fafc;
+          color: var(--text-primary);
           font-family: 'Plus Jakarta Sans', sans-serif;
           position: relative;
         }
@@ -125,7 +125,7 @@ export default function ReviewPage() {
           font-weight: 800;
           text-transform: uppercase;
           letter-spacing: 0.1em;
-          color: #f59e0b;
+          color: #dc2626;
           display: block;
           margin-bottom: 4px;
         }
@@ -168,14 +168,14 @@ export default function ReviewPage() {
         /* Summary Header Box */
         .cust-summary-hero {
           background: #ffffff;
-          border: 1px solid #f1e7d0;
+          border: 1px solid #e7e5e4;
           border-radius: 28px;
           padding: 36px;
           display: grid;
           grid-template-columns: 1fr;
           gap: 36px;
           margin-bottom: 48px;
-          box-shadow: 0 4px 20px -4px rgba(120, 80, 10, 0.08);
+          box-shadow: 0 4px 20px -4px rgba(15, 23, 42, 0.08);
         }
         @media (min-width: 768px) {
           .cust-summary-hero {
@@ -190,19 +190,19 @@ export default function ReviewPage() {
         }
         @media (min-width: 768px) {
           .cust-score-box {
-            border-right: 1px solid #f1e7d0;
+            border-right: 1px solid #e7e5e4;
             padding-right: 36px;
           }
         }
         .cust-score-big {
           font-size: 56px;
           font-weight: 900;
-          color: #b45309;
+          color: #1d4ed8;
           line-height: 1;
           margin-bottom: 8px;
         }
         .cust-score-stars {
-          color: #f59e0b;
+          color: var(--color-gold);
           font-size: 18px;
           margin-bottom: 6px;
         }
@@ -237,7 +237,7 @@ export default function ReviewPage() {
         }
         .cust-bar-fill {
           height: 100%;
-          background: linear-gradient(90deg, #d97706, #fbbf24);
+          background: linear-gradient(90deg, #b91c1c, #ef4444);
           border-radius: 9999px;
         }
         .cust-bar-pct {
@@ -262,11 +262,11 @@ export default function ReviewPage() {
         /* Review Form Box */
         .cust-form-box {
           background: #ffffff;
-          border: 1px solid #f1e7d0;
+          border: 1px solid #e7e5e4;
           border-radius: 24px;
           padding: 28px;
           height: fit-content;
-          box-shadow: 0 4px 16px -4px rgba(120, 80, 10, 0.08);
+          box-shadow: 0 4px 16px -4px rgba(15, 23, 42, 0.08);
         }
         .cust-form-title {
           font-size: 18px;
@@ -294,7 +294,7 @@ export default function ReviewPage() {
           width: 100%;
           padding: 12px 14px;
           background: #ffffff;
-          border: 1px solid #e5d6b4;
+          border: 1px solid #d6d3d1;
           border-radius: 12px;
           color: #1f2937;
           font-size: 13px;
@@ -303,7 +303,7 @@ export default function ReviewPage() {
           font-family: inherit;
         }
         .cust-select:focus, .cust-textarea:focus {
-          border-color: #f59e0b;
+          border-color: #dc2626;
         }
         .cust-textarea {
           resize: vertical;
@@ -320,7 +320,7 @@ export default function ReviewPage() {
           transition: color 0.15s ease;
         }
         .cust-star-opt.active {
-          color: #f59e0b;
+          color: #dc2626;
         }
         .cust-btn-primary {
           display: inline-flex;
@@ -329,18 +329,18 @@ export default function ReviewPage() {
           gap: 8px;
           width: 100%;
           padding: 13px;
-          background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-          color: #ffffff;
+          background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+          color: var(--text-primary);
           font-weight: 800;
           font-size: 13px;
           border-radius: 12px;
           border: none;
           cursor: pointer;
-          box-shadow: 0 4px 18px rgba(245, 158, 11, 0.3);
+          box-shadow: 0 4px 18px rgba(220, 38, 38, 0.3);
           transition: all 0.2s ease;
         }
         .cust-btn-primary:hover {
-          background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+          background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
           transform: translateY(-2px);
         }
 
@@ -354,7 +354,7 @@ export default function ReviewPage() {
         .cust-pill-btn {
           padding: 8px 16px;
           background: #ffffff;
-          border: 1px solid #e5d6b4;
+          border: 1px solid #d6d3d1;
           border-radius: 9999px;
           color: #4b5563;
           font-size: 12px;
@@ -363,14 +363,14 @@ export default function ReviewPage() {
           transition: all 0.2s ease;
         }
         .cust-pill-btn:hover {
-          color: #b45309;
-          background: #fff7e6;
-          border-color: #f59e0b;
+          color: #1d4ed8;
+          background: #eff6ff;
+          border-color: #dc2626;
         }
         .cust-pill-btn.active {
-          background: #f59e0b;
-          border-color: #f59e0b;
-          color: #ffffff;
+          background: #dc2626;
+          border-color: #dc2626;
+          color: var(--text-primary);
           font-weight: 800;
         }
 
@@ -382,15 +382,15 @@ export default function ReviewPage() {
         }
         .cust-rev-card {
           background: #ffffff;
-          border: 1px solid #f1e7d0;
+          border: 1px solid #e7e5e4;
           border-radius: 20px;
           padding: 24px;
           transition: all 0.25s ease;
-          box-shadow: 0 4px 16px -4px rgba(120, 80, 10, 0.08);
+          box-shadow: 0 4px 16px -4px rgba(15, 23, 42, 0.08);
         }
         .cust-rev-card:hover {
-          border-color: rgba(245, 158, 11, 0.5);
-          box-shadow: 0 10px 24px -4px rgba(120, 80, 10, 0.14);
+          border-color: rgba(220, 38, 38, 0.5);
+          box-shadow: 0 10px 24px -4px rgba(15, 23, 42, 0.14);
         }
         .cust-rev-top {
           display: flex;
@@ -415,9 +415,9 @@ export default function ReviewPage() {
           border-radius: 9999px;
         }
         .cust-rev-tier-badge.gold {
-          background: rgba(245, 158, 11, 0.15);
-          color: #b45309;
-          border: 1px solid rgba(245, 158, 11, 0.4);
+          background: var(--color-bg);
+          color: var(--color-gold);
+          border: 1px solid var(--color-gold);
         }
         .cust-rev-tier-badge.blue {
           background: rgba(59, 130, 246, 0.15);
@@ -435,7 +435,7 @@ export default function ReviewPage() {
         }
         .cust-rev-meta-sub {
           font-size: 12px;
-          color: #b45309;
+          color: #1d4ed8;
           margin-bottom: 10px;
           display: flex;
           align-items: center;
@@ -645,7 +645,7 @@ export default function ReviewPage() {
                   <span style={{ color: "#64748b" }}>•</span>
                   <span>{r.service}</span>
                   <span style={{ color: "#64748b" }}>•</span>
-                  <span style={{ color: "#ffffff" }}>{r.barber}</span>
+                  <span style={{ color: "var(--text-primary)" }}>{r.barber}</span>
                 </div>
 
                 <p className="cust-rev-comment">"{r.comment}"</p>

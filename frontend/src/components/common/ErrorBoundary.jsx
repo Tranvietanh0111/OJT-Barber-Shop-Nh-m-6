@@ -1,4 +1,4 @@
-// Phụ trách: Trần Việt Anh – ErrorBoundary (Tone Vàng Đen)
+// Phụ trách: Trần Việt Anh – ErrorBoundary
 import React from "react";
 
 export default class ErrorBoundary extends React.Component {
@@ -48,7 +48,7 @@ export default class ErrorBoundary extends React.Component {
             <span className="badge badge-danger" style={{ marginBottom: "16px", fontSize: "13px" }}>
               ĐÃ XẢY RA SỰ CỐ GIAO DIỆN
             </span>
-            <h2 style={{ fontSize: "26px", fontWeight: "800", color: "#ffffff", margin: "16px 0 10px 0" }}>
+            <h2 style={{ fontSize: "26px", fontWeight: "800", color: "var(--text-primary)", margin: "16px 0 10px 0" }}>
               Hệ Thống Gặp Sự Cố Bất Ngờ
             </h2>
             <p style={{ color: "var(--text-secondary)", fontSize: "14px", lineHeight: "1.6", marginBottom: "26px" }}>
@@ -57,12 +57,12 @@ export default class ErrorBoundary extends React.Component {
 
             {this.state.error && (
               <div style={{
-                background: "#08090c",
+                background: "var(--bg-surface)",
                 padding: "14px 16px",
                 borderRadius: "8px",
-                border: "1px solid #2e1515",
+                border: "1px solid var(--border-subtle)",
                 fontSize: "12px",
-                color: "#f87171",
+                color: "var(--danger)",
                 textAlign: "left",
                 fontFamily: "monospace",
                 marginBottom: "26px",

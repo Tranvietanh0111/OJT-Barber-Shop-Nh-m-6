@@ -147,9 +147,9 @@ export default function InvoiceManagement() {
 
               <div style={{ borderTop: "1px dashed #cbd5e1", paddingTop: 12, display: "grid", gap: 6, fontSize: 14 }}>
                 <div style={{ display: "flex", justifyContent: "space-between" }}><span>Tạm tính:</span><strong>270.000 đ</strong></div>
-                <div style={{ display: "flex", justifyContent: "space-between", color: "#10b981" }}><span>Giảm giá:</span><strong>-20.000 đ</strong></div>
+                <div style={{ display: "flex", justifyContent: "space-between", color: "var(--color-navy)" }}><span>Giảm giá:</span><strong>-20.000 đ</strong></div>
                 <div style={{ display: "flex", justifyContent: "space-between", fontSize: 16, fontWeight: 800 }}>
-                  <span>Tổng thanh toán:</span><span style={{ color: "#f5cb78" }}>250.000 đ</span>
+                  <span>Tổng thanh toán:</span><span style={{ color: "#2563eb" }}>250.000 đ</span>
                 </div>
               </div>
 

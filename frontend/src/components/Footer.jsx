@@ -1,5 +1,6 @@
 // Phụ trách: Trần Việt Anh – Footer dùng chung toàn ứng dụng
 import { Link } from "react-router-dom";
+import { LineIcon } from "./Header";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -11,7 +12,7 @@ export default function Footer() {
           {/* Cột 1: Thông tin thương hiệu */}
           <div className="footer-col">
             <div className="brand-logo" style={{ marginBottom: "16px" }}>
-              <div className="brand-icon">✂️</div>
+              <div className="brand-icon"><LineIcon name="scissors" size={22} /></div>
               <div>Barber<span>Hub</span></div>
             </div>
             <p>
@@ -19,8 +20,8 @@ export default function Footer() {
               và chăm sóc râu chuyên nghiệp chuẩn phong cách quý ông hiện đại.
             </p>
             <div style={{ display: "flex", gap: "10px", marginTop: "12px" }}>
-              <span className="badge badge-warning">⭐ Đẳng cấp 5 sao</span>
-              <span className="badge badge-info">💈 Thợ chuẩn tay nghề</span>
+              <span className="badge badge-gold"><LineIcon name="star" size={14} /> Đẳng cấp 5 sao</span>
+              <span className="badge badge-info"><LineIcon name="scissors" size={14} /> Thợ chuẩn tay nghề</span>
             </div>
           </div>
 
@@ -39,10 +40,10 @@ export default function Footer() {
           {/* Cột 3: Thời gian làm việc */}
           <div className="footer-col">
             <h4>GIỜ PHỤC VỤ</h4>
-            <p style={{ margin: "4px 0", color: "#cbd5e1" }}>
+            <p style={{ margin: "4px 0", color: "var(--text-secondary)" }}>
               <strong>Thứ 2 – Thứ 6:</strong> 08:30 – 21:00
             </p>
-            <p style={{ margin: "4px 0", color: "#cbd5e1" }}>
+            <p style={{ margin: "4px 0", color: "var(--text-secondary)" }}>
               <strong>Thứ 7 – Chủ Nhật:</strong> 08:00 – 21:30
             </p>
             <p style={{ marginTop: "12px", fontSize: "13px", color: "var(--primary)" }}>
@@ -54,7 +55,7 @@ export default function Footer() {
           <div className="footer-col">
             <h4>ĐỊA CHỈ & LIÊN HỆ</h4>
             <p>📍 Số 10 Đan Phượng</p>
-            <p>📞 Hotline tư vấn: <strong style={{ color: "#ffffff" }}>066771508</strong></p>
+            <p>📞 Hotline tư vấn: <strong style={{ color: "var(--text-primary)" }}>066771508</strong></p>
             <p>✉️ Email hỗ trợ: support@barberhub.vn</p>
           </div>
         </div>
@@ -65,8 +66,8 @@ export default function Footer() {
             © {currentYear} <strong>BarberHub</strong> – Dự án OJT Barber Shop Nhóm 6. Mọi quyền được bảo lưu.
           </div>
           <div style={{ display: "flex", gap: "16px" }}>
-            <Link to="/privacy" style={{ color: "#94a3b8" }}>Chính sách bảo mật</Link>
-            <Link to="/terms" style={{ color: "#94a3b8" }}>Điều khoản dịch vụ</Link>
+            <Link to="/privacy">Chính sách bảo mật</Link>
+            <Link to="/terms">Điều khoản dịch vụ</Link>
             <Link to="/overview" style={{ color: "var(--primary)", fontWeight: "600" }}>System Overview</Link>
           </div>
         </div>

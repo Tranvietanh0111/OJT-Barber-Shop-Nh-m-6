@@ -80,7 +80,7 @@ export default function AppointmentManagement() {
                     <td>Combo Đế Vương 7 Bước</td>
                     <td>14/11/2026 • 09:30</td>
                     <td><strong>220.000 đ</strong></td>
-                    <td><span className="adm-badge adm-badge-green">completed</span></td>
+                    <td><span className="adm-badge adm-badge-green badge badge-completed">completed</span></td>
                     <td><button type="button" className="adm-btn adm-btn-outline adm-btn-sm">Chi tiết</button></td>
                   </tr>
                   <tr>
@@ -93,7 +93,7 @@ export default function AppointmentManagement() {
                     <td>Uốn Định Hình Hàn Quốc</td>
                     <td>14/11/2026 • 10:30</td>
                     <td><strong>380.000 đ</strong></td>
-                    <td><span className="adm-badge adm-badge-blue">confirmed</span></td>
+                    <td><span className="adm-badge adm-badge-blue badge badge-confirmed">confirmed</span></td>
                     <td><button type="button" className="adm-btn adm-btn-gold adm-btn-sm">Hoàn thành</button></td>
                   </tr>
                   <tr>
@@ -106,7 +106,7 @@ export default function AppointmentManagement() {
                     <td>Cắt Tóc Thương Gia</td>
                     <td>14/11/2026 • 14:00</td>
                     <td><strong>120.000 đ</strong></td>
-                    <td><span className="adm-badge adm-badge-yellow">pending</span></td>
+                    <td><span className="adm-badge adm-badge-yellow badge badge-pending">pending</span></td>
                     <td>
                       <button type="button" className="adm-btn adm-btn-success adm-btn-sm">Duyệt</button>{" "}
                       <button type="button" className="adm-btn adm-btn-danger adm-btn-sm">Từ chối</button>
@@ -122,7 +122,7 @@ export default function AppointmentManagement() {
                     <td>Cắt Tóc Thương Gia</td>
                     <td>13/11/2026 • 18:00</td>
                     <td><strong>120.000 đ</strong></td>
-                    <td><span className="adm-badge adm-badge-red">rejected</span></td>
+                    <td><span className="adm-badge adm-badge-red badge badge-cancelled">rejected</span></td>
                     <td><button type="button" className="adm-btn adm-btn-outline adm-btn-sm">Chi tiết</button></td>
                   </tr>
                   <tr>
@@ -135,7 +135,7 @@ export default function AppointmentManagement() {
                     <td>Cạo Râu Khăn Nóng</td>
                     <td>13/11/2026 • 16:30</td>
                     <td><strong>80.000 đ</strong></td>
-                    <td><span className="adm-badge adm-badge-gray">cancelled</span></td>
+                    <td><span className="adm-badge adm-badge-red badge badge-cancelled">cancelled</span></td>
                     <td><button type="button" className="adm-btn adm-btn-outline adm-btn-sm">Chi tiết</button></td>
                   </tr>
                 </tbody>

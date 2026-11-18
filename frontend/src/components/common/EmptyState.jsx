@@ -1,4 +1,4 @@
-// Phụ trách: Trần Việt Anh – EmptyState (Tone Vàng Đen)
+// Phụ trách: Trần Việt Anh – EmptyState
 import { Link } from "react-router-dom";
 
 export default function EmptyState({
@@ -19,7 +19,7 @@ export default function EmptyState({
       margin: "24px 0"
     }}>
       <div style={{ fontSize: "52px", marginBottom: "18px", lineHeight: 1 }}>{icon}</div>
-      <h3 style={{ fontSize: "20px", fontWeight: "800", color: "#ffffff", marginBottom: "10px" }}>
+      <h3 style={{ fontSize: "20px", fontWeight: "800", color: "var(--text-primary)", marginBottom: "10px" }}>
         {title}
       </h3>
       <p style={{ fontSize: "14px", color: "var(--text-secondary)", maxWidth: "440px", margin: "0 auto 24px auto", lineHeight: "1.6" }}>

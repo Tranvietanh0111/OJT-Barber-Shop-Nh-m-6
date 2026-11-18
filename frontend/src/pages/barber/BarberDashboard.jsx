@@ -1,5 +1,6 @@
 // Phụ trách: Vũ Quốc Khánh – Trang tổng quan Barber (dữ liệu mẫu, Sprint 2)
 import { barberDashboardMock } from "../../mocks/barberDashboard";
+import { LineIcon } from "../../components/Header";
 
 const cardStyle = {
   background: "var(--bg-card)",
@@ -15,7 +16,7 @@ const td = { padding: "12px", borderTop: "1px solid var(--border-subtle)", color
 function StatCard({ icon, label, value }) {
   return (
     <div style={{ ...cardStyle, flex: 1, minWidth: "200px" }}>
-      <div style={{ fontSize: "24px" }}>{icon}</div>
+      <div style={{ color: "var(--color-navy)", lineHeight: 0 }}>{icon}</div>
       <div style={{ color: "var(--text-secondary)", fontSize: "14px", marginTop: "8px" }}>{label}</div>
       <div style={{ fontSize: "28px", fontWeight: 800, color: "var(--text-primary)" }}>{value}</div>
     </div>
@@ -33,9 +34,9 @@ export default function BarberDashboard() {
 
       {/* 3 thẻ thống kê */}
       <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
-        <StatCard icon="📅" label="Lịch hẹn hôm nay" value={todayAppointments.length} />
-        <StatCard icon="👥" label="Lượt khách trong tuần" value={weeklyCustomers} />
-        <StatCard icon="⭐" label="Điểm đánh giá trung bình" value={averageRating.toFixed(1)} />
+        <StatCard icon={<LineIcon name="calendar" size={24} />} label="Lịch hẹn hôm nay" value={todayAppointments.length} />
+        <StatCard icon={<LineIcon name="users" size={24} />} label="Lượt khách trong tuần" value={weeklyCustomers} />
+        <StatCard icon={<LineIcon name="star" size={24} />} label="Điểm đánh giá trung bình" value={averageRating.toFixed(1)} />
       </div>
 
       {/* Lịch hẹn hôm nay */}
@@ -60,7 +61,7 @@ export default function BarberDashboard() {
                   <td style={td}>{a.customer}</td>
                   <td style={td}>{a.service}</td>
                   <td style={td}>
-                    <span className={`badge ${a.status === "confirmed" ? "badge-success" : "badge-info"}`}>
+                    <span className={`badge ${a.status === "confirmed" ? "badge-confirmed" : "badge-pending"}`}>
                       {a.status === "confirmed" ? "Đã xác nhận" : "Chờ xác nhận"}
                     </span>
                   </td>

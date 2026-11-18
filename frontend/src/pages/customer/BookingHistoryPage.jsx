@@ -110,7 +110,7 @@ export default function BookingHistoryPage() {
           max-width: 1080px;
           margin: 0 auto;
           padding: 32px 20px 64px;
-          color: #f8fafc;
+          color: var(--text-primary);
           font-family: 'Plus Jakarta Sans', sans-serif;
           position: relative;
         }
@@ -130,7 +130,7 @@ export default function BookingHistoryPage() {
           font-weight: 800;
           text-transform: uppercase;
           letter-spacing: 0.1em;
-          color: #f59e0b;
+          color: #dc2626;
           display: block;
           margin-bottom: 4px;
         }
@@ -150,7 +150,7 @@ export default function BookingHistoryPage() {
         .cust-filter-tabs {
           display: flex;
           background: #ffffff;
-          border: 1px solid #e5d6b4;
+          border: 1px solid #d6d3d1;
           border-radius: 14px;
           padding: 4px;
           gap: 4px;
@@ -167,11 +167,11 @@ export default function BookingHistoryPage() {
           transition: all 0.2s ease;
         }
         .cust-tab-btn:hover {
-          color: #b45309;
+          color: #1d4ed8;
         }
         .cust-tab-btn.active {
-          background: #f59e0b;
-          color: #ffffff;
+          background: #dc2626;
+          color: var(--text-primary);
           font-weight: 800;
         }
 
@@ -207,15 +207,15 @@ export default function BookingHistoryPage() {
         }
         .cust-bk-card {
           background: #ffffff;
-          border: 1px solid #f1e7d0;
+          border: 1px solid #e7e5e4;
           border-radius: 24px;
           padding: 24px;
           transition: all 0.25s ease;
-          box-shadow: 0 4px 16px -4px rgba(120, 80, 10, 0.08);
+          box-shadow: 0 4px 16px -4px rgba(15, 23, 42, 0.08);
         }
         .cust-bk-card:hover {
-          border-color: rgba(245, 158, 11, 0.5);
-          box-shadow: 0 10px 24px -4px rgba(120, 80, 10, 0.14);
+          border-color: rgba(220, 38, 38, 0.5);
+          box-shadow: 0 10px 24px -4px rgba(15, 23, 42, 0.14);
         }
         .cust-bk-top {
           display: flex;
@@ -223,7 +223,7 @@ export default function BookingHistoryPage() {
           align-items: center;
           flex-wrap: wrap;
           gap: 12px;
-          border-bottom: 1px solid #f1e7d0;
+          border-bottom: 1px solid #e7e5e4;
           padding-bottom: 18px;
           margin-bottom: 18px;
         }
@@ -236,8 +236,8 @@ export default function BookingHistoryPage() {
           width: 48px;
           height: 48px;
           border-radius: 16px;
-          background: rgba(245, 158, 11, 0.12);
-          border: 1px solid rgba(245, 158, 11, 0.25);
+          background: rgba(220, 38, 38, 0.12);
+          border: 1px solid rgba(220, 38, 38, 0.25);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -246,7 +246,7 @@ export default function BookingHistoryPage() {
         .cust-bk-datetime {
           font-size: 12px;
           font-weight: 800;
-          color: #b45309;
+          color: #1d4ed8;
         }
         .cust-bk-title {
           font-size: 17px;
@@ -269,29 +269,29 @@ export default function BookingHistoryPage() {
           gap: 6px;
         }
         .cust-badge-status.done {
-          background: rgba(16, 185, 129, 0.12);
-          color: #059669;
-          border: 1px solid rgba(16, 185, 129, 0.3);
+          background: var(--status-completed-bg);
+          color: var(--status-completed-text);
+          border: 1px solid var(--status-completed-text);
         }
         .cust-badge-status.cutting {
-          background: rgba(245, 158, 11, 0.15);
-          color: #b45309;
-          border: 1px solid rgba(245, 158, 11, 0.4);
+          background: var(--status-confirmed-bg);
+          color: var(--status-confirmed-text);
+          border: 1px solid var(--status-confirmed-text);
         }
         .cust-badge-status.booked {
-          background: rgba(59, 130, 246, 0.12);
-          color: #2563eb;
-          border: 1px solid rgba(59, 130, 246, 0.3);
+          background: var(--status-pending-bg);
+          color: var(--status-pending-text);
+          border: 1px solid var(--status-pending-text);
         }
         .cust-badge-status.canceled {
-          background: rgba(148, 163, 184, 0.12);
-          color: #6b7280;
-          border: 1px solid rgba(148, 163, 184, 0.25);
+          background: var(--status-cancelled-bg);
+          color: var(--status-cancelled-text);
+          border: 1px solid var(--status-cancelled-text);
         }
         .cust-bk-price {
           font-size: 18px;
           font-weight: 900;
-          color: #b45309;
+          color: #1d4ed8;
         }
 
         /* 3-col info row */
@@ -307,8 +307,8 @@ export default function BookingHistoryPage() {
           }
         }
         .cust-bk-meta-item {
-          background: #fffdfa;
-          border: 1px solid #f1e7d0;
+          background: #fffdf7;
+          border: 1px solid #e7e5e4;
           border-radius: 12px;
           padding: 12px 14px;
         }
@@ -333,7 +333,7 @@ export default function BookingHistoryPage() {
           flex-wrap: wrap;
           gap: 12px;
           padding-top: 14px;
-          border-top: 1px solid #f1e7d0;
+          border-top: 1px solid #e7e5e4;
         }
         .cust-bk-code {
           font-size: 12px;
@@ -367,33 +367,33 @@ export default function BookingHistoryPage() {
         }
         .cust-btn-cancel:hover {
           background: #ef4444;
-          color: #ffffff;
+          color: var(--text-primary);
         }
         .cust-btn-dir {
-          background: #fff7e6;
-          color: #b45309;
-          border: 1px solid #fde68a;
+          background: #eff6ff;
+          color: #1d4ed8;
+          border: 1px solid #bfdbfe;
         }
         .cust-btn-dir:hover {
-          background: #fef3c7;
-          border-color: #f59e0b;
+          background: #eff6ff;
+          border-color: #dc2626;
         }
         .cust-btn-review {
-          background: #fff7e6;
-          color: #b45309;
-          border: 1px solid #fde68a;
+          background: #eff6ff;
+          color: #1d4ed8;
+          border: 1px solid #bfdbfe;
         }
         .cust-btn-review:hover {
-          background: #f59e0b;
-          color: #ffffff;
+          background: #dc2626;
+          color: var(--text-primary);
         }
         .cust-btn-rebook {
-          background: #f59e0b;
-          color: #ffffff;
+          background: #dc2626;
+          color: var(--text-primary);
           font-weight: 800;
         }
         .cust-btn-rebook:hover {
-          background: #d97706;
+          background: #b91c1c;
         }
 
         /* Empty state */
@@ -401,7 +401,7 @@ export default function BookingHistoryPage() {
           padding: 64px 20px;
           text-align: center;
           background: #ffffff;
-          border: 1px solid #f1e7d0;
+          border: 1px solid #e7e5e4;
           border-radius: 24px;
         }
         .cust-empty-icon {
@@ -426,17 +426,17 @@ export default function BookingHistoryPage() {
           align-items: center;
           gap: 8px;
           padding: 12px 24px;
-          background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+          background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
           color: #08090c;
           font-weight: 800;
           font-size: 13px;
           border-radius: 12px;
           text-decoration: none;
-          box-shadow: 0 4px 18px rgba(245, 158, 11, 0.3);
+          box-shadow: 0 4px 18px rgba(220, 38, 38, 0.3);
           transition: all 0.2s ease;
         }
         .cust-btn-primary:hover {
-          background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+          background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
           transform: translateY(-2px);
         }
       `}</style>
@@ -514,16 +514,16 @@ export default function BookingHistoryPage() {
 
                 <div className="cust-bk-status-price">
                   {b.status === "Xong" && (
-                    <span className="cust-badge-status done">✓ Hoàn Thành</span>
+                    <span className="cust-badge-status badge-completed done">✓ Hoàn Thành</span>
                   )}
                   {b.status === "Đang Cắt" && (
-                    <span className="cust-badge-status cutting">⏳ Đang Cắt</span>
+                    <span className="cust-badge-status badge-confirmed cutting">⏳ Đang Cắt</span>
                   )}
                   {b.status === "Đã Đặt" && (
-                    <span className="cust-badge-status booked">📅 Sắp Tới</span>
+                    <span className="cust-badge-status badge-pending booked">📅 Sắp Tới</span>
                   )}
                   {b.status === "Đã Hủy" && (
-                    <span className="cust-badge-status canceled">✕ Đã Hủy</span>
+                    <span className="cust-badge-status badge-cancelled canceled">✕ Đã Hủy</span>
                   )}
                   <span className="cust-bk-price">{b.price}</span>
                 </div>
@@ -540,7 +540,7 @@ export default function BookingHistoryPage() {
                 </div>
                 <div className="cust-bk-meta-item">
                   <div className="cust-bk-meta-lbl">Chi nhánh</div>
-                  <div className="cust-bk-meta-val" style={{ color: "#fbbf24" }}>{b.branch}</div>
+                  <div className="cust-bk-meta-val" style={{ color: "#ef4444" }}>{b.branch}</div>
                 </div>
               </div>
 

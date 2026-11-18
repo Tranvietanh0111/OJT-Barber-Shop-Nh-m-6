@@ -1,6 +1,7 @@
 // Phụ trách: Trần Việt Anh – Layout quản trị Admin (Fix & Tối ưu an toàn)
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { LineIcon } from "../components/Header";
 
 export default function AdminLayout() {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ export default function AdminLayout() {
       {/* Sidebar Admin */}
       <aside className="sidebar">
         <div className="sidebar-header">
-          <div className="brand-icon">🛡️</div>
+          <div className="brand-icon"><LineIcon name="shield" size={22} /></div>
           <div>
             <div style={{ color: "var(--text-primary)", fontWeight: "800", fontSize: "16px" }}>BarberHub</div>
             <span className="sidebar-role-badge">ADMIN PORTAL</span>
@@ -32,52 +33,52 @@ export default function AdminLayout() {
             end
             className={({ isActive }) => `sidebar-link ${isActive ? "active" : ""}`}
           >
-            <span>📊</span> Tổng quan Dashboard
+            <LineIcon name="chart" /> Tổng quan Dashboard
           </NavLink>
           <NavLink
             to="/admin/users"
             className={({ isActive }) => `sidebar-link ${isActive ? "active" : ""}`}
           >
-            <span>👥</span> Quản lý Người dùng
+            <LineIcon name="users" /> Quản lý Người dùng
           </NavLink>
           <NavLink
             to="/admin/barbers"
             className={({ isActive }) => `sidebar-link ${isActive ? "active" : ""}`}
           >
-            <span>💈</span> Quản lý Barber
+            <LineIcon name="scissors" /> Quản lý Barber
           </NavLink>
           <NavLink
             to="/admin/services"
             className={({ isActive }) => `sidebar-link ${isActive ? "active" : ""}`}
           >
-            <span>✂️</span> Quản lý Dịch vụ
+            <LineIcon name="scissors" /> Quản lý Dịch vụ
           </NavLink>
           <NavLink
             to="/admin/appointments"
             className={({ isActive }) => `sidebar-link ${isActive ? "active" : ""}`}
           >
-            <span>📅</span> Quản lý Lịch hẹn
+            <LineIcon name="calendar" /> Quản lý Lịch hẹn
           </NavLink>
           <NavLink
             to="/admin/invoices"
             className={({ isActive }) => `sidebar-link ${isActive ? "active" : ""}`}
           >
-            <span>🧾</span> Quản lý Hóa đơn
+            <LineIcon name="receipt" /> Quản lý Hóa đơn
           </NavLink>
           <NavLink
             to="/admin/revenue"
             className={({ isActive }) => `sidebar-link ${isActive ? "active" : ""}`}
           >
-            <span>📈</span> Thống kê Doanh thu
+            <LineIcon name="chart" /> Thống kê Doanh thu
           </NavLink>
         </nav>
 
         <div className="sidebar-footer">
           <Link to="/" className="btn btn-secondary btn-sm" style={{ width: "100%", marginBottom: "8px" }}>
-            🏠 Về trang khách hàng
+            <LineIcon name="home" /> Về trang khách hàng
           </Link>
           <button onClick={handleLogout} className="btn btn-dark btn-sm" style={{ width: "100%" }}>
-            🚪 Đăng xuất
+            <LineIcon name="logout" /> Đăng xuất
           </button>
         </div>
       </aside>
@@ -94,7 +95,7 @@ export default function AdminLayout() {
 
           <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
             <Link to="/overview" className="btn btn-outline-gold btn-sm">
-              📊 Tổng quan Portal
+              <LineIcon name="portal" size={16} /> Tổng quan Portal
             </Link>
             <div style={{ fontSize: "14px", color: "var(--text-secondary)" }}>
               Quản trị viên: <strong style={{ color: "var(--text-primary)" }}>{user?.full_name || user?.email || "Admin"}</strong>
