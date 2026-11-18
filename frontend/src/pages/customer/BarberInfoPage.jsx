@@ -86,7 +86,7 @@ export default function BarberInfoPage() {
           max-width: 1240px;
           margin: 0 auto;
           padding: 32px 20px 64px;
-          color: #f8fafc;
+          color: var(--text-primary);
           font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
@@ -105,7 +105,7 @@ export default function BarberInfoPage() {
           font-weight: 800;
           text-transform: uppercase;
           letter-spacing: 0.1em;
-          color: #f59e0b;
+          color: #dc2626;
           display: block;
           margin-bottom: 4px;
         }
@@ -125,21 +125,21 @@ export default function BarberInfoPage() {
           align-items: center;
           gap: 8px;
           padding: 12px 24px;
-          background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-          color: #ffffff;
+          background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+          color: var(--text-primary);
           font-weight: 800;
           font-size: 13px;
           border-radius: 12px;
           text-decoration: none;
-          box-shadow: 0 4px 18px rgba(245, 158, 11, 0.3);
+          box-shadow: 0 4px 18px rgba(220, 38, 38, 0.3);
           transition: all 0.2s ease;
           border: none;
           cursor: pointer;
         }
         .cust-btn-primary:hover {
-          background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+          background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
           transform: translateY(-2px);
-          box-shadow: 0 6px 24px rgba(245, 158, 11, 0.45);
+          box-shadow: 0 6px 24px rgba(220, 38, 38, 0.45);
         }
 
         /* Filter Pills */
@@ -152,7 +152,7 @@ export default function BarberInfoPage() {
         .cust-pill-btn {
           padding: 8px 18px;
           background: #ffffff;
-          border: 1px solid #e5d6b4;
+          border: 1px solid #d6d3d1;
           border-radius: 9999px;
           color: #4b5563;
           font-size: 12px;
@@ -161,14 +161,14 @@ export default function BarberInfoPage() {
           transition: all 0.2s ease;
         }
         .cust-pill-btn:hover {
-          color: #b45309;
-          background: #fff7e6;
-          border-color: #f59e0b;
+          color: #1d4ed8;
+          background: #eff6ff;
+          border-color: #dc2626;
         }
         .cust-pill-btn.active {
-          background: #f59e0b;
-          border-color: #f59e0b;
-          color: #ffffff;
+          background: #dc2626;
+          border-color: #dc2626;
+          color: var(--text-primary);
           font-weight: 800;
         }
 
@@ -181,7 +181,7 @@ export default function BarberInfoPage() {
         }
         .cust-barber-card {
           background: #ffffff;
-          border: 1px solid #f1e7d0;
+          border: 1px solid #e7e5e4;
           border-radius: 24px;
           padding: 28px 24px;
           text-align: center;
@@ -189,13 +189,13 @@ export default function BarberInfoPage() {
           flex-direction: column;
           justify-content: space-between;
           transition: all 0.25s ease;
-          box-shadow: 0 4px 16px -4px rgba(120, 80, 10, 0.08);
+          box-shadow: 0 4px 16px -4px rgba(15, 23, 42, 0.08);
         }
         .cust-barber-card:hover {
-          border-color: rgba(245, 158, 11, 0.5);
+          border-color: rgba(220, 38, 38, 0.5);
           transform: translateY(-4px);
-          box-shadow: 0 12px 28px -6px rgba(120, 80, 10, 0.16);
-          background: #fffdf8;
+          box-shadow: 0 12px 28px -6px rgba(15, 23, 42, 0.16);
+          background: #fffdf7;
         }
         .cust-avatar-box {
           position: relative;
@@ -208,7 +208,7 @@ export default function BarberInfoPage() {
           height: 100%;
           border-radius: 24px;
           object-fit: cover;
-          border: 2px solid rgba(245, 158, 11, 0.4);
+          border: 2px solid rgba(220, 38, 38, 0.4);
         }
         .cust-status-badge {
           position: absolute;
@@ -221,11 +221,11 @@ export default function BarberInfoPage() {
         }
         .cust-status-badge.ready {
           background: #10b981;
-          color: #ffffff;
+          color: var(--text-primary);
         }
         .cust-status-badge.busy {
-          background: #f59e0b;
-          color: #ffffff;
+          background: #dc2626;
+          color: var(--text-primary);
         }
         .cust-barber-title {
           font-size: 18px;
@@ -234,7 +234,7 @@ export default function BarberInfoPage() {
         }
         .cust-barber-role {
           font-size: 12px;
-          color: #b45309;
+          color: #1d4ed8;
           font-weight: 600;
           margin-top: 3px;
         }
@@ -249,17 +249,17 @@ export default function BarberInfoPage() {
           margin-bottom: 14px;
         }
         .cust-barber-meta strong {
-          color: #b45309;
+          color: #1d4ed8;
         }
         .cust-barber-bio {
           font-size: 12px;
           color: #4b5563;
           line-height: 1.6;
           text-align: left;
-          background: #fffdfa;
+          background: #fffdf7;
           padding: 12px;
           border-radius: 12px;
-          border: 1px solid #f1e7d0;
+          border: 1px solid #e7e5e4;
           margin-bottom: 14px;
         }
         .cust-strengths-box {
@@ -272,18 +272,18 @@ export default function BarberInfoPage() {
           font-size: 10px;
           font-weight: 600;
           padding: 3px 8px;
-          background: #fff7e6;
-          border: 1px solid #fde68a;
+          background: #eff6ff;
+          border: 1px solid #bfdbfe;
           border-radius: 6px;
-          color: #b45309;
+          color: #1d4ed8;
         }
         .cust-btn-book-barber {
           width: 100%;
           padding: 11px;
-          background: #fff7e6;
-          border: 1px solid #fde68a;
+          background: #eff6ff;
+          border: 1px solid #bfdbfe;
           border-radius: 12px;
-          color: #b45309;
+          color: #1d4ed8;
           font-size: 12px;
           font-weight: 800;
           text-decoration: none;
@@ -295,18 +295,18 @@ export default function BarberInfoPage() {
           box-sizing: border-box;
         }
         .cust-btn-book-barber:hover {
-          background: #f59e0b;
-          color: #ffffff;
-          border-color: #f59e0b;
+          background: #dc2626;
+          color: var(--text-primary);
+          border-color: #dc2626;
         }
 
         /* Standards Philosophy Box */
         .cust-standards-box {
-          background: #fffdfa;
-          border: 1px solid #f1e7d0;
+          background: #fffdf7;
+          border: 1px solid #e7e5e4;
           border-radius: 24px;
           padding: 36px 28px;
-          box-shadow: 0 4px 20px -6px rgba(120, 80, 10, 0.08);
+          box-shadow: 0 4px 20px -6px rgba(15, 23, 42, 0.08);
         }
         .cust-std-grid {
           display: grid;
@@ -315,10 +315,10 @@ export default function BarberInfoPage() {
         }
         .cust-std-item {
           background: #ffffff;
-          border: 1px solid #f1e7d0;
+          border: 1px solid #e7e5e4;
           border-radius: 18px;
           padding: 24px;
-          box-shadow: 0 2px 8px -2px rgba(120, 80, 10, 0.06);
+          box-shadow: 0 2px 8px -2px rgba(15, 23, 42, 0.06);
         }
         .cust-std-icon {
           font-size: 32px;

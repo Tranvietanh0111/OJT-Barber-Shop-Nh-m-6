@@ -96,7 +96,7 @@ export default function ServiceListPage() {
           max-width: 1240px;
           margin: 0 auto;
           padding: 32px 20px 64px;
-          color: #f8fafc;
+          color: var(--text-primary);
           font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
@@ -115,7 +115,7 @@ export default function ServiceListPage() {
           font-weight: 800;
           text-transform: uppercase;
           letter-spacing: 0.1em;
-          color: #f59e0b;
+          color: #dc2626;
           display: block;
           margin-bottom: 4px;
         }
@@ -135,21 +135,21 @@ export default function ServiceListPage() {
           align-items: center;
           gap: 8px;
           padding: 12px 24px;
-          background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-          color: #ffffff;
+          background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+          color: var(--text-primary);
           font-weight: 800;
           font-size: 13px;
           border-radius: 12px;
           text-decoration: none;
-          box-shadow: 0 4px 18px rgba(245, 158, 11, 0.3);
+          box-shadow: 0 4px 18px rgba(220, 38, 38, 0.3);
           transition: all 0.2s ease;
           border: none;
           cursor: pointer;
         }
         .cust-btn-primary:hover {
-          background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+          background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
           transform: translateY(-2px);
-          box-shadow: 0 6px 24px rgba(245, 158, 11, 0.45);
+          box-shadow: 0 6px 24px rgba(220, 38, 38, 0.45);
         }
 
         /* Filter & Search Bar */
@@ -173,7 +173,7 @@ export default function ServiceListPage() {
         .cust-search-input {
           width: 100%;
           background: #ffffff;
-          border: 1px solid #e5d6b4;
+          border: 1px solid #d6d3d1;
           border-radius: 12px;
           padding: 10px 14px 10px 38px;
           color: #1f2937;
@@ -183,7 +183,7 @@ export default function ServiceListPage() {
           box-sizing: border-box;
         }
         .cust-search-input:focus {
-          border-color: #f59e0b;
+          border-color: #dc2626;
         }
         .cust-search-icon {
           position: absolute;
@@ -201,7 +201,7 @@ export default function ServiceListPage() {
         .cust-pill-btn {
           padding: 8px 16px;
           background: #ffffff;
-          border: 1px solid #e5d6b4;
+          border: 1px solid #d6d3d1;
           border-radius: 9999px;
           color: #4b5563;
           font-size: 12px;
@@ -210,14 +210,14 @@ export default function ServiceListPage() {
           transition: all 0.2s ease;
         }
         .cust-pill-btn:hover {
-          color: #b45309;
-          background: #fff7e6;
-          border-color: #f59e0b;
+          color: #1d4ed8;
+          background: #eff6ff;
+          border-color: #dc2626;
         }
         .cust-pill-btn.active {
-          background: #f59e0b;
-          border-color: #f59e0b;
-          color: #ffffff;
+          background: #dc2626;
+          border-color: #dc2626;
+          color: var(--text-primary);
           font-weight: 800;
         }
 
@@ -230,20 +230,20 @@ export default function ServiceListPage() {
         }
         .cust-card {
           background: #ffffff;
-          border: 1px solid #f1e7d0;
+          border: 1px solid #e7e5e4;
           border-radius: 24px;
           overflow: hidden;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
           transition: all 0.25s ease;
-          box-shadow: 0 4px 16px -4px rgba(120, 80, 10, 0.08);
+          box-shadow: 0 4px 16px -4px rgba(15, 23, 42, 0.08);
         }
         .cust-card:hover {
-          border-color: rgba(245, 158, 11, 0.5);
+          border-color: rgba(220, 38, 38, 0.5);
           transform: translateY(-4px);
-          box-shadow: 0 12px 28px -6px rgba(120, 80, 10, 0.16);
-          background: #fffdf8;
+          box-shadow: 0 12px 28px -6px rgba(15, 23, 42, 0.16);
+          background: #fffdf7;
         }
         .cust-card-img-wrap {
           position: relative;
@@ -270,24 +270,24 @@ export default function ServiceListPage() {
           text-transform: uppercase;
         }
         .cust-card-badge.gold {
-          background: rgba(245, 158, 11, 0.9);
-          color: #ffffff;
+          background: rgba(220, 38, 38, 0.9);
+          color: var(--text-primary);
         }
         .cust-card-badge.red {
           background: rgba(239, 68, 68, 0.9);
-          color: #ffffff;
+          color: var(--text-primary);
         }
         .cust-card-badge.blue {
           background: rgba(59, 130, 246, 0.9);
-          color: #ffffff;
+          color: var(--text-primary);
         }
         .cust-card-badge.purple {
           background: rgba(168, 85, 247, 0.9);
-          color: #ffffff;
+          color: var(--text-primary);
         }
         .cust-card-badge.emerald {
           background: rgba(16, 185, 129, 0.9);
-          color: #ffffff;
+          color: var(--text-primary);
         }
         .cust-card-duration {
           position: absolute;
@@ -300,7 +300,7 @@ export default function ServiceListPage() {
           font-size: 11px;
           font-weight: 700;
           color: #4b5563;
-          border: 1px solid #f1e7d0;
+          border: 1px solid #e7e5e4;
         }
         .cust-card-body {
           padding: 20px;
@@ -326,12 +326,12 @@ export default function ServiceListPage() {
           justify-content: space-between;
           align-items: center;
           padding-top: 16px;
-          border-top: 1px solid #f1e7d0;
+          border-top: 1px solid #e7e5e4;
         }
         .cust-card-price {
           font-size: 20px;
           font-weight: 900;
-          color: #b45309;
+          color: #1d4ed8;
         }
         .cust-card-actions {
           display: flex;
@@ -346,31 +346,31 @@ export default function ServiceListPage() {
           transition: all 0.2s ease;
         }
         .cust-btn-detail {
-          background: #fff7e6;
-          color: #b45309;
-          border: 1px solid #fde68a;
+          background: #eff6ff;
+          color: #1d4ed8;
+          border: 1px solid #bfdbfe;
         }
         .cust-btn-detail:hover {
-          background: #fef3c7;
+          background: #eff6ff;
           color: #92400e;
         }
         .cust-btn-book {
-          background: #f59e0b;
-          color: #ffffff;
+          background: #dc2626;
+          color: var(--text-primary);
           font-weight: 800;
           border: none;
         }
         .cust-btn-book:hover {
-          background: #d97706;
+          background: #b91c1c;
         }
 
         /* Standards Grid */
         .cust-standards-box {
-          background: #fffdfa;
-          border: 1px solid #f1e7d0;
+          background: #fffdf7;
+          border: 1px solid #e7e5e4;
           border-radius: 24px;
           padding: 36px 28px;
-          box-shadow: 0 4px 20px -6px rgba(120, 80, 10, 0.08);
+          box-shadow: 0 4px 20px -6px rgba(15, 23, 42, 0.08);
         }
         .cust-standards-grid {
           display: grid;
@@ -379,10 +379,10 @@ export default function ServiceListPage() {
         }
         .cust-std-item {
           background: #ffffff;
-          border: 1px solid #f1e7d0;
+          border: 1px solid #e7e5e4;
           border-radius: 16px;
           padding: 20px;
-          box-shadow: 0 2px 8px -2px rgba(120, 80, 10, 0.06);
+          box-shadow: 0 2px 8px -2px rgba(15, 23, 42, 0.06);
         }
         .cust-std-icon {
           font-size: 26px;
@@ -405,7 +405,7 @@ export default function ServiceListPage() {
           padding: 64px 20px;
           text-align: center;
           background: #ffffff;
-          border: 1px solid #f1e7d0;
+          border: 1px solid #e7e5e4;
           border-radius: 24px;
           margin-bottom: 48px;
         }

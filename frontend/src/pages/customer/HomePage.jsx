@@ -1,6 +1,7 @@
 // Phụ trách: Lương Trọng Đạt - Customer Module
 // Route: / (Trang chủ khách hàng BarberHub - Tích hợp đầy đủ Giao diện, Dữ liệu & Phong cách Royal Gold)
 import { Link } from "react-router-dom";
+import { LineIcon } from "../../components/Header";
 
 export default function HomePage() {
   const featuredServices = [
@@ -8,7 +9,7 @@ export default function HomePage() {
       id: "srv-1",
       name: "Cắt Tóc Nam Chuẩn Barber",
       category: "Cắt Tạo Kiểu",
-      badgeType: "gold",
+      badgeType: "blue",
       price: "150.000 đ",
       duration: "30 Phút",
       desc: "Tư vấn phom tóc phù hợp khuôn mặt (Sidepart, Undercut, Fade), sấy tạo kiểu ép hairline sắc nét."
@@ -35,7 +36,7 @@ export default function HomePage() {
       id: "srv-4",
       name: "Nhuộm Màu / Tẩy Tóc Cao Cấp",
       category: "Nhuộm Màu",
-      badgeType: "purple",
+      badgeType: "blue",
       price: "600.000 đ",
       duration: "120 Phút",
       desc: "Tẩy khói, nâu tây, xanh rêu, xám chì... Tặng kèm hấp phục hồi khóa màu siêu mượt."
@@ -44,7 +45,7 @@ export default function HomePage() {
       id: "srv-5",
       name: "Cạo Râu & Mặt Khăn Nóng Classic",
       category: "Cạo Râu Classic",
-      badgeType: "emerald",
+      badgeType: "blue",
       price: "100.000 đ",
       duration: "20 Phút",
       desc: "Cạo bằng dao thợ truyền thống, ủ khăn nóng tinh dầu thảo mộc, bôi lotion sau cạo kháng khuẩn."
@@ -53,7 +54,7 @@ export default function HomePage() {
       id: "srv-6",
       name: "Tẩy Tế Bào Chết & Trị Gàu Da Đầu",
       category: "Chăm Sóc Da Đầu",
-      badgeType: "gold",
+      badgeType: "blue",
       price: "200.000 đ",
       duration: "30 Phút",
       desc: "Tẩy sạch bã nhờn chân tóc, thanh lọc da đầu bằng muối khoáng sinh học, thông thoáng mát lạnh."
@@ -108,25 +109,25 @@ export default function HomePage() {
       step: "01",
       title: "Chọn Dịch Vụ",
       desc: "Lựa chọn các gói cắt tóc, uốn nhuộm thời trang hoặc spa thư giãn theo nhu cầu.",
-      icon: "✂️"
+      icon: "scissors"
     },
     {
       step: "02",
       title: "Chọn Master Barber",
       desc: "Chỉ định thợ ruột có tay nghề phù hợp với kiểu tóc bạn mong muốn.",
-      icon: "💈"
+      icon: "scissors"
     },
     {
       step: "03",
       title: "Chọn Khung Giờ",
       desc: "Hệ thống cập nhật thời gian thực, đảm bảo ghế trống sẵn sàng khi bạn tới.",
-      icon: "🕒"
+      icon: "calendar"
     },
     {
       step: "04",
       title: "Tút Tát Đẳng Cấp",
       desc: "Đến đúng giờ, thưởng thức trà bánh miễn phí và đón nhận diện mạo tự tin.",
-      icon: "👑"
+      icon: "star"
     }
   ];
 
@@ -165,13 +166,17 @@ export default function HomePage() {
 
         /* 1. Hero Section */
         .cust-hero {
-          background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 45%, #fff7ed 100%);
-          border: 1px solid var(--gold-border);
+          display: grid;
+          grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+          align-items: center;
+          gap: 32px;
+          background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-info-bg) 55%, var(--color-alert-bg) 100%);
+          border: 1px solid var(--color-alert-bg);
           border-radius: 28px;
           padding: 48px 36px;
           position: relative;
           overflow: hidden;
-          box-shadow: 0 12px 36px -10px rgba(180, 83, 9, 0.15), 0 0 20px rgba(245, 158, 11, 0.08);
+          box-shadow: var(--shadow-card);
           margin-bottom: 56px;
         }
         .cust-hero::after {
@@ -181,19 +186,63 @@ export default function HomePage() {
           right: -60px;
           width: 320px;
           height: 320px;
-          background: radial-gradient(circle, rgba(245, 158, 11, 0.22) 0%, transparent 70%);
+          background: radial-gradient(circle, var(--color-alert-bg) 0%, transparent 70%);
           pointer-events: none;
           border-radius: 50%;
+          z-index: 0;
+        }
+        .cust-hero-content,
+        .cust-hero-media {
+          position: relative;
+          z-index: 1;
+        }
+        .cust-hero-media {
+          height: 100%;
+          min-height: 420px;
+          overflow: hidden;
+          border-radius: 20px;
+          box-shadow: var(--shadow-lg);
+        }
+        .cust-hero-media img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          min-height: 420px;
+          object-fit: cover;
+        }
+        .cust-hero-media::after {
+          content: "";
+          position: absolute;
+          inset: 45% 0 0;
+          background: linear-gradient(180deg, transparent, var(--color-navy-overlay));
+        }
+        .cust-hero-image-caption {
+          position: absolute;
+          z-index: 1;
+          right: 18px;
+          bottom: 18px;
+          left: 18px;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          color: var(--color-text-on-dark);
+          font-size: 13px;
+          font-weight: 700;
+        }
+        .cust-srv-duration svg {
+          width: 14px;
+          height: 14px;
+          vertical-align: middle;
         }
         .cust-hero-badge {
           display: inline-flex;
           align-items: center;
           gap: 8px;
           padding: 6px 16px;
-          background: rgba(245, 158, 11, 0.15);
-          border: 1px solid rgba(245, 158, 11, 0.4);
+          background: var(--color-alert-bg);
+          border: 1px solid var(--color-accent);
           border-radius: 9999px;
-          color: #b45309;
+          color: var(--color-navy);
           font-size: 11px;
           font-weight: 800;
           text-transform: uppercase;
@@ -204,18 +253,16 @@ export default function HomePage() {
           font-size: 42px;
           font-weight: 900;
           line-height: 1.18;
-          color: #1f2937;
+          color: var(--color-text);
           margin-bottom: 16px;
           letter-spacing: -0.02em;
         }
-        .cust-hero-gold {
-          background: linear-gradient(135deg, #b45309 0%, #d97706 50%, #f59e0b 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
+        .cust-hero-accent {
+          color: var(--color-accent);
         }
         .cust-hero-desc {
           font-size: 15px;
-          color: #4b5563;
+          color: var(--color-text-secondary);
           max-width: 620px;
           line-height: 1.65;
           margin-bottom: 28px;
@@ -231,60 +278,60 @@ export default function HomePage() {
           align-items: center;
           gap: 8px;
           padding: 13px 26px;
-          background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-          color: #ffffff;
+          background: var(--color-accent);
+          color: var(--color-text-on-dark);
           font-weight: 800;
           font-size: 13px;
           border-radius: 14px;
           text-decoration: none;
-          box-shadow: 0 4px 18px rgba(245, 158, 11, 0.3);
+          box-shadow: var(--shadow-card);
           transition: all 0.2s ease;
           border: none;
           cursor: pointer;
         }
         .cust-btn-primary:hover {
-          background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
           transform: translateY(-2px);
-          box-shadow: 0 6px 24px rgba(245, 158, 11, 0.45);
+          filter: brightness(0.94);
+          box-shadow: var(--shadow-lg);
         }
         .cust-btn-secondary {
           display: inline-flex;
           align-items: center;
           gap: 8px;
           padding: 13px 22px;
-          background: #ffffff;
-          color: #1f2937;
+          background: var(--bg-surface);
+          color: var(--color-navy);
           font-weight: 700;
           font-size: 13px;
           border-radius: 14px;
-          border: 1px solid #e5d6b4;
+          border: 1px solid var(--color-sidebar-bg);
           text-decoration: none;
           transition: all 0.2s ease;
         }
         .cust-btn-secondary:hover {
-          background: #fff7e6;
-          border-color: #f59e0b;
-          color: #b45309;
+          background: var(--color-info-bg);
+          border-color: var(--color-accent);
+          color: var(--color-navy);
         }
         .cust-hero-stats {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
           gap: 20px;
-          border-top: 1px solid rgba(180, 83, 9, 0.15);
+          border-top: 1px solid var(--color-alert-bg);
           padding-top: 24px;
           max-width: 680px;
         }
         .cust-stat-val {
           font-size: 22px;
           font-weight: 900;
-          color: #1f2937;
+          color: var(--color-text);
         }
         .cust-stat-val.gold {
-          color: #b45309;
+          color: var(--color-gold);
         }
         .cust-stat-lbl {
           font-size: 11px;
-          color: #6b7280;
+          color: var(--color-text-muted);
           margin-top: 4px;
         }
 
@@ -302,23 +349,23 @@ export default function HomePage() {
           font-weight: 800;
           text-transform: uppercase;
           letter-spacing: 0.1em;
-          color: #b45309;
+          color: var(--color-navy);
           display: block;
           margin-bottom: 4px;
         }
         .cust-sec-title {
           font-size: 26px;
           font-weight: 800;
-          color: #1f2937;
+          color: var(--color-text);
           line-height: 1.25;
         }
         .cust-sec-sub {
           font-size: 13px;
-          color: #6b7280;
+          color: var(--color-text-muted);
           margin-top: 4px;
         }
         .cust-link-more {
-          color: #b45309;
+          color: var(--color-navy);
           font-size: 13px;
           font-weight: 700;
           text-decoration: none;
@@ -329,7 +376,7 @@ export default function HomePage() {
         }
         .cust-link-more:hover {
           gap: 8px;
-          color: #d97706;
+          color: var(--color-accent);
         }
 
         /* 3. Services Grid */
@@ -340,21 +387,21 @@ export default function HomePage() {
           margin-bottom: 64px;
         }
         .cust-srv-card {
-          background: #ffffff;
-          border: 1px solid #f1e7d0;
+          background: var(--bg-surface);
+          border: 1px solid var(--border-subtle);
           border-radius: 20px;
           padding: 24px;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
           transition: all 0.25s ease;
-          box-shadow: 0 4px 16px -4px rgba(120, 80, 10, 0.08);
+          box-shadow: var(--shadow-card);
         }
         .cust-srv-card:hover {
-          border-color: rgba(245, 158, 11, 0.5);
+          border-color: var(--color-accent);
           transform: translateY(-3px);
-          box-shadow: 0 12px 28px -6px rgba(120, 80, 10, 0.16);
-          background: #fffdf8;
+          box-shadow: var(--shadow-lg);
+          background: var(--color-bg);
         }
         .cust-srv-top {
           display: flex;
@@ -370,44 +417,34 @@ export default function HomePage() {
           text-transform: uppercase;
         }
         .cust-srv-badge.gold {
-          background: rgba(245, 158, 11, 0.14);
-          color: #b45309;
-          border: 1px solid rgba(245, 158, 11, 0.3);
+          background: var(--color-info-bg);
+          color: var(--color-navy);
+          border: 1px solid var(--color-sidebar-bg);
         }
         .cust-srv-badge.red {
-          background: rgba(239, 68, 68, 0.12);
-          color: #dc2626;
-          border: 1px solid rgba(239, 68, 68, 0.25);
+          background: var(--color-alert-bg);
+          color: var(--color-accent);
+          border: 1px solid var(--color-accent);
         }
         .cust-srv-badge.blue {
-          background: rgba(59, 130, 246, 0.12);
-          color: #2563eb;
-          border: 1px solid rgba(59, 130, 246, 0.25);
-        }
-        .cust-srv-badge.purple {
-          background: rgba(168, 85, 247, 0.12);
-          color: #7c3aed;
-          border: 1px solid rgba(168, 85, 247, 0.25);
-        }
-        .cust-srv-badge.emerald {
-          background: rgba(16, 185, 129, 0.12);
-          color: #059669;
-          border: 1px solid rgba(16, 185, 129, 0.25);
+          background: var(--color-info-bg);
+          color: var(--color-navy);
+          border: 1px solid var(--color-sidebar-bg);
         }
         .cust-srv-duration {
           font-size: 11px;
-          color: #6b7280;
+          color: var(--color-text-muted);
           font-weight: 600;
         }
         .cust-srv-title {
           font-size: 17px;
           font-weight: 800;
-          color: #1f2937;
+          color: var(--color-text);
           margin-bottom: 8px;
         }
         .cust-srv-desc {
           font-size: 13px;
-          color: #6b7280;
+          color: var(--color-text-muted);
           line-height: 1.55;
           margin-bottom: 20px;
         }
@@ -416,12 +453,12 @@ export default function HomePage() {
           justify-content: space-between;
           align-items: center;
           padding-top: 16px;
-          border-top: 1px solid #f1e7d0;
+          border-top: 1px solid var(--border-subtle);
         }
         .cust-srv-price {
           font-size: 20px;
           font-weight: 900;
-          color: #b45309;
+          color: var(--color-navy);
         }
         .cust-srv-btns {
           display: flex;
@@ -436,22 +473,22 @@ export default function HomePage() {
           transition: all 0.2s ease;
         }
         .cust-btn-detail {
-          background: #fff7e6;
-          color: #b45309;
-          border: 1px solid #fde68a;
+          background: var(--color-info-bg);
+          color: var(--color-navy);
+          border: 1px solid var(--color-sidebar-bg);
         }
         .cust-btn-detail:hover {
-          background: #fef3c7;
-          color: #92400e;
+          background: var(--color-bg);
+          color: var(--color-navy);
         }
         .cust-btn-book {
-          background: #f59e0b;
-          color: #ffffff;
+          background: var(--color-navy);
+          color: var(--color-text-on-dark);
           font-weight: 800;
           border: none;
         }
         .cust-btn-book:hover {
-          background: #d97706;
+          background: var(--color-navy-light);
         }
 
         /* 4. Barbers Grid */
@@ -462,8 +499,8 @@ export default function HomePage() {
           margin-bottom: 64px;
         }
         .cust-barber-card {
-          background: #ffffff;
-          border: 1px solid #f1e7d0;
+          background: var(--bg-surface);
+          border: 1px solid var(--border-subtle);
           border-radius: 20px;
           padding: 24px;
           text-align: center;
@@ -471,13 +508,13 @@ export default function HomePage() {
           display: flex;
           flex-direction: column;
           justify-content: space-between;
-          box-shadow: 0 4px 16px -4px rgba(120, 80, 10, 0.08);
+          box-shadow: var(--shadow-card);
         }
         .cust-barber-card:hover {
-          border-color: rgba(245, 158, 11, 0.5);
+          border-color: var(--color-accent);
           transform: translateY(-3px);
-          box-shadow: 0 12px 28px -6px rgba(120, 80, 10, 0.16);
-          background: #fffdf8;
+          box-shadow: var(--shadow-lg);
+          background: var(--color-bg);
         }
         .cust-barber-avatar-box {
           position: relative;
@@ -490,7 +527,7 @@ export default function HomePage() {
           height: 100%;
           border-radius: 20px;
           object-fit: cover;
-          border: 2px solid rgba(245, 158, 11, 0.4);
+          border: 2px solid var(--color-accent);
         }
         .cust-barber-status {
           position: absolute;
@@ -502,28 +539,28 @@ export default function HomePage() {
           font-weight: 800;
         }
         .cust-barber-status.ready {
-          background: #10b981;
-          color: #ffffff;
+          background: var(--status-completed-bg);
+          color: var(--status-completed-text);
         }
         .cust-barber-status.busy {
-          background: #f59e0b;
-          color: #ffffff;
+          background: var(--color-alert-bg);
+          color: var(--color-accent);
         }
         .cust-barber-name {
           font-size: 16px;
           font-weight: 800;
-          color: #1f2937;
+          color: var(--color-text);
         }
         .cust-barber-role {
           font-size: 12px;
-          color: #b45309;
+          color: var(--color-navy);
           font-weight: 600;
           margin-top: 2px;
           margin-bottom: 8px;
         }
         .cust-barber-meta {
           font-size: 12px;
-          color: #6b7280;
+          color: var(--color-text-muted);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -531,17 +568,17 @@ export default function HomePage() {
           margin-bottom: 18px;
         }
         .cust-barber-meta strong {
-          color: #b45309;
+          color: var(--color-navy);
         }
 
         /* 5. Booking Steps */
         .cust-steps-box {
-          background: #fffdfa;
-          border: 1px solid #f1e7d0;
+          background: var(--color-bg);
+          border: 1px solid var(--border-subtle);
           border-radius: 24px;
           padding: 36px 28px;
           margin-bottom: 64px;
-          box-shadow: 0 4px 20px -6px rgba(120, 80, 10, 0.08);
+          box-shadow: var(--shadow-card);
         }
         .cust-steps-grid {
           display: grid;
@@ -551,31 +588,36 @@ export default function HomePage() {
         .cust-step-item {
           position: relative;
           padding: 16px;
-          background: #ffffff;
-          border: 1px solid #f1e7d0;
+          background: var(--bg-surface);
+          border: 1px solid var(--border-subtle);
           border-radius: 16px;
-          box-shadow: 0 2px 8px -2px rgba(120, 80, 10, 0.06);
+          box-shadow: var(--shadow-card);
         }
         .cust-step-num {
           font-size: 24px;
           font-weight: 900;
-          color: rgba(217, 119, 6, 0.4);
+          color: var(--color-info-bg);
           line-height: 1;
           margin-bottom: 12px;
         }
         .cust-step-icon {
-          font-size: 28px;
+          color: var(--color-navy);
+          line-height: 0;
           margin-bottom: 10px;
+        }
+        .cust-step-icon svg {
+          width: 28px;
+          height: 28px;
         }
         .cust-step-title {
           font-size: 15px;
           font-weight: 800;
-          color: #1f2937;
+          color: var(--color-text);
           margin-bottom: 6px;
         }
         .cust-step-desc {
           font-size: 12px;
-          color: #6b7280;
+          color: var(--color-text-muted);
           line-height: 1.5;
         }
 
@@ -586,19 +628,19 @@ export default function HomePage() {
           gap: 24px;
         }
         .cust-review-card {
-          background: #ffffff;
-          border: 1px solid #f1e7d0;
+          background: var(--bg-surface);
+          border: 1px solid var(--border-subtle);
           border-radius: 20px;
           padding: 24px;
           position: relative;
-          box-shadow: 0 4px 16px -4px rgba(120, 80, 10, 0.08);
+          box-shadow: var(--shadow-card);
           transition: all 0.25s ease;
         }
         .cust-review-card:hover {
-          border-color: rgba(245, 158, 11, 0.5);
+          border-color: var(--color-accent);
           transform: translateY(-3px);
-          box-shadow: 0 12px 28px -6px rgba(120, 80, 10, 0.16);
-          background: #fffdf8;
+          box-shadow: var(--shadow-lg);
+          background: var(--color-bg);
         }
         .cust-review-top {
           display: flex;
@@ -609,29 +651,36 @@ export default function HomePage() {
         .cust-review-author {
           font-size: 14px;
           font-weight: 800;
-          color: #1f2937;
+          color: var(--color-text);
         }
         .cust-review-tier {
           font-size: 10px;
           font-weight: 800;
           padding: 2px 8px;
-          background: rgba(245, 158, 11, 0.14);
-          color: #b45309;
+          background: var(--color-info-bg);
+          color: var(--color-navy);
           border-radius: 9999px;
-          border: 1px solid rgba(245, 158, 11, 0.3);
+          border: 1px solid var(--color-sidebar-bg);
         }
         .cust-review-stars {
-          color: #f59e0b;
+          color: var(--color-gold);
           font-size: 13px;
           margin-bottom: 10px;
         }
         .cust-review-text {
           font-size: 13px;
-          color: #4b5563;
+          color: var(--color-text-secondary);
           line-height: 1.6;
         }
 
         @media (max-width: 768px) {
+          .cust-hero {
+            grid-template-columns: 1fr;
+          }
+          .cust-hero-media,
+          .cust-hero-media img {
+            min-height: 260px;
+          }
           .cust-hero-title {
             font-size: 28px;
           }
@@ -646,46 +695,59 @@ export default function HomePage() {
 
       {/* 1. HERO BANNER */}
       <section className="cust-hero">
-        <div className="cust-hero-badge">
-          <span>👑 Hair Salon Suite Dành Riêng Cho Quý Ông</span>
-        </div>
-        <h1 className="cust-hero-title">
-          Tút Lại Phong Độ, <br />
-          <span className="cust-hero-gold">Định Hình Đẳng Cấp.</span>
-        </h1>
-        <p className="cust-hero-desc">
-          Hệ thống cắt tóc & chăm sóc râu chuyên nghiệp hàng đầu. Đặt lịch trực tuyến 30 giây để được phục vụ đúng giờ, không xếp hàng chờ đợi cùng đội ngũ Master Barber tay nghề cao.
-        </p>
+        <div className="cust-hero-content">
+          <div className="cust-hero-badge">
+            <span>Hair Salon Suite Dành Riêng Cho Quý Ông</span>
+          </div>
+          <h1 className="cust-hero-title">
+            Tút Lại Phong Độ, <br />
+            <span className="cust-hero-accent">Định Hình Đẳng Cấp.</span>
+          </h1>
+          <p className="cust-hero-desc">
+            Hệ thống cắt tóc & chăm sóc râu chuyên nghiệp hàng đầu. Đặt lịch trực tuyến 30 giây để được phục vụ đúng giờ, không xếp hàng chờ đợi cùng đội ngũ Master Barber tay nghề cao.
+          </p>
 
-        <div className="cust-hero-actions">
-          <Link to="/booking/service" className="cust-btn-primary">
-            <span>✂️</span>
-            <span>Đặt Lịch Cắt Tóc Ngay</span>
-          </Link>
-          <Link to="/services" className="cust-btn-secondary">
-            <span>Khám Phá Bảng Giá</span>
-          </Link>
-          <Link to="/barbers" className="cust-btn-secondary">
-            <span>Đội Ngũ Barber</span>
-          </Link>
+          <div className="cust-hero-actions">
+            <Link to="/booking/service" className="cust-btn-primary">
+              <LineIcon name="scissors" size={16} />
+              <span>Đặt Lịch Cắt Tóc Ngay</span>
+            </Link>
+            <Link to="/services" className="cust-btn-secondary">
+              <span>Khám Phá Bảng Giá</span>
+            </Link>
+            <Link to="/barbers" className="cust-btn-secondary">
+              <span>Đội Ngũ Barber</span>
+            </Link>
+          </div>
+
+          <div className="cust-hero-stats">
+            <div>
+              <div className="cust-stat-val gold">4.98 ★</div>
+              <div className="cust-stat-lbl">Đánh giá trung bình</div>
+            </div>
+            <div>
+              <div className="cust-stat-val">10.000+</div>
+              <div className="cust-stat-lbl">Khách hàng tin chọn</div>
+            </div>
+            <div>
+              <div className="cust-stat-val">4 Ghế VIP</div>
+              <div className="cust-stat-lbl">Phục vụ liên tục</div>
+            </div>
+            <div>
+              <div className="cust-stat-val">100%</div>
+              <div className="cust-stat-lbl">Tiệt trùng UV chuẩn y tế</div>
+            </div>
+          </div>
         </div>
 
-        <div className="cust-hero-stats">
-          <div>
-            <div className="cust-stat-val gold">4.98 ★</div>
-            <div className="cust-stat-lbl">Đánh giá trung bình</div>
-          </div>
-          <div>
-            <div className="cust-stat-val">10.000+</div>
-            <div className="cust-stat-lbl">Khách hàng tin chọn</div>
-          </div>
-          <div>
-            <div className="cust-stat-val">4 Ghế VIP</div>
-            <div className="cust-stat-lbl">Phục vụ liên tục</div>
-          </div>
-          <div>
-            <div className="cust-stat-val gold">100%</div>
-            <div className="cust-stat-lbl">Tiệt trùng UV chuẩn y tế</div>
+        <div className="cust-hero-media">
+          <img
+            src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=900&auto=format&fit=crop&q=85"
+            alt="Dịch vụ cắt tóc nam tại tiệm barber"
+          />
+          <div className="cust-hero-image-caption">
+            <LineIcon name="scissors" size={18} />
+            <span>Kỹ thuật barber chỉn chu, phong cách riêng</span>
           </div>
         </div>
       </section>
@@ -710,7 +772,7 @@ export default function HomePage() {
               <div>
                 <div className="cust-srv-top">
                   <span className={`cust-srv-badge ${s.badgeType}`}>{s.category}</span>
-                  <span className="cust-srv-duration">⏱️ {s.duration}</span>
+                  <span className="cust-srv-duration"><LineIcon name="clock" size={14} /> {s.duration}</span>
                 </div>
                 <h3 className="cust-srv-title">{s.name}</h3>
                 <p className="cust-srv-desc">{s.desc}</p>
@@ -718,7 +780,7 @@ export default function HomePage() {
 
               <div className="cust-srv-bot">
                 <div>
-                  <span style={{ fontSize: "10px", color: "#64748b", display: "block", textTransform: "uppercase" }}>Giá niêm yết</span>
+                  <span style={{ fontSize: "10px", color: "var(--color-text-muted)", display: "block", textTransform: "uppercase" }}>Giá niêm yết</span>
                   <span className="cust-srv-price">{s.price}</span>
                 </div>
                 <div className="cust-srv-btns">
@@ -792,7 +854,7 @@ export default function HomePage() {
           {bookingSteps.map((st) => (
             <div key={st.step} className="cust-step-item">
               <div className="cust-step-num">{st.step}</div>
-              <div className="cust-step-icon">{st.icon}</div>
+              <div className="cust-step-icon"><LineIcon name={st.icon} /></div>
               <h3 className="cust-step-title">{st.title}</h3>
               <p className="cust-step-desc">{st.desc}</p>
             </div>

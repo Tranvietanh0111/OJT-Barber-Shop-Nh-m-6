@@ -95,8 +95,8 @@ export default function AppDashboard() {
 
   // Dữ liệu phân bố dịch vụ
   const serviceDistribution = [
-    { name: "Cắt tóc tạo kiểu tiêu chuẩn", percent: 45, color: "#f59e0b" },
-    { name: "Combo Uốn / Nhuộm thời trang", percent: 25, color: "#fbbf24" },
+    { name: "Cắt tóc tạo kiểu tiêu chuẩn", percent: 45, color: "#dc2626" },
+    { name: "Combo Uốn / Nhuộm thời trang", percent: 25, color: "#ef4444" },
     { name: "Cạo râu khăn nóng & Massage", percent: 18, color: "#10b981" },
     { name: "Phục hồi tóc & Chăm sóc da đầu", percent: 12, color: "#3b82f6" }
   ];
@@ -167,7 +167,7 @@ export default function AppDashboard() {
     <div className="container" style={{ paddingBottom: "48px" }}>
       {/* Top Banner Header Tone Sáng */}
       <div style={{
-        background: "linear-gradient(135deg, #fffbeb 0%, #fef3c7 45%, #fff7ed 100%)",
+        background: "linear-gradient(135deg, #fffdf7 0%, #eff6ff 45%, #fef2f2 100%)",
         border: "1px solid var(--gold-border)",
         borderRadius: "var(--radius-lg)",
         padding: "40px 36px",
@@ -183,14 +183,14 @@ export default function AppDashboard() {
           right: "-50px",
           width: "200px",
           height: "200px",
-          background: "radial-gradient(circle, rgba(245, 158, 11, 0.22) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(220, 38, 38, 0.22) 0%, transparent 70%)",
           pointerEvents: "none"
         }} />
 
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "24px", position: "relative", zIndex: 1 }}>
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
-              <span className="badge badge-gold">
+              <span className="badge badge-info">
                 👑 BARBERHUB PORTAL
               </span>
               <span className="badge badge-neutral" style={{ color: "var(--text-secondary)" }}>
@@ -244,10 +244,10 @@ export default function AppDashboard() {
               </span>
               <span style={{
                 fontSize: "20px",
-                background: "rgba(245, 158, 11, 0.12)",
+                background: "rgba(220, 38, 38, 0.12)",
                 padding: "6px",
                 borderRadius: "8px",
-                border: "1px solid rgba(245, 158, 11, 0.25)"
+                border: "1px solid rgba(220, 38, 38, 0.25)"
               }}>
                 {item.icon}
               </span>
@@ -283,10 +283,10 @@ export default function AppDashboard() {
         {/* Cột trái: Lịch hẹn hôm nay */}
         <div className="card">
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
-            <h3 style={{ fontSize: "18px", fontWeight: "800", color: "#ffffff", display: "flex", alignItems: "center", gap: "8px" }}>
+            <h3 style={{ fontSize: "18px", fontWeight: "800", color: "var(--text-primary)", display: "flex", alignItems: "center", gap: "8px" }}>
               <span>📅</span> Lịch Hẹn Mới Nhất Hôm Nay
             </h3>
-            <span className="badge badge-gold">4 lịch gần nhất</span>
+            <span className="badge badge-neutral">4 lịch gần nhất</span>
           </div>
 
           <div style={{ overflowX: "auto" }}>
@@ -306,15 +306,15 @@ export default function AppDashboard() {
                 {recentBookings.map((b) => (
                   <tr key={b.id} style={{ borderBottom: "1px solid var(--border-subtle)", transition: "background 0.2s" }}>
                     <td style={{ padding: "14px 10px", fontWeight: "800", color: "var(--gold-light)" }}>{b.id}</td>
-                    <td style={{ padding: "14px 10px", fontWeight: "600", color: "#ffffff" }}>{b.customer}</td>
+                    <td style={{ padding: "14px 10px", fontWeight: "600", color: "var(--text-primary)" }}>{b.customer}</td>
                     <td style={{ padding: "14px 10px", color: "var(--text-secondary)" }}>{b.service}</td>
                     <td style={{ padding: "14px 10px", color: "var(--text-secondary)" }}>💈 {b.barber}</td>
                     <td style={{ padding: "14px 10px", color: "var(--text-muted)", fontSize: "13px" }}>{b.time}</td>
                     <td style={{ padding: "14px 10px", fontWeight: "800", color: "var(--gold-bright)" }}>{b.price}</td>
                     <td style={{ padding: "14px 10px" }}>
                       <span className={`badge ${
-                        b.status === "completed" ? "badge-success" :
-                        b.status === "confirmed" ? "badge-info" : "badge-warning"
+                        b.status === "completed" ? "badge-completed" :
+                        b.status === "confirmed" ? "badge-confirmed" : "badge-pending"
                       }`}>
                         {b.statusText}
                       </span>
@@ -390,7 +390,7 @@ export default function AppDashboard() {
                         alignItems: "center",
                         justifyContent: "space-between",
                         padding: "9px 14px",
-                        background: "#fffdfa",
+                        background: "#fffdf7",
                         borderRadius: "var(--radius-sm)",
                         fontSize: "13px",
                         color: "var(--text-primary)",
@@ -401,13 +401,13 @@ export default function AppDashboard() {
                       onMouseEnter={(e) => {
                         e.currentTarget.style.borderColor = "var(--gold-primary)";
                         e.currentTarget.style.color = "var(--gold-deep)";
-                        e.currentTarget.style.background = "#fff7e6";
+                        e.currentTarget.style.background = "#eff6ff";
                         e.currentTarget.style.transform = "translateX(3px)";
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.borderColor = "var(--border-subtle)";
                         e.currentTarget.style.color = "var(--text-primary)";
-                        e.currentTarget.style.background = "#fffdfa";
+                        e.currentTarget.style.background = "#fffdf7";
                         e.currentTarget.style.transform = "translateX(0)";
                       }}
                     >

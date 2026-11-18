@@ -32,14 +32,14 @@ export default function NotFoundPage() {
           ✂️💈
         </div>
 
-        <span className="badge badge-gold" style={{ fontSize: "14px", padding: "6px 18px", marginBottom: "20px" }}>
+        <span className="badge badge-danger" style={{ fontSize: "14px", padding: "6px 18px", marginBottom: "20px" }}>
           LỖI 404 – TRANG KHÔNG TỒN TẠI
         </span>
 
         <h1 style={{
           fontSize: "32px",
           fontWeight: "900",
-          color: "#ffffff",
+          color: "var(--text-primary)",
           marginTop: "16px",
           marginBottom: "14px",
           letterSpacing: "-0.5px"

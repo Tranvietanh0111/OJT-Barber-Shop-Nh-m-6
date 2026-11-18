@@ -73,7 +73,7 @@ export default function InvoiceHistoryPage() {
           max-width: 1240px;
           margin: 0 auto;
           padding: 32px 20px 64px;
-          color: #f8fafc;
+          color: var(--text-primary);
           font-family: 'Plus Jakarta Sans', sans-serif;
           position: relative;
         }
@@ -93,7 +93,7 @@ export default function InvoiceHistoryPage() {
           font-weight: 800;
           text-transform: uppercase;
           letter-spacing: 0.1em;
-          color: #f59e0b;
+          color: #dc2626;
           display: block;
           margin-bottom: 4px;
         }
@@ -113,21 +113,21 @@ export default function InvoiceHistoryPage() {
           align-items: center;
           gap: 8px;
           padding: 12px 24px;
-          background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-          color: #ffffff;
+          background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+          color: var(--text-primary);
           font-weight: 800;
           font-size: 13px;
           border-radius: 12px;
           text-decoration: none;
-          box-shadow: 0 4px 18px rgba(245, 158, 11, 0.3);
+          box-shadow: 0 4px 18px rgba(220, 38, 38, 0.3);
           transition: all 0.2s ease;
           border: none;
           cursor: pointer;
         }
         .cust-btn-primary:hover {
-          background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+          background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
           transform: translateY(-2px);
-          box-shadow: 0 6px 24px rgba(245, 158, 11, 0.45);
+          box-shadow: 0 6px 24px rgba(220, 38, 38, 0.45);
         }
 
         /* 3 Metrics Cards */
@@ -139,10 +139,10 @@ export default function InvoiceHistoryPage() {
         }
         .cust-metric-card {
           background: #ffffff;
-          border: 1px solid #f1e7d0;
+          border: 1px solid #e7e5e4;
           border-radius: 20px;
           padding: 24px;
-          box-shadow: 0 4px 16px -4px rgba(120, 80, 10, 0.08);
+          box-shadow: 0 4px 16px -4px rgba(15, 23, 42, 0.08);
         }
         .cust-metric-lbl {
           font-size: 11px;
@@ -154,7 +154,7 @@ export default function InvoiceHistoryPage() {
         .cust-metric-val {
           font-size: 28px;
           font-weight: 900;
-          color: #b45309;
+          color: #1d4ed8;
           margin-bottom: 4px;
         }
         .cust-metric-val.green {
@@ -171,10 +171,10 @@ export default function InvoiceHistoryPage() {
         /* Table Box */
         .cust-table-card {
           background: #ffffff;
-          border: 1px solid #f1e7d0;
+          border: 1px solid #e7e5e4;
           border-radius: 24px;
           overflow: hidden;
-          box-shadow: 0 4px 20px -4px rgba(120, 80, 10, 0.08);
+          box-shadow: 0 4px 20px -4px rgba(15, 23, 42, 0.08);
         }
         .cust-table-responsive {
           width: 100%;
@@ -187,28 +187,28 @@ export default function InvoiceHistoryPage() {
           font-size: 13px;
         }
         .cust-table th {
-          background: #fffdfa;
+          background: #fffdf7;
           padding: 16px 20px;
           font-size: 11px;
           font-weight: 800;
           text-transform: uppercase;
           color: #6b7280;
           letter-spacing: 0.05em;
-          border-bottom: 1px solid #f1e7d0;
+          border-bottom: 1px solid #e7e5e4;
           white-space: nowrap;
         }
         .cust-table td {
           padding: 16px 20px;
-          border-bottom: 1px solid #f1e7d0;
+          border-bottom: 1px solid #e7e5e4;
           color: #4b5563;
           vertical-align: middle;
         }
         .cust-table tr:hover td {
-          background: #fff7e6;
+          background: #eff6ff;
         }
         .cust-table-code {
           font-weight: 900;
-          color: #b45309;
+          color: #1d4ed8;
         }
         .cust-table-service {
           font-weight: 700;
@@ -221,7 +221,7 @@ export default function InvoiceHistoryPage() {
         .cust-table-total {
           font-size: 15px;
           font-weight: 900;
-          color: #b45309;
+          color: #1d4ed8;
         }
         .cust-pay-badge {
           display: inline-block;
@@ -247,9 +247,9 @@ export default function InvoiceHistoryPage() {
         }
         .cust-btn-view-invoice {
           padding: 7px 14px;
-          background: #fff7e6;
-          border: 1px solid #fde68a;
-          color: #b45309;
+          background: #eff6ff;
+          border: 1px solid #bfdbfe;
+          color: #1d4ed8;
           border-radius: 10px;
           font-size: 12px;
           font-weight: 700;
@@ -257,9 +257,9 @@ export default function InvoiceHistoryPage() {
           transition: all 0.2s ease;
         }
         .cust-btn-view-invoice:hover {
-          background: #f59e0b;
-          color: #ffffff;
-          border-color: #f59e0b;
+          background: #dc2626;
+          color: var(--text-primary);
+          border-color: #dc2626;
         }
 
         /* E-Receipt Modal */
@@ -267,7 +267,7 @@ export default function InvoiceHistoryPage() {
           position: fixed;
           inset: 0;
           z-index: 999;
-          background: rgba(15, 23, 42, 0.45);
+          background: rgba(15, 23, 42, 0.25);
           backdrop-filter: blur(8px);
           display: flex;
           align-items: center;
@@ -276,12 +276,12 @@ export default function InvoiceHistoryPage() {
         }
         .cust-receipt-modal {
           background: #ffffff;
-          border: 1px solid #f1e7d0;
+          border: 1px solid #e7e5e4;
           border-radius: 24px;
           width: 100%;
           max-width: 440px;
           padding: 28px;
-          box-shadow: 0 20px 50px rgba(120, 80, 10, 0.2);
+          box-shadow: 0 20px 50px rgba(15, 23, 42, 0.2);
           animation: popIn 0.25s ease;
         }
         @keyframes popIn {
@@ -292,7 +292,7 @@ export default function InvoiceHistoryPage() {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          border-bottom: 1px solid #f1e7d0;
+          border-bottom: 1px solid #e7e5e4;
           padding-bottom: 14px;
           margin-bottom: 18px;
         }
@@ -316,15 +316,15 @@ export default function InvoiceHistoryPage() {
           color: #1f2937;
         }
         .cust-receipt-body {
-          background: #fffdfa;
-          border: 1px solid #f1e7d0;
+          background: #fffdf7;
+          border: 1px solid #e7e5e4;
           border-radius: 18px;
           padding: 20px;
           margin-bottom: 20px;
         }
         .cust-receipt-brand {
           text-align: center;
-          border-bottom: 1px solid #f1e7d0;
+          border-bottom: 1px solid #e7e5e4;
           padding-bottom: 12px;
           margin-bottom: 16px;
         }
@@ -353,7 +353,7 @@ export default function InvoiceHistoryPage() {
           font-weight: 600;
         }
         .cust-receipt-total-row {
-          border-top: 1px solid #f1e7d0;
+          border-top: 1px solid #e7e5e4;
           padding-top: 12px;
           margin-top: 12px;
           display: flex;
@@ -363,7 +363,7 @@ export default function InvoiceHistoryPage() {
         .cust-receipt-total-val {
           font-size: 20px;
           font-weight: 900;
-          color: #b45309;
+          color: #1d4ed8;
         }
         .cust-receipt-stamp {
           background: rgba(16, 185, 129, 0.12);
@@ -416,7 +416,7 @@ export default function InvoiceHistoryPage() {
         <div className="cust-metric-card">
           <div className="cust-metric-lbl">Hạng Khách Hàng</div>
           <div className="cust-metric-val white">👑 Khách VIP</div>
-          <p className="cust-metric-sub" style={{ color: "#fbbf24" }}>Ưu tiên giữ ghế & miễn phí đồ uống</p>
+          <p className="cust-metric-sub" style={{ color: "#ef4444" }}>Ưu tiên giữ ghế & miễn phí đồ uống</p>
         </div>
       </div>
 
@@ -442,13 +442,13 @@ export default function InvoiceHistoryPage() {
                 <tr key={inv.id}>
                   <td className="cust-table-code">#{inv.code}</td>
                   <td>
-                    <div style={{ fontWeight: "700", color: "#ffffff" }}>{inv.time}</div>
+                    <div style={{ fontWeight: "700", color: "var(--text-primary)" }}>{inv.time}</div>
                     <div style={{ fontSize: "11px", color: "#64748b" }}>{inv.date}</div>
                   </td>
                   <td className="cust-table-service">{inv.service}</td>
                   <td>
                     <div style={{ fontWeight: "700" }}>{inv.barber}</div>
-                    <div style={{ fontSize: "11px", color: "#fbbf24" }}>{inv.chair}</div>
+                    <div style={{ fontSize: "11px", color: "#ef4444" }}>{inv.chair}</div>
                   </td>
                   <td>{inv.subtotal}</td>
                   <td className="cust-table-discount">{inv.discount}</td>
@@ -495,7 +495,7 @@ export default function InvoiceHistoryPage() {
 
               <div className="cust-receipt-row">
                 <span className="cust-receipt-lbl">Mã hóa đơn:</span>
-                <span className="cust-receipt-val" style={{ color: "#fbbf24", fontWeight: "900" }}>
+                <span className="cust-receipt-val" style={{ color: "#ef4444", fontWeight: "900" }}>
                   #{selectedInvoice.code}
                 </span>
               </div>
@@ -525,7 +525,7 @@ export default function InvoiceHistoryPage() {
               </div>
 
               <div className="cust-receipt-total-row">
-                <span style={{ fontWeight: "800", color: "#ffffff", fontSize: "14px" }}>Tổng Thanh Toán:</span>
+                <span style={{ fontWeight: "800", color: "var(--text-primary)", fontSize: "14px" }}>Tổng Thanh Toán:</span>
                 <span className="cust-receipt-total-val">{selectedInvoice.total}</span>
               </div>
 
@@ -538,7 +538,7 @@ export default function InvoiceHistoryPage() {
               <button
                 onClick={() => alert("Đang xuất hóa đơn PDF về máy của bạn...")}
                 className="cust-btn-primary"
-                style={{ background: "#fff7e6", color: "#b45309", border: "1px solid #fde68a" }}
+                style={{ background: "#eff6ff", color: "#1d4ed8", border: "1px solid #bfdbfe" }}
               >
                 Tải PDF
               </button>

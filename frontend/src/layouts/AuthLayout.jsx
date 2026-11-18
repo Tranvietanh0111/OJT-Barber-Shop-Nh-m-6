@@ -1,5 +1,6 @@
 // Phụ trách: Trần Việt Anh – Layout Auth (Tone Vàng Đen)
 import { Link, Outlet } from "react-router-dom";
+import { LineIcon } from "../components/Header";
 
 export default function AuthLayout() {
   return (
@@ -21,7 +22,7 @@ export default function AuthLayout() {
         background: "rgba(255, 255, 255, 0.95)"
       }}>
         <Link to="/" className="brand-logo">
-          <div className="brand-icon">✂️</div>
+          <div className="brand-icon"><LineIcon name="scissors" size={22} /></div>
           <div>Barber<span>Hub</span></div>
         </Link>
         <Link to="/" className="btn btn-secondary btn-sm">

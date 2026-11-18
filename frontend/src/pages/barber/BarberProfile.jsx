@@ -210,7 +210,7 @@ export default function BarberProfile() {
           <Avatar src={profile.avatar} name={profile.fullName} />
           <div>
             <h2 style={{ fontSize: "22px", fontWeight: 800, color: "var(--text-primary)" }}>{profile.fullName}</h2>
-            <span className="badge badge-warning" style={{ marginTop: "8px" }}>🏅 {profile.yearsExperience} năm kinh nghiệm</span>
+            <span className="badge badge-neutral" style={{ marginTop: "8px" }}>🏅 {profile.yearsExperience} năm kinh nghiệm</span>
           </div>
         </div>
 

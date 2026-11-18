@@ -139,7 +139,7 @@ export default function ProfilePage() {
           max-width: 1240px;
           margin: 0 auto;
           padding: 32px 20px 64px;
-          color: #f8fafc;
+          color: var(--text-primary);
           font-family: 'Plus Jakarta Sans', sans-serif;
           position: relative;
         }
@@ -159,7 +159,7 @@ export default function ProfilePage() {
           font-weight: 800;
           text-transform: uppercase;
           letter-spacing: 0.1em;
-          color: #f59e0b;
+          color: #dc2626;
           display: block;
           margin-bottom: 4px;
         }
@@ -171,10 +171,10 @@ export default function ProfilePage() {
         }
         .cust-account-selector {
           background: #ffffff;
-          border: 1px solid #e5d6b4;
+          border: 1px solid #d6d3d1;
           border-radius: 12px;
           padding: 8px 14px;
-          color: #b45309;
+          color: #1d4ed8;
           font-size: 13px;
           font-weight: 700;
           outline: none;
@@ -207,7 +207,7 @@ export default function ProfilePage() {
 
         /* Hero Profile Card */
         .cust-profile-hero {
-          background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 45%, #fff7ed 100%);
+          background: linear-gradient(135deg, #fffdf7 0%, #eff6ff 45%, #fef2f2 100%);
           border: 1px solid var(--gold-border);
           border-radius: 28px;
           padding: 36px;
@@ -215,7 +215,7 @@ export default function ProfilePage() {
           grid-template-columns: 1fr;
           gap: 32px;
           margin-bottom: 48px;
-          box-shadow: 0 12px 36px -10px rgba(180, 83, 9, 0.15);
+          box-shadow: 0 12px 36px -10px rgba(220, 38, 38, 0.15);
         }
         @media (min-width: 992px) {
           .cust-profile-hero {
@@ -233,8 +233,8 @@ export default function ProfilePage() {
           height: 96px;
           border-radius: 24px;
           object-fit: cover;
-          border: 3px solid #f59e0b;
-          box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+          border: 3px solid #dc2626;
+          box-shadow: 0 0 20px rgba(220, 38, 38, 0.3);
         }
         .cust-user-name {
           font-size: 24px;
@@ -253,9 +253,9 @@ export default function ProfilePage() {
           text-transform: uppercase;
         }
         .cust-tier-badge.gold {
-          background: rgba(245, 158, 11, 0.15);
-          color: #b45309;
-          border: 1px solid rgba(245, 158, 11, 0.4);
+          background: rgba(220, 38, 38, 0.15);
+          color: #1d4ed8;
+          border: 1px solid rgba(220, 38, 38, 0.4);
         }
         .cust-tier-badge.blue {
           background: rgba(59, 130, 246, 0.15);
@@ -276,10 +276,10 @@ export default function ProfilePage() {
         }
         .cust-stat-card {
           background: #ffffff;
-          border: 1px solid #f1e7d0;
+          border: 1px solid #e7e5e4;
           border-radius: 16px;
           padding: 16px;
-          box-shadow: 0 2px 8px -2px rgba(120, 80, 10, 0.06);
+          box-shadow: 0 2px 8px -2px rgba(15, 23, 42, 0.06);
         }
         .cust-stat-label {
           font-size: 11px;
@@ -291,7 +291,7 @@ export default function ProfilePage() {
         .cust-stat-value {
           font-size: 20px;
           font-weight: 900;
-          color: #b45309;
+          color: #1d4ed8;
         }
 
         /* Content Sections Grid */
@@ -307,14 +307,14 @@ export default function ProfilePage() {
         }
         .cust-card-box {
           background: #ffffff;
-          border: 1px solid #f1e7d0;
+          border: 1px solid #e7e5e4;
           border-radius: 24px;
           padding: 32px;
           margin-bottom: 36px;
-          box-shadow: 0 4px 16px -4px rgba(120, 80, 10, 0.08);
+          box-shadow: 0 4px 16px -4px rgba(15, 23, 42, 0.08);
         }
         .cust-card-box-header {
-          border-bottom: 1px solid #f1e7d0;
+          border-bottom: 1px solid #e7e5e4;
           padding-bottom: 16px;
           margin-bottom: 24px;
         }
@@ -340,7 +340,7 @@ export default function ProfilePage() {
           width: 100%;
           padding: 12px 14px;
           background: #ffffff;
-          border: 1px solid #e5d6b4;
+          border: 1px solid #d6d3d1;
           border-radius: 12px;
           color: #1f2937;
           font-size: 13px;
@@ -349,7 +349,7 @@ export default function ProfilePage() {
           box-sizing: border-box;
         }
         .cust-input:focus {
-          border-color: #f59e0b;
+          border-color: #dc2626;
         }
         .cust-form-row {
           display: grid;
@@ -362,21 +362,21 @@ export default function ProfilePage() {
           align-items: center;
           gap: 8px;
           padding: 12px 24px;
-          background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-          color: #ffffff;
+          background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+          color: var(--text-primary);
           font-weight: 800;
           font-size: 13px;
           border-radius: 12px;
           text-decoration: none;
-          box-shadow: 0 4px 18px rgba(245, 158, 11, 0.3);
+          box-shadow: 0 4px 18px rgba(220, 38, 38, 0.3);
           transition: all 0.2s ease;
           border: none;
           cursor: pointer;
         }
         .cust-btn-primary:hover {
-          background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+          background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
           transform: translateY(-2px);
-          box-shadow: 0 6px 24px rgba(245, 158, 11, 0.45);
+          box-shadow: 0 6px 24px rgba(220, 38, 38, 0.45);
         }
 
         /* VIP Benefits List */
@@ -385,14 +385,14 @@ export default function ProfilePage() {
           align-items: flex-start;
           gap: 12px;
           padding: 14px 16px;
-          background: #fffdfa;
-          border: 1px solid #f1e7d0;
+          background: #fffdf7;
+          border: 1px solid #e7e5e4;
           border-radius: 16px;
           margin-bottom: 12px;
         }
         .cust-benefit-icon {
           font-size: 20px;
-          color: #b45309;
+          color: #1d4ed8;
           flex-shrink: 0;
         }
         .cust-benefit-title {
@@ -638,11 +638,11 @@ export default function ProfilePage() {
               </div>
             </div>
 
-            <div style={{ marginTop: "24px", paddingTop: "20px", borderTop: "1px solid #f1e7d0", display: "flex", gap: "10px" }}>
+            <div style={{ marginTop: "24px", paddingTop: "20px", borderTop: "1px solid #e7e5e4", display: "flex", gap: "10px" }}>
               <Link to="/my-bookings" className="cust-btn-primary" style={{ flex: 1, justifyContent: "center" }}>
                 Lịch Hẹn Của Tôi
               </Link>
-              <Link to="/my-invoices" className="cust-btn-primary" style={{ flex: 1, justifyContent: "center", background: "#fff7e6", color: "#b45309", border: "1px solid #fde68a" }}>
+              <Link to="/my-invoices" className="cust-btn-primary" style={{ flex: 1, justifyContent: "center", background: "#eff6ff", color: "#1d4ed8", border: "1px solid #bfdbfe" }}>
                 Xem Hóa Đơn
               </Link>
             </div>

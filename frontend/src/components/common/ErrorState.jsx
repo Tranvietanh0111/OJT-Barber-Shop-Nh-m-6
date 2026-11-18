@@ -1,4 +1,4 @@
-// Phụ trách: Trần Việt Anh – ErrorState (Tone Vàng Đen)
+// Phụ trách: Trần Việt Anh – ErrorState
 export default function ErrorState({
   title = "Không thể tải dữ liệu",
   message = "Đã xảy ra lỗi trong quá trình kết nối đến máy chủ. Vui lòng kiểm tra lại kết nối mạng hoặc thử lại sau.",
@@ -18,7 +18,7 @@ export default function ErrorState({
       <div style={{ display: "inline-block", marginBottom: "10px" }}>
         <span className="badge badge-danger">Mã lỗi: {code}</span>
       </div>
-      <h3 style={{ fontSize: "19px", fontWeight: "800", color: "#ffffff", marginBottom: "10px" }}>
+      <h3 style={{ fontSize: "19px", fontWeight: "800", color: "var(--text-primary)", marginBottom: "10px" }}>
         {title}
       </h3>
       <p style={{ fontSize: "14px", color: "var(--text-secondary)", maxWidth: "480px", margin: "0 auto 24px auto", lineHeight: "1.6" }}>

@@ -3,11 +3,11 @@ import { useState } from "react";
 import { barberAppointmentsMock } from "../../mocks/barberAppointments";
 
 const STATUS = {
-  pending: { label: "Chờ xác nhận", color: "#60a5fa" },
-  confirmed: { label: "Đã xác nhận", color: "#34d399" },
-  in_progress: { label: "Đang phục vụ", color: "#fbbf24" },
-  completed: { label: "Hoàn thành", color: "#a3a3a3" },
-  no_show: { label: "Khách không đến", color: "#f87171" },
+  pending: { label: "Chờ xác nhận", badgeClass: "badge-pending" },
+  confirmed: { label: "Đã xác nhận", badgeClass: "badge-confirmed" },
+  in_progress: { label: "Đang phục vụ", badgeClass: "badge-confirmed" },
+  completed: { label: "Hoàn thành", badgeClass: "badge-completed" },
+  no_show: { label: "Khách không đến", badgeClass: "badge-cancelled" },
 };
 
 // Nút hành động theo từng trạng thái hiện tại
@@ -45,17 +45,7 @@ const formatPrice = (n) => n.toLocaleString("vi-VN") + "đ";
 function StatusBadge({ status }) {
   const s = STATUS[status];
   return (
-    <span
-      style={{
-        color: s.color,
-        border: `1px solid ${s.color}`,
-        borderRadius: "999px",
-        padding: "2px 10px",
-        fontSize: "12px",
-        fontWeight: 700,
-        whiteSpace: "nowrap",
-      }}
-    >
+    <span className={`badge ${s.badgeClass}`}>
       {s.label}
     </span>
   );

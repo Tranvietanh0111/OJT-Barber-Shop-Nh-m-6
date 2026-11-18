@@ -6,10 +6,10 @@ export default function TermsPolicyPage() {
     <div className="container" style={{ padding: "40px 20px", maxWidth: "860px" }}>
       <div className="card" style={{ border: "1px solid var(--gold-border)" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
-          <span className="badge badge-gold">📜 QUY ĐỊNH CHÍNH SÁCH</span>
+          <span className="badge badge-neutral">📜 QUY ĐỊNH CHÍNH SÁCH</span>
         </div>
 
-        <h1 style={{ fontSize: "28px", fontWeight: "900", color: "#ffffff", marginBottom: "16px" }}>
+        <h1 style={{ fontSize: "28px", fontWeight: "900", color: "var(--text-primary)", marginBottom: "16px" }}>
           Điều Khoản Dịch Vụ & Bảo Mật BarberHub
         </h1>
         <p style={{ color: "var(--text-secondary)", marginBottom: "32px", fontSize: "14px" }}>

@@ -1,6 +1,7 @@
 // Phụ trách: Trần Văn Thắng
 // Task 6 (Sprint 2): Xây dựng giao diện Admin Dashboard – Dashboard với số liệu mẫu và bố cục hoàn chỉnh (HTML + CSS)
 import { Link } from "react-router-dom";
+import { LineIcon } from "../../components/Header";
 import "./admin.css";
 
 export default function AdminDashboard() {
@@ -15,8 +16,8 @@ export default function AdminDashboard() {
             <p className="adm-page-subtitle">Dashboard với số liệu mẫu và bố cục hoàn chỉnh</p>
           </div>
           <div className="adm-topbar-actions">
-            <Link to="/admin/appointments" className="adm-btn adm-btn-outline">📅 Xem lịch hẹn</Link>
-            <Link to="/admin/revenue" className="adm-btn adm-btn-gold">📈 Thống kê doanh thu</Link>
+            <Link to="/admin/appointments" className="adm-btn adm-btn-outline"><LineIcon name="calendar" /> Xem lịch hẹn</Link>
+            <Link to="/admin/revenue" className="adm-btn adm-btn-gold"><LineIcon name="chart" /> Thống kê doanh thu</Link>
           </div>
         </header>
 
@@ -25,7 +26,7 @@ export default function AdminDashboard() {
             <div className="adm-kpi-card">
               <div className="adm-kpi-top">
                 <span className="adm-kpi-label">Doanh thu tháng</span>
-                <span className="adm-kpi-icon">💰</span>
+                <span className="adm-kpi-icon"><LineIcon name="wallet" size={22} /></span>
               </div>
               <div className="adm-kpi-value">102.400.000 đ</div>
               <div className="adm-kpi-foot"><span className="adm-trend-up">▲ +14.8%</span> so với tháng trước</div>
@@ -34,7 +35,7 @@ export default function AdminDashboard() {
             <div className="adm-kpi-card green">
               <div className="adm-kpi-top">
                 <span className="adm-kpi-label">Lịch hẹn hôm nay</span>
-                <span className="adm-kpi-icon">📅</span>
+                <span className="adm-kpi-icon"><LineIcon name="calendar" size={22} /></span>
               </div>
               <div className="adm-kpi-value">24 lịch</div>
               <div className="adm-kpi-foot">4 lịch đang chờ xác nhận</div>
@@ -43,7 +44,7 @@ export default function AdminDashboard() {
             <div className="adm-kpi-card blue">
               <div className="adm-kpi-top">
                 <span className="adm-kpi-label">Barber đang làm việc</span>
-                <span className="adm-kpi-icon">✂️</span>
+                <span className="adm-kpi-icon"><LineIcon name="scissors" size={22} /></span>
               </div>
               <div className="adm-kpi-value">4 / 5 thợ</div>
               <div className="adm-kpi-foot">1 thợ nghỉ phép hôm nay</div>
@@ -52,7 +53,7 @@ export default function AdminDashboard() {
             <div className="adm-kpi-card purple">
               <div className="adm-kpi-top">
                 <span className="adm-kpi-label">Tổng người dùng</span>
-                <span className="adm-kpi-icon">👥</span>
+                <span className="adm-kpi-icon"><LineIcon name="users" size={22} /></span>
               </div>
               <div className="adm-kpi-value">342 tài khoản</div>
               <div className="adm-kpi-foot"><span className="adm-trend-up">+28</span> khách hàng mới</div>
@@ -67,7 +68,7 @@ export default function AdminDashboard() {
                   <p className="adm-card-subtitle">Đơn vị tính: Triệu VNĐ</p>
                 </div>
                 <div className="adm-legend-inline">
-                  <span><i className="adm-legend-dot" style={{ background: "#f59e0b" }} />Doanh thu ngày</span>
+                  <span><i className="adm-legend-dot" style={{ background: "#dc2626" }} />Doanh thu ngày</span>
                 </div>
               </div>
 
@@ -75,8 +76,8 @@ export default function AdminDashboard() {
                 <svg viewBox="0 0 760 250" className="adm-svg-chart" xmlns="http://www.w3.org/2000/svg">
                   <defs>
                     <linearGradient id="dashGoldGradReact" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.35" />
-                      <stop offset="100%" stopColor="#f59e0b" stopOpacity="0.02" />
+                      <stop offset="0%" stopColor="#dc2626" stopOpacity="0.35" />
+                      <stop offset="100%" stopColor="#dc2626" stopOpacity="0.02" />
                     </linearGradient>
                   </defs>
 
@@ -105,11 +106,11 @@ export default function AdminDashboard() {
                   <path
                     d="M 75 131 C 115 125, 145 109, 180 109 C 215 109, 250 119, 285 119 C 320 119, 355 99, 390 99 C 425 99, 460 89, 495 89 C 530 89, 565 64, 600 64 C 635 64, 670 52, 705 52"
                     fill="none"
-                    stroke="#f59e0b"
+                    stroke="#dc2626"
                     strokeWidth="3"
                   />
 
-                  <g fill="#f59e0b" stroke="#0b0f19" strokeWidth="2">
+                  <g fill="#dc2626" stroke="#0b0f19" strokeWidth="2">
                     <circle cx="75" cy="131" r="4.5" />
                     <circle cx="180" cy="109" r="4.5" />
                     <circle cx="285" cy="119" r="4.5" />
@@ -119,7 +120,7 @@ export default function AdminDashboard() {
                     <circle cx="705" cy="52" r="5.5" />
                   </g>
 
-                  <g fill="#f5cb78" fontSize="11" fontWeight="700" textAnchor="middle" fontFamily="Plus Jakarta Sans, sans-serif">
+                  <g fill="#2563eb" fontSize="11" fontWeight="700" textAnchor="middle" fontFamily="Plus Jakarta Sans, sans-serif">
                     <text x="75" y="119">3.2M</text>
                     <text x="180" y="97">4.1M</text>
                     <text x="285" y="107">3.7M</text>
@@ -136,7 +137,7 @@ export default function AdminDashboard() {
                     <text x="390" y="234">T5</text>
                     <text x="495" y="234">T6</text>
                     <text x="600" y="234">T7</text>
-                    <text x="705" y="234" fill="#f5cb78">CN</text>
+                    <text x="705" y="234" fill="#2563eb">CN</text>
                   </g>
                 </svg>
               </div>
@@ -148,7 +149,7 @@ export default function AdminDashboard() {
                   <h3 className="adm-card-title">Dịch vụ được đặt nhiều nhất</h3>
                   <p className="adm-card-subtitle">Thống kê tỷ lệ sử dụng trong tháng</p>
                 </div>
-                <span style={{ color: "#f5cb78", fontWeight: 800, fontSize: 12.5 }}>573 lượt</span>
+                <span style={{ color: "#2563eb", fontWeight: 800, fontSize: 12.5 }}>573 lượt</span>
               </div>
 
               <div className="adm-donut-wrap">
@@ -161,40 +162,40 @@ export default function AdminDashboard() {
                   </g>
 
                   <g className="adm-donut-slice">
-                    <path className="adm-donut-arc" d="M 111.3 34.0 A 76 76 0 0 1 165.6 161.8" stroke="#e5a93c" />
+                    <path className="adm-donut-arc" d="M 111.3 34.0 A 76 76 0 0 1 165.6 161.8" stroke="var(--brand-red)" />
                     <g className="adm-donut-tooltip" fontFamily="Plus Jakarta Sans, sans-serif">
-                      <circle cx="110" cy="110" r="54" fill="#0f1629" stroke="#e5a93c" strokeWidth="1.5" />
-                      <text x="110" y="93" textAnchor="middle" fill="#f5cb78" fontSize="10.5" fontWeight="700">Cắt Thương Gia</text>
+                      <circle cx="110" cy="110" r="54" fill="#0f1629" stroke="var(--brand-red)" strokeWidth="1.5" />
+                      <text x="110" y="93" textAnchor="middle" fill="var(--brand-red)" fontSize="10.5" fontWeight="700">Cắt Thương Gia</text>
                       <text x="110" y="116" textAnchor="middle" fill="#ffffff" fontSize="19" fontWeight="800">37.5%</text>
                       <text x="110" y="134" textAnchor="middle" fill="#cbd5e1" fontSize="10.5" fontWeight="600">215 lượt đặt</text>
                     </g>
                   </g>
 
                   <g className="adm-donut-slice">
-                    <path className="adm-donut-arc" d="M 163.7 163.7 A 76 76 0 0 1 39.3 137.9" stroke="#38bdf8" />
+                    <path className="adm-donut-arc" d="M 163.7 163.7 A 76 76 0 0 1 39.3 137.9" stroke="var(--color-navy-light)" />
                     <g className="adm-donut-tooltip" fontFamily="Plus Jakarta Sans, sans-serif">
-                      <circle cx="110" cy="110" r="54" fill="#0f1629" stroke="#38bdf8" strokeWidth="1.5" />
-                      <text x="110" y="93" textAnchor="middle" fill="#38bdf8" fontSize="10.5" fontWeight="700">Combo Đế Vương</text>
+                      <circle cx="110" cy="110" r="54" fill="#0f1629" stroke="var(--color-navy-light)" strokeWidth="1.5" />
+                      <text x="110" y="93" textAnchor="middle" fill="var(--color-navy-light)" fontSize="10.5" fontWeight="700">Combo Đế Vương</text>
                       <text x="110" y="116" textAnchor="middle" fill="#ffffff" fontSize="19" fontWeight="800">32.1%</text>
                       <text x="110" y="134" textAnchor="middle" fill="#cbd5e1" fontSize="10.5" fontWeight="600">184 lượt đặt</text>
                     </g>
                   </g>
 
                   <g className="adm-donut-slice">
-                    <path className="adm-donut-arc" d="M 38.4 135.4 A 76 76 0 0 1 50.9 62.2" stroke="#a855f7" />
+                    <path className="adm-donut-arc" d="M 38.4 135.4 A 76 76 0 0 1 50.9 62.2" stroke="var(--color-gold)" />
                     <g className="adm-donut-tooltip" fontFamily="Plus Jakarta Sans, sans-serif">
-                      <circle cx="110" cy="110" r="54" fill="#0f1629" stroke="#a855f7" strokeWidth="1.5" />
-                      <text x="110" y="93" textAnchor="middle" fill="#c084fc" fontSize="10.5" fontWeight="700">Uốn Hàn Quốc</text>
+                      <circle cx="110" cy="110" r="54" fill="#0f1629" stroke="var(--color-gold)" strokeWidth="1.5" />
+                      <text x="110" y="93" textAnchor="middle" fill="var(--color-gold)" fontSize="10.5" fontWeight="700">Uốn Hàn Quốc</text>
                       <text x="110" y="116" textAnchor="middle" fill="#ffffff" fontSize="19" fontWeight="800">16.8%</text>
                       <text x="110" y="134" textAnchor="middle" fill="#cbd5e1" fontSize="10.5" fontWeight="600">96 lượt đặt</text>
                     </g>
                   </g>
 
                   <g className="adm-donut-slice">
-                    <path className="adm-donut-arc" d="M 52.6 60.1 A 76 76 0 0 1 107.3 34.1" stroke="#10b981" />
+                    <path className="adm-donut-arc" d="M 52.6 60.1 A 76 76 0 0 1 107.3 34.1" stroke="var(--text-muted)" />
                     <g className="adm-donut-tooltip" fontFamily="Plus Jakarta Sans, sans-serif">
-                      <circle cx="110" cy="110" r="54" fill="#0f1629" stroke="#10b981" strokeWidth="1.5" />
-                      <text x="110" y="93" textAnchor="middle" fill="#34d399" fontSize="10.5" fontWeight="700">Nhuộm Cao Cấp</text>
+                      <circle cx="110" cy="110" r="54" fill="#0f1629" stroke="var(--text-muted)" strokeWidth="1.5" />
+                      <text x="110" y="93" textAnchor="middle" fill="var(--text-muted)" fontSize="10.5" fontWeight="700">Nhuộm Cao Cấp</text>
                       <text x="110" y="116" textAnchor="middle" fill="#ffffff" fontSize="19" fontWeight="800">13.6%</text>
                       <text x="110" y="134" textAnchor="middle" fill="#cbd5e1" fontSize="10.5" fontWeight="600">78 lượt đặt</text>
                     </g>
@@ -203,10 +204,10 @@ export default function AdminDashboard() {
               </div>
 
               <div className="adm-service-legend-grid">
-                <div><span style={{ color: "#f5cb78", fontWeight: 700 }}>• Cắt Thương Gia:</span> 215 lượt</div>
-                <div><span style={{ color: "#38bdf8", fontWeight: 700 }}>• Combo Đế Vương:</span> 184 lượt</div>
-                <div><span style={{ color: "#c084fc", fontWeight: 700 }}>• Uốn Hàn Quốc:</span> 96 lượt</div>
-                <div><span style={{ color: "#34d399", fontWeight: 700 }}>• Nhuộm Cao Cấp:</span> 78 lượt</div>
+                <div><span style={{ color: "var(--brand-red)", fontWeight: 700 }}>• Cắt Thương Gia:</span> 215 lượt</div>
+                <div><span style={{ color: "var(--color-navy-light)", fontWeight: 700 }}>• Combo Đế Vương:</span> 184 lượt</div>
+                <div><span style={{ color: "var(--color-gold)", fontWeight: 700 }}>• Uốn Hàn Quốc:</span> 96 lượt</div>
+                <div><span style={{ color: "var(--text-muted)", fontWeight: 700 }}>• Nhuộm Cao Cấp:</span> 78 lượt</div>
               </div>
             </div>
           </div>

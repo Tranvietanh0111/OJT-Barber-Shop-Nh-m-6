@@ -1,6 +1,7 @@
 // Phụ trách: Trần Văn Thắng
 // Task 12 (Sprint 3): Xây dựng giao diện thống kê doanh thu – Thẻ KPI và biểu đồ dữ liệu mẫu (HTML + CSS)
 import { Link } from "react-router-dom";
+import { LineIcon } from "../../components/Header";
 import "./admin.css";
 
 export default function RevenueStats() {
@@ -30,7 +31,7 @@ export default function RevenueStats() {
             <div className="adm-kpi-card">
               <div className="adm-kpi-top">
                 <span className="adm-kpi-label">Tổng doanh thu tháng</span>
-                <span className="adm-kpi-icon">💎</span>
+                <span className="adm-kpi-icon"><LineIcon name="wallet" size={22} /></span>
               </div>
               <div className="adm-kpi-value">102.400.000 đ</div>
               <div className="adm-kpi-foot"><span className="adm-trend-up">▲ +14.8%</span> so với tháng 10</div>
@@ -39,7 +40,7 @@ export default function RevenueStats() {
             <div className="adm-kpi-card green">
               <div className="adm-kpi-top">
                 <span className="adm-kpi-label">Tổng hóa đơn hoàn tất</span>
-                <span className="adm-kpi-icon">🧾</span>
+                <span className="adm-kpi-icon"><LineIcon name="receipt" size={22} /></span>
               </div>
               <div className="adm-kpi-value">492 đơn</div>
               <div className="adm-kpi-foot">Tỷ lệ thanh toán thành công 96.4%</div>
@@ -48,7 +49,7 @@ export default function RevenueStats() {
             <div className="adm-kpi-card blue">
               <div className="adm-kpi-top">
                 <span className="adm-kpi-label">Giá trị trung bình / đơn</span>
-                <span className="adm-kpi-icon">💳</span>
+                <span className="adm-kpi-icon"><LineIcon name="card" size={22} /></span>
               </div>
               <div className="adm-kpi-value">208.000 đ</div>
               <div className="adm-kpi-foot">Tăng nhờ gói Combo VIP & Uốn</div>
@@ -57,7 +58,7 @@ export default function RevenueStats() {
             <div className="adm-kpi-card purple">
               <div className="adm-kpi-top">
                 <span className="adm-kpi-label">Lợi nhuận ròng ước tính</span>
-                <span className="adm-kpi-icon">📈</span>
+                <span className="adm-kpi-icon"><LineIcon name="chart" size={22} /></span>
               </div>
               <div className="adm-kpi-value">43.008.000 đ</div>
               <div className="adm-kpi-foot">Biên lợi nhuận đạt 42%</div>
@@ -73,8 +74,8 @@ export default function RevenueStats() {
                   <p className="adm-card-subtitle">Biến động doanh thu qua các ngày trong tháng (Đơn vị: Triệu VNĐ)</p>
                 </div>
                 <div className="adm-legend-inline">
-                  <span><i className="adm-legend-dot" style={{ background: "#f59e0b" }} />Doanh thu dịch vụ</span>
-                  <span><i className="adm-legend-dot" style={{ background: "#10b981" }} />Phụ thu & Sản phẩm</span>
+                  <span><i className="adm-legend-dot" style={{ background: "var(--brand-red)" }} />Doanh thu dịch vụ</span>
+                  <span><i className="adm-legend-dot" style={{ background: "var(--color-navy)" }} />Phụ thu & Sản phẩm</span>
                 </div>
               </div>
 
@@ -82,12 +83,12 @@ export default function RevenueStats() {
                 <svg viewBox="0 0 820 285" className="adm-svg-chart" xmlns="http://www.w3.org/2000/svg">
                   <defs>
                     <linearGradient id="goldAreaGradReact" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.32" />
-                      <stop offset="100%" stopColor="#f59e0b" stopOpacity="0.02" />
+                      <stop offset="0%" stopColor="var(--brand-red)" stopOpacity="0.32" />
+                      <stop offset="100%" stopColor="var(--brand-red)" stopOpacity="0.02" />
                     </linearGradient>
                     <linearGradient id="greenAreaGradReact" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#10b981" stopOpacity="0.25" />
-                      <stop offset="100%" stopColor="#10b981" stopOpacity="0.02" />
+                      <stop offset="0%" stopColor="var(--color-navy)" stopOpacity="0.25" />
+                      <stop offset="100%" stopColor="var(--color-navy)" stopOpacity="0.02" />
                     </linearGradient>
                   </defs>
 
@@ -118,7 +119,7 @@ export default function RevenueStats() {
                   <path
                     d="M 55 188 C 80 180, 90 171, 108 171 C 130 171, 140 177, 161 177 C 185 177, 195 164, 214 164 C 240 164, 250 160, 267 151 C 288 135, 302 56, 320 56 C 338 56, 355 155, 373 158 C 392 162, 408 153, 426 153 C 445 153, 460 169, 479 169 C 498 169, 514 136, 532 136 C 550 136, 566 147, 585 147 C 604 147, 620 132, 638 132 C 656 132, 672 139, 691 139 C 710 139, 726 116, 744 116 C 764 116, 780 98, 797 92"
                     fill="none"
-                    stroke="#f59e0b"
+                    stroke="var(--brand-red)"
                     strokeWidth="2.5"
                   />
 
@@ -129,11 +130,11 @@ export default function RevenueStats() {
                   <path
                     d="M 55 232 C 80 228, 90 225, 108 225 C 130 225, 140 230, 161 230 C 185 230, 195 221, 214 221 C 240 221, 250 219, 267 217 C 288 214, 302 206, 320 206 C 338 206, 355 218, 373 219 C 392 219, 408 214, 426 214 C 445 214, 460 226, 479 226 C 498 226, 514 206, 532 206 C 550 206, 566 212, 585 212 C 604 212, 620 203, 638 203 C 656 203, 672 210, 691 210 C 710 210, 726 196, 744 196 C 764 196, 780 190, 797 188"
                     fill="none"
-                    stroke="#10b981"
+                    stroke="var(--color-navy)"
                     strokeWidth="2"
                   />
 
-                  <g fill="#f59e0b" stroke="#0b0f19" strokeWidth="1.5">
+                  <g fill="var(--brand-red)" stroke="var(--bg-surface)" strokeWidth="1.5">
                     <circle cx="55" cy="188" r="4" />
                     <circle cx="108" cy="171" r="4" />
                     <circle cx="161" cy="177" r="4" />
@@ -151,7 +152,7 @@ export default function RevenueStats() {
                     <circle cx="797" cy="92" r="4" />
                   </g>
 
-                  <g fill="#10b981" stroke="#0b0f19" strokeWidth="1.5">
+                  <g fill="var(--color-navy)" stroke="var(--bg-surface)" strokeWidth="1.5">
                     <circle cx="55" cy="232" r="3.5" />
                     <circle cx="108" cy="225" r="3.5" />
                     <circle cx="161" cy="230" r="3.5" />
@@ -175,7 +176,7 @@ export default function RevenueStats() {
                     <text x="161" y="268">05/11</text>
                     <text x="214" y="268">07/11</text>
                     <text x="267" y="268">09/11</text>
-                    <text x="320" y="268" fill="#f5cb78" fontWeight="700">11/11</text>
+                    <text x="320" y="268" fill="var(--color-navy-light)" fontWeight="700">11/11</text>
                     <text x="373" y="268">13/11</text>
                     <text x="426" y="268">15/11</text>
                     <text x="479" y="268">17/11</text>
@@ -196,7 +197,7 @@ export default function RevenueStats() {
                   <h3 className="adm-card-title">Cơ cấu doanh thu theo nhóm dịch vụ</h3>
                   <p className="adm-card-subtitle">Tỷ trọng đóng góp của từng danh mục</p>
                 </div>
-                <span style={{ color: "#f5cb78", fontWeight: 800, fontSize: 12.5 }}>100%</span>
+                <span style={{ color: "var(--color-navy-light)", fontWeight: 800, fontSize: 12.5 }}>100%</span>
               </div>
 
               <div className="adm-donut-wrap">
@@ -209,40 +210,40 @@ export default function RevenueStats() {
                   </g>
 
                   <g className="adm-donut-slice">
-                    <path className="adm-donut-arc" d="M 111.3 34.0 A 76 76 0 0 1 169.9 156.8" stroke="#e5a93c" />
+                    <path className="adm-donut-arc" d="M 111.3 34.0 A 76 76 0 0 1 169.9 156.8" stroke="var(--brand-red)" />
                     <g className="adm-donut-tooltip" fontFamily="Plus Jakarta Sans, sans-serif">
-                      <circle cx="110" cy="110" r="54" fill="#0f1629" stroke="#e5a93c" strokeWidth="1.5" />
-                      <text x="110" y="93" textAnchor="middle" fill="#f5cb78" fontSize="11" fontWeight="700">Combo VIP</text>
+                      <circle cx="110" cy="110" r="54" fill="#0f1629" stroke="var(--brand-red)" strokeWidth="1.5" />
+                      <text x="110" y="93" textAnchor="middle" fill="var(--brand-red)" fontSize="11" fontWeight="700">Combo VIP</text>
                       <text x="110" y="116" textAnchor="middle" fill="#ffffff" fontSize="20" fontWeight="800">36%</text>
                       <text x="110" y="134" textAnchor="middle" fill="#cbd5e1" fontSize="10.5" fontWeight="600">36.900.000 đ</text>
                     </g>
                   </g>
 
                   <g className="adm-donut-slice">
-                    <path className="adm-donut-arc" d="M 168.2 158.9 A 76 76 0 0 1 38.4 135.4" stroke="#a855f7" />
+                    <path className="adm-donut-arc" d="M 168.2 158.9 A 76 76 0 0 1 38.4 135.4" stroke="var(--color-gold)" />
                     <g className="adm-donut-tooltip" fontFamily="Plus Jakarta Sans, sans-serif">
-                      <circle cx="110" cy="110" r="54" fill="#0f1629" stroke="#a855f7" strokeWidth="1.5" />
-                      <text x="110" y="93" textAnchor="middle" fill="#c084fc" fontSize="11" fontWeight="700">Uốn & Nhuộm</text>
+                      <circle cx="110" cy="110" r="54" fill="#0f1629" stroke="var(--color-gold)" strokeWidth="1.5" />
+                      <text x="110" y="93" textAnchor="middle" fill="var(--color-gold)" fontSize="11" fontWeight="700">Uốn & Nhuộm</text>
                       <text x="110" y="116" textAnchor="middle" fill="#ffffff" fontSize="20" fontWeight="800">34%</text>
                       <text x="110" y="134" textAnchor="middle" fill="#cbd5e1" fontSize="10.5" fontWeight="600">34.800.000 đ</text>
                     </g>
                   </g>
 
                   <g className="adm-donut-slice">
-                    <path className="adm-donut-arc" d="M 37.5 132.9 A 76 76 0 0 1 67.5 47.0" stroke="#38bdf8" />
+                    <path className="adm-donut-arc" d="M 37.5 132.9 A 76 76 0 0 1 67.5 47.0" stroke="var(--brand-blue-light)" />
                     <g className="adm-donut-tooltip" fontFamily="Plus Jakarta Sans, sans-serif">
-                      <circle cx="110" cy="110" r="54" fill="#0f1629" stroke="#38bdf8" strokeWidth="1.5" />
-                      <text x="110" y="93" textAnchor="middle" fill="#38bdf8" fontSize="11" fontWeight="700">Cắt & Tạo kiểu</text>
+                      <circle cx="110" cy="110" r="54" fill="#0f1629" stroke="var(--brand-blue-light)" strokeWidth="1.5" />
+                      <text x="110" y="93" textAnchor="middle" fill="var(--brand-blue-light)" fontSize="11" fontWeight="700">Cắt & Tạo kiểu</text>
                       <text x="110" y="116" textAnchor="middle" fill="#ffffff" fontSize="20" fontWeight="800">21%</text>
                       <text x="110" y="134" textAnchor="middle" fill="#cbd5e1" fontSize="10.5" fontWeight="600">21.500.000 đ</text>
                     </g>
                   </g>
 
                   <g className="adm-donut-slice">
-                    <path className="adm-donut-arc" d="M 69.7 45.5 A 76 76 0 0 1 107.3 34.1" stroke="#10b981" />
+                    <path className="adm-donut-arc" d="M 69.7 45.5 A 76 76 0 0 1 107.3 34.1" stroke="var(--text-muted)" />
                     <g className="adm-donut-tooltip" fontFamily="Plus Jakarta Sans, sans-serif">
-                      <circle cx="110" cy="110" r="54" fill="#0f1629" stroke="#10b981" strokeWidth="1.5" />
-                      <text x="110" y="93" textAnchor="middle" fill="#34d399" fontSize="11" fontWeight="700">Râu & Da mặt</text>
+                      <circle cx="110" cy="110" r="54" fill="#0f1629" stroke="var(--text-muted)" strokeWidth="1.5" />
+                      <text x="110" y="93" textAnchor="middle" fill="var(--text-muted)" fontSize="11" fontWeight="700">Râu & Da mặt</text>
                       <text x="110" y="116" textAnchor="middle" fill="#ffffff" fontSize="20" fontWeight="800">9%</text>
                       <text x="110" y="134" textAnchor="middle" fill="#cbd5e1" fontSize="10.5" fontWeight="600">9.200.000 đ</text>
                     </g>
@@ -251,10 +252,10 @@ export default function RevenueStats() {
               </div>
 
               <div className="adm-service-legend-grid">
-                <div><span style={{ color: "#f5cb78", fontWeight: 700 }}>• Combo VIP:</span> 36%</div>
-                <div><span style={{ color: "#c084fc", fontWeight: 700 }}>• Uốn & Nhuộm:</span> 34%</div>
-                <div><span style={{ color: "#38bdf8", fontWeight: 700 }}>• Cắt & Tạo kiểu:</span> 21%</div>
-                <div><span style={{ color: "#34d399", fontWeight: 700 }}>• Râu & Da mặt:</span> 9%</div>
+                <div><span style={{ color: "var(--brand-red)", fontWeight: 700 }}>• Combo VIP:</span> 36%</div>
+                <div><span style={{ color: "var(--color-gold)", fontWeight: 700 }}>• Uốn & Nhuộm:</span> 34%</div>
+                <div><span style={{ color: "var(--brand-blue-light)", fontWeight: 700 }}>• Cắt & Tạo kiểu:</span> 21%</div>
+                <div><span style={{ color: "var(--text-muted)", fontWeight: 700 }}>• Râu & Da mặt:</span> 9%</div>
               </div>
             </div>
           </div>
@@ -295,10 +296,10 @@ export default function RevenueStats() {
                   </g>
 
                   <rect x="85" y="38" width="76" height="192" rx="7" fill="#d49b35" />
-                  <rect x="210" y="68" width="76" height="162" rx="7" fill="#38bdf8" />
+                  <rect x="210" y="68" width="76" height="162" rx="7" fill="var(--brand-blue-light)" />
                   <rect x="335" y="96" width="76" height="134" rx="7" fill="#2589bd" />
-                  <rect x="460" y="116" width="76" height="114" rx="7" fill="#9333ea" />
-                  <rect x="585" y="145" width="76" height="85" rx="7" fill="#d97706" />
+                  <rect x="460" y="116" width="76" height="114" rx="7" fill="var(--color-gold)" />
+                  <rect x="585" y="145" width="76" height="85" rx="7" fill="var(--brand-red-dark)" />
                   <rect x="700" y="168" width="76" height="62" rx="7" fill="#475569" />
 
                   <g fill="#cbd5e1" fontSize="11.5" fontWeight="600" textAnchor="middle" fontFamily="Plus Jakarta Sans, sans-serif">
@@ -331,30 +332,30 @@ export default function RevenueStats() {
                   </g>
 
                   <g className="adm-donut-slice">
-                    <path className="adm-donut-arc" d="M 111.3 34.0 A 76 76 0 1 1 93.5 184.2" stroke="#e5a93c" />
+                    <path className="adm-donut-arc" d="M 111.3 34.0 A 76 76 0 1 1 93.5 184.2" stroke="var(--brand-red)" />
                     <g className="adm-donut-tooltip" fontFamily="Plus Jakarta Sans, sans-serif">
-                      <circle cx="110" cy="110" r="54" fill="#0f1629" stroke="#e5a93c" strokeWidth="1.5" />
-                      <text x="110" y="93" textAnchor="middle" fill="#f5cb78" fontSize="11" fontWeight="700">VietQR</text>
+                      <circle cx="110" cy="110" r="54" fill="#0f1629" stroke="var(--brand-red)" strokeWidth="1.5" />
+                      <text x="110" y="93" textAnchor="middle" fill="var(--brand-red)" fontSize="11" fontWeight="700">VietQR</text>
                       <text x="110" y="116" textAnchor="middle" fill="#ffffff" fontSize="20" fontWeight="800">54%</text>
                       <text x="110" y="134" textAnchor="middle" fill="#cbd5e1" fontSize="10.5" fontWeight="600">55.300.000 đ</text>
                     </g>
                   </g>
 
                   <g className="adm-donut-slice">
-                    <path className="adm-donut-arc" d="M 91.0 183.6 A 76 76 0 0 1 47.0 67.5" stroke="#10b981" />
+                    <path className="adm-donut-arc" d="M 91.0 183.6 A 76 76 0 0 1 47.0 67.5" stroke="var(--color-navy)" />
                     <g className="adm-donut-tooltip" fontFamily="Plus Jakarta Sans, sans-serif">
-                      <circle cx="110" cy="110" r="54" fill="#0f1629" stroke="#10b981" strokeWidth="1.5" />
-                      <text x="110" y="93" textAnchor="middle" fill="#34d399" fontSize="11" fontWeight="700">Tiền mặt</text>
+                      <circle cx="110" cy="110" r="54" fill="#0f1629" stroke="var(--color-navy)" strokeWidth="1.5" />
+                      <text x="110" y="93" textAnchor="middle" fill="var(--color-navy)" fontSize="11" fontWeight="700">Tiền mặt</text>
                       <text x="110" y="116" textAnchor="middle" fill="#ffffff" fontSize="20" fontWeight="800">31%</text>
                       <text x="110" y="134" textAnchor="middle" fill="#cbd5e1" fontSize="10.5" fontWeight="600">31.700.000 đ</text>
                     </g>
                   </g>
 
                   <g className="adm-donut-slice">
-                    <path className="adm-donut-arc" d="M 48.5 65.3 A 76 76 0 0 1 107.3 34.1" stroke="#38bdf8" />
+                    <path className="adm-donut-arc" d="M 48.5 65.3 A 76 76 0 0 1 107.3 34.1" stroke="var(--color-gold)" />
                     <g className="adm-donut-tooltip" fontFamily="Plus Jakarta Sans, sans-serif">
-                      <circle cx="110" cy="110" r="54" fill="#0f1629" stroke="#38bdf8" strokeWidth="1.5" />
-                      <text x="110" y="93" textAnchor="middle" fill="#38bdf8" fontSize="11" fontWeight="700">Thẻ / POS</text>
+                      <circle cx="110" cy="110" r="54" fill="#0f1629" stroke="var(--color-gold)" strokeWidth="1.5" />
+                      <text x="110" y="93" textAnchor="middle" fill="var(--color-gold)" fontSize="11" fontWeight="700">Thẻ / POS</text>
                       <text x="110" y="116" textAnchor="middle" fill="#ffffff" fontSize="20" fontWeight="800">15%</text>
                       <text x="110" y="134" textAnchor="middle" fill="#cbd5e1" fontSize="10.5" fontWeight="600">15.400.000 đ</text>
                     </g>
@@ -364,15 +365,15 @@ export default function RevenueStats() {
 
               <div className="adm-payment-list">
                 <div className="adm-payment-row">
-                  <span><i className="fa-solid fa-qrcode" style={{ color: "#f5cb78", marginRight: 6 }} />Chuyển khoản VietQR:</span>
+                  <span><LineIcon name="qr" size={16} className="adm-inline-icon" />Chuyển khoản VietQR:</span>
                   <strong>54% (55.3 tr)</strong>
                 </div>
                 <div className="adm-payment-row">
-                  <span><i className="fa-solid fa-money-bill-wave" style={{ color: "#34d399", marginRight: 6 }} />Tiền mặt:</span>
+                  <span><LineIcon name="wallet" size={16} className="adm-inline-icon" />Tiền mặt:</span>
                   <strong>31% (31.7 tr)</strong>
                 </div>
                 <div className="adm-payment-row">
-                  <span><i className="fa-solid fa-credit-card" style={{ color: "#38bdf8", marginRight: 6 }} />Thẻ ngân hàng / POS:</span>
+                  <span><LineIcon name="card" size={16} className="adm-inline-icon" />Thẻ ngân hàng / POS:</span>
                   <strong>15% (15.4 tr)</strong>
                 </div>
               </div>
