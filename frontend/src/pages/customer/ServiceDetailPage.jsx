@@ -1,5 +1,5 @@
 // Phụ trách: Lương Trọng Đạt - Customer Module
-// Route: /services/:id (Chi tiết dịch vụ cắt tóc & quy trình thực hiện - Tích hợp đầy đủ Giao diện, Dữ liệu & Phong cách Royal Gold)
+// Route: /services/:id (Chi tiết dịch vụ cắt tóc & quy trình thực hiện - Phong cách Red, White, Blue & Tailwind CSS)
 import { useParams, Link } from "react-router-dom";
 
 export default function ServiceDetailPage() {
@@ -10,7 +10,7 @@ export default function ServiceDetailPage() {
       id: "srv-1",
       name: "Cắt Tóc Nam Chuẩn Barber",
       category: "Cắt Tạo Kiểu",
-      badgeType: "gold",
+      badgeClass: "bg-blue-50 text-blue-700 border-blue-200",
       price: "150.000 đ",
       duration: "30 Phút",
       image: "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=800&auto=format&fit=crop&q=80",
@@ -33,7 +33,7 @@ export default function ServiceDetailPage() {
       id: "srv-2",
       name: "Combo Cắt + Gội + Massage Đăng Quang",
       category: "Combo VIP",
-      badgeType: "red",
+      badgeClass: "bg-red-50 text-red-700 border-red-200",
       price: "250.000 đ",
       duration: "45 Phút",
       image: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=800&auto=format&fit=crop&q=80",
@@ -56,7 +56,7 @@ export default function ServiceDetailPage() {
       id: "srv-3",
       name: "Uốn Xoăn Hàn Quốc / Fly / Texture",
       category: "Uốn Tóc Nam",
-      badgeType: "blue",
+      badgeClass: "bg-blue-100 text-blue-800 border-blue-300",
       price: "450.000 đ",
       duration: "90 Phút",
       image: "https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=800&auto=format&fit=crop&q=80",
@@ -79,7 +79,7 @@ export default function ServiceDetailPage() {
       id: "srv-4",
       name: "Nhuộm Màu / Tẩy Tóc Cao Cấp",
       category: "Nhuộm Màu",
-      badgeType: "purple",
+      badgeClass: "bg-red-50 text-red-600 border-red-200",
       price: "600.000 đ",
       duration: "120 Phút",
       image: "https://images.unsplash.com/photo-1517832606589-7629c3395909?w=800&auto=format&fit=crop&q=80",
@@ -102,7 +102,7 @@ export default function ServiceDetailPage() {
       id: "srv-5",
       name: "Cạo Râu & Mặt Khăn Nóng Classic",
       category: "Cạo Râu Classic",
-      badgeType: "emerald",
+      badgeClass: "bg-emerald-50 text-emerald-700 border-emerald-200",
       price: "100.000 đ",
       duration: "20 Phút",
       image: "https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=800&auto=format&fit=crop&q=80",
@@ -125,7 +125,7 @@ export default function ServiceDetailPage() {
       id: "srv-6",
       name: "Tẩy Tế Bào Chết & Trị Gàu Da Đầu",
       category: "Chăm Sóc Da Đầu",
-      badgeType: "gold",
+      badgeClass: "bg-blue-50 text-blue-700 border-blue-200",
       price: "200.000 đ",
       duration: "30 Phút",
       image: "https://images.unsplash.com/photo-1519500570469-6502c314d43f?w=800&auto=format&fit=crop&q=80",
@@ -149,458 +149,172 @@ export default function ServiceDetailPage() {
   const service = servicesData[id] || servicesData["srv-2"];
 
   return (
-    <div className="cust-srv-detail-wrap">
-      {/* Self-contained CSS styles for Service Detail Page */}
-      <style>{`
-        .cust-srv-detail-wrap {
-          max-width: 1240px;
-          margin: 0 auto;
-          padding: 32px 20px 64px;
-          color: #f8fafc;
-          font-family: 'Plus Jakarta Sans', sans-serif;
-        }
+    <div className="bg-slate-50 text-slate-800 min-h-screen">
+      {/* Barber Pole Accent Header */}
+      <div className="h-1.5 w-full bg-gradient-to-r from-red-600 via-white to-blue-600 shadow-sm"></div>
 
-        /* Breadcrumb */
-        .cust-breadcrumb {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          font-size: 12px;
-          color: #64748b;
-          margin-bottom: 24px;
-        }
-        .cust-breadcrumb a {
-          color: #94a3b8;
-          text-decoration: none;
-        }
-        .cust-breadcrumb a:hover {
-          color: #f59e0b;
-        }
-        .cust-breadcrumb-active {
-          color: #fbbf24;
-          font-weight: 700;
-        }
-
-        /* Hero Banner */
-        .cust-detail-hero {
-          background: #141720;
-          border: 1px solid #232736;
-          border-radius: 28px;
-          padding: 36px;
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 36px;
-          margin-bottom: 48px;
-          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
-        }
-        @media (min-width: 992px) {
-          .cust-detail-hero {
-            grid-template-columns: 440px 1fr;
-            align-items: center;
-          }
-        }
-        .cust-detail-img-box {
-          position: relative;
-          height: 320px;
-          border-radius: 20px;
-          overflow: hidden;
-        }
-        .cust-detail-img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-        .cust-detail-badge {
-          position: absolute;
-          top: 14px;
-          left: 14px;
-          padding: 5px 12px;
-          border-radius: 9999px;
-          font-size: 11px;
-          font-weight: 800;
-          text-transform: uppercase;
-        }
-        .cust-detail-badge.gold {
-          background: rgba(245, 158, 11, 0.9);
-          color: #08090c;
-        }
-        .cust-detail-badge.red {
-          background: rgba(239, 68, 68, 0.9);
-          color: #ffffff;
-        }
-        .cust-detail-badge.blue {
-          background: rgba(59, 130, 246, 0.9);
-          color: #ffffff;
-        }
-        .cust-detail-badge.purple {
-          background: rgba(168, 85, 247, 0.9);
-          color: #ffffff;
-        }
-        .cust-detail-badge.emerald {
-          background: rgba(16, 185, 129, 0.9);
-          color: #ffffff;
-        }
-        .cust-detail-duration {
-          position: absolute;
-          bottom: 14px;
-          right: 14px;
-          padding: 5px 12px;
-          border-radius: 10px;
-          background: rgba(8, 9, 12, 0.85);
-          backdrop-filter: blur(4px);
-          font-size: 12px;
-          font-weight: 700;
-          color: #cbd5e1;
-        }
-        .cust-detail-tag {
-          font-size: 11px;
-          font-weight: 800;
-          text-transform: uppercase;
-          letter-spacing: 0.1em;
-          color: #f59e0b;
-          display: block;
-          margin-bottom: 6px;
-        }
-        .cust-detail-title {
-          font-size: 32px;
-          font-weight: 900;
-          color: #ffffff;
-          line-height: 1.2;
-          margin-bottom: 12px;
-        }
-        .cust-detail-price-row {
-          display: flex;
-          align-items: baseline;
-          gap: 12px;
-          margin-bottom: 16px;
-        }
-        .cust-detail-price {
-          font-size: 32px;
-          font-weight: 900;
-          color: #fbbf24;
-        }
-        .cust-detail-price-sub {
-          font-size: 12px;
-          color: #64748b;
-        }
-        .cust-detail-desc {
-          font-size: 14px;
-          color: #cbd5e1;
-          line-height: 1.7;
-          margin-bottom: 24px;
-        }
-        .cust-detail-actions {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 12px;
-          margin-bottom: 24px;
-        }
-        .cust-btn-primary {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          padding: 13px 28px;
-          background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-          color: #08090c;
-          font-weight: 800;
-          font-size: 13px;
-          border-radius: 12px;
-          text-decoration: none;
-          box-shadow: 0 4px 18px rgba(245, 158, 11, 0.3);
-          transition: all 0.2s ease;
-          border: none;
-          cursor: pointer;
-        }
-        .cust-btn-primary:hover {
-          background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-          transform: translateY(-2px);
-          box-shadow: 0 6px 24px rgba(245, 158, 11, 0.45);
-        }
-        .cust-btn-secondary {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          padding: 13px 22px;
-          background: #1b1f2b;
-          color: #cbd5e1;
-          font-weight: 700;
-          font-size: 13px;
-          border-radius: 12px;
-          border: 1px solid #2e3548;
-          text-decoration: none;
-          transition: all 0.2s ease;
-        }
-        .cust-btn-secondary:hover {
-          background: #252b3d;
-          border-color: #f59e0b;
-          color: #ffffff;
-        }
-        .cust-detail-perks {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 12px;
-          border-top: 1px solid #232736;
-          padding-top: 20px;
-        }
-        .cust-perk-item {
-          display: flex;
-          align-items: center;
-          gap: 6px;
-          font-size: 12px;
-          color: #94a3b8;
-          font-weight: 600;
-        }
-        .cust-perk-icon {
-          color: #10b981;
-          font-size: 14px;
-        }
-
-        /* Bottom 2-col content */
-        .cust-bottom-grid {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 36px;
-        }
-        @media (min-width: 992px) {
-          .cust-bottom-grid {
-            grid-template-columns: 1.35fr 1fr;
-          }
-        }
-        .cust-box {
-          background: #141720;
-          border: 1px solid #232736;
-          border-radius: 24px;
-          padding: 32px;
-        }
-        .cust-box-header {
-          border-bottom: 1px solid #232736;
-          padding-bottom: 16px;
-          margin-bottom: 24px;
-        }
-        .cust-box-title {
-          font-size: 20px;
-          font-weight: 800;
-          color: #ffffff;
-          margin-top: 4px;
-        }
-        .cust-box-sub {
-          font-size: 12px;
-          color: #94a3b8;
-          margin-top: 2px;
-        }
-
-        /* Procedure steps */
-        .cust-step-row {
-          display: flex;
-          align-items: flex-start;
-          gap: 16px;
-          padding: 16px;
-          background: #0a0b0f;
-          border: 1px solid #1f2433;
-          border-radius: 16px;
-          margin-bottom: 12px;
-        }
-        .cust-step-circle {
-          width: 36px;
-          height: 36px;
-          border-radius: 12px;
-          background: rgba(245, 158, 11, 0.12);
-          border: 1px solid rgba(245, 158, 11, 0.3);
-          color: #fbbf24;
-          font-size: 14px;
-          font-weight: 900;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-shrink: 0;
-        }
-        .cust-step-name {
-          font-size: 14px;
-          font-weight: 800;
-          color: #ffffff;
-          margin-bottom: 4px;
-        }
-        .cust-step-text {
-          font-size: 12px;
-          color: #94a3b8;
-          line-height: 1.55;
-        }
-
-        /* Right column items */
-        .cust-benefit-item {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          padding: 14px 16px;
-          background: #0a0b0f;
-          border: 1px solid #1f2433;
-          border-radius: 14px;
-          margin-bottom: 10px;
-          font-size: 13px;
-          color: #cbd5e1;
-        }
-        .cust-benefit-icon {
-          color: #fbbf24;
-          font-size: 16px;
-          flex-shrink: 0;
-        }
-        .cust-callout-box {
-          background: linear-gradient(135deg, #181d2a 0%, #10131a 100%);
-          border: 1px solid rgba(245, 158, 11, 0.3);
-          border-radius: 20px;
-          padding: 24px;
-          margin-top: 24px;
-        }
-        .cust-callout-top {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          margin-bottom: 16px;
-        }
-        .cust-callout-icon {
-          width: 42px;
-          height: 42px;
-          border-radius: 12px;
-          background: rgba(245, 158, 11, 0.15);
-          color: #fbbf24;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 20px;
-        }
-        .cust-callout-title {
-          font-size: 15px;
-          font-weight: 800;
-          color: #ffffff;
-        }
-        .cust-callout-sub {
-          font-size: 12px;
-          color: #94a3b8;
-        }
-        .cust-callout-btns {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 10px;
-        }
-      `}</style>
-
-      {/* BREADCRUMBS */}
-      <div className="cust-breadcrumb">
-        <Link to="/">Trang Chủ</Link>
-        <span>/</span>
-        <Link to="/services">Dịch Vụ</Link>
-        <span>/</span>
-        <span className="cust-breadcrumb-active">{service.name}</span>
-      </div>
-
-      {/* HERO DETAIL CARD */}
-      <div className="cust-detail-hero">
-        <div className="cust-detail-img-box">
-          <img src={service.image} alt={service.name} className="cust-detail-img" />
-          <span className={`cust-detail-badge ${service.badgeType}`}>
-            {service.category}
-          </span>
-          <span className="cust-detail-duration">⏱️ {service.duration}</span>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8">
+        
+        {/* Breadcrumbs */}
+        <div className="flex items-center space-x-2 text-xs text-slate-500">
+          <Link to="/" className="hover:text-blue-600 transition">Trang Chủ</Link>
+          <span>/</span>
+          <Link to="/services" className="hover:text-blue-600 transition">Dịch Vụ</Link>
+          <span>/</span>
+          <span className="text-red-600 font-bold">{service.name}</span>
         </div>
 
-        <div>
-          <span className="cust-detail-tag">Dịch Vụ Đẳng Cấp BarberHub</span>
-          <h1 className="cust-detail-title">{service.name}</h1>
-
-          <div className="cust-detail-price-row">
-            <span className="cust-detail-price">{service.price}</span>
-            <span className="cust-detail-price-sub">(Giá niêm yết trọn gói, đã bao gồm gội & đồ uống)</span>
-          </div>
-
-          <p className="cust-detail-desc">{service.desc}</p>
-
-          <div className="cust-detail-actions">
-            <Link to={`/booking/service?service=${encodeURIComponent(service.name)}`} className="cust-btn-primary">
-              <span>✂️</span>
-              <span>Đặt Lịch Dịch Vụ Này</span>
-            </Link>
-            <Link to="/services" className="cust-btn-secondary">
-              <span>← Xem Tất Cả Dịch Vụ</span>
-            </Link>
-          </div>
-
-          <div className="cust-detail-perks">
-            <div className="cust-perk-item">
-              <span className="cust-perk-icon">✓</span>
-              <span>Bảo hành 7 ngày</span>
+        {/* Top Hero Section */}
+        <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-10 relative overflow-hidden shadow-sm">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            {/* Service Image (Col 5) */}
+            <div className="lg:col-span-5 relative rounded-2xl overflow-hidden h-72 sm:h-80 shadow-md">
+              <img
+                src={service.image}
+                alt={service.name}
+                className="w-full h-full object-cover"
+              />
+              <span className={`absolute top-4 left-4 px-3.5 py-1 rounded-full text-xs font-black uppercase backdrop-blur-md border ${service.badgeClass}`}>
+                {service.category}
+              </span>
+              <span className="absolute bottom-4 right-4 px-3 py-1 rounded-xl text-xs font-bold bg-slate-900/80 text-white backdrop-blur-md flex items-center">
+                <i className="ph-bold ph-clock mr-1 text-red-400"></i> {service.duration}
+              </span>
             </div>
-            <div className="cust-perk-item">
-              <span className="cust-perk-icon">✓</span>
-              <span>Tiệt trùng UV 100%</span>
-            </div>
-            <div className="cust-perk-item">
-              <span className="cust-perk-icon">✓</span>
-              <span>Đồ uống miễn phí</span>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      {/* BOTTOM PROCEDURE & BENEFITS */}
-      <div className="cust-bottom-grid">
-        {/* 5-Step Procedure */}
-        <div className="cust-box">
-          <div className="cust-box-header">
-            <span className="cust-detail-tag">Quy Trình Chuẩn Salon</span>
-            <h2 className="cust-box-title">5 Bước Thực Hiện Tỉ Mỉ</h2>
-            <p className="cust-box-sub">Mỗi công đoạn được thực hiện chuẩn chỉ bởi các Master Barber giàu kinh nghiệm.</p>
-          </div>
+            {/* Service Info (Col 7) */}
+            <div className="lg:col-span-7 space-y-5">
+              <div>
+                <span className="text-xs font-black uppercase text-red-600 tracking-widest block">Dịch Vụ Đẳng Cấp BarberHub</span>
+                <h1 className="text-2xl sm:text-4xl font-black text-slate-900 mt-1">
+                  {service.name}
+                </h1>
+              </div>
 
-          <div>
-            {service.steps.map((st, idx) => (
-              <div key={idx} className="cust-step-row">
-                <div className="cust-step-circle">{idx + 1}</div>
-                <div>
-                  <h4 className="cust-step-name">{st.title}</h4>
-                  <p className="cust-step-text">{st.desc}</p>
+              <div className="flex items-baseline space-x-3">
+                <span className="text-3xl sm:text-4xl font-black text-red-600">{service.price}</span>
+                <span className="text-xs text-slate-500">(Giá niêm yết trọn gói, đã bao gồm gội & đồ uống)</span>
+              </div>
+
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                {service.desc}
+              </p>
+
+              <div className="flex flex-wrap items-center gap-3 pt-2">
+                <Link
+                  to={`/booking/service?service=${encodeURIComponent(service.name)}`}
+                  className="px-7 py-3.5 bg-red-600 hover:bg-red-700 text-white font-black text-xs rounded-xl shadow-lg shadow-red-600/30 transition flex items-center space-x-2"
+                >
+                  <i className="ph-bold ph-scissors text-base"></i>
+                  <span>Đặt Lịch Dịch Vụ Này</span>
+                </Link>
+
+                <Link
+                  to="/services"
+                  className="px-5 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition"
+                >
+                  ← Xem Tất Cả Dịch Vụ
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-3 gap-3 pt-5 border-t border-slate-100 text-xs text-slate-600">
+                <div className="flex items-center space-x-1.5">
+                  <i className="ph-bold ph-shield-check text-blue-600 text-base"></i>
+                  <span>Bảo hành 7 ngày</span>
+                </div>
+                <div className="flex items-center space-x-1.5">
+                  <i className="ph-bold ph-sparkle text-red-600 text-base"></i>
+                  <span>Tiệt trùng UV 100%</span>
+                </div>
+                <div className="flex items-center space-x-1.5">
+                  <i className="ph-bold ph-coffee text-blue-600 text-base"></i>
+                  <span>Đồ uống miễn phí</span>
                 </div>
               </div>
-            ))}
+            </div>
+
           </div>
         </div>
 
-        {/* Benefits & Quick Contact */}
-        <div>
-          <div className="cust-box">
-            <div className="cust-box-header">
-              <span className="cust-detail-tag">Đặc Quyền Dịch Vụ</span>
-              <h3 className="cust-box-title">Cam Kết Trải Nghiệm Khách Hàng</h3>
+        {/* Bottom Content: Steps & Benefits */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          {/* 5-Step Procedure (Col 7) */}
+          <div className="lg:col-span-7 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 space-y-6 shadow-sm">
+            <div className="border-b border-slate-100 pb-4">
+              <span className="text-xs font-black uppercase text-blue-600 tracking-widest block">Quy Trình Chuẩn Salon</span>
+              <h2 className="text-xl font-black text-slate-900 mt-1">5 Bước Thực Hiện Tỉ Mỉ</h2>
+              <p className="text-xs text-slate-500 mt-1">Mỗi công đoạn được thực hiện chuẩn chỉ bởi các Master Barber giàu kinh nghiệm.</p>
             </div>
 
-            <div>
-              {service.benefits.map((b, idx) => (
-                <div key={idx} className="cust-benefit-item">
-                  <span className="cust-benefit-icon">★</span>
-                  <span>{b}</span>
+            <div className="space-y-4">
+              {service.steps.map((st, idx) => (
+                <div key={idx} className="flex items-start space-x-4 p-4 bg-slate-50 rounded-2xl border border-slate-200/80">
+                  <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center font-black text-sm shrink-0 shadow-sm">
+                    {idx + 1}
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-slate-900 text-sm">{st.title}</h3>
+                    <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">{st.desc}</p>
+                  </div>
                 </div>
               ))}
             </div>
+          </div>
+
+          {/* Right Column: Promises & Contact Box (Col 5) */}
+          <div className="lg:col-span-5 space-y-6">
+            
+            {/* Benefits Card */}
+            <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 space-y-4 shadow-sm">
+              <div className="border-b border-slate-100 pb-3">
+                <span className="text-xs font-black uppercase text-red-600 tracking-widest block">Đặc Quyền Dịch Vụ</span>
+                <h3 className="text-base font-bold text-slate-900 mt-1">Cam Kết Trải Nghiệm Khách Hàng</h3>
+              </div>
+
+              <div className="space-y-3">
+                {service.benefits.map((b, idx) => (
+                  <div key={idx} className="flex items-center space-x-3 p-3 bg-slate-50 rounded-xl border border-slate-200/80 text-xs">
+                    <i className="ph-bold ph-star text-red-500 text-base shrink-0"></i>
+                    <span className="text-slate-700 font-medium">{b}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
 
             {/* Quick Contact Box */}
-            <div className="cust-callout-box">
-              <div className="cust-callout-top">
-                <div className="cust-callout-icon">📞</div>
+            <div className="bg-gradient-to-br from-blue-900 via-blue-800 to-slate-900 text-white rounded-3xl p-6 space-y-4 shadow-md">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 rounded-xl bg-white/10 text-red-400 flex items-center justify-center text-xl">
+                  <i className="ph-bold ph-phone-call"></i>
+                </div>
                 <div>
-                  <h4 className="cust-callout-title">Cần Tư Vấn Thêm?</h4>
-                  <p className="cust-callout-sub">Hotline salon: 0904.123.888 (8:30 - 21:30)</p>
+                  <h4 className="font-bold text-white text-sm">Cần Tư Vấn Thêm?</h4>
+                  <p className="text-xs text-slate-300">Hotline salon: 0904.123.888 (8:30 - 21:30)</p>
                 </div>
               </div>
-              <div className="cust-callout-btns">
-                <Link to="/barbers" className="cust-btn-secondary" style={{ textAlign: "center", justifyContent: "center" }}>
+
+              <div className="grid grid-cols-2 gap-3 pt-2">
+                <Link
+                  to="/barbers"
+                  className="py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-bold text-center transition"
+                >
                   Đội Ngũ Barber
                 </Link>
-                <Link to={`/booking/service?service=${encodeURIComponent(service.name)}`} className="cust-btn-primary" style={{ textAlign: "center", justifyContent: "center" }}>
+                <Link
+                  to={`/booking/service?service=${encodeURIComponent(service.name)}`}
+                  className="py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-bold text-center shadow-md shadow-red-600/30 transition"
+                >
                   Đặt Chỗ Ngay
                 </Link>
               </div>
             </div>
+
           </div>
+
         </div>
+
       </div>
     </div>
   );

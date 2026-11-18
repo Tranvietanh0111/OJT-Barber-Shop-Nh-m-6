@@ -1,5 +1,5 @@
 // Phụ trách: Lương Trọng Đạt - Customer Module
-// Route: /barbers (Thông tin & Đội ngũ Nghệ nhân Cắt Tóc Master Barber - Tích hợp đầy đủ Giao diện, Lọc & Phong cách Royal Gold)
+// Route: /barbers (Thông tin & Đội ngũ Nghệ nhân Cắt Tóc Master Barber - Phong cách Red, White, Blue & Tailwind CSS)
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -18,7 +18,7 @@ export default function BarberInfoPage() {
       experience: "8 năm kinh nghiệm",
       completedCuts: 142,
       status: "Sẵn sàng",
-      isReady: true,
+      statusClass: "bg-emerald-500 text-white",
       avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
       bio: "Tốt nghiệp Học viện Barber Singapore. Bậc thầy kỹ thuật Skin Fade, Taper Fade và nghệ thuật cạo râu khăn nóng hoàng gia.",
       strengths: ["Skin Fade sắc nét", "Cạo khăn nóng", "Phom doanh nhân"]
@@ -34,7 +34,7 @@ export default function BarberInfoPage() {
       experience: "6 năm kinh nghiệm",
       completedCuts: 128,
       status: "Đang cắt",
-      isReady: false,
+      statusClass: "bg-red-500 text-white",
       avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80",
       bio: "Được mệnh danh là 'phù thủy uốn phồng tóc nam'. Chuyên xử lý các loại tóc chỉa, xẹp, mang lại lọn xoăn tự nhiên bồng bềnh.",
       strengths: ["Uốn Fly / Texture", "Ép side nếp tóc", "Sidepart hiện đại"]
@@ -50,7 +50,7 @@ export default function BarberInfoPage() {
       experience: "5 năm kinh nghiệm",
       completedCuts: 95,
       status: "Sẵn sàng",
-      isReady: true,
+      statusClass: "bg-emerald-500 text-white",
       avatar: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=400&auto=format&fit=crop&q=80",
       bio: "Chuyên sâu về lý thuyết màu sắc và kỹ thuật nâng nền chuẩn châu Âu. Cam kết màu chuẩn tone, không xót rát và tóc suôn mượt.",
       strengths: ["Nhuộm khói & xám", "Tẩy không rát da", "Phục hồi Keratin"]
@@ -66,7 +66,7 @@ export default function BarberInfoPage() {
       experience: "7 năm kinh nghiệm",
       completedCuts: 88,
       status: "Sẵn sàng",
-      isReady: true,
+      statusClass: "bg-emerald-500 text-white",
       avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&auto=format&fit=crop&q=80",
       bio: "Đam mê nét đẹp cổ điển quý ông thập niên 60s. Khắc họa chính xác các kiểu tóc Pompadour, Slick Back và Ivy League sang trọng.",
       strengths: ["Cắt Pompadour", "Slick Back bóng bẩy", "Viền sắc sảo"]
@@ -79,390 +79,182 @@ export default function BarberInfoPage() {
   });
 
   return (
-    <div className="cust-barber-info-wrap">
-      {/* Self-contained CSS styles for Barber Info Page */}
-      <style>{`
-        .cust-barber-info-wrap {
-          max-width: 1240px;
-          margin: 0 auto;
-          padding: 32px 20px 64px;
-          color: #f8fafc;
-          font-family: 'Plus Jakarta Sans', sans-serif;
-        }
+    <div className="bg-slate-50 text-slate-800 min-h-screen">
+      {/* Barber Pole Accent Header */}
+      <div className="h-1.5 w-full bg-gradient-to-r from-red-600 via-white to-blue-600 shadow-sm"></div>
 
-        .cust-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-end;
-          flex-wrap: wrap;
-          gap: 16px;
-          border-bottom: 1px solid #232736;
-          padding-bottom: 24px;
-          margin-bottom: 32px;
-        }
-        .cust-header-tag {
-          font-size: 11px;
-          font-weight: 800;
-          text-transform: uppercase;
-          letter-spacing: 0.1em;
-          color: #f59e0b;
-          display: block;
-          margin-bottom: 4px;
-        }
-        .cust-header-title {
-          font-size: 32px;
-          font-weight: 900;
-          color: #ffffff;
-          letter-spacing: -0.02em;
-        }
-        .cust-header-sub {
-          font-size: 14px;
-          color: #94a3b8;
-          margin-top: 4px;
-        }
-        .cust-btn-primary {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          padding: 12px 24px;
-          background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-          color: #08090c;
-          font-weight: 800;
-          font-size: 13px;
-          border-radius: 12px;
-          text-decoration: none;
-          box-shadow: 0 4px 18px rgba(245, 158, 11, 0.3);
-          transition: all 0.2s ease;
-          border: none;
-          cursor: pointer;
-        }
-        .cust-btn-primary:hover {
-          background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-          transform: translateY(-2px);
-          box-shadow: 0 6px 24px rgba(245, 158, 11, 0.45);
-        }
-
-        /* Filter Pills */
-        .cust-filter-pills {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 8px;
-          margin-bottom: 36px;
-        }
-        .cust-pill-btn {
-          padding: 8px 18px;
-          background: #141720;
-          border: 1px solid #232736;
-          border-radius: 9999px;
-          color: #94a3b8;
-          font-size: 12px;
-          font-weight: 700;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-        .cust-pill-btn:hover {
-          color: #ffffff;
-          background: #1b1f2b;
-        }
-        .cust-pill-btn.active {
-          background: #f59e0b;
-          border-color: #f59e0b;
-          color: #08090c;
-          font-weight: 800;
-        }
-
-        /* Barbers Grid */
-        .cust-barbers-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-          gap: 28px;
-          margin-bottom: 64px;
-        }
-        .cust-barber-card {
-          background: #141720;
-          border: 1px solid #232736;
-          border-radius: 24px;
-          padding: 28px 24px;
-          text-align: center;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          transition: all 0.25s ease;
-        }
-        .cust-barber-card:hover {
-          border-color: rgba(245, 158, 11, 0.45);
-          transform: translateY(-4px);
-          box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
-        }
-        .cust-avatar-box {
-          position: relative;
-          width: 104px;
-          height: 104px;
-          margin: 0 auto 16px;
-        }
-        .cust-avatar {
-          width: 100%;
-          height: 100%;
-          border-radius: 24px;
-          object-fit: cover;
-          border: 2px solid rgba(245, 158, 11, 0.4);
-        }
-        .cust-status-badge {
-          position: absolute;
-          bottom: -4px;
-          right: -4px;
-          padding: 3px 10px;
-          border-radius: 9999px;
-          font-size: 10px;
-          font-weight: 800;
-        }
-        .cust-status-badge.ready {
-          background: #10b981;
-          color: #08090c;
-        }
-        .cust-status-badge.busy {
-          background: #f59e0b;
-          color: #08090c;
-        }
-        .cust-barber-title {
-          font-size: 18px;
-          font-weight: 800;
-          color: #ffffff;
-        }
-        .cust-barber-role {
-          font-size: 12px;
-          color: #fbbf24;
-          font-weight: 600;
-          margin-top: 3px;
-        }
-        .cust-barber-meta {
-          font-size: 11px;
-          color: #94a3b8;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 6px;
-          margin-top: 6px;
-          margin-bottom: 14px;
-        }
-        .cust-barber-meta strong {
-          color: #fbbf24;
-        }
-        .cust-barber-bio {
-          font-size: 12px;
-          color: #cbd5e1;
-          line-height: 1.6;
-          text-align: left;
-          background: #0a0b0f;
-          padding: 12px;
-          border-radius: 12px;
-          border: 1px solid #1f2433;
-          margin-bottom: 14px;
-        }
-        .cust-strengths-box {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 6px;
-          margin-bottom: 20px;
-        }
-        .cust-strength-tag {
-          font-size: 10px;
-          font-weight: 600;
-          padding: 3px 8px;
-          background: #1b1f2b;
-          border: 1px solid #2e3548;
-          border-radius: 6px;
-          color: #e2e8f0;
-        }
-        .cust-btn-book-barber {
-          width: 100%;
-          padding: 11px;
-          background: #141720;
-          border: 1px solid #2e3548;
-          border-radius: 12px;
-          color: #fbbf24;
-          font-size: 12px;
-          font-weight: 800;
-          text-decoration: none;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 6px;
-          transition: all 0.2s ease;
-          box-sizing: border-box;
-        }
-        .cust-btn-book-barber:hover {
-          background: #f59e0b;
-          color: #08090c;
-          border-color: #f59e0b;
-        }
-
-        /* Standards Philosophy Box */
-        .cust-standards-box {
-          background: #141720;
-          border: 1px solid #232736;
-          border-radius: 24px;
-          padding: 36px 28px;
-        }
-        .cust-std-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-          gap: 24px;
-        }
-        .cust-std-item {
-          background: #0a0b0f;
-          border: 1px solid #1f2433;
-          border-radius: 18px;
-          padding: 24px;
-        }
-        .cust-std-icon {
-          font-size: 32px;
-          margin-bottom: 12px;
-        }
-        .cust-std-title {
-          font-size: 16px;
-          font-weight: 800;
-          color: #ffffff;
-          margin-bottom: 8px;
-        }
-        .cust-std-desc {
-          font-size: 13px;
-          color: #94a3b8;
-          line-height: 1.6;
-        }
-      `}</style>
-
-      {/* HEADER */}
-      <div className="cust-header">
-        <div>
-          <span className="cust-header-tag">Đội Ngũ Tay Nghề Cao</span>
-          <h1 className="cust-header-title">Master Barbers & Nghệ Nhân Tạo Mẫu</h1>
-          <p className="cust-header-sub">Mỗi người thợ tại BarberHub đều có từ 5 năm kinh nghiệm và chứng chỉ nghề quốc tế.</p>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10">
+        
+        {/* Title & Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200 pb-6">
+          <div>
+            <span className="text-xs font-black uppercase text-red-600 tracking-widest block">Đội Ngũ Tay Nghề Cao</span>
+            <h1 className="text-2xl sm:text-4xl font-black text-slate-900 mt-1">Master Barbers & Nghệ Nhân Tạo Mẫu</h1>
+            <p className="text-xs sm:text-sm text-slate-500 mt-1">Mỗi người thợ tại BarberHub đều có từ 5 năm kinh nghiệm và chứng chỉ nghề quốc tế.</p>
+          </div>
+          <Link
+            to="/booking/barber"
+            className="px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-black text-xs rounded-xl shadow-lg shadow-blue-600/25 transition flex items-center space-x-1.5 self-start md:self-auto"
+          >
+            <i className="ph-bold ph-calendar-plus text-base"></i>
+            <span>Đặt Lịch Thợ Yêu Thích</span>
+          </Link>
         </div>
-        <Link to="/booking/barber" className="cust-btn-primary">
-          <span>📅</span>
-          <span>Đặt Lịch Thợ Yêu Thích</span>
-        </Link>
-      </div>
 
-      {/* FILTER PILLS */}
-      <div className="cust-filter-pills">
-        <button
-          onClick={() => setFilter("all")}
-          className={`cust-pill-btn ${filter === "all" ? "active" : ""}`}
-        >
-          Tất Cả Thợ ({barbers.length})
-        </button>
-        <button
-          onClick={() => setFilter("fade")}
-          className={`cust-pill-btn ${filter === "fade" ? "active" : ""}`}
-        >
-          Chuyên Fade & Classic
-        </button>
-        <button
-          onClick={() => setFilter("perm")}
-          className={`cust-pill-btn ${filter === "perm" ? "active" : ""}`}
-        >
-          Chuyên Uốn Tạo Phồng
-        </button>
-        <button
-          onClick={() => setFilter("color")}
-          className={`cust-pill-btn ${filter === "color" ? "active" : ""}`}
-        >
-          Chuyên Nhuộm Thời Trang
-        </button>
-        <button
-          onClick={() => setFilter("classic")}
-          className={`cust-pill-btn ${filter === "classic" ? "active" : ""}`}
-        >
-          Phom Cổ Điển Quý Ông
-        </button>
-      </div>
+        {/* Filter Pills */}
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            onClick={() => setFilter("all")}
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition ${
+              filter === "all"
+                ? "bg-red-600 text-white shadow-md shadow-red-600/20"
+                : "bg-white text-slate-600 hover:bg-slate-100 hover:text-red-600 border border-slate-200"
+            }`}
+          >
+            Tất Cả Thợ ({barbers.length})
+          </button>
+          <button
+            onClick={() => setFilter("fade")}
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition ${
+              filter === "fade"
+                ? "bg-red-600 text-white shadow-md shadow-red-600/20"
+                : "bg-white text-slate-600 hover:bg-slate-100 hover:text-red-600 border border-slate-200"
+            }`}
+          >
+            Chuyên Fade & Classic
+          </button>
+          <button
+            onClick={() => setFilter("perm")}
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition ${
+              filter === "perm"
+                ? "bg-red-600 text-white shadow-md shadow-red-600/20"
+                : "bg-white text-slate-600 hover:bg-slate-100 hover:text-red-600 border border-slate-200"
+            }`}
+          >
+            Chuyên Uốn Tạo Phồng
+          </button>
+          <button
+            onClick={() => setFilter("color")}
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition ${
+              filter === "color"
+                ? "bg-red-600 text-white shadow-md shadow-red-600/20"
+                : "bg-white text-slate-600 hover:bg-slate-100 hover:text-red-600 border border-slate-200"
+            }`}
+          >
+            Chuyên Nhuộm Thời Trang
+          </button>
+          <button
+            onClick={() => setFilter("classic")}
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition ${
+              filter === "classic"
+                ? "bg-red-600 text-white shadow-md shadow-red-600/20"
+                : "bg-white text-slate-600 hover:bg-slate-100 hover:text-red-600 border border-slate-200"
+            }`}
+          >
+            Phom Cổ Điển Quý Ông
+          </button>
+        </div>
 
-      {/* BARBERS GRID */}
-      <div className="cust-barbers-grid">
-        {filteredBarbers.map((b) => (
-          <div key={b.id} className="cust-barber-card">
-            <div>
-              <div className="cust-avatar-box">
-                <img src={b.avatar} alt={b.name} className="cust-avatar" />
-                <span className={`cust-status-badge ${b.isReady ? "ready" : "busy"}`}>
-                  {b.status}
-                </span>
-              </div>
-
-              <h3 className="cust-barber-title">{b.name}</h3>
-              <p className="cust-barber-role">{b.role}</p>
-
-              <div className="cust-barber-meta">
-                <span>★ <strong>{b.rating}</strong></span>
-                <span>•</span>
-                <span>{b.chairName}</span>
-                <span>•</span>
-                <span>{b.completedCuts} ca</span>
-              </div>
-
-              <p className="cust-barber-bio">{b.bio}</p>
-
-              <div className="cust-strengths-box">
-                {b.strengths.map((str, idx) => (
-                  <span key={idx} className="cust-strength-tag">
-                    ✓ {str}
+        {/* Barbers Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {filteredBarbers.map((b) => (
+            <div
+              key={b.id}
+              className="bg-white border border-slate-200 rounded-3xl p-6 text-center hover:border-blue-400 hover:shadow-xl hover:shadow-blue-500/10 transition flex flex-col justify-between group shadow-sm"
+            >
+              <div>
+                <div className="relative w-28 h-28 mx-auto mb-4">
+                  <img
+                    src={b.avatar}
+                    alt={b.name}
+                    className="w-full h-full rounded-2xl object-cover ring-2 ring-blue-600 group-hover:ring-red-500 transition"
+                  />
+                  <span className={`absolute -bottom-2 -right-2 px-2.5 py-0.5 rounded-full text-[10px] font-black shadow ${b.statusClass}`}>
+                    {b.status}
                   </span>
-                ))}
+                </div>
+
+                <h3 className="font-bold text-slate-900 text-base">{b.name}</h3>
+                <p className="text-xs text-blue-600 font-semibold mt-0.5">{b.role}</p>
+
+                <div className="flex items-center justify-center space-x-1 text-xs text-slate-500 mt-1">
+                  <span className="text-red-600 font-bold">★ {b.rating}</span>
+                  <span>•</span>
+                  <span>{b.chairName}</span>
+                  <span>•</span>
+                  <span>{b.completedCuts} lượt cắt</span>
+                </div>
+
+                <p className="text-xs text-slate-600 mt-3 text-left leading-relaxed bg-slate-50 p-3 rounded-xl border border-slate-100">
+                  {b.bio}
+                </p>
+
+                <div className="flex flex-wrap gap-1.5 mt-3 text-left">
+                  {b.strengths.map((str, idx) => (
+                    <span
+                      key={idx}
+                      className="px-2 py-0.5 rounded-md bg-blue-50 border border-blue-200 text-[10px] font-semibold text-blue-700"
+                    >
+                      ✓ {str}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-5 pt-4 border-t border-slate-100">
+                <Link
+                  to={`/booking/barber?barber=${encodeURIComponent(b.name)}`}
+                  className="w-full py-2.5 bg-blue-50 hover:bg-blue-600 hover:text-white text-blue-700 border border-blue-200 rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1.5"
+                >
+                  <i className="ph-bold ph-scissors"></i>
+                  <span>Đặt Ghế Với {b.name.split(" ")[0]}</span>
+                </Link>
               </div>
             </div>
+          ))}
+        </div>
 
-            <div>
-              <Link
-                to={`/booking/barber?barber=${encodeURIComponent(b.name)}`}
-                className="cust-btn-book-barber"
-              >
-                <span>✂️</span>
-                <span>Đặt Ghế Với {b.name.split(" ")[0]}</span>
-              </Link>
+        {/* Standards Section */}
+        <div className="bg-white border border-slate-200 rounded-3xl p-8 sm:p-12 space-y-8 shadow-sm">
+          <div className="text-center max-w-xl mx-auto space-y-2">
+            <span className="text-xs font-black uppercase text-red-600 tracking-widest block">Tiêu Chuẩn Nghệ Nhân</span>
+            <h2 className="text-2xl font-black text-slate-900">Tại Sao Khách Hàng Tin Tưởng BarberHub?</h2>
+            <p className="text-xs sm:text-sm text-slate-500">Mỗi đường kéo đều là tâm huyết và sự tận tụy nhằm mang đến diện mạo hoàn hảo nhất cho quý khách.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="p-6 bg-slate-50 rounded-2xl border border-slate-200/80 space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center text-xl">
+                <i className="ph-bold ph-trophy"></i>
+              </div>
+              <h4 className="font-bold text-slate-900 text-base">Kỹ Năng Đỉnh Cao</h4>
+              <p className="text-xs text-slate-500 leading-relaxed">
+                100% thợ chính đều trải qua các kỳ sát hạch tay nghề khắt khe hàng quý và đào tạo xu hướng mới.
+              </p>
+            </div>
+
+            <div className="p-6 bg-slate-50 rounded-2xl border border-slate-200/80 space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-red-100 text-red-600 flex items-center justify-center text-xl">
+                <i className="ph-bold ph-heart"></i>
+              </div>
+              <h4 className="font-bold text-slate-900 text-base">Tư Vấn Tận Tâm</h4>
+              <p className="text-xs text-slate-500 leading-relaxed">
+                Lắng nghe kỹ lưỡng thói quen vuốt tóc, môi trường làm việc để tư vấn kiểu tóc thuận tiện nhất.
+              </p>
+            </div>
+
+            <div className="p-6 bg-slate-50 rounded-2xl border border-slate-200/80 space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center text-xl">
+                <i className="ph-bold ph-shield-check"></i>
+              </div>
+              <h4 className="font-bold text-slate-900 text-base">Đảm Bảo Hài Lòng</h4>
+              <p className="text-xs text-slate-500 leading-relaxed">
+                Bảo hành 7 ngày miễn phí. Nếu bạn chưa ưng ý bất kỳ chi tiết nào, chúng tôi sẽ chỉnh sửa tận tình.
+              </p>
             </div>
           </div>
-        ))}
-      </div>
-
-      {/* STANDARDS / PHILOSOPHY SECTION */}
-      <div className="cust-standards-box">
-        <div style={{ textAlign: "center", maxWidth: "600px", margin: "0 auto 32px" }}>
-          <span className="cust-header-tag">Tiêu Chuẩn Nghệ Nhân</span>
-          <h2 style={{ fontSize: "24px", fontWeight: "900", color: "#ffffff", marginBottom: "6px" }}>
-            Tại Sao Khách Hàng Tin Tưởng BarberHub?
-          </h2>
-          <p style={{ fontSize: "13px", color: "#94a3b8" }}>
-            Mỗi đường kéo đều là tâm huyết và sự tận tụy nhằm mang đến diện mạo hoàn hảo nhất cho quý khách.
-          </p>
         </div>
 
-        <div className="cust-std-grid">
-          <div className="cust-std-item">
-            <div className="cust-std-icon">🏆</div>
-            <h4 className="cust-std-title">Kỹ Năng Đỉnh Cao</h4>
-            <p className="cust-std-desc">
-              100% thợ chính đều trải qua các kỳ sát hạch tay nghề khắt khe hàng quý và đào tạo xu hướng mới.
-            </p>
-          </div>
-
-          <div className="cust-std-item">
-            <div className="cust-std-icon">❤️</div>
-            <h4 className="cust-std-title">Tư Vấn Tận Tâm</h4>
-            <p className="cust-std-desc">
-              Lắng nghe kỹ lưỡng thói quen vuốt tóc, môi trường làm việc để tư vấn kiểu tóc thuận tiện nhất.
-            </p>
-          </div>
-
-          <div className="cust-std-item">
-            <div className="cust-std-icon">🛡️</div>
-            <h4 className="cust-std-title">Đảm Bảo Hài Lòng</h4>
-            <p className="cust-std-desc">
-              Bảo hành 7 ngày miễn phí. Nếu bạn chưa ưng ý bất kỳ chi tiết nào, chúng tôi sẽ chỉnh sửa tận tình.
-            </p>
-          </div>
-        </div>
       </div>
     </div>
   );

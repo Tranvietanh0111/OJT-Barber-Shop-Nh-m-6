@@ -1,5 +1,5 @@
 // Phụ trách: Lương Trọng Đạt - Customer Module
-// Route: /my-invoices (Lịch sử hóa đơn điện tử & chi tiêu của khách hàng - Tích hợp đầy đủ Giao diện, Xem E-Invoice & Phong cách Royal Gold)
+// Route: /my-invoices (Lịch sử hóa đơn điện tử & chi tiêu của khách hàng - Phong cách Red, White, Blue & Tailwind CSS)
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -19,7 +19,7 @@ export default function InvoiceHistoryPage() {
       discount: "-25.000 đ (10%)",
       total: "225.000 đ",
       paymentMethod: "VietQR (MB Bank)",
-      badgeType: "emerald"
+      badgeClass: "bg-blue-50 text-blue-700 border-blue-200"
     },
     {
       id: "inv-2",
@@ -33,7 +33,7 @@ export default function InvoiceHistoryPage() {
       discount: "-20.000 đ (10%)",
       total: "180.000 đ",
       paymentMethod: "Thẻ Visa",
-      badgeType: "blue"
+      badgeClass: "bg-emerald-50 text-emerald-700 border-emerald-200"
     },
     {
       id: "inv-3",
@@ -47,7 +47,7 @@ export default function InvoiceHistoryPage() {
       discount: "-25.000 đ (10%)",
       total: "225.000 đ",
       paymentMethod: "Tiền mặt",
-      badgeType: "neutral"
+      badgeClass: "bg-slate-100 text-slate-700 border-slate-200"
     },
     {
       id: "inv-4",
@@ -61,495 +61,196 @@ export default function InvoiceHistoryPage() {
       discount: "-55.000 đ (10%)",
       total: "495.000 đ",
       paymentMethod: "VietQR (VCB)",
-      badgeType: "emerald"
+      badgeClass: "bg-blue-50 text-blue-700 border-blue-200"
     }
   ];
 
   return (
-    <div className="cust-invoice-wrap">
-      {/* Self-contained CSS styles for Invoice History Page */}
-      <style>{`
-        .cust-invoice-wrap {
-          max-width: 1240px;
-          margin: 0 auto;
-          padding: 32px 20px 64px;
-          color: #f8fafc;
-          font-family: 'Plus Jakarta Sans', sans-serif;
-          position: relative;
-        }
+    <div className="bg-slate-50 text-slate-800 min-h-screen">
+      {/* Barber Pole Accent Header */}
+      <div className="h-1.5 w-full bg-gradient-to-r from-red-600 via-white to-blue-600 shadow-sm"></div>
 
-        .cust-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-end;
-          flex-wrap: wrap;
-          gap: 16px;
-          border-bottom: 1px solid #232736;
-          padding-bottom: 24px;
-          margin-bottom: 32px;
-        }
-        .cust-header-tag {
-          font-size: 11px;
-          font-weight: 800;
-          text-transform: uppercase;
-          letter-spacing: 0.1em;
-          color: #f59e0b;
-          display: block;
-          margin-bottom: 4px;
-        }
-        .cust-header-title {
-          font-size: 32px;
-          font-weight: 900;
-          color: #ffffff;
-          letter-spacing: -0.02em;
-        }
-        .cust-header-sub {
-          font-size: 14px;
-          color: #94a3b8;
-          margin-top: 4px;
-        }
-        .cust-btn-primary {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          padding: 12px 24px;
-          background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-          color: #08090c;
-          font-weight: 800;
-          font-size: 13px;
-          border-radius: 12px;
-          text-decoration: none;
-          box-shadow: 0 4px 18px rgba(245, 158, 11, 0.3);
-          transition: all 0.2s ease;
-          border: none;
-          cursor: pointer;
-        }
-        .cust-btn-primary:hover {
-          background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-          transform: translateY(-2px);
-          box-shadow: 0 6px 24px rgba(245, 158, 11, 0.45);
-        }
-
-        /* 3 Metrics Cards */
-        .cust-metrics-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-          gap: 24px;
-          margin-bottom: 40px;
-        }
-        .cust-metric-card {
-          background: #141720;
-          border: 1px solid #232736;
-          border-radius: 20px;
-          padding: 24px;
-        }
-        .cust-metric-lbl {
-          font-size: 11px;
-          color: #64748b;
-          text-transform: uppercase;
-          font-weight: 800;
-          margin-bottom: 6px;
-        }
-        .cust-metric-val {
-          font-size: 28px;
-          font-weight: 900;
-          color: #fbbf24;
-          margin-bottom: 4px;
-        }
-        .cust-metric-val.green {
-          color: #34d399;
-        }
-        .cust-metric-val.white {
-          color: #ffffff;
-        }
-        .cust-metric-sub {
-          font-size: 12px;
-          color: #94a3b8;
-        }
-
-        /* Table Box */
-        .cust-table-card {
-          background: #141720;
-          border: 1px solid #232736;
-          border-radius: 24px;
-          overflow: hidden;
-          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
-        }
-        .cust-table-responsive {
-          width: 100%;
-          overflow-x: auto;
-        }
-        .cust-table {
-          width: 100%;
-          border-collapse: collapse;
-          text-align: left;
-          font-size: 13px;
-        }
-        .cust-table th {
-          background: #0a0b0f;
-          padding: 16px 20px;
-          font-size: 11px;
-          font-weight: 800;
-          text-transform: uppercase;
-          color: #64748b;
-          letter-spacing: 0.05em;
-          border-bottom: 1px solid #232736;
-          white-space: nowrap;
-        }
-        .cust-table td {
-          padding: 16px 20px;
-          border-bottom: 1px solid #1f2433;
-          color: #cbd5e1;
-          vertical-align: middle;
-        }
-        .cust-table tr:hover td {
-          background: rgba(245, 158, 11, 0.03);
-        }
-        .cust-table-code {
-          font-weight: 900;
-          color: #fbbf24;
-        }
-        .cust-table-service {
-          font-weight: 700;
-          color: #ffffff;
-        }
-        .cust-table-discount {
-          color: #34d399;
-          font-weight: 700;
-        }
-        .cust-table-total {
-          font-size: 15px;
-          font-weight: 900;
-          color: #fbbf24;
-        }
-        .cust-pay-badge {
-          display: inline-block;
-          padding: 4px 10px;
-          border-radius: 9999px;
-          font-size: 10px;
-          font-weight: 800;
-        }
-        .cust-pay-badge.emerald {
-          background: rgba(16, 185, 129, 0.12);
-          color: #34d399;
-          border: 1px solid rgba(16, 185, 129, 0.3);
-        }
-        .cust-pay-badge.blue {
-          background: rgba(59, 130, 246, 0.12);
-          color: #60a5fa;
-          border: 1px solid rgba(59, 130, 246, 0.3);
-        }
-        .cust-pay-badge.neutral {
-          background: rgba(148, 163, 184, 0.12);
-          color: #cbd5e1;
-          border: 1px solid rgba(148, 163, 184, 0.3);
-        }
-        .cust-btn-view-invoice {
-          padding: 7px 14px;
-          background: #1b1f2b;
-          border: 1px solid #2e3548;
-          color: #cbd5e1;
-          border-radius: 10px;
-          font-size: 12px;
-          font-weight: 700;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-        .cust-btn-view-invoice:hover {
-          background: #f59e0b;
-          color: #08090c;
-          border-color: #f59e0b;
-        }
-
-        /* E-Receipt Modal */
-        .cust-modal-backdrop {
-          position: fixed;
-          inset: 0;
-          z-index: 999;
-          background: rgba(8, 9, 12, 0.85);
-          backdrop-filter: blur(8px);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 20px;
-        }
-        .cust-receipt-modal {
-          background: #141720;
-          border: 1px solid #2e3548;
-          border-radius: 24px;
-          width: 100%;
-          max-width: 440px;
-          padding: 28px;
-          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-          animation: popIn 0.25s ease;
-        }
-        @keyframes popIn {
-          from { transform: scale(0.95); opacity: 0; }
-          to { transform: scale(1); opacity: 1; }
-        }
-        .cust-modal-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          border-bottom: 1px solid #232736;
-          padding-bottom: 14px;
-          margin-bottom: 18px;
-        }
-        .cust-modal-title {
-          font-size: 16px;
-          font-weight: 800;
-          color: #ffffff;
-          display: flex;
-          align-items: center;
-          gap: 8px;
-        }
-        .cust-btn-close {
-          background: transparent;
-          border: none;
-          color: #64748b;
-          font-size: 18px;
-          cursor: pointer;
-          padding: 4px;
-        }
-        .cust-btn-close:hover {
-          color: #ffffff;
-        }
-        .cust-receipt-body {
-          background: #0a0b0f;
-          border: 1px solid #1f2433;
-          border-radius: 18px;
-          padding: 20px;
-          margin-bottom: 20px;
-        }
-        .cust-receipt-brand {
-          text-align: center;
-          border-bottom: 1px solid #1f2433;
-          padding-bottom: 12px;
-          margin-bottom: 16px;
-        }
-        .cust-receipt-brand h4 {
-          font-size: 15px;
-          font-weight: 900;
-          color: #ffffff;
-          letter-spacing: 0.05em;
-        }
-        .cust-receipt-brand p {
-          font-size: 11px;
-          color: #64748b;
-          margin-top: 2px;
-        }
-        .cust-receipt-row {
-          display: flex;
-          justify-content: space-between;
-          font-size: 12px;
-          margin-bottom: 8px;
-        }
-        .cust-receipt-lbl {
-          color: #64748b;
-        }
-        .cust-receipt-val {
-          color: #e2e8f0;
-          font-weight: 600;
-        }
-        .cust-receipt-total-row {
-          border-top: 1px solid #1f2433;
-          padding-top: 12px;
-          margin-top: 12px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-        .cust-receipt-total-val {
-          font-size: 20px;
-          font-weight: 900;
-          color: #fbbf24;
-        }
-        .cust-receipt-stamp {
-          background: rgba(16, 185, 129, 0.12);
-          border: 1px solid rgba(16, 185, 129, 0.3);
-          border-radius: 10px;
-          color: #34d399;
-          font-size: 12px;
-          font-weight: 800;
-          text-align: center;
-          padding: 8px;
-          margin-top: 14px;
-        }
-        .cust-modal-actions {
-          display: flex;
-          gap: 12px;
-        }
-        .cust-modal-actions button {
-          flex: 1;
-        }
-      `}</style>
-
-      {/* HEADER */}
-      <div className="cust-header">
-        <div>
-          <span className="cust-header-tag">Hóa Đơn Điện Tử</span>
-          <h1 className="cust-header-title">Lịch Sử Chi Tiêu & Hóa Đơn</h1>
-          <p className="cust-header-sub">Tra cứu chi tiết mọi hóa đơn dịch vụ cắt tóc và quyền lợi giảm giá VIP tại BarberHub.</p>
-        </div>
-        <Link to="/booking/service" className="cust-btn-primary">
-          <span>📅</span>
-          <span>Đặt Lịch Cắt Mới</span>
-        </Link>
-      </div>
-
-      {/* 3 SUMMARY METRICS */}
-      <div className="cust-metrics-grid">
-        <div className="cust-metric-card">
-          <div className="cust-metric-lbl">Tổng Chi Tiêu Năm 2026</div>
-          <div className="cust-metric-val">2.850.000 đ</div>
-          <p className="cust-metric-sub">12 lượt sử dụng dịch vụ tại salon</p>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8">
+        
+        {/* Title & Header */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200 pb-5">
+          <div>
+            <span className="text-xs font-black uppercase text-red-600 tracking-widest block">Hóa Đơn Điện Tử</span>
+            <h1 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1">Lịch Sử Chi Tiêu & Hóa Đơn</h1>
+            <p className="text-xs sm:text-sm text-slate-500 mt-1">Tra cứu chi tiết mọi hóa đơn dịch vụ cắt tóc và quyền lợi giảm giá VIP tại BarberHub.</p>
+          </div>
+          <Link
+            to="/booking/service"
+            className="px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-black text-xs rounded-xl shadow-lg shadow-blue-600/25 transition flex items-center space-x-1.5 self-start sm:self-auto"
+          >
+            <i className="ph-bold ph-calendar-plus text-base"></i>
+            <span>Đặt Lịch Cắt Mới</span>
+          </Link>
         </div>
 
-        <div className="cust-metric-card">
-          <div className="cust-metric-lbl">Tiết Kiệm Nhờ VIP</div>
-          <div className="cust-metric-val green">315.000 đ</div>
-          <p className="cust-metric-sub">Giảm 10% trọn đời mỗi lần sử dụng</p>
-        </div>
+        {/* Summary Metrics */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div className="bg-white border border-slate-200 rounded-3xl p-6 space-y-2 shadow-sm">
+            <span className="text-xs text-slate-400 font-extrabold uppercase tracking-wider block">Tổng Chi Tiêu Năm 2026</span>
+            <div className="text-3xl font-black text-red-600">2.850.000 đ</div>
+            <p className="text-xs text-slate-500">12 lượt sử dụng dịch vụ tại salon</p>
+          </div>
 
-        <div className="cust-metric-card">
-          <div className="cust-metric-lbl">Hạng Khách Hàng</div>
-          <div className="cust-metric-val white">👑 Khách VIP</div>
-          <p className="cust-metric-sub" style={{ color: "#fbbf24" }}>Ưu tiên giữ ghế & miễn phí đồ uống</p>
-        </div>
-      </div>
+          <div className="bg-white border border-slate-200 rounded-3xl p-6 space-y-2 shadow-sm">
+            <span className="text-xs text-slate-400 font-extrabold uppercase tracking-wider block">Tiết Kiệm Nhờ VIP</span>
+            <div className="text-3xl font-black text-blue-600">315.000 đ</div>
+            <p className="text-xs text-slate-500">Giảm 10% trọn đời mỗi lần sử dụng</p>
+          </div>
 
-      {/* INVOICES TABLE */}
-      <div className="cust-table-card">
-        <div className="cust-table-responsive">
-          <table className="cust-table">
-            <thead>
-              <tr>
-                <th>Mã Hóa Đơn</th>
-                <th>Thời Gian</th>
-                <th>Dịch Vụ Cắt</th>
-                <th>Thợ Cắt</th>
-                <th>Tạm Tính</th>
-                <th>Ưu Đãi VIP</th>
-                <th>Tổng Thanh Toán</th>
-                <th>Hình Thức</th>
-                <th style={{ textAlign: "right" }}>Thao Tác</th>
-              </tr>
-            </thead>
-            <tbody>
-              {invoices.map((inv) => (
-                <tr key={inv.id}>
-                  <td className="cust-table-code">#{inv.code}</td>
-                  <td>
-                    <div style={{ fontWeight: "700", color: "#ffffff" }}>{inv.time}</div>
-                    <div style={{ fontSize: "11px", color: "#64748b" }}>{inv.date}</div>
-                  </td>
-                  <td className="cust-table-service">{inv.service}</td>
-                  <td>
-                    <div style={{ fontWeight: "700" }}>{inv.barber}</div>
-                    <div style={{ fontSize: "11px", color: "#fbbf24" }}>{inv.chair}</div>
-                  </td>
-                  <td>{inv.subtotal}</td>
-                  <td className="cust-table-discount">{inv.discount}</td>
-                  <td className="cust-table-total">{inv.total}</td>
-                  <td>
-                    <span className={`cust-pay-badge ${inv.badgeType}`}>
-                      {inv.paymentMethod}
-                    </span>
-                  </td>
-                  <td style={{ textAlign: "right" }}>
-                    <button
-                      onClick={() => setSelectedInvoice(inv)}
-                      className="cust-btn-view-invoice"
-                    >
-                      Chi Tiết
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      {/* ELECTRONIC INVOICE MODAL */}
-      {selectedInvoice && (
-        <div className="cust-modal-backdrop" onClick={() => setSelectedInvoice(null)}>
-          <div className="cust-receipt-modal" onClick={(e) => e.stopPropagation()}>
-            <div className="cust-modal-header">
-              <h3 className="cust-modal-title">
-                <span>🧾</span>
-                <span>Hóa Đơn Điện Tử BarberHub</span>
-              </h3>
-              <button onClick={() => setSelectedInvoice(null)} className="cust-btn-close">
-                ✕
-              </button>
-            </div>
-
-            <div className="cust-receipt-body">
-              <div className="cust-receipt-brand">
-                <h4>BARBERHUB SALON SUITE</h4>
-                <p>Chi nhánh Hàng Bạc, Hoàn Kiếm, Hà Nội</p>
-              </div>
-
-              <div className="cust-receipt-row">
-                <span className="cust-receipt-lbl">Mã hóa đơn:</span>
-                <span className="cust-receipt-val" style={{ color: "#fbbf24", fontWeight: "900" }}>
-                  #{selectedInvoice.code}
-                </span>
-              </div>
-              <div className="cust-receipt-row">
-                <span className="cust-receipt-lbl">Thời gian:</span>
-                <span className="cust-receipt-val">{selectedInvoice.time} - {selectedInvoice.date}</span>
-              </div>
-              <div className="cust-receipt-row">
-                <span className="cust-receipt-lbl">Khách hàng:</span>
-                <span className="cust-receipt-val">Anh Hoàng Nam (VIP)</span>
-              </div>
-              <div className="cust-receipt-row">
-                <span className="cust-receipt-lbl">Thợ cắt:</span>
-                <span className="cust-receipt-val">{selectedInvoice.barber} ({selectedInvoice.chair})</span>
-              </div>
-              <div className="cust-receipt-row">
-                <span className="cust-receipt-lbl">Dịch vụ:</span>
-                <span className="cust-receipt-val">{selectedInvoice.service}</span>
-              </div>
-              <div className="cust-receipt-row">
-                <span className="cust-receipt-lbl">Tạm tính:</span>
-                <span className="cust-receipt-val">{selectedInvoice.subtotal}</span>
-              </div>
-              <div className="cust-receipt-row">
-                <span className="cust-receipt-lbl">Giảm giá VIP:</span>
-                <span className="cust-receipt-val" style={{ color: "#34d399" }}>{selectedInvoice.discount}</span>
-              </div>
-
-              <div className="cust-receipt-total-row">
-                <span style={{ fontWeight: "800", color: "#ffffff", fontSize: "14px" }}>Tổng Thanh Toán:</span>
-                <span className="cust-receipt-total-val">{selectedInvoice.total}</span>
-              </div>
-
-              <div className="cust-receipt-stamp">
-                ✓ Đã thanh toán thành công qua {selectedInvoice.paymentMethod}
-              </div>
-            </div>
-
-            <div className="cust-modal-actions">
-              <button
-                onClick={() => alert("Đang xuất hóa đơn PDF về máy của bạn...")}
-                className="cust-btn-primary"
-                style={{ background: "#1b1f2b", color: "#cbd5e1", border: "1px solid #2e3548" }}
-              >
-                Tải PDF
-              </button>
-              <button
-                onClick={() => setSelectedInvoice(null)}
-                className="cust-btn-primary"
-              >
-                Đóng
-              </button>
-            </div>
+          <div className="bg-white border border-slate-200 rounded-3xl p-6 space-y-2 shadow-sm">
+            <span className="text-xs text-slate-400 font-extrabold uppercase tracking-wider block">Hạng Khách Hàng</span>
+            <div className="text-3xl font-black text-slate-900">👑 Khách VIP</div>
+            <p className="text-xs text-red-600 font-semibold">Ưu tiên giữ ghế & miễn phí đồ uống</p>
           </div>
         </div>
-      )}
+
+        {/* Invoices Table */}
+        <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs">
+              <thead>
+                <tr className="bg-slate-100 text-slate-600 uppercase font-black tracking-wider border-b border-slate-200">
+                  <th className="px-5 py-4">Mã Hóa Đơn</th>
+                  <th className="px-5 py-4">Thời Gian</th>
+                  <th className="px-5 py-4">Dịch Vụ Cắt</th>
+                  <th className="px-5 py-4">Thợ Cắt</th>
+                  <th className="px-5 py-4">Tạm Tính</th>
+                  <th className="px-5 py-4">Ưu Đãi VIP</th>
+                  <th className="px-5 py-4">Tổng Thanh Toán</th>
+                  <th className="px-5 py-4">Hình Thức</th>
+                  <th className="px-5 py-4 text-right">Thao Tác</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {invoices.map((inv) => (
+                  <tr key={inv.id} className="hover:bg-slate-50 transition">
+                    <td className="px-5 py-4 font-black text-blue-600">#{inv.code}</td>
+                    <td className="px-5 py-4 text-slate-700">
+                      <span className="font-bold block">{inv.time}</span>
+                      <span className="text-[11px] text-slate-400">{inv.date}</span>
+                    </td>
+                    <td className="px-5 py-4 font-bold text-slate-900">{inv.service}</td>
+                    <td className="px-5 py-4 text-slate-700">
+                      <span className="font-bold block">{inv.barber}</span>
+                      <span className="text-[11px] text-blue-600">{inv.chair}</span>
+                    </td>
+                    <td className="px-5 py-4 text-slate-500">{inv.subtotal}</td>
+                    <td className="px-5 py-4 text-blue-600 font-bold">{inv.discount}</td>
+                    <td className="px-5 py-4 font-black text-red-600 text-sm">{inv.total}</td>
+                    <td className="px-5 py-4">
+                      <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold border ${inv.badgeClass}`}>
+                        {inv.paymentMethod}
+                      </span>
+                    </td>
+                    <td className="px-5 py-4 text-right">
+                      <button
+                        onClick={() => setSelectedInvoice(inv)}
+                        className="px-3.5 py-1.5 bg-slate-100 hover:bg-blue-600 hover:text-white text-slate-700 rounded-xl font-bold transition shadow-sm"
+                      >
+                        Chi Tiết
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Electronic Invoice Modal */}
+        {selectedInvoice && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4"
+            onClick={() => setSelectedInvoice(null)}
+          >
+            <div
+              className="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-slate-200 space-y-4 animate-in fade-in zoom-in-95 duration-200"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+                <h3 className="font-bold text-slate-900 text-base flex items-center space-x-2">
+                  <i className="ph-bold ph-receipt text-red-600 text-lg"></i>
+                  <span>Hóa Đơn Điện Tử BarberHub</span>
+                </h3>
+                <button
+                  onClick={() => setSelectedInvoice(null)}
+                  className="text-slate-400 hover:text-slate-700 p-1"
+                >
+                  <i className="ph-bold ph-x text-lg"></i>
+                </button>
+              </div>
+
+              <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3 text-xs">
+                <div className="text-center border-b border-slate-200 pb-2">
+                  <h2 className="font-black text-blue-900 text-sm uppercase">BARBERHUB SALON SUITE</h2>
+                  <p className="text-[10px] text-slate-500">Chi nhánh Hàng Bạc, Hoàn Kiếm, Hà Nội</p>
+                </div>
+
+                <div className="space-y-1.5 text-[11px]">
+                  <div className="flex justify-between">
+                    <span className="text-slate-500">Mã hóa đơn:</span>
+                    <strong className="text-blue-600">#{selectedInvoice.code}</strong>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-500">Thời gian:</span>
+                    <span className="text-slate-700">{selectedInvoice.time} - {selectedInvoice.date}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-500">Khách hàng:</span>
+                    <span className="text-slate-900 font-bold">Anh Hoàng Nam (VIP)</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-500">Thợ cắt:</span>
+                    <span className="text-slate-900">{selectedInvoice.barber} ({selectedInvoice.chair})</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-500">Dịch vụ:</span>
+                    <span className="text-slate-900 font-bold">{selectedInvoice.service}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-500">Tạm tính:</span>
+                    <span className="text-slate-500">{selectedInvoice.subtotal}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-500">Giảm giá VIP:</span>
+                    <span className="text-blue-600 font-bold">{selectedInvoice.discount}</span>
+                  </div>
+                </div>
+
+                <div className="pt-2 border-t border-slate-200 flex justify-between items-center text-sm">
+                  <span className="font-bold text-slate-900">Tổng Thanh Toán:</span>
+                  <span className="text-lg font-black text-red-600">{selectedInvoice.total}</span>
+                </div>
+
+                <div className="p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 text-center text-emerald-700 font-bold text-xs">
+                  ✓ Đã thanh toán qua {selectedInvoice.paymentMethod}
+                </div>
+              </div>
+
+              <div className="flex space-x-2 pt-1">
+                <button
+                  onClick={() => alert("Đang tải hóa đơn PDF về máy...")}
+                  className="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition"
+                >
+                  Tải PDF
+                </button>
+                <button
+                  onClick={() => setSelectedInvoice(null)}
+                  className="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl transition shadow-md shadow-blue-600/20"
+                >
+                  Đóng
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+      </div>
     </div>
   );
 }

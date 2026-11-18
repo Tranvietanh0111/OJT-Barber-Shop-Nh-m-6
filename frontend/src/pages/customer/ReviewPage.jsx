@@ -1,5 +1,5 @@
 // Phụ trách: Lương Trọng Đạt - Customer Module
-// Route: /reviews (Đánh giá dịch vụ & Cảm nhận khách hàng thực tế - Tích hợp đầy đủ Giao diện, Form gửi phản hồi & Phong cách Royal Gold)
+// Route: /reviews (Đánh giá dịch vụ & Cảm nhận khách hàng thực tế - Phong cách Red, White, Blue & Tailwind CSS)
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -16,7 +16,7 @@ export default function ReviewPage() {
       id: "rev-1",
       author: "Anh Hoàng Nam",
       tier: "Khách VIP",
-      tierBadge: "gold",
+      tierClass: "bg-red-50 text-red-600 border-red-200",
       date: "16/11/2026",
       stars: 5,
       service: "Cắt Fade Barber + Cạo Râu Khăn Nóng",
@@ -28,7 +28,7 @@ export default function ReviewPage() {
       id: "rev-2",
       author: "Lê Minh Đức",
       tier: "Khách Thân Thiết",
-      tierBadge: "blue",
+      tierClass: "bg-blue-50 text-blue-700 border-blue-200",
       date: "10/11/2026",
       stars: 5,
       service: "Uốn Xoăn Hàn Quốc Fly Texture",
@@ -40,7 +40,7 @@ export default function ReviewPage() {
       id: "rev-3",
       author: "Trần Quốc Bảo",
       tier: "Khách Thân Thiết",
-      tierBadge: "blue",
+      tierClass: "bg-blue-50 text-blue-700 border-blue-200",
       date: "05/11/2026",
       stars: 5,
       service: "Nhuộm Màu / Tẩy Tóc Cao Cấp",
@@ -52,7 +52,7 @@ export default function ReviewPage() {
       id: "rev-4",
       author: "Phạm Văn Cường",
       tier: "Khách Mới",
-      tierBadge: "neutral",
+      tierClass: "bg-slate-100 text-slate-600 border-slate-200",
       date: "28/10/2026",
       stars: 4,
       service: "Cắt Undercut Nam Chuẩn Barber",
@@ -78,7 +78,7 @@ export default function ReviewPage() {
       id: "rev-" + Date.now(),
       author: "Anh Hoàng Nam",
       tier: "Khách VIP",
-      tierBadge: "gold",
+      tierClass: "bg-red-50 text-red-600 border-red-200",
       date: "Vừa xong",
       stars: userRating,
       service: selectedService,
@@ -98,563 +98,262 @@ export default function ReviewPage() {
   });
 
   return (
-    <div className="cust-reviews-wrap">
-      {/* Self-contained CSS styles for Review Page */}
-      <style>{`
-        .cust-reviews-wrap {
-          max-width: 1240px;
-          margin: 0 auto;
-          padding: 32px 20px 64px;
-          color: #f8fafc;
-          font-family: 'Plus Jakarta Sans', sans-serif;
-          position: relative;
-        }
+    <div className="bg-slate-50 text-slate-800 min-h-screen">
+      {/* Barber Pole Accent Header */}
+      <div className="h-1.5 w-full bg-gradient-to-r from-red-600 via-white to-blue-600 shadow-sm"></div>
 
-        .cust-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-end;
-          flex-wrap: wrap;
-          gap: 16px;
-          border-bottom: 1px solid #232736;
-          padding-bottom: 24px;
-          margin-bottom: 32px;
-        }
-        .cust-header-tag {
-          font-size: 11px;
-          font-weight: 800;
-          text-transform: uppercase;
-          letter-spacing: 0.1em;
-          color: #f59e0b;
-          display: block;
-          margin-bottom: 4px;
-        }
-        .cust-header-title {
-          font-size: 32px;
-          font-weight: 900;
-          color: #ffffff;
-          letter-spacing: -0.02em;
-        }
-        .cust-header-sub {
-          font-size: 14px;
-          color: #94a3b8;
-          margin-top: 4px;
-        }
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8">
+        
+        {/* Toast Notification */}
+        {toastMessage && (
+          <div className="fixed bottom-6 right-6 z-50 flex items-center space-x-2 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl text-xs font-bold border-l-4 border-red-500 animate-bounce">
+            <i className="ph-bold ph-check-circle text-emerald-400 text-base"></i>
+            <span>{toastMessage}</span>
+          </div>
+        )}
 
-        /* Toast */
-        .cust-toast {
-          position: fixed;
-          bottom: 28px;
-          right: 28px;
-          z-index: 999;
-          background: #141720;
-          border: 1px solid #10b981;
-          color: #34d399;
-          padding: 12px 20px;
-          border-radius: 14px;
-          font-size: 13px;
-          font-weight: 700;
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-          animation: slideUp 0.3s ease;
-        }
-        @keyframes slideUp {
-          from { transform: translateY(20px); opacity: 0; }
-          to { transform: translateY(0); opacity: 1; }
-        }
-
-        /* Summary Header Box */
-        .cust-summary-hero {
-          background: #141720;
-          border: 1px solid #232736;
-          border-radius: 28px;
-          padding: 36px;
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 36px;
-          margin-bottom: 48px;
-          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
-        }
-        @media (min-width: 768px) {
-          .cust-summary-hero {
-            grid-template-columns: 240px 1fr;
-            align-items: center;
-          }
-        }
-        .cust-score-box {
-          text-align: center;
-          border-right: none;
-          padding-right: 0;
-        }
-        @media (min-width: 768px) {
-          .cust-score-box {
-            border-right: 1px solid #232736;
-            padding-right: 36px;
-          }
-        }
-        .cust-score-big {
-          font-size: 56px;
-          font-weight: 900;
-          color: #fbbf24;
-          line-height: 1;
-          margin-bottom: 8px;
-        }
-        .cust-score-stars {
-          color: #f59e0b;
-          font-size: 18px;
-          margin-bottom: 6px;
-        }
-        .cust-score-count {
-          font-size: 12px;
-          color: #94a3b8;
-        }
-
-        /* Progress Bars */
-        .cust-bars-list {
-          display: flex;
-          flex-direction: column;
-          gap: 8px;
-        }
-        .cust-bar-row {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          font-size: 12px;
-        }
-        .cust-bar-lbl {
-          width: 50px;
-          color: #94a3b8;
-          font-weight: 700;
-        }
-        .cust-bar-track {
-          flex: 1;
-          height: 8px;
-          background: #0a0b0f;
-          border-radius: 9999px;
-          overflow: hidden;
-        }
-        .cust-bar-fill {
-          height: 100%;
-          background: linear-gradient(90deg, #d97706, #fbbf24);
-          border-radius: 9999px;
-        }
-        .cust-bar-pct {
-          width: 36px;
-          text-align: right;
-          color: #64748b;
-          font-weight: 700;
-        }
-
-        /* Two Column Main */
-        .cust-two-col {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 36px;
-        }
-        @media (min-width: 992px) {
-          .cust-two-col {
-            grid-template-columns: 420px 1fr;
-          }
-        }
-
-        /* Review Form Box */
-        .cust-form-box {
-          background: #141720;
-          border: 1px solid #232736;
-          border-radius: 24px;
-          padding: 28px;
-          height: fit-content;
-        }
-        .cust-form-title {
-          font-size: 18px;
-          font-weight: 800;
-          color: #ffffff;
-          margin-bottom: 4px;
-        }
-        .cust-form-sub {
-          font-size: 12px;
-          color: #94a3b8;
-          margin-bottom: 20px;
-        }
-        .cust-field {
-          margin-bottom: 16px;
-        }
-        .cust-label {
-          display: block;
-          font-size: 11px;
-          font-weight: 800;
-          color: #94a3b8;
-          text-transform: uppercase;
-          margin-bottom: 6px;
-        }
-        .cust-select, .cust-textarea {
-          width: 100%;
-          padding: 12px 14px;
-          background: #0a0b0f;
-          border: 1px solid #232736;
-          border-radius: 12px;
-          color: #ffffff;
-          font-size: 13px;
-          outline: none;
-          box-sizing: border-box;
-          font-family: inherit;
-        }
-        .cust-select:focus, .cust-textarea:focus {
-          border-color: #f59e0b;
-        }
-        .cust-textarea {
-          resize: vertical;
-          min-height: 100px;
-        }
-        .cust-star-picker {
-          display: flex;
-          gap: 8px;
-          font-size: 24px;
-          cursor: pointer;
-        }
-        .cust-star-opt {
-          color: #3f475a;
-          transition: color 0.15s ease;
-        }
-        .cust-star-opt.active {
-          color: #fbbf24;
-        }
-        .cust-btn-primary {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-          width: 100%;
-          padding: 13px;
-          background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-          color: #08090c;
-          font-weight: 800;
-          font-size: 13px;
-          border-radius: 12px;
-          border: none;
-          cursor: pointer;
-          box-shadow: 0 4px 18px rgba(245, 158, 11, 0.3);
-          transition: all 0.2s ease;
-        }
-        .cust-btn-primary:hover {
-          background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-          transform: translateY(-2px);
-        }
-
-        /* Filter Pills */
-        .cust-pills-row {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 8px;
-          margin-bottom: 24px;
-        }
-        .cust-pill-btn {
-          padding: 8px 16px;
-          background: #141720;
-          border: 1px solid #232736;
-          border-radius: 9999px;
-          color: #94a3b8;
-          font-size: 12px;
-          font-weight: 700;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-        .cust-pill-btn:hover {
-          color: #ffffff;
-        }
-        .cust-pill-btn.active {
-          background: #f59e0b;
-          border-color: #f59e0b;
-          color: #08090c;
-          font-weight: 800;
-        }
-
-        /* Review Cards List */
-        .cust-reviews-list {
-          display: flex;
-          flex-direction: column;
-          gap: 18px;
-        }
-        .cust-rev-card {
-          background: #141720;
-          border: 1px solid #232736;
-          border-radius: 20px;
-          padding: 24px;
-          transition: all 0.25s ease;
-        }
-        .cust-rev-card:hover {
-          border-color: rgba(245, 158, 11, 0.35);
-        }
-        .cust-rev-top {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 12px;
-        }
-        .cust-rev-author-box {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-        }
-        .cust-rev-author {
-          font-size: 15px;
-          font-weight: 800;
-          color: #ffffff;
-        }
-        .cust-rev-tier-badge {
-          font-size: 10px;
-          font-weight: 800;
-          padding: 2px 8px;
-          border-radius: 9999px;
-        }
-        .cust-rev-tier-badge.gold {
-          background: rgba(245, 158, 11, 0.12);
-          color: #fbbf24;
-          border: 1px solid rgba(245, 158, 11, 0.3);
-        }
-        .cust-rev-tier-badge.blue {
-          background: rgba(59, 130, 246, 0.12);
-          color: #60a5fa;
-          border: 1px solid rgba(59, 130, 246, 0.3);
-        }
-        .cust-rev-tier-badge.neutral {
-          background: rgba(148, 163, 184, 0.12);
-          color: #cbd5e1;
-          border: 1px solid rgba(148, 163, 184, 0.3);
-        }
-        .cust-rev-date {
-          font-size: 11px;
-          color: #64748b;
-        }
-        .cust-rev-meta-sub {
-          font-size: 12px;
-          color: #fbbf24;
-          margin-bottom: 10px;
-          display: flex;
-          align-items: center;
-          gap: 8px;
-        }
-        .cust-rev-comment {
-          font-size: 13px;
-          color: #cbd5e1;
-          line-height: 1.65;
-          margin-bottom: 12px;
-        }
-        .cust-rev-verified {
-          font-size: 11px;
-          color: #10b981;
-          font-weight: 700;
-          display: flex;
-          align-items: center;
-          gap: 4px;
-        }
-      `}</style>
-
-      {/* TOAST NOTIFICATION */}
-      {toastMessage && (
-        <div className="cust-toast">
-          <span>✓</span>
-          <span>{toastMessage}</span>
-        </div>
-      )}
-
-      {/* HEADER */}
-      <div className="cust-header">
-        <div>
-          <span className="cust-header-tag">Cảm Nhận Thực Tế</span>
-          <h1 className="cust-header-title">Đánh Giá & Trải Nghiệm Khách Hàng</h1>
-          <p className="cust-header-sub">Lắng nghe ý kiến đóng góp chân thực từ những quý ông đã đồng hành cùng BarberHub.</p>
-        </div>
-        <Link to="/booking/service" className="cust-btn-primary" style={{ width: "auto" }}>
-          <span>✂️</span>
-          <span>Đặt Lịch Trải Nghiệm</span>
-        </Link>
-      </div>
-
-      {/* SUMMARY STATS HERO */}
-      <div className="cust-summary-hero">
-        <div className="cust-score-box">
-          <div className="cust-score-big">4.9</div>
-          <div className="cust-score-stars">★★★★★</div>
-          <div className="cust-score-count">248 đánh giá xác thực</div>
+        {/* Title & Header */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200 pb-5">
+          <div>
+            <span className="text-xs font-black uppercase text-red-600 tracking-widest block">Cảm Nhận Thực Tế</span>
+            <h1 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1">Đánh Giá & Trải Nghiệm Khách Hàng</h1>
+            <p className="text-xs sm:text-sm text-slate-500 mt-1">Lắng nghe ý kiến đóng góp chân thực từ những quý ông đã đồng hành cùng BarberHub.</p>
+          </div>
+          <Link
+            to="/booking/service"
+            className="px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-black text-xs rounded-xl shadow-lg shadow-blue-600/25 transition flex items-center space-x-1.5 self-start sm:self-auto"
+          >
+            <i className="ph-bold ph-calendar-plus text-base"></i>
+            <span>Đặt Lịch Trải Nghiệm</span>
+          </Link>
         </div>
 
-        <div className="cust-bars-list">
-          <div className="cust-bar-row">
-            <span className="cust-bar-lbl">5 sao</span>
-            <div className="cust-bar-track">
-              <div className="cust-bar-fill" style={{ width: "88%" }}></div>
-            </div>
-            <span className="cust-bar-pct">88%</span>
-          </div>
-
-          <div className="cust-bar-row">
-            <span className="cust-bar-lbl">4 sao</span>
-            <div className="cust-bar-track">
-              <div className="cust-bar-fill" style={{ width: "10%" }}></div>
-            </div>
-            <span className="cust-bar-pct">10%</span>
-          </div>
-
-          <div className="cust-bar-row">
-            <span className="cust-bar-lbl">3 sao</span>
-            <div className="cust-bar-track">
-              <div className="cust-bar-fill" style={{ width: "2%" }}></div>
-            </div>
-            <span className="cust-bar-pct">2%</span>
-          </div>
-
-          <div className="cust-bar-row">
-            <span className="cust-bar-lbl">2 sao</span>
-            <div className="cust-bar-track">
-              <div className="cust-bar-fill" style={{ width: "0%" }}></div>
-            </div>
-            <span className="cust-bar-pct">0%</span>
-          </div>
-
-          <div className="cust-bar-row">
-            <span className="cust-bar-lbl">1 sao</span>
-            <div className="cust-bar-track">
-              <div className="cust-bar-fill" style={{ width: "0%" }}></div>
-            </div>
-            <span className="cust-bar-pct">0%</span>
-          </div>
-        </div>
-      </div>
-
-      {/* MAIN TWO COLUMN LAYOUT */}
-      <div className="cust-two-col">
-        {/* Left Column: Review Form */}
-        <div className="cust-form-box">
-          <h3 className="cust-form-title">Gửi Đánh Giá Của Bạn</h3>
-          <p className="cust-form-sub">Chia sẻ cảm nhận sau khi hoàn thành dịch vụ tại salon.</p>
-
-          <form onSubmit={handleReviewSubmit}>
-            <div className="cust-field">
-              <label className="cust-label">Dịch vụ đã sử dụng</label>
-              <select
-                value={selectedService}
-                onChange={(e) => setSelectedService(e.target.value)}
-                className="cust-select"
-              >
-                <option value="Combo Cắt + Gội + Massage Đăng Quang">Combo Cắt + Gội + Massage Đăng Quang</option>
-                <option value="Cắt Tóc Nam Chuẩn Barber">Cắt Tóc Nam Chuẩn Barber</option>
-                <option value="Uốn Xoăn Hàn Quốc / Fly / Texture">Uốn Xoăn Hàn Quốc / Fly / Texture</option>
-                <option value="Nhuộm Màu / Tẩy Tóc Cao Cấp">Nhuộm Màu / Tẩy Tóc Cao Cấp</option>
-                <option value="Cạo Râu & Mặt Khăn Nóng Classic">Cạo Râu & Mặt Khăn Nóng Classic</option>
-                <option value="Tẩy Tế Bào Chết & Trị Gàu Da Đầu">Tẩy Tế Bào Chết & Trị Gàu Da Đầu</option>
-              </select>
+        {/* Summary Stats Hero Card */}
+        <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+            
+            {/* Score Big (Col 4) */}
+            <div className="md:col-span-4 text-center md:border-r border-slate-200 md:pr-8">
+              <div className="text-5xl sm:text-6xl font-black text-red-600 leading-none mb-2">4.9</div>
+              <div className="text-red-500 text-xl tracking-wide mb-1">★★★★★</div>
+              <div className="text-xs text-slate-500 font-medium">248 đánh giá xác thực từ quý ông</div>
             </div>
 
-            <div className="cust-field">
-              <label className="cust-label">Master Barber thực hiện</label>
-              <select
-                value={selectedBarber}
-                onChange={(e) => setSelectedBarber(e.target.value)}
-                className="cust-select"
-              >
-                <option value="Tuấn Master">Tuấn Master (Fade & Cạo Classic)</option>
-                <option value="Minh Barber">Minh Barber (Uốn Texture & Sidepart)</option>
-                <option value="Hoàng Stylist">Hoàng Stylist (Nhuộm & Phối Màu)</option>
-                <option value="Dũng Barber">Dũng Barber (Phom Cổ Điển)</option>
-              </select>
-            </div>
+            {/* Rating Bars (Col 8) */}
+            <div className="md:col-span-8 space-y-2 text-xs">
+              <div className="flex items-center space-x-3">
+                <span className="w-10 text-slate-600 font-bold">5 sao</span>
+                <div className="flex-1 h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                  <div className="h-full bg-gradient-to-r from-blue-600 to-red-500 rounded-full" style={{ width: "88%" }}></div>
+                </div>
+                <span className="w-10 text-right text-slate-500 font-bold">88%</span>
+              </div>
 
-            <div className="cust-field">
-              <label className="cust-label">Chấm điểm chất lượng</label>
-              <div className="cust-star-picker">
-                {[1, 2, 3, 4, 5].map((st) => (
-                  <span
-                    key={st}
-                    onClick={() => setUserRating(st)}
-                    className={`cust-star-opt ${st <= userRating ? "active" : ""}`}
-                  >
-                    ★
-                  </span>
-                ))}
+              <div className="flex items-center space-x-3">
+                <span className="w-10 text-slate-600 font-bold">4 sao</span>
+                <div className="flex-1 h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                  <div className="h-full bg-blue-500 rounded-full" style={{ width: "10%" }}></div>
+                </div>
+                <span className="w-10 text-right text-slate-500 font-bold">10%</span>
+              </div>
+
+              <div className="flex items-center space-x-3">
+                <span className="w-10 text-slate-600 font-bold">3 sao</span>
+                <div className="flex-1 h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                  <div className="h-full bg-slate-400 rounded-full" style={{ width: "2%" }}></div>
+                </div>
+                <span className="w-10 text-right text-slate-500 font-bold">2%</span>
+              </div>
+
+              <div className="flex items-center space-x-3">
+                <span className="w-10 text-slate-600 font-bold">2 sao</span>
+                <div className="flex-1 h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                  <div className="h-full bg-slate-300 rounded-full" style={{ width: "0%" }}></div>
+                </div>
+                <span className="w-10 text-right text-slate-500 font-bold">0%</span>
+              </div>
+
+              <div className="flex items-center space-x-3">
+                <span className="w-10 text-slate-600 font-bold">1 sao</span>
+                <div className="flex-1 h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                  <div className="h-full bg-slate-300 rounded-full" style={{ width: "0%" }}></div>
+                </div>
+                <span className="w-10 text-right text-slate-500 font-bold">0%</span>
               </div>
             </div>
 
-            <div className="cust-field">
-              <label className="cust-label">Cảm nhận chi tiết</label>
-              <textarea
-                placeholder="Độ êm ái khi cắt, độ bền của phom tóc, thái độ phục vụ..."
-                value={commentText}
-                onChange={(e) => setCommentText(e.target.value)}
-                className="cust-textarea"
-                required
-              />
+          </div>
+        </div>
+
+        {/* Main Two Column: Form (Left) & Reviews (Right) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          {/* Review Form (Col 5) */}
+          <div className="lg:col-span-5 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm space-y-5">
+            <div className="border-b border-slate-100 pb-3">
+              <h3 className="font-bold text-slate-900 text-lg">Gửi Đánh Giá Của Bạn</h3>
+              <p className="text-xs text-slate-500 mt-0.5">Chia sẻ cảm nhận sau khi hoàn thành dịch vụ tại salon.</p>
             </div>
 
-            <button type="submit" className="cust-btn-primary">
-              <span>⭐</span>
-              <span>Gửi Đánh Giá Ngay</span>
-            </button>
-          </form>
-        </div>
-
-        {/* Right Column: Reviews List with Filters */}
-        <div>
-          <div className="cust-pills-row">
-            <button
-              onClick={() => setRatingFilter("all")}
-              className={`cust-pill-btn ${ratingFilter === "all" ? "active" : ""}`}
-            >
-              Tất Cả ({reviewsList.length})
-            </button>
-            <button
-              onClick={() => setRatingFilter("5")}
-              className={`cust-pill-btn ${ratingFilter === "5" ? "active" : ""}`}
-            >
-              5 Sao
-            </button>
-            <button
-              onClick={() => setRatingFilter("4")}
-              className={`cust-pill-btn ${ratingFilter === "4" ? "active" : ""}`}
-            >
-              4 Sao
-            </button>
-            <button
-              onClick={() => setRatingFilter("3")}
-              className={`cust-pill-btn ${ratingFilter === "3" ? "active" : ""}`}
-            >
-              3 Sao
-            </button>
-          </div>
-
-          <div className="cust-reviews-list">
-            {filteredReviews.map((r) => (
-              <div key={r.id} className="cust-rev-card">
-                <div className="cust-rev-top">
-                  <div className="cust-rev-author-box">
-                    <span className="cust-rev-author">{r.author}</span>
-                    <span className={`cust-rev-tier-badge ${r.tierBadge}`}>{r.tier}</span>
-                  </div>
-                  <span className="cust-rev-date">{r.date}</span>
-                </div>
-
-                <div className="cust-rev-meta-sub">
-                  <span>{"★".repeat(r.stars)}</span>
-                  <span style={{ color: "#64748b" }}>•</span>
-                  <span>{r.service}</span>
-                  <span style={{ color: "#64748b" }}>•</span>
-                  <span style={{ color: "#ffffff" }}>{r.barber}</span>
-                </div>
-
-                <p className="cust-rev-comment">"{r.comment}"</p>
-
-                {r.verified && (
-                  <div className="cust-rev-verified">
-                    <span>✓</span>
-                    <span>Đã xác thực sử dụng dịch vụ tại salon</span>
-                  </div>
-                )}
+            <form onSubmit={handleReviewSubmit} className="space-y-4 text-xs">
+              <div>
+                <label className="font-bold text-slate-700 block mb-1">Dịch vụ đã sử dụng</label>
+                <select
+                  value={selectedService}
+                  onChange={(e) => setSelectedService(e.target.value)}
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-medium focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition"
+                >
+                  <option value="Combo Cắt + Gội + Massage Đăng Quang">Combo Cắt + Gội + Massage Đăng Quang</option>
+                  <option value="Cắt Tóc Nam Chuẩn Barber">Cắt Tóc Nam Chuẩn Barber</option>
+                  <option value="Uốn Xoăn Hàn Quốc / Fly / Texture">Uốn Xoăn Hàn Quốc / Fly / Texture</option>
+                  <option value="Nhuộm Màu / Tẩy Tóc Cao Cấp">Nhuộm Màu / Tẩy Tóc Cao Cấp</option>
+                  <option value="Cạo Râu & Mặt Khăn Nóng Classic">Cạo Râu & Mặt Khăn Nóng Classic</option>
+                  <option value="Tẩy Tế Bào Chết & Trị Gàu Da Đầu">Tẩy Tế Bào Chết & Trị Gàu Da Đầu</option>
+                </select>
               </div>
-            ))}
+
+              <div>
+                <label className="font-bold text-slate-700 block mb-1">Master Barber thực hiện</label>
+                <select
+                  value={selectedBarber}
+                  onChange={(e) => setSelectedBarber(e.target.value)}
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-medium focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition"
+                >
+                  <option value="Tuấn Master">Tuấn Master (Fade & Cạo Classic)</option>
+                  <option value="Minh Barber">Minh Barber (Uốn Texture & Sidepart)</option>
+                  <option value="Hoàng Stylist">Hoàng Stylist (Nhuộm & Phối Màu)</option>
+                  <option value="Dũng Barber">Dũng Barber (Phom Cổ Điển)</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="font-bold text-slate-700 block mb-1.5">Chấm điểm chất lượng</label>
+                <div className="flex items-center space-x-2 text-2xl cursor-pointer">
+                  {[1, 2, 3, 4, 5].map((st) => (
+                    <span
+                      key={st}
+                      onClick={() => setUserRating(st)}
+                      className={`transition transform hover:scale-110 ${st <= userRating ? "text-red-500" : "text-slate-300"}`}
+                    >
+                      ★
+                    </span>
+                  ))}
+                  <span className="text-xs font-bold text-slate-500 ml-2">({userRating}/5 sao)</span>
+                </div>
+              </div>
+
+              <div>
+                <label className="font-bold text-slate-700 block mb-1">Cảm nhận chi tiết</label>
+                <textarea
+                  placeholder="Độ êm ái khi cắt, độ bền của phom tóc, thái độ phục vụ..."
+                  value={commentText}
+                  onChange={(e) => setCommentText(e.target.value)}
+                  rows={4}
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition"
+                  required
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-black text-xs rounded-xl shadow-md shadow-red-600/25 transition flex items-center justify-center space-x-1.5"
+              >
+                <span>⭐</span>
+                <span>Gửi Đánh Giá Ngay</span>
+              </button>
+            </form>
           </div>
+
+          {/* Reviews List & Filters (Col 7) */}
+          <div className="lg:col-span-7 space-y-4">
+            
+            {/* Filter Pills */}
+            <div className="flex flex-wrap items-center gap-2">
+              <button
+                onClick={() => setRatingFilter("all")}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition ${
+                  ratingFilter === "all"
+                    ? "bg-blue-600 text-white shadow-md shadow-blue-600/20"
+                    : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200"
+                }`}
+              >
+                Tất Cả ({reviewsList.length})
+              </button>
+              <button
+                onClick={() => setRatingFilter("5")}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition ${
+                  ratingFilter === "5"
+                    ? "bg-blue-600 text-white shadow-md shadow-blue-600/20"
+                    : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200"
+                }`}
+              >
+                5 Sao
+              </button>
+              <button
+                onClick={() => setRatingFilter("4")}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition ${
+                  ratingFilter === "4"
+                    ? "bg-blue-600 text-white shadow-md shadow-blue-600/20"
+                    : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200"
+                }`}
+              >
+                4 Sao
+              </button>
+              <button
+                onClick={() => setRatingFilter("3")}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition ${
+                  ratingFilter === "3"
+                    ? "bg-blue-600 text-white shadow-md shadow-blue-600/20"
+                    : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200"
+                }`}
+              >
+                3 Sao
+              </button>
+            </div>
+
+            {/* List */}
+            <div className="space-y-4">
+              {filteredReviews.map((r) => (
+                <div
+                  key={r.id}
+                  className="bg-white border border-slate-200 rounded-3xl p-6 space-y-3 shadow-sm hover:border-blue-300 transition"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2.5">
+                      <h4 className="font-bold text-slate-900 text-sm">{r.author}</h4>
+                      <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${r.tierClass}`}>
+                        {r.tier}
+                      </span>
+                    </div>
+                    <span className="text-xs text-slate-400">{r.date}</span>
+                  </div>
+
+                  <div className="flex items-center space-x-2 text-xs">
+                    <span className="text-red-500 font-bold">{"★".repeat(r.stars)}</span>
+                    <span className="text-slate-300">•</span>
+                    <span className="font-bold text-blue-600">{r.service}</span>
+                    <span className="text-slate-300">•</span>
+                    <span className="text-slate-700 font-semibold">{r.barber}</span>
+                  </div>
+
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    "{r.comment}"
+                  </p>
+
+                  {r.verified && (
+                    <div className="pt-2 border-t border-slate-100 flex items-center text-[11px] text-blue-600 font-semibold">
+                      <i className="ph-bold ph-seal-check mr-1 text-sm text-blue-600"></i>
+                      <span>Đã xác thực sử dụng dịch vụ tại salon</span>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+          </div>
+
         </div>
+
       </div>
     </div>
   );

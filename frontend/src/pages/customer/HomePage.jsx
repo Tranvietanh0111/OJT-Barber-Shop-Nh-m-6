@@ -1,5 +1,5 @@
 // Phụ trách: Lương Trọng Đạt - Customer Module
-// Route: / (Trang chủ khách hàng BarberHub - Tích hợp đầy đủ Giao diện, Dữ liệu & Phong cách Royal Gold)
+// Route: / (Trang chủ khách hàng BarberHub - Phong cách Red, White, Blue & Tailwind CSS)
 import { Link } from "react-router-dom";
 
 export default function HomePage() {
@@ -8,7 +8,7 @@ export default function HomePage() {
       id: "srv-1",
       name: "Cắt Tóc Nam Chuẩn Barber",
       category: "Cắt Tạo Kiểu",
-      badgeType: "gold",
+      badgeClass: "bg-blue-50 text-blue-700 border-blue-200",
       price: "150.000 đ",
       duration: "30 Phút",
       desc: "Tư vấn phom tóc phù hợp khuôn mặt (Sidepart, Undercut, Fade), sấy tạo kiểu ép hairline sắc nét."
@@ -17,7 +17,7 @@ export default function HomePage() {
       id: "srv-2",
       name: "Combo Cắt + Gội + Massage Đăng Quang",
       category: "Combo VIP",
-      badgeType: "red",
+      badgeClass: "bg-red-50 text-red-700 border-red-200",
       price: "250.000 đ",
       duration: "45 Phút",
       desc: "Cắt tóc, rửa mặt thảo mộc, gội đầu dưỡng sinh, massage bấm huyệt cổ vai gáy, sấy vuốt sáp tạo kiểu."
@@ -26,7 +26,7 @@ export default function HomePage() {
       id: "srv-3",
       name: "Uốn Xoăn Hàn Quốc / Fly / Texture",
       category: "Uốn Tóc Nam",
-      badgeType: "blue",
+      badgeClass: "bg-blue-100 text-blue-800 border-blue-300",
       price: "450.000 đ",
       duration: "90 Phút",
       desc: "Định hình phom tóc bồng bềnh chuẩn soái ca, sử dụng thuốc uốn collagen không khô rát da đầu."
@@ -35,7 +35,7 @@ export default function HomePage() {
       id: "srv-4",
       name: "Nhuộm Màu / Tẩy Tóc Cao Cấp",
       category: "Nhuộm Màu",
-      badgeType: "purple",
+      badgeClass: "bg-red-50 text-red-600 border-red-200",
       price: "600.000 đ",
       duration: "120 Phút",
       desc: "Tẩy khói, nâu tây, xanh rêu, xám chì... Tặng kèm hấp phục hồi khóa màu siêu mượt."
@@ -44,7 +44,7 @@ export default function HomePage() {
       id: "srv-5",
       name: "Cạo Râu & Mặt Khăn Nóng Classic",
       category: "Cạo Râu Classic",
-      badgeType: "emerald",
+      badgeClass: "bg-emerald-50 text-emerald-700 border-emerald-200",
       price: "100.000 đ",
       duration: "20 Phút",
       desc: "Cạo bằng dao thợ truyền thống, ủ khăn nóng tinh dầu thảo mộc, bôi lotion sau cạo kháng khuẩn."
@@ -53,7 +53,7 @@ export default function HomePage() {
       id: "srv-6",
       name: "Tẩy Tế Bào Chết & Trị Gàu Da Đầu",
       category: "Chăm Sóc Da Đầu",
-      badgeType: "gold",
+      badgeClass: "bg-blue-50 text-blue-700 border-blue-200",
       price: "200.000 đ",
       duration: "30 Phút",
       desc: "Tẩy sạch bã nhờn chân tóc, thanh lọc da đầu bằng muối khoáng sinh học, thông thoáng mát lạnh."
@@ -68,7 +68,7 @@ export default function HomePage() {
       rating: "4.98",
       completedCuts: 142,
       status: "Sẵn sàng",
-      isReady: true,
+      statusClass: "bg-emerald-500 text-white",
       avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=240&auto=format&fit=crop&q=80"
     },
     {
@@ -78,7 +78,7 @@ export default function HomePage() {
       rating: "4.95",
       completedCuts: 128,
       status: "Đang cắt",
-      isReady: false,
+      statusClass: "bg-red-500 text-white",
       avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=240&auto=format&fit=crop&q=80"
     },
     {
@@ -88,7 +88,7 @@ export default function HomePage() {
       rating: "4.90",
       completedCuts: 95,
       status: "Sẵn sàng",
-      isReady: true,
+      statusClass: "bg-emerald-500 text-white",
       avatar: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=240&auto=format&fit=crop&q=80"
     },
     {
@@ -98,7 +98,7 @@ export default function HomePage() {
       rating: "4.92",
       completedCuts: 88,
       status: "Sẵn sàng",
-      isReady: true,
+      statusClass: "bg-emerald-500 text-white",
       avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=240&auto=format&fit=crop&q=80"
     }
   ];
@@ -134,687 +134,292 @@ export default function HomePage() {
     {
       name: "Anh Hoàng Nam",
       tier: "Khách VIP",
+      tierClass: "bg-red-50 text-red-600 border-red-200",
       stars: 5,
       comment: "Tuấn Master cắt cực kỳ tỉ mỉ! Hiệu ứng Skin Fade sắc nét, đường cạo viền chuẩn chỉ. Khăn nóng tinh dầu thảo mộc rất thư giãn, xứng đáng 5 sao cho chất lượng dịch vụ BarberHub."
     },
     {
       name: "Lê Minh Đức",
       tier: "Khách Thân Thiết",
+      tierClass: "bg-blue-50 text-blue-700 border-blue-200",
       stars: 5,
       comment: "Lần đầu uốn tóc nhưng Minh Barber tư vấn phom cực kỳ chuẩn soái ca. Tóc uốn xong bồng bềnh tự nhiên, không bị khô xơ da đầu. Salon phục vụ trà sen rất ngon!"
     },
     {
       name: "Trần Quốc Bảo",
       tier: "Khách Thân Thiết",
+      tierClass: "bg-blue-50 text-blue-700 border-blue-200",
       stars: 5,
       comment: "Tẩy khói ở đây cực kỳ êm ái, hoàn toàn không bị xót rát da đầu như các tiệm khác. Màu lên sáng và bóng mượt, được tặng kèm gói hấp collagen thơm nức."
     }
   ];
 
   return (
-    <div className="cust-home-wrap">
-      {/* Self-contained CSS styles for Customer Home Page */}
-      <style>{`
-        .cust-home-wrap {
-          max-width: 1240px;
-          margin: 0 auto;
-          padding: 32px 20px 64px;
-          color: #f8fafc;
-          font-family: 'Plus Jakarta Sans', sans-serif;
-        }
+    <div className="bg-slate-50 text-slate-800 min-h-screen">
+      {/* Barber Pole Top Accent Bar */}
+      <div className="h-1.5 w-full bg-gradient-to-r from-red-600 via-white to-blue-600 shadow-sm"></div>
 
-        /* 1. Hero Section */
-        .cust-hero {
-          background: linear-gradient(135deg, #0e1015 0%, #171b26 50%, #15130b 100%);
-          border: 1px solid rgba(245, 158, 11, 0.3);
-          border-radius: 28px;
-          padding: 48px 36px;
-          position: relative;
-          overflow: hidden;
-          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(245, 158, 11, 0.1);
-          margin-bottom: 56px;
-        }
-        .cust-hero::after {
-          content: '';
-          position: absolute;
-          top: -60px;
-          right: -60px;
-          width: 320px;
-          height: 320px;
-          background: radial-gradient(circle, rgba(245, 158, 11, 0.18) 0%, transparent 70%);
-          pointer-events: none;
-          border-radius: 50%;
-        }
-        .cust-hero-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          padding: 6px 16px;
-          background: rgba(245, 158, 11, 0.12);
-          border: 1px solid rgba(245, 158, 11, 0.35);
-          border-radius: 9999px;
-          color: #fbbf24;
-          font-size: 11px;
-          font-weight: 800;
-          text-transform: uppercase;
-          letter-spacing: 0.08em;
-          margin-bottom: 20px;
-        }
-        .cust-hero-title {
-          font-size: 42px;
-          font-weight: 900;
-          line-height: 1.18;
-          color: #ffffff;
-          margin-bottom: 16px;
-          letter-spacing: -0.02em;
-        }
-        .cust-hero-gold {
-          background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-        }
-        .cust-hero-desc {
-          font-size: 15px;
-          color: #94a3b8;
-          max-width: 620px;
-          line-height: 1.65;
-          margin-bottom: 28px;
-        }
-        .cust-hero-actions {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 14px;
-          margin-bottom: 36px;
-        }
-        .cust-btn-primary {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          padding: 13px 26px;
-          background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-          color: #08090c;
-          font-weight: 800;
-          font-size: 13px;
-          border-radius: 14px;
-          text-decoration: none;
-          box-shadow: 0 4px 18px rgba(245, 158, 11, 0.3);
-          transition: all 0.2s ease;
-          border: none;
-          cursor: pointer;
-        }
-        .cust-btn-primary:hover {
-          background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-          transform: translateY(-2px);
-          box-shadow: 0 6px 24px rgba(245, 158, 11, 0.45);
-        }
-        .cust-btn-secondary {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          padding: 13px 22px;
-          background: #141720;
-          color: #e2e8f0;
-          font-weight: 700;
-          font-size: 13px;
-          border-radius: 14px;
-          border: 1px solid #2e3548;
-          text-decoration: none;
-          transition: all 0.2s ease;
-        }
-        .cust-btn-secondary:hover {
-          background: #1b1f2b;
-          border-color: #f59e0b;
-          color: #ffffff;
-        }
-        .cust-hero-stats {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 20px;
-          border-top: 1px solid rgba(255, 255, 255, 0.08);
-          padding-top: 24px;
-          max-width: 680px;
-        }
-        .cust-stat-val {
-          font-size: 22px;
-          font-weight: 900;
-          color: #ffffff;
-        }
-        .cust-stat-val.gold {
-          color: #fbbf24;
-        }
-        .cust-stat-lbl {
-          font-size: 11px;
-          color: #64748b;
-          margin-top: 4px;
-        }
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-16">
+        
+        {/* 1. HERO BANNER SECTION (Blue, Red, White Theme) */}
+        <section>
+          <div className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-slate-900 border border-blue-700/50 rounded-3xl p-8 sm:p-12 lg:p-16 overflow-hidden shadow-2xl text-white">
+            {/* Background Glow Accents */}
+            <div className="absolute -top-24 -right-24 w-96 h-96 bg-red-500/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl pointer-events-none"></div>
 
-        /* 2. Section Header Common */
-        .cust-sec-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-end;
-          flex-wrap: wrap;
-          gap: 12px;
-          margin-bottom: 28px;
-        }
-        .cust-tag {
-          font-size: 11px;
-          font-weight: 800;
-          text-transform: uppercase;
-          letter-spacing: 0.1em;
-          color: #f59e0b;
-          display: block;
-          margin-bottom: 4px;
-        }
-        .cust-sec-title {
-          font-size: 26px;
-          font-weight: 800;
-          color: #ffffff;
-          line-height: 1.25;
-        }
-        .cust-sec-sub {
-          font-size: 13px;
-          color: #94a3b8;
-          margin-top: 4px;
-        }
-        .cust-link-more {
-          color: #fbbf24;
-          font-size: 13px;
-          font-weight: 700;
-          text-decoration: none;
-          display: inline-flex;
-          align-items: center;
-          gap: 4px;
-          transition: gap 0.2s ease;
-        }
-        .cust-link-more:hover {
-          gap: 8px;
-          color: #f59e0b;
-        }
-
-        /* 3. Services Grid */
-        .cust-srv-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-          gap: 24px;
-          margin-bottom: 64px;
-        }
-        .cust-srv-card {
-          background: #141720;
-          border: 1px solid #232736;
-          border-radius: 20px;
-          padding: 24px;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          transition: all 0.25s ease;
-        }
-        .cust-srv-card:hover {
-          border-color: rgba(245, 158, 11, 0.45);
-          transform: translateY(-3px);
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
-        }
-        .cust-srv-top {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 12px;
-        }
-        .cust-srv-badge {
-          padding: 4px 10px;
-          border-radius: 9999px;
-          font-size: 10px;
-          font-weight: 800;
-          text-transform: uppercase;
-        }
-        .cust-srv-badge.gold {
-          background: rgba(245, 158, 11, 0.12);
-          color: #fbbf24;
-          border: 1px solid rgba(245, 158, 11, 0.25);
-        }
-        .cust-srv-badge.red {
-          background: rgba(239, 68, 68, 0.12);
-          color: #f87171;
-          border: 1px solid rgba(239, 68, 68, 0.25);
-        }
-        .cust-srv-badge.blue {
-          background: rgba(59, 130, 246, 0.12);
-          color: #60a5fa;
-          border: 1px solid rgba(59, 130, 246, 0.25);
-        }
-        .cust-srv-badge.purple {
-          background: rgba(168, 85, 247, 0.12);
-          color: #c084fc;
-          border: 1px solid rgba(168, 85, 247, 0.25);
-        }
-        .cust-srv-badge.emerald {
-          background: rgba(16, 185, 129, 0.12);
-          color: #34d399;
-          border: 1px solid rgba(16, 185, 129, 0.25);
-        }
-        .cust-srv-duration {
-          font-size: 11px;
-          color: #94a3b8;
-          font-weight: 600;
-        }
-        .cust-srv-title {
-          font-size: 17px;
-          font-weight: 800;
-          color: #ffffff;
-          margin-bottom: 8px;
-        }
-        .cust-srv-desc {
-          font-size: 13px;
-          color: #94a3b8;
-          line-height: 1.55;
-          margin-bottom: 20px;
-        }
-        .cust-srv-bot {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding-top: 16px;
-          border-top: 1px solid #1f2433;
-        }
-        .cust-srv-price {
-          font-size: 20px;
-          font-weight: 900;
-          color: #fbbf24;
-        }
-        .cust-srv-btns {
-          display: flex;
-          gap: 8px;
-        }
-        .cust-btn-xs {
-          padding: 8px 14px;
-          font-size: 11px;
-          font-weight: 700;
-          border-radius: 10px;
-          text-decoration: none;
-          transition: all 0.2s ease;
-        }
-        .cust-btn-detail {
-          background: #1b1f2b;
-          color: #cbd5e1;
-          border: 1px solid #2e3548;
-        }
-        .cust-btn-detail:hover {
-          background: #282f42;
-          color: #ffffff;
-        }
-        .cust-btn-book {
-          background: #f59e0b;
-          color: #08090c;
-          font-weight: 800;
-          border: none;
-        }
-        .cust-btn-book:hover {
-          background: #fbbf24;
-        }
-
-        /* 4. Barbers Grid */
-        .cust-barber-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-          gap: 24px;
-          margin-bottom: 64px;
-        }
-        .cust-barber-card {
-          background: #141720;
-          border: 1px solid #232736;
-          border-radius: 20px;
-          padding: 24px;
-          text-align: center;
-          transition: all 0.25s ease;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-        }
-        .cust-barber-card:hover {
-          border-color: rgba(245, 158, 11, 0.45);
-          transform: translateY(-3px);
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
-        }
-        .cust-barber-avatar-box {
-          position: relative;
-          width: 96px;
-          height: 96px;
-          margin: 0 auto 16px;
-        }
-        .cust-barber-avatar {
-          width: 100%;
-          height: 100%;
-          border-radius: 20px;
-          object-fit: cover;
-          border: 2px solid rgba(245, 158, 11, 0.4);
-        }
-        .cust-barber-status {
-          position: absolute;
-          bottom: -6px;
-          right: -6px;
-          padding: 2px 8px;
-          border-radius: 9999px;
-          font-size: 10px;
-          font-weight: 800;
-        }
-        .cust-barber-status.ready {
-          background: #10b981;
-          color: #08090c;
-        }
-        .cust-barber-status.busy {
-          background: #f59e0b;
-          color: #08090c;
-        }
-        .cust-barber-name {
-          font-size: 16px;
-          font-weight: 800;
-          color: #ffffff;
-        }
-        .cust-barber-role {
-          font-size: 12px;
-          color: #fbbf24;
-          font-weight: 600;
-          margin-top: 2px;
-          margin-bottom: 8px;
-        }
-        .cust-barber-meta {
-          font-size: 12px;
-          color: #94a3b8;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-          margin-bottom: 18px;
-        }
-        .cust-barber-meta strong {
-          color: #fbbf24;
-        }
-
-        /* 5. Booking Steps */
-        .cust-steps-box {
-          background: #10131a;
-          border: 1px solid #232736;
-          border-radius: 24px;
-          padding: 36px 28px;
-          margin-bottom: 64px;
-        }
-        .cust-steps-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-          gap: 24px;
-        }
-        .cust-step-item {
-          position: relative;
-          padding: 16px;
-          background: #141720;
-          border: 1px solid #1f2433;
-          border-radius: 16px;
-        }
-        .cust-step-num {
-          font-size: 24px;
-          font-weight: 900;
-          color: rgba(245, 158, 11, 0.35);
-          line-height: 1;
-          margin-bottom: 12px;
-        }
-        .cust-step-icon {
-          font-size: 28px;
-          margin-bottom: 10px;
-        }
-        .cust-step-title {
-          font-size: 15px;
-          font-weight: 800;
-          color: #ffffff;
-          margin-bottom: 6px;
-        }
-        .cust-step-desc {
-          font-size: 12px;
-          color: #94a3b8;
-          line-height: 1.5;
-        }
-
-        /* 6. Reviews Section */
-        .cust-reviews-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-          gap: 24px;
-        }
-        .cust-review-card {
-          background: #141720;
-          border: 1px solid #232736;
-          border-radius: 20px;
-          padding: 24px;
-          position: relative;
-        }
-        .cust-review-top {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 12px;
-        }
-        .cust-review-author {
-          font-size: 14px;
-          font-weight: 800;
-          color: #ffffff;
-        }
-        .cust-review-tier {
-          font-size: 10px;
-          font-weight: 800;
-          padding: 2px 8px;
-          background: rgba(245, 158, 11, 0.12);
-          color: #fbbf24;
-          border-radius: 9999px;
-          border: 1px solid rgba(245, 158, 11, 0.3);
-        }
-        .cust-review-stars {
-          color: #f59e0b;
-          font-size: 13px;
-          margin-bottom: 10px;
-        }
-        .cust-review-text {
-          font-size: 13px;
-          color: #cbd5e1;
-          line-height: 1.6;
-        }
-
-        @media (max-width: 768px) {
-          .cust-hero-title {
-            font-size: 28px;
-          }
-          .cust-hero-stats {
-            grid-template-columns: repeat(2, 1fr);
-          }
-          .cust-srv-grid {
-            grid-template-columns: 1fr;
-          }
-        }
-      `}</style>
-
-      {/* 1. HERO BANNER */}
-      <section className="cust-hero">
-        <div className="cust-hero-badge">
-          <span>👑 Hair Salon Suite Dành Riêng Cho Quý Ông</span>
-        </div>
-        <h1 className="cust-hero-title">
-          Tút Lại Phong Độ, <br />
-          <span className="cust-hero-gold">Định Hình Đẳng Cấp.</span>
-        </h1>
-        <p className="cust-hero-desc">
-          Hệ thống cắt tóc & chăm sóc râu chuyên nghiệp hàng đầu. Đặt lịch trực tuyến 30 giây để được phục vụ đúng giờ, không xếp hàng chờ đợi cùng đội ngũ Master Barber tay nghề cao.
-        </p>
-
-        <div className="cust-hero-actions">
-          <Link to="/booking/service" className="cust-btn-primary">
-            <span>✂️</span>
-            <span>Đặt Lịch Cắt Tóc Ngay</span>
-          </Link>
-          <Link to="/services" className="cust-btn-secondary">
-            <span>Khám Phá Bảng Giá</span>
-          </Link>
-          <Link to="/barbers" className="cust-btn-secondary">
-            <span>Đội Ngũ Barber</span>
-          </Link>
-        </div>
-
-        <div className="cust-hero-stats">
-          <div>
-            <div className="cust-stat-val gold">4.98 ★</div>
-            <div className="cust-stat-lbl">Đánh giá trung bình</div>
-          </div>
-          <div>
-            <div className="cust-stat-val">10.000+</div>
-            <div className="cust-stat-lbl">Khách hàng tin chọn</div>
-          </div>
-          <div>
-            <div className="cust-stat-val">4 Ghế VIP</div>
-            <div className="cust-stat-lbl">Phục vụ liên tục</div>
-          </div>
-          <div>
-            <div className="cust-stat-val gold">100%</div>
-            <div className="cust-stat-lbl">Tiệt trùng UV chuẩn y tế</div>
-          </div>
-        </div>
-      </section>
-
-      {/* 2. FEATURED SERVICES */}
-      <section style={{ marginBottom: "56px" }}>
-        <div className="cust-sec-header">
-          <div>
-            <span className="cust-tag">Dịch Vụ Tiêu Biểu</span>
-            <h2 className="cust-sec-title">Bảng Giá Dịch Vụ Barber & Hair Salon</h2>
-            <p className="cust-sec-sub">Đầy đủ các gói cắt tạo kiểu, uốn nhuộm thời trang và spa thư giãn chuyên sâu.</p>
-          </div>
-          <Link to="/services" className="cust-link-more">
-            <span>Xem tất cả 6 dịch vụ</span>
-            <span>→</span>
-          </Link>
-        </div>
-
-        <div className="cust-srv-grid">
-          {featuredServices.map((s) => (
-            <div key={s.id} className="cust-srv-card">
-              <div>
-                <div className="cust-srv-top">
-                  <span className={`cust-srv-badge ${s.badgeType}`}>{s.category}</span>
-                  <span className="cust-srv-duration">⏱️ {s.duration}</span>
-                </div>
-                <h3 className="cust-srv-title">{s.name}</h3>
-                <p className="cust-srv-desc">{s.desc}</p>
+            <div className="max-w-3xl relative z-10 space-y-6">
+              {/* Badge */}
+              <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-black uppercase tracking-wider shadow-inner">
+                <span className="text-red-400">💈</span>
+                <span>BarberHub</span>
               </div>
 
-              <div className="cust-srv-bot">
+              {/* Title */}
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black leading-tight tracking-tight">
+                Tút Lại Phong Độ, <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-white to-blue-300">
+                  Định Hình Đẳng Cấp.
+                </span>
+              </h1>
+
+              {/* Subtitle */}
+              <p className="text-sm sm:text-base text-slate-200 leading-relaxed max-w-2xl">
+                Hệ thống cắt tóc & chăm sóc râu chuyên nghiệp chuẩn phong cách quý ông cổ điển. Đặt lịch trực tuyến 30 giây để được phục vụ đúng giờ, không xếp hàng chờ đợi cùng đội ngũ Master Barber hàng đầu.
+              </p>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap items-center gap-4 pt-2">
+                <Link
+                  to="/booking/service"
+                  className="px-7 py-3.5 bg-red-600 hover:bg-red-700 text-white font-black text-sm rounded-2xl shadow-xl shadow-red-600/30 transition transform hover:-translate-y-0.5 flex items-center space-x-2"
+                >
+                  <i className="ph-bold ph-scissors text-lg"></i>
+                  <span>Đặt Lịch Cắt Tóc Ngay</span>
+                </Link>
+
+                <Link
+                  to="/services"
+                  className="px-6 py-3.5 bg-white text-blue-900 hover:bg-blue-50 font-bold text-sm rounded-2xl shadow-lg transition flex items-center space-x-2"
+                >
+                  <i className="ph-bold ph-list-dashes text-lg text-blue-600"></i>
+                  <span>Khám Phá Bảng Giá</span>
+                </Link>
+
+                <Link
+                  to="/barbers"
+                  className="px-6 py-3.5 bg-blue-700/80 hover:bg-blue-600 text-white border border-blue-400/40 font-bold text-sm rounded-2xl transition"
+                >
+                  Đội Ngũ Barber
+                </Link>
+              </div>
+
+              {/* Stats Footer */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-6 border-t border-white/15">
                 <div>
-                  <span style={{ fontSize: "10px", color: "#64748b", display: "block", textTransform: "uppercase" }}>Giá niêm yết</span>
-                  <span className="cust-srv-price">{s.price}</span>
+                  <span className="text-2xl font-black text-red-400">4.98★</span>
+                  <p className="text-xs text-slate-300 mt-0.5">Đánh giá trung bình</p>
                 </div>
-                <div className="cust-srv-btns">
-                  <Link to={`/services/${s.id}`} className="cust-btn-xs cust-btn-detail">
-                    Chi Tiết
-                  </Link>
-                  <Link to={`/booking/service?service=${encodeURIComponent(s.name)}`} className="cust-btn-xs cust-btn-book">
-                    Đặt Ngay
-                  </Link>
+                <div>
+                  <span className="text-2xl font-black text-white">10.000+</span>
+                  <p className="text-xs text-slate-300 mt-0.5">Khách hàng tin chọn</p>
+                </div>
+                <div>
+                  <span className="text-2xl font-black text-blue-300">4 Ghế VIP</span>
+                  <p className="text-xs text-slate-300 mt-0.5">Phục vụ liên tục</p>
+                </div>
+                <div>
+                  <span className="text-2xl font-black text-red-400">100%</span>
+                  <p className="text-xs text-slate-300 mt-0.5">Tiệt trùng UV chuẩn y tế</p>
                 </div>
               </div>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 3. MASTER BARBERS */}
-      <section style={{ marginBottom: "56px" }}>
-        <div className="cust-sec-header">
-          <div>
-            <span className="cust-tag">Đội Ngũ Tay Nghề Cao</span>
-            <h2 className="cust-sec-title">Nghệ Nhân Tạo Mẫu Master Barbers</h2>
-            <p className="cust-sec-sub">Được đào tạo bài bản chuẩn quốc tế với hơn 5 năm kinh nghiệm thực chiến.</p>
           </div>
-          <Link to="/barbers" className="cust-link-more">
-            <span>Gặp gỡ toàn bộ Barber</span>
-            <span>→</span>
-          </Link>
-        </div>
+        </section>
 
-        <div className="cust-barber-grid">
-          {masterBarbers.map((b) => (
-            <div key={b.id} className="cust-barber-card">
-              <div>
-                <div className="cust-barber-avatar-box">
-                  <img src={b.avatar} alt={b.name} className="cust-barber-avatar" />
-                  <span className={`cust-barber-status ${b.isReady ? "ready" : "busy"}`}>
-                    {b.status}
+        {/* 2. FEATURED SERVICES SECTION */}
+        <section className="space-y-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200 pb-5">
+            <div>
+              <span className="text-xs font-black uppercase text-red-600 tracking-widest block">Dịch Vụ Nổi Bật</span>
+              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1">Bảng Giá Dịch Vụ Barber & Hair Salon</h2>
+              <p className="text-xs sm:text-sm text-slate-500 mt-1">Đầy đủ các gói cắt tạo kiểu, uốn nhuộm thời trang và spa thư giãn chuyên sâu.</p>
+            </div>
+            <Link to="/services" className="inline-flex items-center text-sm font-bold text-blue-600 hover:text-blue-800 transition">
+              <span>Xem tất cả 6 dịch vụ</span>
+              <span className="ml-1">→</span>
+            </Link>
+          </div>
+
+          {/* Services Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {featuredServices.map((s) => (
+              <div
+                key={s.id}
+                className="bg-white border border-slate-200 rounded-3xl p-6 flex flex-col justify-between hover:border-blue-400 hover:shadow-xl hover:shadow-blue-500/10 transition group"
+              >
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className={`text-[11px] font-extrabold uppercase px-3 py-1 rounded-full border ${s.badgeClass}`}>
+                      {s.category}
+                    </span>
+                    <span className="text-xs text-slate-500 font-medium flex items-center">
+                      <i className="ph-bold ph-clock mr-1 text-blue-600"></i> {s.duration}
+                    </span>
+                  </div>
+
+                  <h3 className="text-lg font-bold text-slate-900 mt-4 group-hover:text-blue-600 transition">
+                    {s.name}
+                  </h3>
+                  <p className="text-xs text-slate-600 mt-2 leading-relaxed">
+                    {s.desc}
+                  </p>
+                </div>
+
+                <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                  <div>
+                    <span className="text-[10px] text-slate-400 block uppercase font-bold">Giá niêm yết</span>
+                    <span className="text-xl font-black text-red-600">{s.price}</span>
+                  </div>
+
+                  <div className="flex items-center space-x-2">
+                    <Link
+                      to={`/services/${s.id}`}
+                      className="px-3.5 py-2 text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl transition"
+                    >
+                      Chi Tiết
+                    </Link>
+                    <Link
+                      to={`/booking/service?service=${encodeURIComponent(s.name)}`}
+                      className="px-4 py-2 text-xs font-black bg-blue-600 hover:bg-blue-700 text-white rounded-xl shadow-md shadow-blue-600/20 transition flex items-center space-x-1"
+                    >
+                      <span>Đặt Ngay</span>
+                      <i className="ph-bold ph-arrow-right text-xs"></i>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* 3. MASTER BARBERS SECTION */}
+        <section className="space-y-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200 pb-5">
+            <div>
+              <span className="text-xs font-black uppercase text-blue-600 tracking-widest block">Đội Ngũ Tay Nghề Cao</span>
+              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1">Nghệ Nhân Tạo Mẫu Master Barbers</h2>
+              <p className="text-xs sm:text-sm text-slate-500 mt-1">Được đào tạo bài bản chuẩn quốc tế với hơn 5 năm kinh nghiệm thực chiến.</p>
+            </div>
+            <Link to="/barbers" className="inline-flex items-center text-sm font-bold text-red-600 hover:text-red-700 transition">
+              <span>Gặp gỡ toàn bộ Barber</span>
+              <span className="ml-1">→</span>
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {masterBarbers.map((b) => (
+              <div
+                key={b.id}
+                className="bg-white border border-slate-200 rounded-3xl p-6 text-center hover:border-red-400 hover:shadow-xl hover:shadow-red-500/10 transition flex flex-col justify-between group"
+              >
+                <div>
+                  <div className="relative w-28 h-28 mx-auto mb-4">
+                    <img
+                      src={b.avatar}
+                      alt={b.name}
+                      className="w-full h-full rounded-2xl object-cover ring-2 ring-blue-600 group-hover:ring-red-500 transition"
+                    />
+                    <span className={`absolute -bottom-2 -right-2 px-2.5 py-0.5 rounded-full text-[10px] font-black shadow ${b.statusClass}`}>
+                      {b.status}
+                    </span>
+                  </div>
+
+                  <h3 className="font-bold text-slate-900 text-base">{b.name}</h3>
+                  <p className="text-xs text-blue-600 font-semibold mt-0.5">{b.role}</p>
+
+                  <div className="flex items-center justify-center space-x-1 text-xs text-slate-500 mt-2">
+                    <span className="text-red-600 font-bold">★ {b.rating}</span>
+                    <span>•</span>
+                    <span>{b.completedCuts} lượt cắt</span>
+                  </div>
+                </div>
+
+                <div className="mt-5 pt-4 border-t border-slate-100">
+                  <Link
+                    to={`/booking/barber?barber=${encodeURIComponent(b.name)}`}
+                    className="w-full py-2.5 bg-blue-50 hover:bg-blue-600 hover:text-white text-blue-700 border border-blue-200 rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1.5"
+                  >
+                    <i className="ph-bold ph-scissors"></i>
+                    <span>Đặt Ghế Với {b.name.split(" ")[0]}</span>
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* 4. 4-STEP BOOKING PROCEDURE */}
+        <section className="bg-gradient-to-r from-blue-50 via-white to-red-50 border border-slate-200 rounded-3xl p-8 sm:p-12 space-y-8">
+          <div className="text-center max-w-xl mx-auto space-y-2">
+            <span className="text-xs font-black uppercase text-red-600 tracking-widest block">Quy Trình Đơn Giản</span>
+            <h2 className="text-2xl font-black text-slate-900">4 Bước Đặt Lịch Chuẩn Quý Ông</h2>
+            <p className="text-xs sm:text-sm text-slate-500">Tiện lợi, nhanh gọn và đảm bảo luôn có ghế phục vụ đúng giờ đã chọn.</p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {bookingSteps.map((st) => (
+              <div key={st.step} className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:border-blue-400 transition space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-2xl font-black text-blue-600/40">{st.step}</span>
+                  <span className="text-2xl">{st.icon}</span>
+                </div>
+                <h4 className="font-bold text-slate-900 text-base">{st.title}</h4>
+                <p className="text-xs text-slate-500 leading-relaxed">{st.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* 5. CUSTOMER REVIEWS / TESTIMONIALS */}
+        <section className="space-y-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200 pb-5">
+            <div>
+              <span className="text-xs font-black uppercase text-blue-600 tracking-widest block">Cảm Nhận Khách Hàng</span>
+              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1">Trải Nghiệm Thực Tế Tại BarberHub</h2>
+              <p className="text-xs sm:text-sm text-slate-500 mt-1">Hơn 10.000 quý ông đã hài lòng với sự tận tâm và tay nghề của chúng tôi.</p>
+            </div>
+            <Link to="/reviews" className="inline-flex items-center text-sm font-bold text-red-600 hover:text-red-700 transition">
+              <span>Xem thêm đánh giá</span>
+              <span className="ml-1">→</span>
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {customerReviews.map((r, i) => (
+              <div key={i} className="bg-white border border-slate-200 rounded-3xl p-6 space-y-3 shadow-sm hover:shadow-md transition">
+                <div className="flex items-center justify-between">
+                  <h4 className="font-bold text-slate-900 text-sm">{r.name}</h4>
+                  <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${r.tierClass}`}>
+                    {r.tier}
                   </span>
                 </div>
-                <h3 className="cust-barber-name">{b.name}</h3>
-                <p className="cust-barber-role">{b.role}</p>
-                <div className="cust-barber-meta">
-                  <span>★ <strong>{b.rating}</strong></span>
-                  <span>•</span>
-                  <span>{b.completedCuts} lượt cắt</span>
+                <div className="text-red-500 text-sm">
+                  {"★".repeat(r.stars)}
+                </div>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  "{r.comment}"
+                </p>
+                <div className="pt-2 border-t border-slate-100 flex items-center text-[11px] text-blue-600 font-semibold">
+                  <i className="ph-bold ph-check-circle mr-1"></i>
+                  <span>Đã trải nghiệm dịch vụ tại salon</span>
                 </div>
               </div>
-
-              <Link
-                to={`/booking/barber?barber=${encodeURIComponent(b.name)}`}
-                className="cust-btn-xs cust-btn-detail"
-                style={{ display: "block", textAlign: "center", marginTop: "12px" }}
-              >
-                ✂️ Đặt Ghế Với {b.name.split(" ")[0]}
-              </Link>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 4. BOOKING STEPS */}
-      <section className="cust-steps-box">
-        <div style={{ textAlign: "center", maxWidth: "600px", margin: "0 auto 32px" }}>
-          <span className="cust-tag">Quy Trình Đơn Giản</span>
-          <h2 className="cust-sec-title">4 Bước Đặt Lịch Chuẩn Quý Ông</h2>
-          <p className="cust-sec-sub">Tiện lợi, nhanh gọn và đảm bảo luôn có ghế phục vụ đúng giờ đã chọn.</p>
-        </div>
-
-        <div className="cust-steps-grid">
-          {bookingSteps.map((st) => (
-            <div key={st.step} className="cust-step-item">
-              <div className="cust-step-num">{st.step}</div>
-              <div className="cust-step-icon">{st.icon}</div>
-              <h3 className="cust-step-title">{st.title}</h3>
-              <p className="cust-step-desc">{st.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 5. CUSTOMER REVIEWS */}
-      <section>
-        <div className="cust-sec-header">
-          <div>
-            <span className="cust-tag">Cảm Nhận Khách Hàng</span>
-            <h2 className="cust-sec-title">Trải Nghiệm Thực Tế Tại BarberHub</h2>
-            <p className="cust-sec-sub">Hơn 10.000 quý ông đã hài lòng với sự tận tâm và tay nghề của chúng tôi.</p>
+            ))}
           </div>
-          <Link to="/reviews" className="cust-link-more">
-            <span>Xem thêm đánh giá</span>
-            <span>→</span>
-          </Link>
-        </div>
+        </section>
 
-        <div className="cust-reviews-grid">
-          {customerReviews.map((r, i) => (
-            <div key={i} className="cust-review-card">
-              <div className="cust-review-top">
-                <span className="cust-review-author">{r.name}</span>
-                <span className="cust-review-tier">{r.tier}</span>
-              </div>
-              <div className="cust-review-stars">
-                {"★".repeat(r.stars)}
-              </div>
-              <p className="cust-review-text">"{r.comment}"</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      </div>
     </div>
   );
 }
