@@ -28,6 +28,12 @@ app.include_router(schedules.router, prefix="/api/v1")
 app.include_router(barber.router, prefix="/api/v1")
 app.include_router(services.router, prefix="/api/v1")
 
+@app.get("/")
+def home():
+    return {
+        "message": "BarberHub API is running",
+        "status": "success"
+    }
 
 @app.get("/api/v1/health", tags=["health"])
 def health():
