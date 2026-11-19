@@ -1,4 +1,6 @@
-// Phụ trách: Thiều Tiến Dũng
+// Phụ trách: Thieu Tien Dung
+import ForgotPassword from "../../components/ForgotPassword";
+
 export default function ForgotPasswordPage() {
-  return <h1>ForgotPasswordPage</h1>;
+  return <ForgotPassword />;
 }
