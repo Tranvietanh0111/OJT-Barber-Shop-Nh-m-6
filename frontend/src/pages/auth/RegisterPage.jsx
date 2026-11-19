@@ -1,4 +1,6 @@
 // Phụ trách: Thiều Tiến Dũng
+import RegisterForm from "../../components/RegisterForm.jsx";
+
 export default function RegisterPage() {
-  return <h1>RegisterPage</h1>;
+  return <RegisterForm />;
 }
