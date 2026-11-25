@@ -1,7 +1,7 @@
 """Model `service` – phụ trách: Đỗ Ngọc Dân. Thiết kế theo ERD trong docs/ERD.md."""
 from app.core.database import Base  # noqa: F401
 
-from sqlalchemy import Column, Integer, String, Text, Numeric
+from sqlalchemy import Boolean, Column, Integer, String, Text, Numeric
 
 class Service(Base):
     __tablename__ = "services"
@@ -11,3 +11,4 @@ class Service(Base):
     description = Column(Text)
     price = Column(Numeric(10, 2), nullable=False)
     duration = Column(Integer, nullable=False)
+    is_active = Column(Boolean, nullable=False, default=True, server_default="1")
