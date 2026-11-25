@@ -1,6 +1,6 @@
 """Pydantic schemas cho `barber` – phụ trách: Vũ Quốc Khánh."""
 from datetime import datetime
-from typing import List, Optional
+from typing import List, Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -81,3 +81,56 @@ class BarberProfileUpdate(BaseModel):
     service_ids: Optional[List[int]] = Field(None, description="Danh sách ID dịch vụ đảm nhận")
     avatar: Optional[str] = Field(None, description="Đường dẫn ảnh đại diện")
     status: Optional[str] = Field(None, description="Trạng thái làm việc (ACTIVE, busy, off...)")
+
+
+# ============================================================================
+# SCHEMAS LỊCH HẸN DÀNH CHO BARBER (TASK T06AF14)
+# ============================================================================
+
+class BarberAppointmentOut(BaseModel):
+    """Chi tiết một lịch hẹn được phân công cho Barber."""
+    model_config = ConfigDict(from_attributes=True)
+
+    appointment_id: int
+    barber_id: int
+    customer_id: int
+    customer_name: str
+    customer_phone: Optional[str] = None
+    service_id: int
+    service_name: str
+    service_price: float
+    service_duration: int
+    appointment_date: datetime
+    date: str = Field(..., description="Ngày hẹn (YYYY-MM-DD)")
+    time: str = Field(..., description="Giờ hẹn (HH:MM)")
+    status: str = Field(..., description="pending | confirmed | in_progress | completed | no_show | cancelled")
+    note: Optional[str] = None
+    total_price: float
+
+
+class BarberAppointmentListOut(BaseModel):
+    """Danh sách lịch hẹn phân trang của Barber kèm số liệu tổng hợp."""
+    items: List[BarberAppointmentOut]
+    total: int
+    page: int
+    limit: int
+    pending_count: int = 0
+    confirmed_count: int = 0
+    in_progress_count: int = 0
+    completed_count: int = 0
+    no_show_count: int = 0
+
+
+class BarberAppointmentStatusUpdate(BaseModel):
+    """Schema Barber đánh dấu cập nhật trạng thái lịch hẹn."""
+    status: Literal["confirmed", "in_progress", "completed", "no_show", "rejected"] = Field(
+        ...,
+        description=(
+            "Trạng thái cập nhật: \n"
+            "- confirmed: Barber xác nhận lịch hẹn\n"
+            "- in_progress: Bắt đầu phục vụ (đang cắt)\n"
+            "- completed: Hoàn thành phục vụ\n"
+            "- no_show: Khách không đến\n"
+            "- rejected: Barber từ chối lịch"
+        ),
+    )
