@@ -1,34 +1,25 @@
-// Phụ trách: Thiều Tiến Dũng (cập nhật lưu phiên đăng nhập cho phân quyền Admin / Khách vãng lai)
-import { createContext, useContext, useState } from "react";
-
-const AUTH_STORAGE_KEY = "barberhub_auth_user_v1";
-
-function loadSavedUser() {
-  try {
-    const raw = localStorage.getItem(AUTH_STORAGE_KEY);
-    return raw ? JSON.parse(raw) : null;
-  } catch {
-    return null;
-  }
-}
+// Phụ trách: Thiều Tiến Dũng
+import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [user, setUserState] = useState(loadSavedUser);
-
-  const setUser = (nextUser) => {
-    setUserState(nextUser);
+  const [user, setUser] = useState(() => {
     try {
-      if (nextUser) {
-        localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(nextUser));
-      } else {
-        localStorage.removeItem(AUTH_STORAGE_KEY);
-      }
+      const savedUser = localStorage.getItem("auth_user");
+      return savedUser ? JSON.parse(savedUser) : null;
     } catch {
-      // ignore storage errors
+      return null;
     }
-  };
+  });
+
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem("auth_user", JSON.stringify(user));
+    } else {
+      localStorage.removeItem("auth_user");
+    }
+  }, [user]);
 
   return <AuthContext.Provider value={{ user, setUser }}>{children}</AuthContext.Provider>;
 }
