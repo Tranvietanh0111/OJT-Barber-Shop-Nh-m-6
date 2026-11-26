@@ -1,100 +1,75 @@
-// Phụ trách: Lương Trọng Đạt - Customer Module
-// Route: /my-bookings (Quản lý lịch sử cuộc hẹn cắt tóc của khách hàng - Tích hợp đầy đủ Giao diện, Hủy lịch & Phong cách Royal Gold)
-import { useState } from "react";
+// Phụ trách: Lương Trọng Đạt - Customer Module (đồng bộ lịch hẹn với bookingStore / appointmentsApi)
+// Route: /my-bookings (Người vãng lai có thể xem, đổi giờ hoặc hủy lịch hẹn của mình)
+import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { appointmentsApi, formatDateVn, formatVnd } from "../admin/adminApi";
+
+const STATUS_MAP = {
+  completed: "Xong",
+  confirmed: "Đang Cắt",
+  pending: "Đã Đặt",
+  cancelled: "Đã Hủy",
+  rejected: "Đã Hủy",
+};
 
 export default function BookingHistoryPage() {
   const [filterTab, setFilterTab] = useState("all");
+  const [searchPhone, setSearchPhone] = useState("");
   const [toastMessage, setToastMessage] = useState(null);
+  const [bookings, setBookings] = useState([]);
 
-  const [bookings, setBookings] = useState([
-    {
-      id: "bk-101",
-      code: "BH-98214",
-      service: "Cắt Fade Barber + Cạo Râu Khăn Nóng",
-      category: "Cắt Tạo Kiểu",
-      barber: "Tuấn Master",
-      chair: "Ghế Barber VIP 01",
-      branch: "Hàng Bạc, Hoàn Kiếm, Hà Nội",
-      time: "09:00 AM",
-      date: "16/11/2026",
-      price: "250.000 đ",
-      status: "Xong",
-      canCancel: false,
-    },
-    {
-      id: "bk-102",
-      code: "BH-98350",
-      service: "Combo Cắt Gội Massage Đăng Quang",
-      category: "Combo VIP",
-      barber: "Tuấn Master",
-      chair: "Ghế VIP 01",
-      branch: "Hàng Bạc, Hoàn Kiếm, Hà Nội",
-      time: "03:30 PM",
-      date: "Hôm nay",
-      price: "250.000 đ",
-      status: "Đang Cắt",
-      canCancel: false,
-    },
-    {
-      id: "bk-103",
-      code: "BH-98402",
-      service: "Uốn Xoăn Hàn Quốc / Fly / Texture",
-      category: "Uốn Tóc Nam",
-      barber: "Minh Barber",
-      chair: "Ghế 02",
-      branch: "Hàng Bạc, Hoàn Kiếm, Hà Nội",
-      time: "10:00 AM",
-      date: "20/11/2026",
-      price: "450.000 đ",
-      status: "Đã Đặt",
-      canCancel: true,
-    },
-    {
-      id: "bk-104",
-      code: "BH-97911",
-      service: "Tẩy Tế Bào Chết & Trị Gàu Da Đầu",
-      category: "Chăm Sóc Da Đầu",
-      barber: "Dũng Barber",
-      chair: "Ghế 04",
-      branch: "Hàng Bạc, Hoàn Kiếm, Hà Nội",
-      time: "02:00 PM",
-      date: "02/11/2026",
-      price: "200.000 đ",
-      status: "Xong",
-      canCancel: false,
-    },
-    {
-      id: "bk-105",
-      code: "BH-97500",
-      service: "Nhuộm Màu / Tẩy Tóc Cao Cấp",
-      category: "Nhuộm Màu",
-      barber: "Hoàng Stylist",
-      chair: "Ghế 03",
-      branch: "Hàng Bạc, Hoàn Kiếm, Hà Nội",
-      time: "04:00 PM",
-      date: "15/10/2026",
-      price: "600.000 đ",
-      status: "Đã Hủy",
-      canCancel: false,
+  const loadBookings = useCallback(async () => {
+    try {
+      const res = await appointmentsApi.list();
+      const mapped = (res.items || []).map((app) => ({
+        id: app.id,
+        code: app.code,
+        customer_name: app.customer_name,
+        customer_phone: app.customer_phone,
+        service: app.service_name,
+        barber: app.barber_name,
+        chair: "Khu BarberHub VIP",
+        branch: "Hàng Bạc, Hoàn Kiếm, Hà Nội",
+        time: app.time,
+        date: formatDateVn(app.date),
+        rawDate: app.date,
+        price: formatVnd(app.price),
+        status: STATUS_MAP[app.status] || "Đã Đặt",
+        rawStatus: app.status,
+        canCancel: app.status === "pending" || app.status === "confirmed",
+      }));
+      setBookings(mapped);
+    } catch {
+      setBookings([]);
     }
-  ]);
+  }, []);
+
+  useEffect(() => {
+    loadBookings();
+  }, [loadBookings]);
 
   const showToast = (msg) => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(null), 3000);
   };
 
-  const handleCancelBooking = (bookingId, serviceName) => {
+  const handleCancelBooking = async (bookingId, serviceName) => {
     if (window.confirm(`Bạn có chắc muốn hủy lịch hẹn "${serviceName}"?`)) {
-      setBookings((prev) =>
-        prev.map((b) => (b.id === bookingId ? { ...b, status: "Đã Hủy", canCancel: false } : b))
-      );
+      await appointmentsApi.updateStatus(bookingId, "cancelled");
+      await loadBookings();
       showToast("Đã hủy lịch hẹn thành công!");
     }
   };
 
   const filteredBookings = bookings.filter((b) => {
+    if (searchPhone.trim()) {
+      const kw = searchPhone.trim().toLowerCase();
+      const hit =
+        b.code.toLowerCase().includes(kw) ||
+        (b.customer_phone || "").toLowerCase().includes(kw) ||
+        (b.customer_name || "").toLowerCase().includes(kw);
+      if (!hit) return false;
+    }
     if (filterTab === "all") return true;
     if (filterTab === "upcoming") return b.status === "Đã Đặt" || b.status === "Đang Cắt";
     if (filterTab === "completed") return b.status === "Xong";
@@ -454,7 +429,27 @@ export default function BookingHistoryPage() {
         <div>
           <span className="cust-header-tag">Theo Dõi Cuộc Hẹn</span>
           <h1 className="cust-header-title">Lịch Hẹn Cắt Tóc Của Tôi</h1>
-          <p className="cust-header-sub">Quản lý các lịch hẹn sắp tới, theo dõi tiến độ và đánh giá chất lượng phục vụ.</p>
+          <p className="cust-header-sub">Khách vãng lai có thể đặt lịch hẹn mới, tra cứu theo SĐT/mã lịch hoặc hủy lịch sắp tới.</p>
+        </div>
+
+        <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
+          <input
+            type="text"
+            value={searchPhone}
+            onChange={(e) => setSearchPhone(e.target.value)}
+            placeholder="Tra cứu theo SĐT hoặc mã #BK..."
+            style={{
+              padding: "9px 14px",
+              borderRadius: 12,
+              border: "1px solid #d6d3d1",
+              fontSize: 13,
+              minWidth: 220,
+              background: "#ffffff",
+            }}
+          />
+          <Link to="/booking/service" className="cust-btn-primary" style={{ color: "#ffffff", padding: "9px 18px" }}>
+            <span>+ Đặt lịch hẹn mới</span>
+          </Link>
         </div>
 
         {/* FILTER TABS */}

@@ -1,24 +1,28 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import "./LoginForm.css";
 
 /**
  * Sprint 2 - Ngày 6: Form đăng nhập và trạng thái lỗi (React)
  *
- * Tiêu chí nghiệm thu:
- *  1. Form có: Email, Mật khẩu, nút hiện/ẩn mật khẩu, nút Đăng nhập.
- *  2. Lỗi theo từng ô (viền đỏ + thông báo dưới ô):
- *     - Để trống email / mật khẩu
- *     - Email sai định dạng
- *     - Mật khẩu ngắn hơn 6 ký tự
- *  3. Lỗi chung (banner đỏ): sai email hoặc mật khẩu.
- *  4. Khóa tạm 30 giây sau 3 lần đăng nhập sai liên tiếp.
- *  5. Trạng thái thành công (banner xanh) khi đăng nhập đúng.
- *  6. Lỗi biến mất khi người dùng nhập lại.
- *
- * Tài khoản demo: admin@example.com / 123456
+ * Tài khoản demo:
+ *  - Admin:    admin@example.com / 123456
+ *  - Customer: khach@example.com / 123456
  */
 
-const DEMO_USERS = { "admin@example.com": "123456" };
+const DEMO_USERS = {
+  "admin@example.com": {
+    password: "123456",
+    user: { id: 1, full_name: "Trần Văn Thắng", email: "admin@example.com", phone: "0901234567", role: "admin" },
+    token: "demo-admin-token",
+  },
+  "khach@example.com": {
+    password: "123456",
+    user: { id: 4, full_name: "Hoàng Gia Huy", email: "khach@example.com", phone: "0987654321", role: "customer" },
+    token: "customer-token",
+  },
+};
 const MAX_ATTEMPTS = 3;
 const LOCK_SECONDS = 30;
 const MIN_PASSWORD_LEN = 6;
@@ -39,11 +43,14 @@ export function validatePassword(password) {
 }
 
 export function authenticate(email, password) {
-  return DEMO_USERS[email.trim().toLowerCase()] === password;
+  const entry = DEMO_USERS[email.trim().toLowerCase()];
+  return Boolean(entry && entry.password === password);
 }
 
 // ---------- Component ----------
 export default function LoginForm() {
+  const navigate = useNavigate();
+  const auth = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -98,8 +105,14 @@ export default function LoginForm() {
     }
 
     if (authenticate(email, password)) {
+      const entry = DEMO_USERS[email.trim().toLowerCase()];
       setFailedAttempts(0);
-      setBanner({ type: "success", text: "Đăng nhập thành công!" });
+      localStorage.setItem("access_token", entry.token);
+      if (auth?.setUser) auth.setUser(entry.user);
+      setBanner({ type: "success", text: "Đăng nhập thành công! Đang chuyển hướng..." });
+      setTimeout(() => {
+        navigate(entry.user.role === "admin" ? "/admin" : "/");
+      }, 450);
       return;
     }
 
@@ -168,7 +181,11 @@ export default function LoginForm() {
           {locked ? `Thử lại sau ${lockLeft}s` : "Đăng nhập"}
         </button>
 
-        <p className="login-demo">Demo: admin@example.com / 123456</p>
+        <p className="login-demo">
+          Admin: <strong>admin@example.com</strong> / <strong>123456</strong>
+          <br />
+          Khách: <strong>khach@example.com</strong> / <strong>123456</strong>
+        </p>
       </form>
     </div>
   );
