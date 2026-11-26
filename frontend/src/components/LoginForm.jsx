@@ -17,14 +17,38 @@ import "./LoginForm.css";
  *  5. Trạng thái thành công (banner xanh) khi đăng nhập đúng.
  *  6. Lỗi biến mất khi người dùng nhập lại.
  *
- * Tài khoản demo: admin@example.com / 123456
+ * Tài khoản demo (mật khẩu 123456): admin, barber và customer.
  */
 
-const DEMO_USERS = { "admin@example.com": "123456" };
+const DEMO_USERS = {
+  "admin@example.com": {
+    password: "123456",
+    id: 1,
+    full_name: "Quản trị viên Demo",
+    role: "admin",
+  },
+  "barber@example.com": {
+    password: "123456",
+    id: 2,
+    full_name: "Thợ Barber Demo",
+    role: "barber",
+  },
+  "customer@example.com": {
+    password: "123456",
+    id: 3,
+    full_name: "Khách hàng Demo",
+    role: "customer",
+  },
+};
 const MAX_ATTEMPTS = 3;
 const LOCK_SECONDS = 30;
 const MIN_PASSWORD_LEN = 6;
 const EMAIL_RE = /^[\w.+-]+@[\w-]+\.[\w.-]+$/;
+const ROLE_HOME_PATHS = {
+  admin: "/admin",
+  barber: "/barber",
+  customer: "/",
+};
 
 // ---------- Logic (tách riêng để dễ kiểm thử) ----------
 export function validateEmail(email) {
@@ -41,7 +65,14 @@ export function validatePassword(password) {
 }
 
 export function authenticate(email, password) {
-  return DEMO_USERS[email.trim().toLowerCase()] === password;
+  const normalizedEmail = email.trim().toLowerCase();
+  const demoUser = DEMO_USERS[normalizedEmail];
+  if (!demoUser || demoUser.password !== password) return null;
+  return { ...demoUser, email: normalizedEmail };
+}
+
+export function getRoleHomePath(role) {
+  return ROLE_HOME_PATHS[role] || "/overview";
 }
 
 // ---------- Component ----------
@@ -101,18 +132,13 @@ export default function LoginForm() {
       return;
     }
 
-    if (authenticate(email, password)) {
+    const demoUser = authenticate(email, password);
+    if (demoUser) {
       setFailedAttempts(0);
       setBanner({ type: "success", text: "Đăng nhập thành công!" });
-      const demoUser = {
-        id: 1,
-        email: email.trim().toLowerCase(),
-        full_name: "Quản trị viên Demo",
-        role: "admin",
-      };
-      localStorage.setItem("access_token", "demo-admin-token");
+      localStorage.setItem("access_token", `demo-${demoUser.role}-token`);
       setUser(demoUser);
-      window.setTimeout(() => navigate("/admin"), 300);
+      window.setTimeout(() => navigate(getRoleHomePath(demoUser.role), { replace: true }), 300);
       return;
     }
 
@@ -181,7 +207,9 @@ export default function LoginForm() {
           {locked ? `Thử lại sau ${lockLeft}s` : "Đăng nhập"}
         </button>
 
-        <p className="login-demo">Demo: admin@example.com / 123456</p>
+        <p className="login-demo">
+          Demo (mật khẩu 123456): admin@example.com, barber@example.com, customer@example.com
+        </p>
       </form>
     </div>
   );
