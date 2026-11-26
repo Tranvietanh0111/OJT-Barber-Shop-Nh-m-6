@@ -15,6 +15,69 @@ export default function AdminLayout() {
     navigate("/login");
   };
 
+  // Chặn người vãng lai / tài khoản không phải Admin truy cập các chức năng Thêm/Sửa/Xóa quản trị
+  if (!user || user.role !== "admin") {
+    return (
+      <div
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "24px",
+          background: "var(--color-bg, #FAF6F0)",
+        }}
+      >
+        <div
+          style={{
+            maxWidth: 500,
+            width: "100%",
+            background: "#ffffff",
+            borderRadius: 18,
+            border: "1px solid #dbeafe",
+            boxShadow: "0 16px 40px rgba(30, 58, 95, 0.14)",
+            padding: "32px 28px",
+            textAlign: "center",
+          }}
+        >
+          <div
+            style={{
+              width: 58,
+              height: 58,
+              margin: "0 auto 14px",
+              borderRadius: 16,
+              background: "#fee2e2",
+              color: "#dc2626",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <LineIcon name="shield" size={28} />
+          </div>
+          <h2 style={{ margin: "0 0 8px", fontSize: 22, fontWeight: 800, color: "#1e3a5f" }}>
+            Yêu cầu quyền Quản trị viên (Admin)
+          </h2>
+          <p style={{ margin: "0 0 22px", fontSize: 14, color: "#4b5563", lineHeight: 1.6 }}>
+            Người vãng lai chỉ được phép <strong>xem thông tin và đặt lịch hẹn</strong>, không có quyền{" "}
+            <strong>Thêm / Sửa / Xóa</strong> trong khu vực Quản trị. Vui lòng đăng nhập bằng tài khoản Admin để tiếp tục.
+          </p>
+          <div style={{ display: "flex", justifyContent: "center", gap: 10, flexWrap: "wrap" }}>
+            <Link to="/login" className="btn btn-primary btn-sm">
+              Đăng nhập Admin
+            </Link>
+            <Link to="/booking/service" className="btn btn-secondary btn-sm">
+              Đặt lịch hẹn
+            </Link>
+            <Link to="/" className="btn btn-outline-gold btn-sm">
+              Về trang chủ
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="dashboard-wrapper">
       {/* Sidebar Admin */}
