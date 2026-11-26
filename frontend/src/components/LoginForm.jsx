@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import "./LoginForm.css";
 
 /**
@@ -44,6 +46,8 @@ export function authenticate(email, password) {
 
 // ---------- Component ----------
 export default function LoginForm() {
+  const navigate = useNavigate();
+  const { setUser } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -100,6 +104,15 @@ export default function LoginForm() {
     if (authenticate(email, password)) {
       setFailedAttempts(0);
       setBanner({ type: "success", text: "Đăng nhập thành công!" });
+      const demoUser = {
+        id: 1,
+        email: email.trim().toLowerCase(),
+        full_name: "Quản trị viên Demo",
+        role: "admin",
+      };
+      localStorage.setItem("access_token", "demo-admin-token");
+      setUser(demoUser);
+      window.setTimeout(() => navigate("/admin"), 300);
       return;
     }
 
