@@ -1,5 +1,6 @@
 // Phụ trách: Trần Việt Anh – Thiết lập Router và Route Layout (Đã chuẩn hóa & fix lỗi)
 import { Routes, Route } from "react-router-dom";
+import ProtectedRoute from "./ProtectedRoute";
 
 // Layouts
 import MainLayout from "../layouts/MainLayout";
@@ -85,7 +86,8 @@ export default function AppRoutes() {
       </Route>
 
       {/* 3. Admin Management Routes */}
-      <Route element={<AdminLayout />}>
+      <Route element={<ProtectedRoute roles={["admin"]} />}>
+        <Route element={<AdminLayout />}>
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/users" element={<UserManagement />} />
         <Route path="/admin/barbers" element={<BarberManagement />} />
@@ -93,15 +95,18 @@ export default function AppRoutes() {
         <Route path="/admin/appointments" element={<AppointmentManagement />} />
         <Route path="/admin/invoices" element={<InvoiceManagement />} />
         <Route path="/admin/revenue" element={<RevenueStats />} />
+        </Route>
       </Route>
 
       {/* 4. Barber Portal Routes */}
-      <Route element={<BarberLayout />}>
+      <Route element={<ProtectedRoute roles={["barber", "admin"]} />}>
+        <Route element={<BarberLayout />}>
         <Route path="/barber" element={<BarberDashboard />} />
         <Route path="/barber/appointments" element={<BarberAppointments />} />
         <Route path="/barber/profile" element={<BarberProfile />} />
         <Route path="/barber/reviews" element={<BarberReviews />} />
         <Route path="/barber/earnings" element={<BarberEarnings />} />
+        </Route>
       </Route>
 
       {/* 5. Fallback 404 Not Found Route (bọc trong MainLayout) */}

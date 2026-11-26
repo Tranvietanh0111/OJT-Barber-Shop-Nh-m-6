@@ -1,9 +1,43 @@
 // Phụ trách: Trần Văn Thắng
 // Task 10 (Sprint 2): Xây dựng giao diện quản lý lịch hẹn – Bảng lịch, lọc theo ngày và trạng thái (HTML + CSS)
-import { Link } from "react-router-dom";
+import { useMemo, useState } from "react";
 import "./admin.css";
 
 export default function AppointmentManagement() {
+  const [dateFilter, setDateFilter] = useState("2026-11-14");
+  const [statusFilter, setStatusFilter] = useState("");
+  const [barberFilter, setBarberFilter] = useState("");
+  const [searchFilter, setSearchFilter] = useState("");
+
+  const appointments = [
+    { id: "BK-2026-101", customer: "Hoàng Gia Huy", phone: "0987654321", barber: "Nguyễn Hoàng Nam", service: "Combo Đế Vương 7 Bước", date: "2026-11-14", time: "09:30", displayDate: "14/11/2026", price: "220.000 đ", status: "completed" },
+    { id: "BK-2026-102", customer: "Đặng Quang Vinh", phone: "0978123456", barber: "Lê Minh Tuấn", service: "Uốn Định Hình Hàn Quốc", date: "2026-11-14", time: "10:30", displayDate: "14/11/2026", price: "380.000 đ", status: "confirmed" },
+    { id: "BK-2026-103", customer: "Vũ Đình Khoa", phone: "0965432109", barber: "Phạm Quốc Bảo", service: "Cắt Tóc Thương Gia", date: "2026-11-14", time: "14:00", displayDate: "14/11/2026", price: "120.000 đ", status: "pending" },
+    { id: "BK-2026-104", customer: "Ngô Gia Bảo", phone: "0977889900", barber: "Trịnh Đức Anh", service: "Cắt Tóc Thương Gia", date: "2026-11-13", time: "18:00", displayDate: "13/11/2026", price: "120.000 đ", status: "rejected" },
+    { id: "BK-2026-105", customer: "Bùi Xuân Trường", phone: "0945112233", barber: "Phạm Quốc Bảo", service: "Cạo Râu Khăn Nóng", date: "2026-11-13", time: "16:30", displayDate: "13/11/2026", price: "80.000 đ", status: "cancelled" },
+  ];
+
+  const filtered = useMemo(() => {
+    const keyword = searchFilter.trim().toLowerCase();
+    return appointments.filter((item) =>
+      (!dateFilter || item.date === dateFilter)
+      && (!statusFilter || item.status === statusFilter)
+      && (!barberFilter || item.barber === barberFilter)
+      && (!keyword || [item.id, item.customer, item.phone].some((value) => value.toLowerCase().includes(keyword)))
+    );
+  }, [dateFilter, statusFilter, barberFilter, searchFilter]);
+
+  const statusBadge = (status) => {
+    const classes = {
+      completed: "adm-badge adm-badge-green",
+      confirmed: "adm-badge adm-badge-blue",
+      pending: "adm-badge adm-badge-yellow",
+      rejected: "adm-badge adm-badge-red",
+      cancelled: "adm-badge adm-badge-red",
+    };
+    return <span className={`${classes[status]} badge badge-${status === "pending" ? "pending" : status === "confirmed" ? "confirmed" : status === "completed" ? "completed" : "cancelled"}`}>{status}</span>;
+  };
+
   return (
     <div className="adm-shell">
       
@@ -19,8 +53,8 @@ export default function AppointmentManagement() {
         <div className="adm-content">
           <div className="adm-toolbar">
             <div className="adm-filters">
-              <input type="date" className="adm-input" defaultValue="2026-11-14" />
-              <select className="adm-select">
+              <input type="date" className="adm-input" value={dateFilter} onChange={(event) => setDateFilter(event.target.value)} />
+              <select className="adm-select" value={statusFilter} onChange={(event) => setStatusFilter(event.target.value)}>
                 <option value="">Tất cả trạng thái</option>
                 <option value="pending">Chờ xác nhận (pending)</option>
                 <option value="confirmed">Đã xác nhận (confirmed)</option>
@@ -28,24 +62,24 @@ export default function AppointmentManagement() {
                 <option value="rejected">Từ chối (rejected)</option>
                 <option value="cancelled">Đã hủy (cancelled)</option>
               </select>
-              <select className="adm-select">
+              <select className="adm-select" value={barberFilter} onChange={(event) => setBarberFilter(event.target.value)}>
                 <option value="">Tất cả Barber</option>
                 <option>Nguyễn Hoàng Nam</option>
                 <option>Lê Minh Tuấn</option>
                 <option>Phạm Quốc Bảo</option>
               </select>
-              <input type="text" className="adm-input adm-search-input" placeholder="🔍 Tìm mã lịch, tên khách, SĐT..." />
-              <button type="button" className="adm-btn adm-btn-gold">Lọc lịch hẹn</button>
+              <input type="text" className="adm-input adm-search-input" value={searchFilter} onChange={(event) => setSearchFilter(event.target.value)} placeholder="Tìm mã lịch, tên khách, SĐT..." />
+              <button type="button" className="adm-btn adm-btn-gold" onClick={() => setDateFilter("")}>Bỏ lọc ngày</button>
             </div>
           </div>
 
           <div className="adm-tabs">
-            <span className="adm-tab active">Tất cả (5)</span>
-            <span className="adm-tab">Chờ xác nhận (1)</span>
-            <span className="adm-tab">Đã xác nhận (1)</span>
-            <span className="adm-tab">Hoàn thành (1)</span>
-            <span className="adm-tab">Từ chối (1)</span>
-            <span className="adm-tab">Đã hủy (1)</span>
+            <button type="button" className={`adm-tab ${statusFilter === "" ? "active" : ""}`} onClick={() => setStatusFilter("")}>Tất cả ({appointments.length})</button>
+            {[["pending", "Chờ xác nhận"], ["confirmed", "Đã xác nhận"], ["completed", "Hoàn thành"], ["rejected", "Từ chối"], ["cancelled", "Đã hủy"]].map(([status, label]) => (
+              <button key={status} type="button" className={`adm-tab ${statusFilter === status ? "active" : ""}`} onClick={() => setStatusFilter(status)}>
+                {label} ({appointments.filter((item) => item.status === status).length})
+              </button>
+            ))}
           </div>
 
           <div className="adm-card">
@@ -70,74 +104,20 @@ export default function AppointmentManagement() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td><strong>BK-2026-101</strong></td>
-                    <td>
-                      <div className="adm-cell-title">Hoàng Gia Huy</div>
-                      <div className="adm-cell-sub">0987654321</div>
-                    </td>
-                    <td>Nguyễn Hoàng Nam</td>
-                    <td>Combo Đế Vương 7 Bước</td>
-                    <td>14/11/2026 • 09:30</td>
-                    <td><strong>220.000 đ</strong></td>
-                    <td><span className="adm-badge adm-badge-green badge badge-completed">completed</span></td>
-                    <td><button type="button" className="adm-btn adm-btn-outline adm-btn-sm">Chi tiết</button></td>
-                  </tr>
-                  <tr>
-                    <td><strong>BK-2026-102</strong></td>
-                    <td>
-                      <div className="adm-cell-title">Đặng Quang Vinh</div>
-                      <div className="adm-cell-sub">0978123456</div>
-                    </td>
-                    <td>Lê Minh Tuấn</td>
-                    <td>Uốn Định Hình Hàn Quốc</td>
-                    <td>14/11/2026 • 10:30</td>
-                    <td><strong>380.000 đ</strong></td>
-                    <td><span className="adm-badge adm-badge-blue badge badge-confirmed">confirmed</span></td>
-                    <td><button type="button" className="adm-btn adm-btn-gold adm-btn-sm">Hoàn thành</button></td>
-                  </tr>
-                  <tr>
-                    <td><strong>BK-2026-103</strong></td>
-                    <td>
-                      <div className="adm-cell-title">Vũ Đình Khoa</div>
-                      <div className="adm-cell-sub">0965432109</div>
-                    </td>
-                    <td>Phạm Quốc Bảo</td>
-                    <td>Cắt Tóc Thương Gia</td>
-                    <td>14/11/2026 • 14:00</td>
-                    <td><strong>120.000 đ</strong></td>
-                    <td><span className="adm-badge adm-badge-yellow badge badge-pending">pending</span></td>
-                    <td>
-                      <button type="button" className="adm-btn adm-btn-success adm-btn-sm">Duyệt</button>{" "}
-                      <button type="button" className="adm-btn adm-btn-danger adm-btn-sm">Từ chối</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><strong>BK-2026-104</strong></td>
-                    <td>
-                      <div className="adm-cell-title">Ngô Gia Bảo</div>
-                      <div className="adm-cell-sub">0977889900</div>
-                    </td>
-                    <td>Trịnh Đức Anh</td>
-                    <td>Cắt Tóc Thương Gia</td>
-                    <td>13/11/2026 • 18:00</td>
-                    <td><strong>120.000 đ</strong></td>
-                    <td><span className="adm-badge adm-badge-red badge badge-cancelled">rejected</span></td>
-                    <td><button type="button" className="adm-btn adm-btn-outline adm-btn-sm">Chi tiết</button></td>
-                  </tr>
-                  <tr>
-                    <td><strong>BK-2026-105</strong></td>
-                    <td>
-                      <div className="adm-cell-title">Bùi Xuân Trường</div>
-                      <div className="adm-cell-sub">0945112233</div>
-                    </td>
-                    <td>Phạm Quốc Bảo</td>
-                    <td>Cạo Râu Khăn Nóng</td>
-                    <td>13/11/2026 • 16:30</td>
-                    <td><strong>80.000 đ</strong></td>
-                    <td><span className="adm-badge adm-badge-red badge badge-cancelled">cancelled</span></td>
-                    <td><button type="button" className="adm-btn adm-btn-outline adm-btn-sm">Chi tiết</button></td>
-                  </tr>
+                  {filtered.length === 0 ? (
+                    <tr><td colSpan="8" style={{ textAlign: "center", color: "var(--text-muted)" }}>Không có lịch hẹn phù hợp</td></tr>
+                  ) : filtered.map((item) => (
+                    <tr key={item.id}>
+                      <td><strong>{item.id}</strong></td>
+                      <td><div className="adm-cell-title">{item.customer}</div><div className="adm-cell-sub">{item.phone}</div></td>
+                      <td>{item.barber}</td>
+                      <td>{item.service}</td>
+                      <td>{item.displayDate} • {item.time}</td>
+                      <td><strong>{item.price}</strong></td>
+                      <td>{statusBadge(item.status)}</td>
+                      <td><button type="button" className="adm-btn adm-btn-outline adm-btn-sm">Chi tiết</button></td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
