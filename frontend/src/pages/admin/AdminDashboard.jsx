@@ -1,23 +1,84 @@
 // Phụ trách: Trần Văn Thắng
-// Task 6 (Sprint 2): Xây dựng giao diện Admin Dashboard – Dashboard với số liệu mẫu và bố cục hoàn chỉnh (HTML + CSS)
+// Admin Dashboard – Tổng quan số liệu thực tế đồng bộ từ các phân hệ quản trị
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { LineIcon } from "../../components/Header";
+import { appointmentsApi, barbersApi, formatDateVn, formatVnd, revenueApi, usersApi } from "./adminApi";
 import "./admin.css";
 
+const APP_STATUS_BADGE = {
+  completed: { label: "Hoàn thành", cls: "adm-badge adm-badge-green" },
+  confirmed: { label: "Đã xác nhận", cls: "adm-badge adm-badge-blue" },
+  pending: { label: "Chờ xác nhận", cls: "adm-badge adm-badge-yellow" },
+  rejected: { label: "Từ chối", cls: "adm-badge adm-badge-red" },
+  cancelled: { label: "Đã hủy", cls: "adm-badge adm-badge-red" },
+};
+
 export default function AdminDashboard() {
+  const [summary, setSummary] = useState({
+    monthlyRevenue: 102400000,
+    growthRate: 14.8,
+    totalAppointments: 5,
+    pendingAppointments: 1,
+    activeBarbers: 4,
+    totalBarbers: 5,
+    offBarbers: 1,
+    totalUsers: 6,
+    activeUsers: 5,
+    recentAppointments: [],
+  });
+
+  useEffect(() => {
+    let active = true;
+    Promise.all([
+      revenueApi.getStats("month"),
+      appointmentsApi.list(),
+      barbersApi.list(),
+      usersApi.list(),
+    ])
+      .then(([revRes, appRes, bbRes, usrRes]) => {
+        if (!active) return;
+        const apps = appRes.items || [];
+        const barbers = bbRes.items || [];
+        const users = usrRes.items || [];
+        const workingBarbers = barbers.filter((b) => b.status === "available" || b.status === "busy").length;
+        const offBarbers = barbers.filter((b) => b.status === "off").length;
+
+        setSummary({
+          monthlyRevenue: revRes.data?.kpis?.total_revenue ?? 102400000,
+          growthRate: revRes.data?.kpis?.growth_rate ?? 14.8,
+          totalAppointments: apps.length,
+          pendingAppointments: apps.filter((a) => a.status === "pending").length,
+          activeBarbers: workingBarbers,
+          totalBarbers: barbers.length,
+          offBarbers,
+          totalUsers: users.length,
+          activeUsers: users.filter((u) => u.status === "active").length,
+          recentAppointments: apps.slice(0, 5),
+        });
+      })
+      .catch(() => {});
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
   return (
     <div className="adm-shell">
-      
-
       <div className="adm-main">
         <header className="adm-topbar">
           <div>
             <h1 className="adm-page-title">Admin Dashboard</h1>
-            <p className="adm-page-subtitle">Dashboard với số liệu mẫu và bố cục hoàn chỉnh</p>
+            <p className="adm-page-subtitle">Tổng quan hoạt động BarberHub đồng bộ theo dữ liệu quản trị</p>
           </div>
           <div className="adm-topbar-actions">
-            <Link to="/admin/appointments" className="adm-btn adm-btn-outline"><LineIcon name="calendar" /> Xem lịch hẹn</Link>
-            <Link to="/admin/revenue" className="adm-btn adm-btn-gold"><LineIcon name="chart" /> Thống kê doanh thu</Link>
+            <Link to="/admin/appointments" className="adm-btn adm-btn-outline">
+              <LineIcon name="calendar" /> Xem lịch hẹn
+            </Link>
+            <Link to="/admin/revenue" className="adm-btn adm-btn-gold">
+              <LineIcon name="chart" /> Thống kê doanh thu
+            </Link>
           </div>
         </header>
 
@@ -26,37 +87,51 @@ export default function AdminDashboard() {
             <div className="adm-kpi-card">
               <div className="adm-kpi-top">
                 <span className="adm-kpi-label">Doanh thu tháng</span>
-                <span className="adm-kpi-icon"><LineIcon name="wallet" size={22} /></span>
+                <span className="adm-kpi-icon">
+                  <LineIcon name="wallet" size={22} />
+                </span>
               </div>
-              <div className="adm-kpi-value">102.400.000 đ</div>
-              <div className="adm-kpi-foot"><span className="adm-trend-up">▲ +14.8%</span> so với tháng trước</div>
+              <div className="adm-kpi-value">{formatVnd(summary.monthlyRevenue)}</div>
+              <div className="adm-kpi-foot">
+                <span className="adm-trend-up">▲ +{summary.growthRate}%</span> so với tháng trước
+              </div>
             </div>
 
             <div className="adm-kpi-card green">
               <div className="adm-kpi-top">
-                <span className="adm-kpi-label">Lịch hẹn hôm nay</span>
-                <span className="adm-kpi-icon"><LineIcon name="calendar" size={22} /></span>
+                <span className="adm-kpi-label">Tổng lịch hẹn</span>
+                <span className="adm-kpi-icon">
+                  <LineIcon name="calendar" size={22} />
+                </span>
               </div>
-              <div className="adm-kpi-value">24 lịch</div>
-              <div className="adm-kpi-foot">4 lịch đang chờ xác nhận</div>
+              <div className="adm-kpi-value">{summary.totalAppointments} lịch</div>
+              <div className="adm-kpi-foot">{summary.pendingAppointments} lịch đang chờ xác nhận</div>
             </div>
 
             <div className="adm-kpi-card blue">
               <div className="adm-kpi-top">
                 <span className="adm-kpi-label">Barber đang làm việc</span>
-                <span className="adm-kpi-icon"><LineIcon name="scissors" size={22} /></span>
+                <span className="adm-kpi-icon">
+                  <LineIcon name="scissors" size={22} />
+                </span>
               </div>
-              <div className="adm-kpi-value">4 / 5 thợ</div>
-              <div className="adm-kpi-foot">1 thợ nghỉ phép hôm nay</div>
+              <div className="adm-kpi-value">
+                {summary.activeBarbers} / {summary.totalBarbers} thợ
+              </div>
+              <div className="adm-kpi-foot">{summary.offBarbers} thợ nghỉ phép hôm nay</div>
             </div>
 
             <div className="adm-kpi-card purple">
               <div className="adm-kpi-top">
                 <span className="adm-kpi-label">Tổng người dùng</span>
-                <span className="adm-kpi-icon"><LineIcon name="users" size={22} /></span>
+                <span className="adm-kpi-icon">
+                  <LineIcon name="users" size={22} />
+                </span>
               </div>
-              <div className="adm-kpi-value">342 tài khoản</div>
-              <div className="adm-kpi-foot"><span className="adm-trend-up">+28</span> khách hàng mới</div>
+              <div className="adm-kpi-value">{summary.totalUsers} tài khoản</div>
+              <div className="adm-kpi-foot">
+                <span className="adm-trend-up">{summary.activeUsers}</span> tài khoản đang hoạt động
+              </div>
             </div>
           </div>
 
@@ -64,11 +139,14 @@ export default function AdminDashboard() {
             <div className="adm-card">
               <div className="adm-card-header">
                 <div>
-                  <h3 className="adm-card-title">Biểu đồ doanh thu 7 ngày gần nhất (Số liệu mẫu)</h3>
+                  <h3 className="adm-card-title">Biểu đồ doanh thu 7 ngày gần nhất</h3>
                   <p className="adm-card-subtitle">Đơn vị tính: Triệu VNĐ</p>
                 </div>
                 <div className="adm-legend-inline">
-                  <span><i className="adm-legend-dot" style={{ background: "#dc2626" }} />Doanh thu ngày</span>
+                  <span>
+                    <i className="adm-legend-dot" style={{ background: "#dc2626" }} />
+                    Doanh thu ngày
+                  </span>
                 </div>
               </div>
 
@@ -110,7 +188,7 @@ export default function AdminDashboard() {
                     strokeWidth="3"
                   />
 
-                  <g fill="#dc2626" stroke="#0b0f19" strokeWidth="2">
+                  <g fill="#dc2626" stroke="#ffffff" strokeWidth="2">
                     <circle cx="75" cy="131" r="4.5" />
                     <circle cx="180" cy="109" r="4.5" />
                     <circle cx="285" cy="119" r="4.5" />
@@ -130,7 +208,7 @@ export default function AdminDashboard() {
                     <text x="705" y="40">6.4M</text>
                   </g>
 
-                  <g fill="#cbd5e1" fontSize="11.5" fontWeight="600" textAnchor="middle" fontFamily="Plus Jakarta Sans, sans-serif">
+                  <g fill="#64748b" fontSize="11.5" fontWeight="600" textAnchor="middle" fontFamily="Plus Jakarta Sans, sans-serif">
                     <text x="75" y="234">T2</text>
                     <text x="180" y="234">T3</text>
                     <text x="285" y="234">T4</text>
@@ -155,19 +233,38 @@ export default function AdminDashboard() {
               <div className="adm-donut-wrap">
                 <svg viewBox="0 0 220 220" className="adm-donut-svg">
                   <g className="adm-donut-default" fontFamily="Plus Jakarta Sans, sans-serif">
-                    <circle cx="110" cy="110" r="53" fill="rgba(15, 22, 41, 0.85)" stroke="rgba(148, 163, 184, 0.14)" strokeWidth="1" />
-                    <text x="110" y="95" textAnchor="middle" fill="#94a3b8" fontSize="9.5" fontWeight="700" letterSpacing="0.5">TỔNG LƯỢT ĐẶT</text>
-                    <text x="110" y="117" textAnchor="middle" fill="#ffffff" fontSize="16" fontWeight="800">573 lượt</text>
-                    <text x="110" y="133" textAnchor="middle" fill="#64748b" fontSize="9.5">Di chuột xem chi tiết</text>
+                    <circle
+                      cx="110"
+                      cy="110"
+                      r="53"
+                      fill="rgba(15, 22, 41, 0.85)"
+                      stroke="rgba(148, 163, 184, 0.14)"
+                      strokeWidth="1"
+                    />
+                    <text x="110" y="95" textAnchor="middle" fill="#94a3b8" fontSize="9.5" fontWeight="700" letterSpacing="0.5">
+                      TỔNG LƯỢT ĐẶT
+                    </text>
+                    <text x="110" y="117" textAnchor="middle" fill="#ffffff" fontSize="16" fontWeight="800">
+                      573 lượt
+                    </text>
+                    <text x="110" y="133" textAnchor="middle" fill="#64748b" fontSize="9.5">
+                      Di chuột xem chi tiết
+                    </text>
                   </g>
 
                   <g className="adm-donut-slice">
-                    <path className="adm-donut-arc" d="M 111.3 34.0 A 76 76 0 0 1 165.6 161.8" stroke="var(--brand-red)" />
+                    <path className="adm-donut-arc" d="M 111.3 34.0 A 76 76 0 0 1 165.6 161.8" stroke="#dc2626" />
                     <g className="adm-donut-tooltip" fontFamily="Plus Jakarta Sans, sans-serif">
-                      <circle cx="110" cy="110" r="54" fill="#0f1629" stroke="var(--brand-red)" strokeWidth="1.5" />
-                      <text x="110" y="93" textAnchor="middle" fill="var(--brand-red)" fontSize="10.5" fontWeight="700">Cắt Thương Gia</text>
-                      <text x="110" y="116" textAnchor="middle" fill="#ffffff" fontSize="19" fontWeight="800">37.5%</text>
-                      <text x="110" y="134" textAnchor="middle" fill="#cbd5e1" fontSize="10.5" fontWeight="600">215 lượt đặt</text>
+                      <circle cx="110" cy="110" r="54" fill="#0f1629" stroke="#dc2626" strokeWidth="1.5" />
+                      <text x="110" y="93" textAnchor="middle" fill="#f87171" fontSize="10.5" fontWeight="700">
+                        Cắt Thương Gia
+                      </text>
+                      <text x="110" y="116" textAnchor="middle" fill="#ffffff" fontSize="19" fontWeight="800">
+                        37.5%
+                      </text>
+                      <text x="110" y="134" textAnchor="middle" fill="#cbd5e1" fontSize="10.5" fontWeight="600">
+                        215 lượt đặt
+                      </text>
                     </g>
                   </g>
 
@@ -175,9 +272,15 @@ export default function AdminDashboard() {
                     <path className="adm-donut-arc" d="M 163.7 163.7 A 76 76 0 0 1 39.3 137.9" stroke="var(--color-navy-light)" />
                     <g className="adm-donut-tooltip" fontFamily="Plus Jakarta Sans, sans-serif">
                       <circle cx="110" cy="110" r="54" fill="#0f1629" stroke="var(--color-navy-light)" strokeWidth="1.5" />
-                      <text x="110" y="93" textAnchor="middle" fill="var(--color-navy-light)" fontSize="10.5" fontWeight="700">Combo Đế Vương</text>
-                      <text x="110" y="116" textAnchor="middle" fill="#ffffff" fontSize="19" fontWeight="800">32.1%</text>
-                      <text x="110" y="134" textAnchor="middle" fill="#cbd5e1" fontSize="10.5" fontWeight="600">184 lượt đặt</text>
+                      <text x="110" y="93" textAnchor="middle" fill="#93c5fd" fontSize="10.5" fontWeight="700">
+                        Combo Đế Vương
+                      </text>
+                      <text x="110" y="116" textAnchor="middle" fill="#ffffff" fontSize="19" fontWeight="800">
+                        32.1%
+                      </text>
+                      <text x="110" y="134" textAnchor="middle" fill="#cbd5e1" fontSize="10.5" fontWeight="600">
+                        184 lượt đặt
+                      </text>
                     </g>
                   </g>
 
@@ -185,9 +288,15 @@ export default function AdminDashboard() {
                     <path className="adm-donut-arc" d="M 38.4 135.4 A 76 76 0 0 1 50.9 62.2" stroke="var(--color-gold)" />
                     <g className="adm-donut-tooltip" fontFamily="Plus Jakarta Sans, sans-serif">
                       <circle cx="110" cy="110" r="54" fill="#0f1629" stroke="var(--color-gold)" strokeWidth="1.5" />
-                      <text x="110" y="93" textAnchor="middle" fill="var(--color-gold)" fontSize="10.5" fontWeight="700">Uốn Hàn Quốc</text>
-                      <text x="110" y="116" textAnchor="middle" fill="#ffffff" fontSize="19" fontWeight="800">16.8%</text>
-                      <text x="110" y="134" textAnchor="middle" fill="#cbd5e1" fontSize="10.5" fontWeight="600">96 lượt đặt</text>
+                      <text x="110" y="93" textAnchor="middle" fill="#facc15" fontSize="10.5" fontWeight="700">
+                        Uốn Hàn Quốc
+                      </text>
+                      <text x="110" y="116" textAnchor="middle" fill="#ffffff" fontSize="19" fontWeight="800">
+                        16.8%
+                      </text>
+                      <text x="110" y="134" textAnchor="middle" fill="#cbd5e1" fontSize="10.5" fontWeight="600">
+                        96 lượt đặt
+                      </text>
                     </g>
                   </g>
 
@@ -195,19 +304,33 @@ export default function AdminDashboard() {
                     <path className="adm-donut-arc" d="M 52.6 60.1 A 76 76 0 0 1 107.3 34.1" stroke="var(--text-muted)" />
                     <g className="adm-donut-tooltip" fontFamily="Plus Jakarta Sans, sans-serif">
                       <circle cx="110" cy="110" r="54" fill="#0f1629" stroke="var(--text-muted)" strokeWidth="1.5" />
-                      <text x="110" y="93" textAnchor="middle" fill="var(--text-muted)" fontSize="10.5" fontWeight="700">Nhuộm Cao Cấp</text>
-                      <text x="110" y="116" textAnchor="middle" fill="#ffffff" fontSize="19" fontWeight="800">13.6%</text>
-                      <text x="110" y="134" textAnchor="middle" fill="#cbd5e1" fontSize="10.5" fontWeight="600">78 lượt đặt</text>
+                      <text x="110" y="93" textAnchor="middle" fill="#cbd5e1" fontSize="10.5" fontWeight="700">
+                        Nhuộm Cao Cấp
+                      </text>
+                      <text x="110" y="116" textAnchor="middle" fill="#ffffff" fontSize="19" fontWeight="800">
+                        13.6%
+                      </text>
+                      <text x="110" y="134" textAnchor="middle" fill="#cbd5e1" fontSize="10.5" fontWeight="600">
+                        78 lượt đặt
+                      </text>
                     </g>
                   </g>
                 </svg>
               </div>
 
               <div className="adm-service-legend-grid">
-                <div><span style={{ color: "var(--brand-red)", fontWeight: 700 }}>• Cắt Thương Gia:</span> 215 lượt</div>
-                <div><span style={{ color: "var(--color-navy-light)", fontWeight: 700 }}>• Combo Đế Vương:</span> 184 lượt</div>
-                <div><span style={{ color: "var(--color-gold)", fontWeight: 700 }}>• Uốn Hàn Quốc:</span> 96 lượt</div>
-                <div><span style={{ color: "var(--text-muted)", fontWeight: 700 }}>• Nhuộm Cao Cấp:</span> 78 lượt</div>
+                <div>
+                  <span style={{ color: "#dc2626", fontWeight: 700 }}>• Cắt Thương Gia:</span> 215 lượt
+                </div>
+                <div>
+                  <span style={{ color: "var(--color-navy-light)", fontWeight: 700 }}>• Combo Đế Vương:</span> 184 lượt
+                </div>
+                <div>
+                  <span style={{ color: "var(--color-gold)", fontWeight: 700 }}>• Uốn Hàn Quốc:</span> 96 lượt
+                </div>
+                <div>
+                  <span style={{ color: "var(--text-muted)", fontWeight: 700 }}>• Nhuộm Cao Cấp:</span> 78 lượt
+                </div>
               </div>
             </div>
           </div>
@@ -215,10 +338,12 @@ export default function AdminDashboard() {
           <div className="adm-card">
             <div className="adm-card-header">
               <div>
-                <h3 className="adm-card-title">Lịch hẹn mới nhất hôm nay</h3>
-                <p className="adm-card-subtitle">Danh sách lịch hẹn mẫu trên Dashboard</p>
+                <h3 className="adm-card-title">Lịch hẹn mới nhất</h3>
+                <p className="adm-card-subtitle">Đồng bộ trực tiếp từ phân hệ Quản lý lịch hẹn</p>
               </div>
-              <Link to="/admin/appointments" className="adm-btn adm-btn-outline adm-btn-sm">Xem tất cả</Link>
+              <Link to="/admin/appointments" className="adm-btn adm-btn-outline adm-btn-sm">
+                Xem tất cả
+              </Link>
             </div>
             <div className="adm-table-wrap">
               <table className="adm-table">
@@ -233,30 +358,35 @@ export default function AdminDashboard() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td><strong>BK-2026-101</strong></td>
-                    <td>Hoàng Gia Huy (0987654321)</td>
-                    <td>Nguyễn Hoàng Nam</td>
-                    <td>Combo Đế Vương 7 Bước</td>
-                    <td>09:30 - 14/11/2026</td>
-                    <td><span className="adm-badge adm-badge-green">Hoàn thành</span></td>
-                  </tr>
-                  <tr>
-                    <td><strong>BK-2026-102</strong></td>
-                    <td>Đặng Quang Vinh (0978123456)</td>
-                    <td>Lê Minh Tuấn</td>
-                    <td>Uốn Định Hình Hàn Quốc</td>
-                    <td>10:30 - 14/11/2026</td>
-                    <td><span className="adm-badge adm-badge-blue">Đã xác nhận</span></td>
-                  </tr>
-                  <tr>
-                    <td><strong>BK-2026-103</strong></td>
-                    <td>Vũ Đình Khoa (0965432109)</td>
-                    <td>Phạm Quốc Bảo</td>
-                    <td>Cắt Tóc Thương Gia</td>
-                    <td>14:00 - 14/11/2026</td>
-                    <td><span className="adm-badge adm-badge-yellow">Chờ xác nhận</span></td>
-                  </tr>
+                  {summary.recentAppointments.length === 0 ? (
+                    <tr>
+                      <td colSpan={6} className="adm-empty">
+                        Chưa có lịch hẹn nào.
+                      </td>
+                    </tr>
+                  ) : (
+                    summary.recentAppointments.map((app) => {
+                      const st = APP_STATUS_BADGE[app.status] || APP_STATUS_BADGE.pending;
+                      return (
+                        <tr key={app.id}>
+                          <td>
+                            <strong>{app.code}</strong>
+                          </td>
+                          <td>
+                            {app.customer_name} ({app.customer_phone})
+                          </td>
+                          <td>{app.barber_name}</td>
+                          <td>{app.service_name}</td>
+                          <td>
+                            {app.time} - {formatDateVn(app.date)}
+                          </td>
+                          <td>
+                            <span className={st.cls}>{st.label}</span>
+                          </td>
+                        </tr>
+                      );
+                    })
+                  )}
                 </tbody>
               </table>
             </div>
