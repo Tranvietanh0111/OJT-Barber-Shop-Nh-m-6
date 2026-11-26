@@ -1,7 +1,7 @@
 """Model `appointment` – phụ trách: Đỗ Ngọc Dân. Thiết kế theo ERD trong docs/ERD.md."""
 from app.core.database import Base  # noqa: F401
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, Numeric, String
 
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Numeric
 
 class Appointment(Base):
     __tablename__ = "appointments"

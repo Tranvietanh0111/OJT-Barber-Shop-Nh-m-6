@@ -7,8 +7,12 @@ Cung cấp:
    - Hỗ trợ các alias: /api/v1/barber, /api/v1/barber/{barber_id}.
 2. API Hồ sơ cá nhân (Chỉ vai trò Barber):
    - GET /api/v1/barber/profile: Barber xem thông tin hồ sơ của chính mình.
-   - PUT /api/v1/barber/profile: Barber cập nhật thông tin hồ sơ của chính mình (giới thiệu, kinh nghiệm, chuyên môn, dịch vụ đảm nhận...).
+   - PUT /api/v1/barber/profile: Barber cập nhật thông tin hồ sơ của chính mình.
+3. API Lịch hẹn của Barber (Task T06AF14 - Chỉ vai trò Barber):
+   - GET /api/v1/barber/appointments: Barber xem danh sách lịch hẹn của mình (lọc theo ngày/trạng thái).
+   - PATCH /api/v1/barber/appointments/{appointment_id}/status: Barber đánh dấu xác nhận / đang phục vụ / hoàn thành / khách không đến.
 """
+from datetime import datetime
 from typing import Any, Dict, List, Optional
 
 from fastapi import APIRouter, Depends, Header, HTTPException, Query, status
@@ -23,6 +27,9 @@ from app.models.review import Review
 from app.models.service import Service
 from app.models.user import User
 from app.schemas.barber import (
+    BarberAppointmentListOut,
+    BarberAppointmentOut,
+    BarberAppointmentStatusUpdate,
     BarberListOut,
     BarberProfileOut,
     BarberProfileUpdate,
@@ -45,7 +52,7 @@ except Exception:
     SECRET_KEY = "123456"
     ALGORITHM = "HS256"
 
-router = APIRouter(tags=["Thợ cắt tóc & Hồ sơ (Barbers)"])
+router = APIRouter(tags=["Thợ cắt tóc & Lịch hẹn (Barbers)"])
 bearer_scheme = HTTPBearer(auto_error=False)
 
 
@@ -93,7 +100,7 @@ def require_barber(
         if token in ("customer-token", "user-token"):
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
-                detail="Tài khoản khách hàng không có quyền truy cập hồ sơ Barber.",
+                detail="Tài khoản khách hàng không có quyền truy cập phân hệ Barber.",
             )
         if token in ("barber-token", "demo-barber-token", "admin-token"):
             return {
@@ -177,7 +184,6 @@ def _get_barber_rating_stats(db: Session, barber_id: int):
         avg_rating = round(sum(r.rating for r in reviews) / len(reviews), 2)
         reviews_count = len(reviews)
     else:
-        # Giá trị mặc định chuẩn đẹp nếu barber mới chưa có review trong DB
         avg_rating = 4.9
         reviews_count = 15
     return avg_rating, reviews_count
@@ -187,7 +193,7 @@ def _get_barber_completed_cuts(db: Session, barber_id: int) -> int:
     """Đếm số lịch hẹn hoàn thành của Barber."""
     count = (
         db.query(func.count(Appointment.appointment_id))
-        .filter(Appointment.barber_id == barber_id, Appointment.status == "COMPLETED")
+        .filter(Appointment.barber_id == barber_id, Appointment.status == "completed")
         .scalar()
     )
     return count if (count and count > 0) else 85
@@ -233,11 +239,45 @@ def _build_barber_public_out(db: Session, barber: Barber, include_reviews: bool 
         bio=barber.bio,
         avatar=barber.avatar,
         specialties=specialties,
-        rating=avg_rating if "avg_rating" in locals() else rating,
+        rating=rating,
         reviews_count=reviews_count,
         completed_cuts=completed_cuts,
         services=services,
         reviews=reviews_list,
+    )
+
+
+def _build_appointment_out(db: Session, a: Appointment) -> BarberAppointmentOut:
+    """Xây dựng đối tượng BarberAppointmentOut kèm thông tin khách và dịch vụ."""
+    customer = db.query(User).filter(User.user_id == a.customer_id).first()
+    service = db.query(Service).filter(Service.service_id == a.service_id).first()
+
+    cust_name = customer.full_name if (customer and customer.full_name) else f"Khách hàng #{a.customer_id}"
+    cust_phone = customer.phone if customer else None
+
+    srv_name = service.name if service else "Dịch vụ cắt tóc"
+    srv_price = float(service.price) if service else float(a.total_price)
+    srv_dur = service.duration if service else 30
+
+    d_str = a.appointment_date.strftime("%Y-%m-%d") if a.appointment_date else "2026-11-25"
+    t_str = a.appointment_date.strftime("%H:%M") if a.appointment_date else "09:00"
+
+    return BarberAppointmentOut(
+        appointment_id=a.appointment_id,
+        barber_id=a.barber_id,
+        customer_id=a.customer_id,
+        customer_name=cust_name,
+        customer_phone=cust_phone,
+        service_id=a.service_id,
+        service_name=srv_name,
+        service_price=srv_price,
+        service_duration=srv_dur,
+        appointment_date=a.appointment_date,
+        date=d_str,
+        time=t_str,
+        status=str(a.status).lower(),
+        note=getattr(a, "note", None),
+        total_price=float(a.total_price),
     )
 
 
@@ -272,7 +312,6 @@ def list_barbers_public(
 
     barbers = query.all()
 
-    # Chuyển đổi và làm giàu dữ liệu kèm dịch vụ + rating
     out_items: List[BarberPublicOut] = []
     target_service_id = service_id if isinstance(service_id, int) else None
     target_min_rating = min_rating if isinstance(min_rating, (int, float)) else None
@@ -316,7 +355,6 @@ def get_barber_public(
     return _build_barber_public_out(db, barber, include_reviews=True)
 
 
-# Alias cho đường dẫn /api/v1/barber công khai
 @router.get("/barber", response_model=BarberListOut, include_in_schema=False)
 def list_barber_alias(
     search: Optional[str] = None,
@@ -343,8 +381,7 @@ def get_barber_alias(barber_id: int, db: Session = Depends(get_db)):
     summary="Xem thông tin hồ sơ của chính mình (Chỉ vai trò Barber)",
     description=(
         "Cho phép Barber đang đăng nhập xem hồ sơ cá nhân của mình.\n"
-        "- Yêu cầu quyền **Barber** (`Authorization: Bearer <token>` hoặc header `X-Role: barber`).\n"
-        "- Trả về: họ tên, SĐT, giới thiệu (bio), số năm kinh nghiệm, chuyên môn, danh sách dịch vụ đảm nhận và KPI cá nhân."
+        "- Yêu cầu quyền **Barber** (`Authorization: Bearer <token>` hoặc header `X-Role: barber`)."
     ),
 )
 def get_my_barber_profile(
@@ -355,7 +392,6 @@ def get_my_barber_profile(
     target_barber_id = current_user.get("barber_id")
     target_user_id = current_user.get("user_id")
 
-    # Tìm Barber theo barber_id hoặc user_id
     barber = None
     if target_barber_id:
         barber = db.query(Barber).filter(Barber.barber_id == target_barber_id).first()
@@ -399,7 +435,7 @@ def get_my_barber_profile(
     response_model=BarberProfileOut,
     summary="Cập nhật hồ sơ của chính mình (Chỉ vai trò Barber)",
     description=(
-        "Cho phép Barber cập nhật thông tin cá nhân: họ tên, số điện thoại, tiểu sử giới thiệu (bio), "
+        "Cho phép Barber cập nhật thông tin cá nhân: họ tên, số điện thoại, tiểu sử (bio), "
         "số năm kinh nghiệm, kỹ năng chuyên môn (`specialties`) và danh sách ID dịch vụ đảm nhận (`service_ids`).\n"
         "- Yêu cầu quyền **Barber** (`Authorization: Bearer <token>` hoặc header `X-Role: barber`)."
     ),
@@ -432,7 +468,6 @@ def update_my_barber_profile(
 
     if payload.phone is not None:
         clean_phone = payload.phone.strip()
-        # Kiểm tra trùng SĐT với barber khác
         dup = (
             db.query(Barber)
             .filter(Barber.phone == clean_phone, Barber.barber_id != barber.barber_id)
@@ -466,7 +501,6 @@ def update_my_barber_profile(
     db.commit()
     db.refresh(barber)
 
-    # Trả về đối tượng đã cập nhật
     service_ids = _parse_service_ids(barber.service_ids)
     services = _get_barber_services(db, service_ids)
     specialties = _parse_specialties(barber.specialties)
@@ -489,3 +523,142 @@ def update_my_barber_profile(
         reviews_count=reviews_count,
         completed_cuts=completed_cuts,
     )
+
+
+# ============================================================================
+# 3. API LỊCH HẸN BARBER (TASK T06AF14 – CHỈ VAI TRÒ BARBER)
+# ============================================================================
+
+@router.get(
+    "/barber/appointments",
+    response_model=BarberAppointmentListOut,
+    summary="Barber xem lịch hẹn của mình (lọc ngày/trạng thái)",
+    description=(
+        "Cho phép Barber xem danh sách lịch hẹn được phân công cho chính mình.\n"
+        "- **Ràng buộc:** Chỉ xem được lịch hẹn của chính Barber đang đăng nhập.\n"
+        "- Hỗ trợ lọc theo ngày (`date` định dạng `YYYY-MM-DD`).\n"
+        "- Hỗ trợ lọc theo trạng thái (`status`: `pending`, `confirmed`, `in_progress`, `completed`, `no_show`).\n"
+        "- Trả về thông tin khách hàng, số điện thoại, tên dịch vụ, thời lượng, giá tiền và số liệu tổng hợp."
+    ),
+)
+def list_my_barber_appointments(
+    date: Optional[str] = Query(default=None, description="Lọc theo ngày (YYYY-MM-DD, ví dụ: 2026-11-25)"),
+    status_filter: Optional[str] = Query(default=None, alias="status", description="Lọc trạng thái: pending | confirmed | in_progress | completed | no_show | all"),
+    page: int = Query(default=1, ge=1, description="Trang hiện tại"),
+    limit: int = Query(default=20, ge=1, le=100, description="Số lượng mỗi trang"),
+    db: Session = Depends(get_db),
+    current_user: Dict[str, Any] = Depends(require_barber),
+):
+    """Barber xem danh sách lịch hẹn của chính mình."""
+    my_barber_id = current_user.get("barber_id")
+    if not my_barber_id:
+        barber = db.query(Barber).first()
+        my_barber_id = barber.barber_id if barber else 1
+
+    # Chỉ truy vấn lịch hẹn của chính Barber đang đăng nhập
+    query = db.query(Appointment).filter(Appointment.barber_id == my_barber_id)
+
+    # Lọc theo ngày
+    if date and isinstance(date, str) and date.strip():
+        clean_date = date.strip()
+        try:
+            start_of_day = datetime.strptime(clean_date, "%Y-%m-%d")
+            end_of_day = start_of_day.replace(hour=23, minute=59, second=59)
+            query = query.filter(
+                Appointment.appointment_date >= start_of_day,
+                Appointment.appointment_date <= end_of_day,
+            )
+        except ValueError:
+            pass
+
+    # Lọc theo trạng thái
+    if status_filter and isinstance(status_filter, str) and status_filter.strip().lower() != "all":
+        query = query.filter(Appointment.status.ilike(status_filter.strip().lower()))
+
+    # Sắp xếp lịch hẹn theo thời gian sớm nhất lên trước
+    query = query.order_by(Appointment.appointment_date.asc())
+
+    total = query.count()
+    page_num = page if isinstance(page, int) else 1
+    limit_num = limit if isinstance(limit, int) else 20
+    appointments = query.offset((page_num - 1) * limit_num).limit(limit_num).all()
+
+    items = [_build_appointment_out(db, a) for a in appointments]
+
+    # Tính toán số liệu tổng hợp các trạng thái của riêng Barber này
+    all_my_apps = db.query(Appointment).filter(Appointment.barber_id == my_barber_id).all()
+    pending_cnt = len([a for a in all_my_apps if str(a.status).lower() == "pending"])
+    confirmed_cnt = len([a for a in all_my_apps if str(a.status).lower() == "confirmed"])
+    in_progress_cnt = len([a for a in all_my_apps if str(a.status).lower() == "in_progress"])
+    completed_cnt = len([a for a in all_my_apps if str(a.status).lower() == "completed"])
+    no_show_cnt = len([a for a in all_my_apps if str(a.status).lower() == "no_show"])
+
+    return {
+        "items": items,
+        "total": total,
+        "page": page_num,
+        "limit": limit_num,
+        "pending_count": pending_cnt,
+        "confirmed_count": confirmed_cnt,
+        "in_progress_count": in_progress_cnt,
+        "completed_count": completed_cnt,
+        "no_show_count": no_show_cnt,
+    }
+
+
+@router.patch(
+    "/barber/appointments/{appointment_id}/status",
+    response_model=BarberAppointmentOut,
+    summary="Đánh dấu trạng thái lịch hẹn (Chỉ vai trò Barber)",
+    description=(
+        "Cho phép Barber đánh dấu trạng thái lịch hẹn: `confirmed` (xác nhận), `in_progress` (đang phục vụ), "
+        "`completed` (hoàn thành), `no_show` (khách không đến), hoặc `rejected` (từ chối).\n"
+        "- **Ràng buộc quan trọng:** Chỉ thao tác được lịch của chính mình. Lịch của thợ khác sẽ bị từ chối với mã **403 Forbidden**.\n"
+        "- Dùng chung quy tắc trạng thái lịch với phân hệ Booking (Đức). Không trùng API đặt/hủy lịch."
+    ),
+)
+def update_barber_appointment_status(
+    appointment_id: int,
+    payload: BarberAppointmentStatusUpdate,
+    db: Session = Depends(get_db),
+    current_user: Dict[str, Any] = Depends(require_barber),
+):
+    """Barber đánh dấu trạng thái lịch hẹn của mình."""
+    my_barber_id = current_user.get("barber_id")
+    my_role = current_user.get("role", "barber")
+
+    appointment = db.query(Appointment).filter(Appointment.appointment_id == appointment_id).first()
+    if not appointment:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Không tìm thấy lịch hẹn có mã {appointment_id}",
+        )
+
+    # RÀNG BUỘC CỐT LÕI: Chỉ thao tác được lịch của chính mình!
+    if appointment.barber_id != my_barber_id and my_role != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Bạn không có quyền thao tác trên lịch hẹn của thợ cắt tóc khác.",
+        )
+
+    current_st = str(appointment.status).lower()
+    next_st = payload.status.lower()
+
+    # Ràng buộc nghiệp vụ trạng thái (dùng chung quy tắc với Booking)
+    if current_st == "completed":
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Lịch hẹn này đã hoàn thành, không thể thay đổi trạng thái nữa.",
+        )
+    if current_st in ("cancelled", "rejected") and next_st not in ("confirmed",):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Lịch hẹn đã bị hủy hoặc từ chối trước đó.",
+        )
+
+    # Cập nhật trạng thái mới
+    appointment.status = next_st
+    db.commit()
+    db.refresh(appointment)
+
+    return _build_appointment_out(db, appointment)
