@@ -27,6 +27,7 @@ const EMPTY_FORM = {
 
 export default function AppointmentManagement() {
   const [appointments, setAppointments] = useState([]);
+  const [mode, setMode] = useState("api");
   const [barberOptions, setBarberOptions] = useState([]);
   const [serviceOptions, setServiceOptions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -61,6 +62,7 @@ export default function AppointmentManagement() {
         servicesApi.list(),
       ]);
       setAppointments(appRes.items);
+      setMode(appRes.mode);
       setBarberOptions(bbRes.items.map((b) => b.full_name));
       setServiceOptions(svcRes.items);
     } catch (err) {
@@ -218,6 +220,10 @@ export default function AppointmentManagement() {
             <p className="adm-page-subtitle">Tạo lịch, sửa, duyệt/hoàn thành/từ chối, xóa và lọc theo ngày & trạng thái</p>
           </div>
           <div className="adm-topbar-actions">
+            <span className="adm-mode-badge" title="Nguồn dữ liệu hiện tại">
+              <span className={`adm-mode-dot ${mode === "local" ? "local" : ""}`} />
+              {mode === "api" ? "API FastAPI" : "Dữ liệu cục bộ"}
+            </span>
             <button type="button" className="adm-btn adm-btn-gold" onClick={handleOpenAdd}>
               + Tạo lịch hẹn mới
             </button>
