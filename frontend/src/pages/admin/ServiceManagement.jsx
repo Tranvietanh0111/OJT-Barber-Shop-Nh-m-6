@@ -18,6 +18,7 @@ const EMPTY_FORM = {
 
 export default function ServiceManagement() {
   const [services, setServices] = useState([]);
+  const [mode, setMode] = useState("api");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
@@ -44,6 +45,7 @@ export default function ServiceManagement() {
     try {
       const res = await servicesApi.list();
       setServices(res.items);
+      setMode(res.mode);
     } catch (err) {
       showNotice("error", err.message || "Không thể tải danh sách dịch vụ.");
     } finally {
@@ -142,7 +144,7 @@ export default function ServiceManagement() {
 
   const handleToggleVisible = async (svc) => {
     try {
-      const res = await servicesApi.toggleStatus(svc.id);
+      const res = await servicesApi.toggleStatus(svc.id, svc.status);
       showNotice("success", res.message);
       if (editingId === svc.id) {
         setForm((prev) => ({ ...prev, status: res.item.status }));
@@ -178,6 +180,10 @@ export default function ServiceManagement() {
             <p className="adm-page-subtitle">Danh sách dịch vụ, bảng giá, thêm/sửa, ẩn/hiện và xóa dịch vụ</p>
           </div>
           <div className="adm-topbar-actions">
+            <span className="adm-mode-badge" title="Nguồn dữ liệu hiện tại">
+              <span className={`adm-mode-dot ${mode === "local" ? "local" : ""}`} />
+              {mode === "api" ? "API FastAPI" : "Dữ liệu cục bộ"}
+            </span>
             <button type="button" className="adm-btn adm-btn-gold" onClick={handleStartAdd}>
               + Thêm dịch vụ
             </button>

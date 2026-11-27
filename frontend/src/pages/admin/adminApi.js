@@ -684,139 +684,282 @@ export const barbersApi = {
   },
 };
 
+function isFallbackError(err) {
+  return (
+    !err ||
+    err.code === "NETWORK_ERROR" ||
+    err.code === "UNKNOWN_ERROR" ||
+    err.code === "HTTP_500" ||
+    err.code === "HTTP_502" ||
+    err.code === "HTTP_503"
+  );
+}
+
+function inferServiceCategory(name = "") {
+  const lower = name.toLowerCase();
+  if (lower.includes("combo") || lower.includes("vip")) return "Combo VIP";
+  if (lower.includes("uốn") || lower.includes("nhuộm") || lower.includes("tẩy")) return "Uốn & Nhuộm";
+  if (lower.includes("râu") || lower.includes("da mặt") || lower.includes("gội")) return "Chăm sóc Râu & Da";
+  return "Cắt & Tạo kiểu";
+}
+
+function mapServiceFromApi(svc, fallbackCategory) {
+  const id = svc.service_id ?? svc.id;
+  return {
+    id,
+    code: svc.code || `SV-${String(id).padStart(2, "0")}`,
+    name: svc.name,
+    category: fallbackCategory || svc.category || inferServiceCategory(svc.name),
+    duration: Number(svc.duration) || 30,
+    price: Number(svc.price) || 0,
+    status: svc.is_active === false || svc.status === "hidden" ? "hidden" : "visible",
+    description: svc.description || "",
+  };
+}
+
 // ============================================================================
-// 3. SERVICES STORE (localStorage – chờ backend services.py từ module Barber)
+// 3. SERVICES API (/api/v1/services – gọi API thật, fallback localStorage khi chưa bật DB)
 // ============================================================================
 export const servicesApi = {
-  async list() {
-    const items = readStore(STORAGE_KEYS.services, INITIAL_SERVICES);
-    return { items, mode: "local" };
+  async list(params = {}) {
+    try {
+      const res = await client.get("/services", {
+        params: { include_inactive: true, limit: 100, ...params },
+      });
+      const rawItems = res?.items || res?.data?.items || [];
+      const items = rawItems.map((s) => mapServiceFromApi(s));
+      writeStore(STORAGE_KEYS.services, items);
+      return { items, mode: "api" };
+    } catch (err) {
+      if (!isFallbackError(err)) throw new Error(extractErrorMessage(err));
+      const items = readStore(STORAGE_KEYS.services, INITIAL_SERVICES);
+      return { items, mode: "local" };
+    }
   },
 
   async create(payload) {
-    const list = readStore(STORAGE_KEYS.services, INITIAL_SERVICES);
-    const nextId = Math.max(0, ...list.map((s) => s.id)) + 1;
-    const item = {
-      id: nextId,
-      code: `SV-${String(nextId).padStart(2, "0")}`,
-      name: payload.name.trim(),
-      category: payload.category,
-      duration: Number(payload.duration) || 30,
-      price: Number(payload.price) || 0,
-      status: payload.status || "visible",
-      description: payload.description?.trim() || "",
-    };
-    list.push(item);
-    writeStore(STORAGE_KEYS.services, list);
-    return { item, message: "Thêm dịch vụ mới thành công" };
+    try {
+      const res = await client.post(
+        "/services",
+        {
+          name: payload.name.trim(),
+          description: payload.description?.trim() || "",
+          price: Number(payload.price) || 10000,
+          duration: Number(payload.duration) || 30,
+        },
+        { headers: { "X-Role": "admin" } }
+      );
+      let item = mapServiceFromApi(res, payload.category);
+      if (payload.status === "hidden") {
+        const hiddenRes = await client.patch(
+          `/services/${item.id}/status`,
+          { is_active: false },
+          { headers: { "X-Role": "admin" } }
+        );
+        item = mapServiceFromApi(hiddenRes, payload.category);
+      }
+      return { item, mode: "api", message: "Thêm dịch vụ mới thành công" };
+    } catch (err) {
+      if (!isFallbackError(err)) throw new Error(extractErrorMessage(err));
+      const list = readStore(STORAGE_KEYS.services, INITIAL_SERVICES);
+      const nextId = Math.max(0, ...list.map((s) => s.id)) + 1;
+      const item = {
+        id: nextId,
+        code: `SV-${String(nextId).padStart(2, "0")}`,
+        name: payload.name.trim(),
+        category: payload.category,
+        duration: Number(payload.duration) || 30,
+        price: Number(payload.price) || 0,
+        status: payload.status || "visible",
+        description: payload.description?.trim() || "",
+      };
+      list.push(item);
+      writeStore(STORAGE_KEYS.services, list);
+      return { item, mode: "local", message: "Thêm dịch vụ mới thành công" };
+    }
   },
 
   async update(id, payload) {
-    const list = readStore(STORAGE_KEYS.services, INITIAL_SERVICES);
-    const idx = list.findIndex((s) => s.id === id);
-    if (idx === -1) throw new Error("Không tìm thấy dịch vụ.");
-    list[idx] = {
-      ...list[idx],
-      name: payload.name.trim(),
-      category: payload.category,
-      duration: Number(payload.duration) || 30,
-      price: Number(payload.price) || 0,
-      status: payload.status,
-      description: payload.description?.trim() || "",
-    };
-    writeStore(STORAGE_KEYS.services, list);
-    return { item: list[idx], message: "Cập nhật dịch vụ thành công" };
+    try {
+      const res = await client.put(
+        `/services/${id}`,
+        {
+          name: payload.name.trim(),
+          description: payload.description?.trim() || "",
+          price: Number(payload.price) || 10000,
+          duration: Number(payload.duration) || 30,
+          is_active: payload.status !== "hidden",
+        },
+        { headers: { "X-Role": "admin" } }
+      );
+      return {
+        item: mapServiceFromApi(res, payload.category),
+        mode: "api",
+        message: "Cập nhật dịch vụ thành công",
+      };
+    } catch (err) {
+      if (!isFallbackError(err)) throw new Error(extractErrorMessage(err));
+      const list = readStore(STORAGE_KEYS.services, INITIAL_SERVICES);
+      const idx = list.findIndex((s) => s.id === id);
+      if (idx === -1) throw new Error("Không tìm thấy dịch vụ.");
+      list[idx] = {
+        ...list[idx],
+        name: payload.name.trim(),
+        category: payload.category,
+        duration: Number(payload.duration) || 30,
+        price: Number(payload.price) || 0,
+        status: payload.status,
+        description: payload.description?.trim() || "",
+      };
+      writeStore(STORAGE_KEYS.services, list);
+      return { item: list[idx], mode: "local", message: "Cập nhật dịch vụ thành công" };
+    }
   },
 
-  async toggleStatus(id) {
-    const list = readStore(STORAGE_KEYS.services, INITIAL_SERVICES);
-    const idx = list.findIndex((s) => s.id === id);
-    if (idx === -1) throw new Error("Không tìm thấy dịch vụ.");
-    const nextStatus = list[idx].status === "visible" ? "hidden" : "visible";
-    list[idx] = { ...list[idx], status: nextStatus };
-    writeStore(STORAGE_KEYS.services, list);
-    return {
-      item: list[idx],
-      message: nextStatus === "visible" ? "Đã hiển thị dịch vụ trên web" : "Đã tạm ẩn dịch vụ",
-    };
+  async toggleStatus(id, currentStatus) {
+    const nextIsActive = currentStatus === "hidden";
+    try {
+      const res = await client.patch(
+        `/services/${id}/status`,
+        { is_active: nextIsActive },
+        { headers: { "X-Role": "admin" } }
+      );
+      const item = mapServiceFromApi(res);
+      return {
+        item,
+        mode: "api",
+        message: item.status === "visible" ? "Đã hiển thị dịch vụ trên web" : "Đã tạm ẩn dịch vụ",
+      };
+    } catch (err) {
+      if (!isFallbackError(err)) throw new Error(extractErrorMessage(err));
+      const list = readStore(STORAGE_KEYS.services, INITIAL_SERVICES);
+      const idx = list.findIndex((s) => s.id === id);
+      if (idx === -1) throw new Error("Không tìm thấy dịch vụ.");
+      const nextStatus = list[idx].status === "visible" ? "hidden" : "visible";
+      list[idx] = { ...list[idx], status: nextStatus };
+      writeStore(STORAGE_KEYS.services, list);
+      return {
+        item: list[idx],
+        mode: "local",
+        message: nextStatus === "visible" ? "Đã hiển thị dịch vụ trên web" : "Đã tạm ẩn dịch vụ",
+      };
+    }
   },
 
   async remove(id) {
-    const list = readStore(STORAGE_KEYS.services, INITIAL_SERVICES);
-    writeStore(
-      STORAGE_KEYS.services,
-      list.filter((s) => s.id !== id)
-    );
-    return { message: "Đã xóa dịch vụ thành công" };
+    try {
+      await client.delete(`/services/${id}`, { headers: { "X-Role": "admin" } });
+      return { mode: "api", message: "Đã ẩn/xóa dịch vụ thành công" };
+    } catch (err) {
+      if (!isFallbackError(err)) throw new Error(extractErrorMessage(err));
+      const list = readStore(STORAGE_KEYS.services, INITIAL_SERVICES);
+      writeStore(
+        STORAGE_KEYS.services,
+        list.filter((s) => s.id !== id)
+      );
+      return { mode: "local", message: "Đã xóa dịch vụ thành công" };
+    }
   },
 };
 
 // ============================================================================
-// 4. APPOINTMENTS STORE (localStorage – chờ backend appointments.py)
+// 4. APPOINTMENTS API (/api/v1/admin/appointments)
 // ============================================================================
 export const appointmentsApi = {
-  async list() {
-    const items = readStore(STORAGE_KEYS.appointments, INITIAL_APPOINTMENTS);
-    return { items, mode: "local" };
+  async list(params = {}) {
+    try {
+      const res = await client.get("/admin/appointments", { params });
+      const items = res?.data?.items || [];
+      writeStore(STORAGE_KEYS.appointments, items);
+      return { items, mode: "api" };
+    } catch (err) {
+      if (!isNetworkError(err)) throw new Error(extractErrorMessage(err));
+      const items = readStore(STORAGE_KEYS.appointments, INITIAL_APPOINTMENTS);
+      return { items, mode: "local" };
+    }
   },
 
   async create(payload) {
-    const list = readStore(STORAGE_KEYS.appointments, INITIAL_APPOINTMENTS);
-    const nextId = Math.max(0, ...list.map((a) => a.id)) + 1;
-    const item = {
-      id: nextId,
-      code: `BK-2026-${String(100 + nextId)}`,
-      customer_name: payload.customer_name.trim(),
-      customer_phone: payload.customer_phone.trim(),
-      barber_name: payload.barber_name.trim(),
-      service_name: payload.service_name.trim(),
-      date: payload.date,
-      time: payload.time,
-      price: Number(payload.price) || 0,
-      status: payload.status || "pending",
-      notes: payload.notes?.trim() || "",
-    };
-    list.unshift(item);
-    writeStore(STORAGE_KEYS.appointments, list);
-    return { item, message: "Tạo lịch hẹn mới thành công" };
+    try {
+      const res = await client.post("/admin/appointments", payload);
+      return { item: res.data, mode: "api", message: res.message || "Tạo lịch hẹn mới thành công" };
+    } catch (err) {
+      if (!isNetworkError(err)) throw new Error(extractErrorMessage(err));
+      const list = readStore(STORAGE_KEYS.appointments, INITIAL_APPOINTMENTS);
+      const nextId = Math.max(0, ...list.map((a) => a.id)) + 1;
+      const item = {
+        id: nextId,
+        code: `BK-2026-${String(100 + nextId)}`,
+        customer_name: payload.customer_name.trim(),
+        customer_phone: payload.customer_phone.trim(),
+        barber_name: payload.barber_name.trim(),
+        service_name: payload.service_name.trim(),
+        date: payload.date,
+        time: payload.time,
+        price: Number(payload.price) || 0,
+        status: payload.status || "pending",
+        notes: payload.notes?.trim() || "",
+      };
+      list.unshift(item);
+      writeStore(STORAGE_KEYS.appointments, list);
+      return { item, mode: "local", message: "Tạo lịch hẹn mới thành công" };
+    }
   },
 
   async update(id, payload) {
-    const list = readStore(STORAGE_KEYS.appointments, INITIAL_APPOINTMENTS);
-    const idx = list.findIndex((a) => a.id === id);
-    if (idx === -1) throw new Error("Không tìm thấy lịch hẹn.");
-    list[idx] = {
-      ...list[idx],
-      customer_name: payload.customer_name.trim(),
-      customer_phone: payload.customer_phone.trim(),
-      barber_name: payload.barber_name.trim(),
-      service_name: payload.service_name.trim(),
-      date: payload.date,
-      time: payload.time,
-      price: Number(payload.price) || 0,
-      status: payload.status,
-      notes: payload.notes?.trim() || "",
-    };
-    writeStore(STORAGE_KEYS.appointments, list);
-    return { item: list[idx], message: "Cập nhật lịch hẹn thành công" };
+    try {
+      const res = await client.put(`/admin/appointments/${id}`, payload);
+      return { item: res.data, mode: "api", message: res.message || "Cập nhật lịch hẹn thành công" };
+    } catch (err) {
+      if (!isNetworkError(err)) throw new Error(extractErrorMessage(err));
+      const list = readStore(STORAGE_KEYS.appointments, INITIAL_APPOINTMENTS);
+      const idx = list.findIndex((a) => a.id === id);
+      if (idx === -1) throw new Error("Không tìm thấy lịch hẹn.");
+      list[idx] = {
+        ...list[idx],
+        customer_name: payload.customer_name.trim(),
+        customer_phone: payload.customer_phone.trim(),
+        barber_name: payload.barber_name.trim(),
+        service_name: payload.service_name.trim(),
+        date: payload.date,
+        time: payload.time,
+        price: Number(payload.price) || 0,
+        status: payload.status,
+        notes: payload.notes?.trim() || "",
+      };
+      writeStore(STORAGE_KEYS.appointments, list);
+      return { item: list[idx], mode: "local", message: "Cập nhật lịch hẹn thành công" };
+    }
   },
 
   async updateStatus(id, status) {
-    const list = readStore(STORAGE_KEYS.appointments, INITIAL_APPOINTMENTS);
-    const idx = list.findIndex((a) => a.id === id);
-    if (idx === -1) throw new Error("Không tìm thấy lịch hẹn.");
-    list[idx] = { ...list[idx], status };
-    writeStore(STORAGE_KEYS.appointments, list);
-    return { item: list[idx], message: "Đã cập nhật trạng thái lịch hẹn" };
+    try {
+      const res = await client.patch(`/admin/appointments/${id}/status`, { status });
+      return { item: res.data, mode: "api", message: res.message || "Đã cập nhật trạng thái lịch hẹn" };
+    } catch (err) {
+      if (!isNetworkError(err)) throw new Error(extractErrorMessage(err));
+      const list = readStore(STORAGE_KEYS.appointments, INITIAL_APPOINTMENTS);
+      const idx = list.findIndex((a) => a.id === id);
+      if (idx === -1) throw new Error("Không tìm thấy lịch hẹn.");
+      list[idx] = { ...list[idx], status };
+      writeStore(STORAGE_KEYS.appointments, list);
+      return { item: list[idx], mode: "local", message: "Đã cập nhật trạng thái lịch hẹn" };
+    }
   },
 
   async remove(id) {
-    const list = readStore(STORAGE_KEYS.appointments, INITIAL_APPOINTMENTS);
-    writeStore(
-      STORAGE_KEYS.appointments,
-      list.filter((a) => a.id !== id)
-    );
-    return { message: "Đã xóa lịch hẹn thành công" };
+    try {
+      const res = await client.delete(`/admin/appointments/${id}`);
+      return { item: res.data, mode: "api", message: res.message || "Đã xóa lịch hẹn thành công" };
+    } catch (err) {
+      if (!isNetworkError(err)) throw new Error(extractErrorMessage(err));
+      const list = readStore(STORAGE_KEYS.appointments, INITIAL_APPOINTMENTS);
+      writeStore(
+        STORAGE_KEYS.appointments,
+        list.filter((a) => a.id !== id)
+      );
+      return { mode: "local", message: "Đã xóa lịch hẹn thành công" };
+    }
   },
 };
 
