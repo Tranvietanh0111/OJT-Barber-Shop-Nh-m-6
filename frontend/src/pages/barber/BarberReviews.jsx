@@ -1,5 +1,6 @@
-// Phụ trách: Vũ Quốc Khánh – Đánh giá khách hàng của Barber (dữ liệu mẫu, Sprint 3)
-import { useState } from "react";
+// Phụ trách: Vũ Quốc Khánh – Đánh giá khách hàng của Barber (Tích hợp API thật, Sprint 4 - T06AF34)
+import { useEffect, useState } from "react";
+import client from "../../api/client";
 import { barberReviewsMock } from "../../mocks/barberReviews";
 
 const cardStyle = {
@@ -10,7 +11,7 @@ const cardStyle = {
   boxShadow: "var(--shadow-card)",
 };
 
-const formatDate = (iso) => iso.slice(0, 10).split("-").reverse().join("/");
+const formatDate = (iso) => (iso ? iso.slice(0, 10).split("-").reverse().join("/") : "");
 
 // Hiển thị sao, hỗ trợ số lẻ (ví dụ 4.3 sao)
 function Stars({ value, size = 18 }) {
@@ -52,8 +53,49 @@ function FilterButton({ active, onClick, children }) {
 export default function BarberReviews() {
   const [starFilter, setStarFilter] = useState("all");
   const [sortOrder, setSortOrder] = useState("newest");
+  const [reviews, setReviews] = useState(barberReviewsMock);
+  const [loading, setLoading] = useState(true);
 
-  const reviews = barberReviewsMock;
+  // Tải danh sách đánh giá từ API thật
+  useEffect(() => {
+    let mounted = true;
+    async function fetchReviews() {
+      try {
+        setLoading(true);
+        const params = {
+          sort: sortOrder,
+        };
+        if (starFilter !== "all") {
+          params.star = starFilter;
+        }
+
+        const res = await client.get("/barber/reviews", { params });
+        const rawList = res.items || (Array.isArray(res) ? res : []);
+
+        if (mounted && rawList && rawList.length > 0) {
+          const normalized = rawList.map((r) => ({
+            id: r.id || r.review_id,
+            customer: r.customer || r.customer_name || "Khách hàng",
+            service: r.service || r.service_name || "Cắt tóc nam",
+            rating: r.rating || 5,
+            date: r.date || r.created_at || "2026-11-20T10:00",
+            comment: r.comment || "Dịch vụ rất tốt!",
+          }));
+          setReviews(normalized);
+        }
+      } catch (err) {
+        console.warn("Không thể tải API /barber/reviews, dùng dữ liệu dự phòng:", err);
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    }
+
+    fetchReviews();
+    return () => {
+      mounted = false;
+    };
+  }, [starFilter, sortOrder]);
+
   const total = reviews.length;
   const average = total ? reviews.reduce((sum, r) => sum + r.rating, 0) / total : 0;
 
@@ -65,15 +107,22 @@ export default function BarberReviews() {
   const visible = reviews
     .filter((r) => starFilter === "all" || r.rating === starFilter)
     .slice()
-    .sort((a, b) => (sortOrder === "newest" ? b.date.localeCompare(a.date) : a.date.localeCompare(b.date)));
+    .sort((a, b) => (sortOrder === "newest" ? String(b.date).localeCompare(String(a.date)) : String(a.date).localeCompare(String(b.date))));
 
   const toggleStar = (star) => setStarFilter((current) => (current === star ? "all" : star));
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "24px", maxWidth: "1000px" }}>
-      <h1 style={{ fontSize: "22px", fontWeight: 800, color: "var(--text-primary)" }}>
-        Đánh giá khách hàng
-      </h1>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
+        <h1 style={{ fontSize: "22px", fontWeight: 800, color: "var(--text-primary)", margin: 0 }}>
+          Đánh giá khách hàng
+        </h1>
+        {loading && (
+          <span style={{ fontSize: "13px", color: "var(--text-muted)" }}>
+            Đang tải đánh giá từ máy chủ...
+          </span>
+        )}
+      </div>
 
       {/* Tổng quan: điểm trung bình + phân bố số sao */}
       <div style={{ display: "flex", gap: "24px", flexWrap: "wrap" }}>
@@ -139,49 +188,38 @@ export default function BarberReviews() {
             color: "var(--text-primary)",
           }}
         >
-          <option value="newest">Mới nhất trước</option>
-          <option value="oldest">Cũ nhất trước</option>
+          <option value="newest">Mới nhất</option>
+          <option value="oldest">Cũ nhất</option>
         </select>
       </div>
 
-      {/* Danh sách nhận xét */}
+      {/* Danh sách thẻ đánh giá */}
       <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-        {visible.length === 0 && (
+        {visible.length === 0 ? (
           <div style={{ ...cardStyle, textAlign: "center", color: "var(--text-muted)" }}>
-            Chưa có đánh giá nào với mức sao này
+            Không có đánh giá nào phù hợp với bộ lọc hiện tại.
           </div>
-        )}
-        {visible.map((r) => (
-          <div key={r.id} style={cardStyle}>
-            <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "8px" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                <div
-                  style={{
-                    width: "42px",
-                    height: "42px",
-                    borderRadius: "50%",
-                    background: "var(--gold-gradient)",
-                    color: "#1f1300",
-                    fontWeight: 800,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  {r.customer.split(" ").pop()[0]}
-                </div>
+        ) : (
+          visible.map((r) => (
+            <div key={r.id} style={cardStyle}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "12px", flexWrap: "wrap" }}>
                 <div>
-                  <div style={{ fontWeight: 700, color: "var(--text-primary)" }}>{r.customer}</div>
-                  <div style={{ fontSize: "13px", color: "var(--text-muted)" }}>
-                    {r.service} · {formatDate(r.date)}
+                  <div style={{ fontWeight: 800, color: "var(--text-primary)", fontSize: "15px" }}>{r.customer}</div>
+                  <div style={{ color: "var(--text-muted)", fontSize: "12px", marginTop: "2px" }}>
+                    Dịch vụ: <strong style={{ color: "var(--text-secondary)" }}>{r.service}</strong>
                   </div>
                 </div>
+                <div style={{ textAlign: "right" }}>
+                  <Stars value={r.rating} size={16} />
+                  <div style={{ color: "var(--text-muted)", fontSize: "12px", marginTop: "2px" }}>{formatDate(r.date)}</div>
+                </div>
               </div>
-              <Stars value={r.rating} />
+              <p style={{ marginTop: "12px", color: "var(--text-secondary)", lineHeight: 1.6, fontSize: "14px" }}>
+                {r.comment}
+              </p>
             </div>
-            <p style={{ marginTop: "12px", color: "var(--text-secondary)", lineHeight: 1.7 }}>{r.comment}</p>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </div>
   );

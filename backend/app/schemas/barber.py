@@ -134,3 +134,44 @@ class BarberAppointmentStatusUpdate(BaseModel):
             "- rejected: Barber từ chối lịch"
         ),
     )
+
+
+# ============================================================================
+# SCHEMAS DASHBOARD VÀ REVIEWS DÀNH CHO BARBER (TASK T06AF34)
+# ============================================================================
+
+class BarberDashboardAppointment(BaseModel):
+    id: int
+    time: str
+    customer: str
+    service: str
+    status: str = "confirmed"
+    date: Optional[str] = None
+
+
+class BarberDashboardOut(BaseModel):
+    todayAppointments: List[BarberDashboardAppointment] = Field(default_factory=list)
+    weeklyCustomers: int = 0
+    averageRating: float = 5.0
+    upcomingAppointments: List[BarberDashboardAppointment] = Field(default_factory=list)
+
+
+class BarberReviewItem(BaseModel):
+    id: int
+    customer: str
+    service: str
+    rating: int
+    date: str
+    comment: Optional[str] = None
+
+
+class BarberReviewStarCount(BaseModel):
+    star: int
+    count: int
+
+
+class BarberReviewsOut(BaseModel):
+    items: List[BarberReviewItem] = Field(default_factory=list)
+    total: int = 0
+    average: float = 5.0
+    distribution: List[BarberReviewStarCount] = Field(default_factory=list)

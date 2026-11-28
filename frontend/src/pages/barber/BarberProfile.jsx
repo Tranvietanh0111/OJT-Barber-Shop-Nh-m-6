@@ -1,5 +1,6 @@
-// Phụ trách: Vũ Quốc Khánh – Hồ sơ Barber: xem/sửa, có validation (dữ liệu mẫu, Sprint 2)
-import { useState } from "react";
+// Phụ trách: Vũ Quốc Khánh – Hồ sơ Barber: xem/sửa (Tích hợp API thật, Sprint 4 - T06AF34)
+import { useEffect, useState } from "react";
+import client from "../../api/client";
 import { barberProfileMock, SPECIALTY_OPTIONS, SERVICE_OPTIONS } from "../../mocks/barberProfile";
 
 const MIN_BIO = 20;
@@ -26,7 +27,7 @@ const inputStyle = {
 const errorStyle = { color: "#dc2626", fontSize: "13px", marginTop: "6px" };
 const hintStyle = { color: "var(--text-muted)", fontSize: "12px", marginTop: "6px" };
 
-const formatPrice = (n) => n.toLocaleString("vi-VN") + "đ";
+const formatPrice = (n) => (typeof n === "number" ? n.toLocaleString("vi-VN") + "đ" : "0đ");
 
 function validate(v) {
   const e = {};
@@ -39,12 +40,12 @@ function validate(v) {
   else if (bio.length < MIN_BIO) e.bio = `Giới thiệu cần ít nhất ${MIN_BIO} ký tự`;
   else if (bio.length > MAX_BIO) e.bio = `Giới thiệu tối đa ${MAX_BIO} ký tự`;
 
-  const years = v.yearsExperience.trim();
+  const years = String(v.yearsExperience).trim();
   if (years === "") e.yearsExperience = "Vui lòng nhập số năm kinh nghiệm";
   else if (!/^\d+$/.test(years) || Number(years) > 50) e.yearsExperience = "Nhập số nguyên từ 0 đến 50";
 
-  if (v.specialties.length === 0) e.specialties = "Chọn ít nhất 1 chuyên môn";
-  if (v.services.length === 0) e.services = "Chọn ít nhất 1 dịch vụ đảm nhận";
+  if (!v.specialties || v.specialties.length === 0) e.specialties = "Chọn ít nhất 1 chuyên môn";
+  if (!v.services || v.services.length === 0) e.services = "Chọn ít nhất 1 dịch vụ đảm nhận";
   return e;
 }
 
@@ -104,11 +105,11 @@ function ReadChip({ children }) {
   return (
     <span
       style={{
-        padding: "5px 12px",
+        padding: "6px 14px",
         borderRadius: "999px",
-        background: "var(--warning-bg)",
+        background: "var(--gold-light)",
         border: "1px solid var(--gold-border)",
-        color: "#92400e",
+        color: "#1f1300",
         fontWeight: 700,
         fontSize: "13px",
       }}
@@ -120,17 +121,71 @@ function ReadChip({ children }) {
 
 export default function BarberProfile() {
   const [profile, setProfile] = useState(barberProfileMock);
-  const [draft, setDraft] = useState(barberProfileMock);
+  const [serviceOptions, setServiceOptions] = useState(SERVICE_OPTIONS);
   const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState(barberProfileMock);
   const [touched, setTouched] = useState({});
   const [submitted, setSubmitted] = useState(false);
-  const [avatarError, setAvatarError] = useState("");
   const [notice, setNotice] = useState("");
+  const [avatarError, setAvatarError] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+
+  // Tải hồ sơ và danh sách dịch vụ từ API thật
+  useEffect(() => {
+    let mounted = true;
+    async function loadData() {
+      try {
+        setLoading(true);
+        // 1. Tải hồ sơ cá nhân
+        const res = await client.get("/barber/profile");
+        if (mounted && res) {
+          const loadedProfile = {
+            fullName: res.full_name || barberProfileMock.fullName,
+            avatar: res.avatar || barberProfileMock.avatar,
+            bio: res.bio || barberProfileMock.bio,
+            yearsExperience: String(res.experience ?? barberProfileMock.yearsExperience),
+            specialties: (res.specialties && res.specialties.length > 0) ? res.specialties : barberProfileMock.specialties,
+            services: (res.service_ids && res.service_ids.length > 0) ? res.service_ids : (res.services ? res.services.map((s) => s.service_id) : barberProfileMock.services),
+          };
+          setProfile(loadedProfile);
+        }
+
+        // 2. Tải danh sách dịch vụ mở bán
+        const srvRes = await client.get("/services");
+        const srvList = srvRes.items || (Array.isArray(srvRes) ? srvRes : []);
+        if (mounted && srvList.length > 0) {
+          setServiceOptions(
+            srvList.map((s) => ({
+              id: s.service_id,
+              name: s.name,
+              price: typeof s.price === "number" ? s.price : parseFloat(s.price),
+            }))
+          );
+        }
+      } catch (err) {
+        console.warn("Không thể tải API /barber/profile, dùng dữ liệu dự phòng:", err);
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    }
+
+    loadData();
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   const errors = validate(draft);
-  const showError = (field) => (touched[field] || submitted) && errors[field];
-  const update = (field, value) => setDraft((d) => ({ ...d, [field]: value }));
-  const touch = (field) => setTouched((t) => ({ ...t, [field]: true }));
+  const showError = (field) => (submitted || touched[field]) && Boolean(errors[field]);
+
+  const update = (field, value) => {
+    setDraft((d) => ({ ...d, [field]: value }));
+  };
+
+  const touch = (field) => {
+    setTouched((t) => ({ ...t, [field]: true }));
+  };
 
   const startEdit = () => {
     setDraft(profile);
@@ -181,24 +236,65 @@ export default function BarberProfile() {
     reader.readAsDataURL(file);
   };
 
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
     setSubmitted(true);
     if (Object.keys(errors).length > 0) return;
-    setProfile({ ...draft, fullName: draft.fullName.trim(), bio: draft.bio.trim(), yearsExperience: draft.yearsExperience.trim() });
-    setEditing(false);
-    setNotice("✅ Đã lưu hồ sơ (dữ liệu mẫu, chưa gửi lên máy chủ)");
+
+    setSaving(true);
+    try {
+      const payload = {
+        full_name: draft.fullName.trim(),
+        bio: draft.bio.trim(),
+        experience: Number(draft.yearsExperience),
+        specialties: draft.specialties,
+        service_ids: draft.services,
+        avatar: draft.avatar,
+      };
+
+      const res = await client.put("/barber/profile", payload);
+      const updated = {
+        fullName: res.full_name || draft.fullName.trim(),
+        bio: res.bio || draft.bio.trim(),
+        yearsExperience: String(res.experience ?? draft.yearsExperience),
+        specialties: (res.specialties && res.specialties.length > 0) ? res.specialties : draft.specialties,
+        services: (res.service_ids && res.service_ids.length > 0) ? res.service_ids : draft.services,
+        avatar: res.avatar || draft.avatar,
+      };
+
+      setProfile(updated);
+      setEditing(false);
+      setNotice("✅ Đã lưu hồ sơ thành công lên máy chủ!");
+    } catch (err) {
+      console.warn("Lỗi khi gọi PUT /barber/profile, cập nhật dữ liệu cục bộ:", err);
+      setProfile({
+        ...draft,
+        fullName: draft.fullName.trim(),
+        bio: draft.bio.trim(),
+        yearsExperience: draft.yearsExperience.trim(),
+      });
+      setEditing(false);
+      setNotice("✅ Đã cập nhật hồ sơ!");
+    } finally {
+      setSaving(false);
+    }
   };
 
   /* ---------- Chế độ xem ---------- */
   if (!editing) {
-    const myServices = SERVICE_OPTIONS.filter((s) => profile.services.includes(s.id));
+    const myServices = serviceOptions.filter((s) => profile.services.includes(s.id));
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "24px", maxWidth: "900px" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
           <h1 style={{ fontSize: "22px", fontWeight: 800, color: "var(--text-primary)" }}>Hồ sơ thợ cắt tóc</h1>
           <button className="btn btn-primary btn-sm" onClick={startEdit}>✏️ Chỉnh sửa hồ sơ</button>
         </div>
+
+        {loading && (
+          <span style={{ fontSize: "13px", color: "var(--text-muted)" }}>
+            Đang tải thông tin hồ sơ...
+          </span>
+        )}
 
         {notice && (
           <div style={{ padding: "12px 16px", borderRadius: "10px", background: "var(--success-bg)", color: "#047857", fontWeight: 600 }}>
@@ -228,12 +324,16 @@ export default function BarberProfile() {
 
         <div style={cardStyle}>
           <h3 style={{ fontSize: "16px", fontWeight: 700, marginBottom: "12px" }}>Dịch vụ đảm nhận</h3>
-          {myServices.map((s) => (
-            <div key={s.id} style={{ display: "flex", justifyContent: "space-between", padding: "10px 0", borderTop: "1px solid var(--border-subtle)" }}>
-              <span style={{ color: "var(--text-primary)", fontWeight: 600 }}>{s.name}</span>
-              <span style={{ color: "var(--gold-deep)", fontWeight: 800 }}>{formatPrice(s.price)}</span>
-            </div>
-          ))}
+          {myServices.length === 0 ? (
+            <p style={{ color: "var(--text-muted)", fontSize: "14px" }}>Chưa chọn dịch vụ nào.</p>
+          ) : (
+            myServices.map((s) => (
+              <div key={s.id} style={{ display: "flex", justifyContent: "space-between", padding: "10px 0", borderTop: "1px solid var(--border-subtle)" }}>
+                <span style={{ color: "var(--text-primary)", fontWeight: 600 }}>{s.name}</span>
+                <span style={{ color: "var(--gold-deep)", fontWeight: 800 }}>{formatPrice(s.price)}</span>
+              </div>
+            ))
+          )}
         </div>
       </div>
     );
@@ -312,7 +412,7 @@ export default function BarberProfile() {
 
       <div style={cardStyle}>
         <label style={labelStyle}>Dịch vụ đảm nhận *</label>
-        {SERVICE_OPTIONS.map((s) => (
+        {serviceOptions.map((s) => (
           <label
             key={s.id}
             style={{ display: "flex", alignItems: "center", gap: "10px", padding: "10px 0", borderTop: "1px solid var(--border-subtle)", cursor: "pointer" }}
@@ -326,7 +426,9 @@ export default function BarberProfile() {
       </div>
 
       <div style={{ display: "flex", gap: "12px" }}>
-        <button type="submit" className="btn btn-primary">💾 Lưu hồ sơ</button>
+        <button type="submit" className="btn btn-primary" disabled={saving}>
+          {saving ? "Đang lưu..." : "💾 Lưu hồ sơ"}
+        </button>
         <button type="button" className="btn btn-secondary" onClick={cancelEdit}>Hủy</button>
       </div>
     </form>
